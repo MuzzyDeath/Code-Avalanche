@@ -6,6 +6,8 @@ import java.util.Random;
  */
 
 public class Character{
+	
+	public static final Space startSpace = new Space(1,1);
 
 //Instance Variables
 	//Private Usable only in this class
@@ -149,16 +151,21 @@ public class Character{
 	public String getName() {
 		return this.cName;
 	}
+	public Space getLocation() {
+		return this.location;
+	}
 
 //Returns Character type (Warrior, Rogue, ....)
 	public CharacterType getCharacterType() {
 		return cType;
 	}
 	
+	//TODO: Implement this function
 	public void Move(int numSpaces) {
 		cMove = numSpaces;
 	}
-	
+
+	//TODO: Implement this function
 	public void ifIWereToMove(int numSpaces) {
 		cMove = numSpaces;
 		//"If I were to move...."
@@ -179,10 +186,8 @@ public class Character{
 		return null;	
 	}
 	
-	public static void printSpaces(Space[] C) {
-		for(int i = 0; i < C.length; ++i) {
-			System.out.println("Position " + i + ": R" + C[i].getRow() + "C" + C[i].getCol());
-		} 
+	public static void printSpaces(Space space) {
+			System.out.println("Current location is Row: " + space.getRow() + " Colomn: " + space.getCol() + "\n");
 	}
 	
 	public String npcNames() {
@@ -216,10 +221,9 @@ public class Character{
 	}
 	
 	public static void main(String[] args) {
-		Player Muzzy = new Player(8, 3);
+		Space startSpace = new Space(1,1);
+		Player Muzzy = new Player(startSpace.getRow(), startSpace.getCol());
+		printSpaces(Muzzy.getLocation());
 		Muzzy.printPlayer();
-		
-		//Character John = new Character(CharacterType.NPC, 1, 3);
-		//John.toString();
 	}
 }
