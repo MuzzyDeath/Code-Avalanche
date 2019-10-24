@@ -5,7 +5,7 @@ public class MainApplication extends GraphicsApplication {
 	public static final String MUSIC_FOLDER = "sounds";
 	private static final String[] SOUND_FILES = { "r2d2.mp3", "somethinlikethis.mp3" };
 
-	private SomePane somePane;
+	private CharacterPane characterPane;
 	private MenuPane menu;
 	private int count;
 
@@ -15,23 +15,28 @@ public class MainApplication extends GraphicsApplication {
 
 	public void run() {
 		System.out.println("If you see this, use the Java Applet, not the this!");
-		somePane = new SomePane(this);
+		characterPane = new CharacterPane(this);
 		menu = new MenuPane(this);
-		//Player user = new Player(Player.startSpace.getRow(), Player.startSpace.getCol());
-		//user.printPlayer();
 		switchToMenu();
 	}
-
+	
 	public void switchToMenu() {
 		playRandomSound();
 		count++;
 		switchToScreen(menu);
 	}
 
-	public void switchToSome() {
+	public void switchToCharacterPane() {
 		playRandomSound();
-		//switchToScreen(somePane);
+		switchToScreen(characterPane);
 	}
+	
+	/*
+	public void switchToSomePane() {
+		playRandomSound();
+		switchToScreen(somePane);
+	}
+	 */
 
 	private void playRandomSound() {
 		AudioPlayer audio = AudioPlayer.getInstance();
