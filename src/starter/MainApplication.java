@@ -14,12 +14,12 @@ public class MainApplication extends GraphicsApplication {
 	}
 
 	public void run() {
-		System.out.println("Hello, world!");
+		System.out.println("If you see this, use the Java Applet, not the this!");
 		somePane = new SomePane(this);
 		menu = new MenuPane(this);
-		Player user = new Player(Player.startSpace.getRow(), Player.startSpace.getCol());
-		user.printPlayer();
-		//switchToMenu();
+		//Player user = new Player(Player.startSpace.getRow(), Player.startSpace.getCol());
+		//user.printPlayer();
+		switchToMenu();
 	}
 
 	public void switchToMenu() {
