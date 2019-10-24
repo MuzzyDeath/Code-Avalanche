@@ -38,15 +38,15 @@ public class Character{
 	
 // Character Constructor
 // TODO: Finish adding the variables and functions associated with the Character Class
-	public Character(CharacterType style, int row, int col) {
-		this.cType = style;
+	public Character(int row, int col) {
+		this.setCharacterType();
 		this.cRow = row;
 		this.cCol = col;
 		this.cHealth = 100;
 		this.location = new Space(cRow, cCol);
 		
 		//Building Character Skills (All should total to 10, except NPC)
-		if(style == CharacterType.WARRIOR) {
+		if(cType == CharacterType.WARRIOR) {
 			this.strength = 4;
 			this.charisma = 1;
 			this.agility = 3;
@@ -54,7 +54,7 @@ public class Character{
 			this.isPlayer = true;
 			this.balance = 5000;
 		}
-		else if(style == CharacterType.ROGUE) {
+		else if(cType == CharacterType.ROGUE) {
 			this.strength = 3;
 			this.charisma = 4;
 			this.agility = 2;
@@ -62,7 +62,7 @@ public class Character{
 			this.isPlayer = true;
 			this.balance = 5000;
 		}
-		else if(style == CharacterType.MAGE) {
+		else if(cType == CharacterType.MAGE) {
 			this.strength = 1;
 			this.charisma = 2;
 			this.agility = 3;
@@ -82,8 +82,8 @@ public class Character{
 		//Get Player Name & Make NPC Names
 		this.cName = setName();
 	}
-	
-//Basic Setters(Mutators)
+
+	//Basic Setters(Mutators)
 	//Set User name
 	public String setName() {
 		String name;
@@ -102,8 +102,7 @@ public class Character{
 	}
 	
 	//Set User class
-	@SuppressWarnings("resource")
-	public static CharacterType setCharacterType(Player temp) {
+	public void setCharacterType() {
 		int choice = 0;
 		
 		System.out.println("Please select the NUMBER of your class:\n");
@@ -114,21 +113,20 @@ public class Character{
 		
 		if(choice == 1) {
 			System.out.println("Warrior Selected");
-			return CharacterType.WARRIOR;
+			this.cType = CharacterType.WARRIOR;
 		}
 		else if(choice == 2) {
 			System.out.println("Rogue Selected");
-			return CharacterType.ROGUE;
+			this.cType = CharacterType.ROGUE;
 		}
 		else if(choice == 3) {
 			System.out.println("Mage Selected");
-			return CharacterType.MAGE;
+			this.cType = CharacterType.MAGE;
 		}
 		else {
 			System.out.println("The number entered is incorrect, please re-enter a number\n");
 			choice = 0;
-			setCharacterType(temp);
-			return temp.cType;
+			this.setCharacterType();
 		}
 	}
 
@@ -181,9 +179,9 @@ public class Character{
 		return null;	
 	}
 	
-	public static void printSpaces(Space[] V) {
-		for(int i = 0; i < V.length; ++i) {
-			System.out.println("Position " + i + ": R" + V[i].getRow() + "C" + V[i].getCol());
+	public static void printSpaces(Space[] C) {
+		for(int i = 0; i < C.length; ++i) {
+			System.out.println("Position " + i + ": R" + C[i].getRow() + "C" + C[i].getCol());
 		} 
 	}
 	
@@ -218,13 +216,10 @@ public class Character{
 	}
 	
 	public static void main(String[] args) {
-		Player Muzzy = null;
-		CharacterType type = Muzzy.setCharacterType(Muzzy);
-		Muzzy = new Player(type, 8, 3);
+		Player Muzzy = new Player(8, 3);
 		Muzzy.printPlayer();
 		
 		//Character John = new Character(CharacterType.NPC, 1, 3);
 		//John.toString();
-		
 	}
 }

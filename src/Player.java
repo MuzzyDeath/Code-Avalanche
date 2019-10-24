@@ -20,8 +20,8 @@ public class Player extends Character {
 	 */
 	
 // TODO: Literally all of it xD
-	public Player(CharacterType style, int row, int col) {
-		super(style, row, col);
+	public Player(int row, int col) {
+		super(row, col);
 		// TODO Auto-generated constructor stub
 	}
 	
