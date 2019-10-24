@@ -9,7 +9,7 @@ public class Character{
 
 //Instance Variables
 	//Private Usable only in this class
-	private CharacterType cType;
+	protected CharacterType cType;
 	private String cName;
 	private int cRow, cCol, cMove, cHealth;
 	private Space location;
@@ -84,6 +84,7 @@ public class Character{
 	}
 	
 //Basic Setters(Mutators)
+	//Set User name
 	public String setName() {
 		String name;
 		
@@ -98,6 +99,37 @@ public class Character{
 		}
 
 		return name;
+	}
+	
+	//Set User class
+	@SuppressWarnings("resource")
+	public static CharacterType setCharacterType(Player temp) {
+		int choice = 0;
+		
+		System.out.println("Please select the NUMBER of your class:\n");
+		printWarrior();
+		printRogue();
+		printMage();
+		choice = new Scanner(System.in).nextInt();
+		
+		if(choice == 1) {
+			System.out.println("Warrior Selected");
+			return CharacterType.WARRIOR;
+		}
+		else if(choice == 2) {
+			System.out.println("Rogue Selected");
+			return CharacterType.ROGUE;
+		}
+		else if(choice == 3) {
+			System.out.println("Mage Selected");
+			return CharacterType.MAGE;
+		}
+		else {
+			System.out.println("The number entered is incorrect, please re-enter a number\n");
+			choice = 0;
+			setCharacterType(temp);
+			return temp.cType;
+		}
 	}
 
 //Basic Getters(Accessors)
@@ -164,23 +196,35 @@ public class Character{
 		return name;
 	}
 	
+	public static void printWarrior() {
+		System.out.println("(1) Warrior:\nStrength: 4\nCharisma: 1\nAgility: 3\nDefense: 2\n");
+	}
+	public static void printRogue() {
+		System.out.println("(2) Rogue:\nStrength: 3\nCharisma: 4\nAgility: 2\nDefense: 1\n");
+	}
+	public static void printMage() {
+		System.out.println("(3) Mage:\nStrength: 1\nCharisma: 2\nAgility: 3\nDefense: 4\n");
+	}
+	
 //String override
 	@Override
 	public String toString() {
-		System.out.println("Information for : " + this.getName() + "\n");
+		System.out.println("\nInformation for : " + this.getName() + "\n");
 		System.out.println("Strength: " + this.getStrength() + "\n");
 		System.out.println("Charisma: " + this.getCharisma() + "\n");
-		System.out.println("Charisma: " + this.getAgility() + "\n");
-		System.out.println("Charisma: " + this.getDefense() + "\n");
+		System.out.println("Agility: " + this.getAgility() + "\n");
+		System.out.println("Defense: " + this.getDefense() + "\n");
 		return "---------------------------------------------";
 	}
 	
 	public static void main(String[] args) {
-		Player Muzzy = new Player(CharacterType.WARRIOR, 8, 3);
+		Player Muzzy = null;
+		CharacterType type = Muzzy.setCharacterType(Muzzy);
+		Muzzy = new Player(type, 8, 3);
 		Muzzy.printPlayer();
 		
-		Character John = new Character(CharacterType.NPC, 1, 3);
-		John.toString();
+		//Character John = new Character(CharacterType.NPC, 1, 3);
+		//John.toString();
 		
 	}
 }
