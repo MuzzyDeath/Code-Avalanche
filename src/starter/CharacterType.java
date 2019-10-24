@@ -1,3 +1,4 @@
+package starter;
 /**
  * Borrowed from O. Jimenez's TrafficJam VehicleType Enumerator
  * 

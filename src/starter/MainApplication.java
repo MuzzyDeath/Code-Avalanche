@@ -17,7 +17,9 @@ public class MainApplication extends GraphicsApplication {
 		System.out.println("Hello, world!");
 		somePane = new SomePane(this);
 		menu = new MenuPane(this);
-		switchToMenu();
+		Player user = new Player(Player.startSpace.getRow(), Player.startSpace.getCol());
+		user.printPlayer();
+		//switchToMenu();
 	}
 
 	public void switchToMenu() {
@@ -28,7 +30,7 @@ public class MainApplication extends GraphicsApplication {
 
 	public void switchToSome() {
 		playRandomSound();
-		switchToScreen(somePane);
+		//switchToScreen(somePane);
 	}
 
 	private void playRandomSound() {
