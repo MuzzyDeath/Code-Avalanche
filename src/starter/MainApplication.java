@@ -7,6 +7,7 @@ public class MainApplication extends GraphicsApplication {
 
 	private CharacterPane characterPane;
 	private MenuPane menu;
+	private ControlPane controls;
 	
 	private int count;
 
