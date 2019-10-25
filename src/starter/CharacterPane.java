@@ -24,9 +24,9 @@ public class CharacterPane extends GraphicsPane {
 		int width = windowWidth/3;
 		
 		background = new GImage(BACKGROUND);
-		warrior = new GButton("Warrior", windowWidth - (windowWidth * .99), windowHeight/3, width - 10, 200);
-		rogue = new GButton("Rogue", (windowWidth * .33) + 10, windowHeight/3, width - 10, 200);
-		mage = new GButton("Mage", (windowWidth * .66) + 10, windowHeight/3, width - 10, 200);
+		warrior = new GButton("Warrior", windowWidth - (windowWidth * .99), windowHeight/6, width - 10, 400);
+		rogue = new GButton("Rogue", (windowWidth * .33) + 10, windowHeight/6, width - 10, 400);
+		mage = new GButton("Mage", (windowWidth * .66) + 10, windowHeight/6, width - 10, 400);
 		back = new GButton("Back", 0, 0, 25, 25);
 		
 	}
@@ -43,10 +43,6 @@ public class CharacterPane extends GraphicsPane {
 	@Override
 	public void hideContents() {
 		program.removeAll();
-	}
-	
-	public void setName() {
-		
 	}
 	
 	@Override
@@ -74,7 +70,6 @@ public class CharacterPane extends GraphicsPane {
 			System.out.println("Selected Warrior!");
 			user = new Player(Character.startSpace.getRow(), Character.startSpace.getCol());
 			user.cType = CharacterType.WARRIOR;
-			setName();
 		}
 		else if (obj == rogue) {
 			rogue.setFillColor(Color.WHITE);

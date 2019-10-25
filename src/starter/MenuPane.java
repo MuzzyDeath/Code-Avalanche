@@ -14,9 +14,11 @@ public class MenuPane extends GraphicsPane {
 	
 	private GButton newGame, controls, quit;
 	private GImage background;
-	
+
 	private int windowHeight = program.WINDOW_HEIGHT;
 	private int windowWidth = program.WINDOW_WIDTH;
+	public static final String MUSIC_FOLDER = "sounds";
+	private static final String[] SOUND_FILES = { "Swords.mp3" };
 
 	public MenuPane(MainApplication app) {
 		super();
@@ -45,6 +47,11 @@ public class MenuPane extends GraphicsPane {
 	public void hideContents() {
 		program.removeAll();
 	}
+	
+	private void playSword() {
+		AudioPlayer audio = AudioPlayer.getInstance();
+		audio.playSound(MUSIC_FOLDER, SOUND_FILES[0]);
+	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
@@ -63,6 +70,7 @@ public class MenuPane extends GraphicsPane {
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
+		playSword();
 		if (obj == newGame) {
 			newGame.setFillColor(Color.WHITE);
 			program.switchToCharacterPane();
@@ -70,7 +78,7 @@ public class MenuPane extends GraphicsPane {
 		else if (obj == controls) {
 			System.out.println("Print controls");
 			controls.setFillColor(Color.WHITE);
-			
+			program.switchToControlPane();
 		}
 		else if (obj == quit) {
 			System.out.println("Quit Game");
