@@ -13,13 +13,13 @@ public class Character{
 //Instance Variables
 	//Private Usable only in this class
 	protected CharacterType cType;
-	private String cName;
 	private int cRow, cCol, cMove, cHealth;
 	private Space location;
 	private boolean isPlayer;
 	
 	//Protected usable in this class and child class(es)
 	protected int strength, charisma, agility, defense, balance, experience;
+	private String cName;
 	
 	//Public frowned upon, please do NOT implement any :)
 	
@@ -42,7 +42,6 @@ public class Character{
 // Character Constructor
 // TODO: Finish adding the variables and functions associated with the Character Class
 	public Character(int row, int col) {
-		this.setCharacterType();
 		this.cRow = row;
 		this.cCol = col;
 		this.cHealth = 100;
@@ -83,17 +82,14 @@ public class Character{
 		}
 		
 		//Get Player Name & Make NPC Names
-		this.cName = setName();
+		//this.cName = setName();
 	}
 
 	//Basic Setters(Mutators)
 	//Set User name
-	public String setName() {
-		String name;
-		
+	public String setName(String name) {
+
 		if(this.isPlayer) {
-			System.out.println("Please enter your character's name: ");
-			name = new Scanner(System.in).next();
 			this.cName = name;
 		}
 		else {

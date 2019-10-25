@@ -2,9 +2,7 @@ package starter;
 
 import java.awt.Color;
 import java.awt.event.MouseEvent;
-
-import acm.graphics.GImage;
-import acm.graphics.GObject;
+import acm.graphics.*;
 
 public class CharacterPane extends GraphicsPane {
 	private static final String BACKGROUND = "characterSelection.jpg";
@@ -14,7 +12,7 @@ public class CharacterPane extends GraphicsPane {
 	private GButton warrior, rogue, mage, back;
 	private GImage background;
 	
-	private Player user = null;
+	private Player user;
 	
 	private int windowHeight = program.WINDOW_HEIGHT;
 	private int windowWidth = program.WINDOW_WIDTH;
@@ -47,6 +45,10 @@ public class CharacterPane extends GraphicsPane {
 		program.removeAll();
 	}
 	
+	public void setName() {
+		
+	}
+	
 	@Override
 	public void mousePressed(MouseEvent e) {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
@@ -70,19 +72,20 @@ public class CharacterPane extends GraphicsPane {
 		if (obj == warrior) {
 			warrior.setFillColor(Color.WHITE);
 			System.out.println("Selected Warrior!");
-			user = new Player(user.startSpace.getRow(), user.startSpace.getCol());
+			user = new Player(Character.startSpace.getRow(), Character.startSpace.getCol());
 			user.cType = CharacterType.WARRIOR;
+			setName();
 		}
 		else if (obj == rogue) {
 			rogue.setFillColor(Color.WHITE);
 			System.out.println("Selected Rogue!");
-			user = new Player(user.startSpace.getRow(), user.startSpace.getCol());
+			user = new Player(Character.startSpace.getRow(), Character.startSpace.getCol());
 			user.cType = CharacterType.ROGUE;
 		}
 		else if (obj == mage) {
 			mage.setFillColor(Color.WHITE);
 			System.out.println("Selected Mage!");
-			user = new Player(user.startSpace.getRow(), user.startSpace.getCol());
+			user = new Player(Character.startSpace.getRow(), Character.startSpace.getCol());
 			user.cType = CharacterType.MAGE;
 		}
 		else if (obj == back) {
