@@ -2,11 +2,12 @@ package starter;
 public class MainApplication extends GraphicsApplication {
 	public static final int WINDOW_WIDTH = 800;
 	public static final int WINDOW_HEIGHT = 600;
-	public static final String MUSIC_FOLDER = "sounds";
-	private static final String[] SOUND_FILES = { "r2d2.mp3", "somethinlikethis.mp3" };
+	public static final String MUSIC_FOLDER = "music";
+	private static final String[] SOUND_FILES = { "Skyrim.mp3" };
 
 	private CharacterPane characterPane;
 	private MenuPane menu;
+	
 	private int count;
 
 	public void init() {
@@ -40,6 +41,6 @@ public class MainApplication extends GraphicsApplication {
 
 	private void playRandomSound() {
 		AudioPlayer audio = AudioPlayer.getInstance();
-		audio.playSound(MUSIC_FOLDER, SOUND_FILES[count % SOUND_FILES.length]);
+		audio.playSound(MUSIC_FOLDER, SOUND_FILES[0]);
 	}
 }
