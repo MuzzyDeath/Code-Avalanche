@@ -1,6 +1,6 @@
 package starter;
 
-
+import acm.graphics.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
