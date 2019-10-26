@@ -9,6 +9,8 @@ public class MainApplication extends GraphicsApplication {
 	private MenuPane menuPane;
 	private ControlPane controlPane;
 	
+	private Item[] itemList;
+	
 	//private int count;
 
 	public void init() {
@@ -21,6 +23,8 @@ public class MainApplication extends GraphicsApplication {
 		menuPane = new MenuPane(this);
 		characterPane = new CharacterPane(this);
 		controlPane = new ControlPane(this);
+		itemList = new Item[50];
+		itemList.toString();
 		switchToMenu();
 	}
 	
