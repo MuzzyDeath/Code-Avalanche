@@ -45,10 +45,10 @@ public class Map {
 		return "Board: " + board.toString() + ", next Map: " + nextMap.toString() + ", number moves: " + numMoves;
 	}
 	
-	/*public Space getGoalSpace()
+	public Space getGoalSpace()
 	{
-		
-	}*/
+		return nextMap;
+	}
 	
 	public ArrayList<Character> getCharactersOnLevel()
 	{
