@@ -6,22 +6,30 @@ import java.util.Scanner;
 
 public class Narrative {
 	
-	private int start;
-	private int end;
+	private static int start = 0;
+	private static int end = 0;
+	private static Character c;
 	
 	
 	public static void main(String[] args) throws FileNotFoundException {
 		
-		Narrative.read(0, 3);
+		Narrative npc = new Narrative(start, end);
+		
 		
     }
 	public Narrative(int start, int end)
 	{
 		
 	}
-	/**
-	 * @return the start
-	 */
+	
+	public static Character getC() {
+		return c;
+	}
+	
+	public static void setC(Character c) {
+		Narrative.c = c;
+	}
+	
 	public int getStart() {
 		return start;
 	}
@@ -43,24 +51,64 @@ public class Narrative {
 	public void setEnd(int end) {
 		this.end = end;
 	}
-	public static void read(int start, int end) throws FileNotFoundException {
+	public void read(Character c, int start, int end) throws FileNotFoundException {
 		
-		File file = new File("/Users/djcriley/git/group-project-code-avalanche/Text Files/NPC");
+		
             // Create a new Scanner object which will read the data
             // from the file passed in. To check if there are more 
             // line to read from it we check by calling the 
             // scanner.hasNextLine() method. We then read line one 
             // by one till all lines is read.
-            Scanner scanner = new Scanner(file);
             
-            for (int i = start; i < end; i++)
-            {
-                String line = scanner.nextLine();
-                System.out.println(line);
+            if(c.isHostile() == true) {
+            	
+            	File file = new File("/Users/djcriley/git/group-project-code-avalanche/Text Files/Enemy");
+            	Scanner scanner = new Scanner(file);
+            	
+	            for (int i = start; i < end; i++) {
+	                String line = scanner.nextLine();
+	                System.out.println(line);
+	            }
             }
+            else if(c.isHostile() == false) {
+            	
+            	File file = new File("/Users/djcriley/git/group-project-code-avalanche/Text Files/NPC");
+            	Scanner scanner = new Scanner(file);
+            	
+	            for (int i = start; i < end; i++) {
+	                String line = scanner.nextLine();
+	                System.out.println(line);
+	            }
+            }
+            else if(c.isKing() == false) {
+            	
+            	File file = new File("/Users/djcriley/git/group-project-code-avalanche/Text Files/King");
+            	Scanner scanner = new Scanner(file);
+            	
+	            for (int i = start; i < end; i++) {
+	                String line = scanner.nextLine();
+	                System.out.println(line);
+	            }
+            }
+            
+            /// then we can split the different class types of characters into separate files so this will simplify 
+            // so this would be for warrior
+            else if(c.getCharacterType() == type) { 
+            	
+            	File file = new File("/Users/djcriley/git/group-project-code-avalanche/Text Files/King");
+            	Scanner scanner = new Scanner(file);
+            	
+	            for (int i = start; i < end; i++) {
+	                String line = scanner.nextLine();
+	                System.out.println(line);
+	            }
+            }
+            //another for rouge
+            //another for mage
 		
 		
 	}
+	
 	
 }
 
