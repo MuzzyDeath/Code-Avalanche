@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import starter.Character;
+
 import starter.Space;
 
 public class Map {
@@ -35,6 +38,29 @@ public class Map {
 			return true;
 		}
 		return false;
+	}
+	
+	public String toString()
+	{
+		return "Board: " + board.toString() + ", next Map: " + nextMap.toString() + ", number moves: " + numMoves;
+	}
+	
+	/*public Space getGoalSpace()
+	{
+		
+	}*/
+	
+	public ArrayList<Character> getCharactersOnLevel()
+	{
+		ArrayList<starter.Character> charactersOnLevel = new ArrayList<Character>();
+		for(int i = 0; i < board.getNumRows(); i++)
+		{
+			for(int j = 0; j < board.getNumCols(); j++)
+			{
+				charactersOnLevel = board.getCharactersOnBoard();
+			}
+		}
+		return charactersOnLevel;
 	}
 	
 }
