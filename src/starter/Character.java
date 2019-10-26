@@ -45,7 +45,7 @@ public class Character{
 		this.cRow = row;
 		this.cCol = col;
 		this.cHealth = 100;
-		this.location = new Space(cRow, cCol);
+		this.location = new Space(row, col);
 		
 		//Building Character Skills (All should total to 10, except NPC)
 		if(cType == CharacterType.WARRIOR) {
@@ -246,6 +246,7 @@ public class Character{
 		System.out.println("(3) Mage:\nStrength: 1\nCharisma: 2\nAgility: 3\nDefense: 4\n");
 	}
 	
+/*
 //String override
 	@Override
 	public String toString() {
@@ -256,6 +257,7 @@ public class Character{
 		System.out.println("Defense: " + this.getDefense() + "\n");
 		return "---------------------------------------------";
 	}
+*/
 	
 	public static void main(String[] args) {
 		Space startSpace = new Space(1,1);
