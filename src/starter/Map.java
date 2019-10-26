@@ -1,7 +1,5 @@
+package starter;
 import java.util.ArrayList;
-import starter.Character;
-
-import starter.Space;
 
 public class Map {
 	private Board board;
