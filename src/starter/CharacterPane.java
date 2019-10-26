@@ -5,12 +5,12 @@ import java.awt.event.MouseEvent;
 import acm.graphics.*;
 
 public class CharacterPane extends GraphicsPane {
-	private static final String BACKGROUND = "characterSelection.jpg";
+	private static final String[] IMAGES = { "characterSelection.jpg", "mage.png", "warrior.png", "rogue.png" };
 	
 	private MainApplication program; // you will use program to get access to
 										// all of the GraphicsProgram calls
-	private GButton warrior, rogue, mage, back;
-	private GImage background;
+	private GButton back;
+	private GImage background, warrior, rogue, mage;
 	
 	private Player user;
 	
@@ -21,14 +21,11 @@ public class CharacterPane extends GraphicsPane {
 		super();
 		program = app;
 		
-		int width = windowWidth/3;
-		
-		background = new GImage(BACKGROUND);
-		warrior = new GButton("Warrior", windowWidth - (windowWidth * .99), windowHeight/3, width - 10, 200);
-		rogue = new GButton("Rogue", (windowWidth * .33) + 10, windowHeight/3, width - 10, 200);
-		mage = new GButton("Mage", (windowWidth * .66) + 10, windowHeight/3, width - 10, 200);
+		background = new GImage(IMAGES[0]);
+		warrior = new GImage(IMAGES[2], windowWidth - (windowWidth * .99), windowHeight/6);
+		rogue = new GImage(IMAGES[3], (windowWidth * .33) + 10, windowHeight/6);
+		mage = new GImage(IMAGES[1], (windowWidth * .66) + 10, windowHeight/6);
 		back = new GButton("Back", 0, 0, 25, 25);
-		
 	}
 
 	@Override
@@ -45,23 +42,10 @@ public class CharacterPane extends GraphicsPane {
 		program.removeAll();
 	}
 	
-	public void setName() {
-		
-	}
-	
 	@Override
 	public void mousePressed(MouseEvent e) {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
-		if (obj == warrior) {
-			warrior.setFillColor(Color.GRAY);
-		}
-		else if (obj == rogue) {
-			rogue.setFillColor(Color.GRAY);
-		}
-		else if (obj == mage) {
-			mage.setFillColor(Color.GRAY);
-		}
-		else if (obj == back) {
+		if (obj == back) {
 			back.setFillColor(Color.GRAY);
 		}
 	}
@@ -70,20 +54,16 @@ public class CharacterPane extends GraphicsPane {
 	public void mouseReleased(MouseEvent e) {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
 		if (obj == warrior) {
-			warrior.setFillColor(Color.WHITE);
 			System.out.println("Selected Warrior!");
 			user = new Player(Character.startSpace.getRow(), Character.startSpace.getCol());
 			user.cType = CharacterType.WARRIOR;
-			setName();
 		}
 		else if (obj == rogue) {
-			rogue.setFillColor(Color.WHITE);
 			System.out.println("Selected Rogue!");
 			user = new Player(Character.startSpace.getRow(), Character.startSpace.getCol());
 			user.cType = CharacterType.ROGUE;
 		}
 		else if (obj == mage) {
-			mage.setFillColor(Color.WHITE);
 			System.out.println("Selected Mage!");
 			user = new Player(Character.startSpace.getRow(), Character.startSpace.getCol());
 			user.cType = CharacterType.MAGE;

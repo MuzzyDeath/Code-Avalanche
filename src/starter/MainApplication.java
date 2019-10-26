@@ -6,10 +6,10 @@ public class MainApplication extends GraphicsApplication {
 	private static final String[] SOUND_FILES = { "Skyrim.mp3" };
 
 	private CharacterPane characterPane;
-	private MenuPane menu;
-	private ControlPane controls;
+	private MenuPane menuPane;
+	private ControlPane controlPane;
 	
-	private int count;
+	//private int count;
 
 	public void init() {
 		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -17,20 +17,27 @@ public class MainApplication extends GraphicsApplication {
 
 	public void run() {
 		System.out.println("If you see this, use the Java Applet, not the this!");
+		playMenuMusic();
+		menuPane = new MenuPane(this);
 		characterPane = new CharacterPane(this);
-		menu = new MenuPane(this);
+		controlPane = new ControlPane(this);
 		switchToMenu();
 	}
 	
 	public void switchToMenu() {
-		playRandomSound();
-		count++;
-		switchToScreen(menu);
+		//count++;
+		switchToScreen(menuPane);
 	}
-
 	public void switchToCharacterPane() {
-		playRandomSound();
 		switchToScreen(characterPane);
+	}
+	public void switchToControlPane() {
+		switchToScreen(controlPane);
+	}
+	
+	private void playMenuMusic() {
+		AudioPlayer audio = AudioPlayer.getInstance();
+		audio.playSound(MUSIC_FOLDER, SOUND_FILES[0]);
 	}
 	
 	/*
@@ -39,9 +46,11 @@ public class MainApplication extends GraphicsApplication {
 		switchToScreen(somePane);
 	}
 	 */
-
+	
+	/*
 	private void playRandomSound() {
 		AudioPlayer audio = AudioPlayer.getInstance();
 		audio.playSound(MUSIC_FOLDER, SOUND_FILES[0]);
 	}
+	*/
 }
