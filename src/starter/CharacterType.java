@@ -10,10 +10,10 @@ public enum CharacterType {
 	
 	public String toString() {
 		switch(this) {
-			case WARRIOR: return "Warrior";
-			case MAGE: return "Mage";
-			case ROGUE: return "Rogue";
-			case NPC: return "NPC";
+			case WARRIOR: return "warrior";
+			case MAGE: return "mage";
+			case ROGUE: return "rogue";
+			case NPC: return "npc";
 		}
 		return "n/a";
 	}

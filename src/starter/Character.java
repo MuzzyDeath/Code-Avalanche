@@ -15,7 +15,7 @@ public class Character{
 	protected CharacterType cType;
 	private int cRow, cCol, cMove, cHealth;
 	private Space location;
-	private boolean isPlayer;
+	private boolean isPlayer, isHostile, isKing;
 	
 	//Protected usable in this class and child class(es)
 	protected int strength, charisma, agility, defense, balance, experience;
@@ -45,7 +45,7 @@ public class Character{
 		this.cRow = row;
 		this.cCol = col;
 		this.cHealth = 100;
-		this.location = new Space(cRow, cCol);
+		this.location = new Space(row, col);
 		
 		//Building Character Skills (All should total to 10, except NPC)
 		if(cType == CharacterType.WARRIOR) {
@@ -54,6 +54,8 @@ public class Character{
 			this.agility = 3;
 			this.defense = 2;
 			this.isPlayer = true;
+			this.isHostile = false;
+			this.isKing = false;
 			this.balance = 5000;
 		}
 		else if(cType == CharacterType.ROGUE) {
@@ -62,6 +64,8 @@ public class Character{
 			this.agility = 2;
 			this.defense = 1;
 			this.isPlayer = true;
+			this.isHostile = false;
+			this.isKing = false;
 			this.balance = 5000;
 		}
 		else if(cType == CharacterType.MAGE) {
@@ -70,6 +74,8 @@ public class Character{
 			this.agility = 3;
 			this.defense = 4;
 			this.isPlayer = true;
+			this.isHostile = false;
+			this.isKing = false;
 			this.balance = 5000;
 		}
 		else {
@@ -86,6 +92,33 @@ public class Character{
 	}
 
 	//Basic Setters(Mutators)
+	public void setStrength(int c) {
+		this.strength = c;
+	}
+	public void setCharisma(int c) {
+		this.charisma = c;
+	}
+	public void setAgility(int c) {
+		this.agility = c;
+	}
+	public void setDefense(int c) {
+		this.defense = c;
+	}
+	public void setHealth(int c) {
+		this.cHealth = c;
+	}
+	public void setHostile() {
+		this.isHostile = true;
+	}
+	public void setKing() {
+		this.isKing = true;
+	}
+	public Space setLocation(int r, int c) {
+		this.location.setRow(r);
+		this.location.setCol(c);
+		return this.location;
+	}
+	
 	//Set User name
 	public String setName(String name) {
 
@@ -151,6 +184,13 @@ public class Character{
 	public Space getLocation() {
 		return this.location;
 	}
+	public boolean isKing() {
+		return this.isKing;
+	}
+	
+	public boolean isHostile() {
+		return this.isHostile;
+	}
 
 //Returns Character type (Warrior, Rogue, ....)
 	public CharacterType getCharacterType() {
@@ -206,6 +246,7 @@ public class Character{
 		System.out.println("(3) Mage:\nStrength: 1\nCharisma: 2\nAgility: 3\nDefense: 4\n");
 	}
 	
+/*
 //String override
 	@Override
 	public String toString() {
@@ -216,6 +257,7 @@ public class Character{
 		System.out.println("Defense: " + this.getDefense() + "\n");
 		return "---------------------------------------------";
 	}
+*/
 	
 	public static void main(String[] args) {
 		Space startSpace = new Space(1,1);

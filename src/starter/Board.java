@@ -1,13 +1,19 @@
-import starter.Space;
-import starter.Character;
+package starter;
+import java.util.*;
 import java.util.ArrayList;
-import starter.CharacterType;
 
 public class Board {
 	private Character[][] board;
 	private int numRows;
 	private int numCols;
 	private Space start;
+	
+	public Board(int rows, int cols) {
+		//TODO finish implementing this constructor
+		this.numRows = rows;
+		this.numCols = cols;
+		this.board = new Character[rows][cols];
+	}
 	
 	public int getNumRows()
 	{
@@ -23,14 +29,9 @@ public class Board {
 	{
 		return start;
 	}
-	
-	public String toString()
+	public Character getCharacter(Space s)
 	{
-		 return "num Rows: " + numRows + " num Cols: " + numCols + " Start space: " + start.toString();
-	}
-	public Character getCharacter(Space space)
-	{
-		return new Character(space.getRow(), space.getCol());
+		return board[s.getRow()][s.getCol()];
 	}
 	
 	public boolean characterOnSpace(Space space)
@@ -73,16 +74,24 @@ public class Board {
 		}
 		return false;
 	}
-	public void addCharacter(CharacterType type, int startRow, int startCol)
+	public void addCharacter(CharacterType type, int row, int col)
 	{
-		Character c = new Character(startRow, startCol);
+		Character c = new Character(row, col);
 	    c.setCharacterType();
-		for(int i = 0; i < numRows; i++)
-		{
-			for(int j = 0; j < numCols; j++)
-			{
-				board[i][j]= c;
-			}
-		}
+	    
+	    board[c.getLocation().getRow()][c.getLocation().getCol()] = c;
+	}
+	
+	public String toString() {
+		return BoardConverter.createString(this);
+	}
+	
+	public static void main(String[] args) {
+		Board b = new Board(5, 5);
+		b.addCharacter(CharacterType.WARRIOR, 3, 1);
+		System.out.println(b);
+		//testCanMove(b);
+		//testMoving(b);
+		//System.out.println(b);
 	}
 }
