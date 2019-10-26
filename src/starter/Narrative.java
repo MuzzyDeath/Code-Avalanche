@@ -10,14 +10,7 @@ public class Narrative {
 	private static int end = 0;
 	private static Character c;
 	
-	
-	public static void main(String[] args) throws FileNotFoundException {
-		
-		Narrative npc = new Narrative(start, end);
-		
-		
-    }
-	public Narrative(int start, int end)
+	public Narrative(Character c, int start, int end)
 	{
 		
 	}
@@ -33,25 +26,16 @@ public class Narrative {
 	public int getStart() {
 		return start;
 	}
-	/**
-	 * @param start the start to set
-	 */
 	public void setStart(int start) {
 		this.start = start;
 	}
-	/**
-	 * @return the end
-	 */
 	public int getEnd() {
 		return end;
 	}
-	/**
-	 * @param end the end to set
-	 */
 	public void setEnd(int end) {
 		this.end = end;
 	}
-	public void read(Character c, int start, int end) throws FileNotFoundException {
+	public void read(Character c, int s, int e) throws FileNotFoundException {
 		
 		
             // Create a new Scanner object which will read the data
@@ -65,7 +49,7 @@ public class Narrative {
             	File file = new File("/Users/djcriley/git/group-project-code-avalanche/Text Files/Enemy");
             	Scanner scanner = new Scanner(file);
             	
-	            for (int i = start; i < end; i++) {
+	            for (int i = start; i <= end; i++) {
 	                String line = scanner.nextLine();
 	                System.out.println(line);
 	            }
@@ -75,17 +59,17 @@ public class Narrative {
             	File file = new File("/Users/djcriley/git/group-project-code-avalanche/Text Files/NPC");
             	Scanner scanner = new Scanner(file);
             	
-	            for (int i = start; i < end; i++) {
+	            for (int i = start; i <= end; i++) {
 	                String line = scanner.nextLine();
 	                System.out.println(line);
 	            }
             }
-            else if(c.isKing() == false) {
+            else if(c.isKing() == true) {
             	
             	File file = new File("/Users/djcriley/git/group-project-code-avalanche/Text Files/King");
             	Scanner scanner = new Scanner(file);
             	
-	            for (int i = start; i < end; i++) {
+	            for (int i = start; i <= end; i++) {
 	                String line = scanner.nextLine();
 	                System.out.println(line);
 	            }
@@ -93,16 +77,16 @@ public class Narrative {
             
             /// then we can split the different class types of characters into separate files so this will simplify 
             // so this would be for warrior
-            else if(c.getCharacterType() == type) { 
-            	
-            	File file = new File("/Users/djcriley/git/group-project-code-avalanche/Text Files/King");
-            	Scanner scanner = new Scanner(file);
-            	
-	            for (int i = start; i < end; i++) {
-	                String line = scanner.nextLine();
-	                System.out.println(line);
-	            }
-            }
+//            else if(c.getCharacterType() == type) { 
+//            	
+//            	File file = new File("/Users/djcriley/git/group-project-code-avalanche/Text Files/King");
+//            	Scanner scanner = new Scanner(file);
+//            	
+//	            for (int i = start; i < end; i++) {
+//	                String line = scanner.nextLine();
+//	                System.out.println(line);
+//	            }
+//            }
             //another for rouge
             //another for mage
 		
@@ -111,5 +95,3 @@ public class Narrative {
 	
 	
 }
-
-// inputs for start line and end line to get the correct lines to output. 
