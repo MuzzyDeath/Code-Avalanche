@@ -1,7 +1,7 @@
 package starter;
 public class MainApplication extends GraphicsApplication {
-	public static final int WINDOW_WIDTH = 800;
-	public static final int WINDOW_HEIGHT = 600;
+	public static final int WINDOW_WIDTH = 1600;
+	public static final int WINDOW_HEIGHT = 1200;
 	public static final String MUSIC_FOLDER = "music";
 	private static final String[] SOUND_FILES = { "Skyrim.mp3" };
 

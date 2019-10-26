@@ -19,6 +19,6 @@ public class Inventory {
 	 public HashMap<String, Integer> getItems() {
 		 return getItems();
      }
-
  }
+
 
