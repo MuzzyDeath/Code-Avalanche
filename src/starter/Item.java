@@ -68,11 +68,20 @@ public class Item {
         Item[48] = new Item(ItemType.CHARISMA, "Fake Infinity Sword (+10 CHRS)", 10);
         Item[49] = new Item(ItemType.DEFENSE, "Invicibility (+10 DEF)", 10);
 		
-		
-		
-		for(int i = 0; i < Item.length; i++) {
-			System.out.println(Item[i]);
-		}
+    	for(int i = 0; i < 1; ++i) {
+    		System.out.println("      INVENTORY ITEMS LIST      ");
+			System.out.println("--------------------------------");
+			System.out.println("Item 1 : " + Item[0].itemName);
+			System.out.println("Item 2 : " + Item[1].itemName);
+			System.out.println("Item 3 : " + Item[2].itemName);
+			System.out.println("Item 4 : " + Item[3].itemName);
+			System.out.println("Item 5 : " + Item[4].itemName);
+			System.out.println("Item 6 : " + Item[5].itemName);
+			System.out.println("Item 7 : " + Item[6].itemName);
+			System.out.println("Item 8 : " + Item[7].itemName);
+			System.out.println("Item 9 : " + Item[8].itemName);
+			System.out.println("Item 10 : " + Item[9].itemName);
+			System.out.println("--------------------------------");
+    	}
 	}
-
 }
