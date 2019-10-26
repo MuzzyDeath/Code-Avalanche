@@ -1,5 +1,4 @@
 package starter;
-zpackage starter;
 import java.util.ArrayList;
 
 public class Board {
