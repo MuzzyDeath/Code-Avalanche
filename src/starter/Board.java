@@ -1,7 +1,6 @@
-import starter.Space;
-import starter.Character;
+package starter;
+zpackage starter;
 import java.util.ArrayList;
-import starter.CharacterType;
 
 public class Board {
 	private Character[][] board;
