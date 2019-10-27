@@ -7,6 +7,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Iterator;
 import java.util.Set;
+
+import acm.graphics.GLabel;
+
 import java.util.List;
 
 /**
@@ -15,10 +18,16 @@ import java.util.List;
 
 
 public class Inventory {
-	  /* This is how to declare HashMap */
-	 public HashMap<String, Integer> getItems() {
-		 return getItems();
-     }
 
- }
+	private static HashMap<String, Integer> backpack;
+
+	public void openBackpack() {
+		
+	}
+
+	public static void main(String[] args) {
+		backpack = new HashMap<String, Integer>();
+	}
+
+}
 
