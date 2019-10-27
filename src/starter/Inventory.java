@@ -13,7 +13,7 @@ import acm.graphics.GLabel;
 import java.util.List;
 
 /**
- *  @author Pranav Jammalamadaka
+ *  @author Pranav Jammalamadaka & Greg Jewell
  */
 
 
@@ -40,4 +40,3 @@ public class Inventory {
 	}
 
 }
-
