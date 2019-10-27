@@ -38,5 +38,4 @@ public class Inventory {
 		backpack.get(0).printItemDetails();
 		Item.printItemList();
 	}
-
 }

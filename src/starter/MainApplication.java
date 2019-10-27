@@ -10,8 +10,6 @@ public class MainApplication extends GraphicsApplication {
 	private ControlPane controlPane;
 	
 	private Item[] itemList;
-	
-	//private int count;
 
 	public void init() {
 		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -23,7 +21,8 @@ public class MainApplication extends GraphicsApplication {
 		menuPane = new MenuPane(this);
 		characterPane = new CharacterPane(this);
 		controlPane = new ControlPane(this);
-
+		
+		generateItems();
 		switchToMenu();
 	}
 	
@@ -34,7 +33,6 @@ public class MainApplication extends GraphicsApplication {
 	}
 	
 	public void switchToMenu() {
-		//count++;
 		switchToScreen(menuPane);
 	}
 	public void switchToCharacterPane() {
@@ -48,6 +46,8 @@ public class MainApplication extends GraphicsApplication {
 		AudioPlayer audio = AudioPlayer.getInstance();
 		audio.playSound(MUSIC_FOLDER, SOUND_FILES[0]);
 	}
+	
+	//Below are examples of how to call GUI panes.
 	
 	/*
 	public void switchToSomePane() {
