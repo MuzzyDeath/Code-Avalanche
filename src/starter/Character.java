@@ -14,12 +14,12 @@ public class Character{
 	//Private Usable only in this class
 	private int cRow, cCol, cMove, cHealth;
 	private Space location;
-	private String cName;
 	
 	//Protected usable in this class and child class(es)
 	protected int strength, charisma, agility, defense, balance, experience;
 	protected boolean isPlayer, isHostile, isKing;
 	protected CharacterType cType;
+	protected String cName;
 	
 	//Public frowned upon, please do NOT implement any :)
 	
@@ -39,38 +39,13 @@ public class Character{
  * selected via a click or keyboard selection from the user!
  */
 	
-// Character Constructor
-// TODO: Finish adding the variables and functions associated with the Character Class
+	// Character Constructor
+	// TODO: Finish adding the variables and functions associated with the Character Class
 	public Character(int row, int col) {
 		this.cRow = row;
 		this.cCol = col;
 		this.cHealth = 100;
 		this.location = new Space(row, col);
-		
-		//Building Character Skills (All should total to 10, except NPC)
-		if(cType == CharacterType.NPC) {
-			this.strength = 1;
-			this.charisma = 1;
-			this.agility = 1;
-			this.defense = 1;
-			this.isPlayer = false;
-			this.isHostile = false;
-			this.isKing = false;
-			this.balance = 0;
-		}
-		else if(cType == CharacterType.ENEMY){
-			this.strength = 3;
-			this.charisma = 3;
-			this.agility = 3;
-			this.defense = 3;
-			this.isPlayer = false;
-			this.isHostile = true;
-			this.isKing = false;
-			this.balance = this.randBalance();
-		}
-		
-		//Get Player Name & Make NPC Names
-		//this.cName = setName();
 	}
 
 	//Basic Setters(Mutators)
@@ -106,9 +81,12 @@ public class Character{
 	}
 	
 	//Set User name
-	public String setName(String name) {
+	public String setName() {
+		String name = null;
 
 		if(this.isPlayer) {
+			System.out.println("Please enter the name of your character: \n");
+			name = new Scanner(System.in).next();
 			this.cName = name;
 		}
 		else {

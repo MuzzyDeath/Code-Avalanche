@@ -8,6 +8,7 @@ public class MainApplication extends GraphicsApplication {
 	private CharacterPane characterPane;
 	private MenuPane menuPane;
 	private ControlPane controlPane;
+	private LevelPane levelPane;
 	
 	private Item[] itemList;
 
@@ -21,12 +22,13 @@ public class MainApplication extends GraphicsApplication {
 		menuPane = new MenuPane(this);
 		characterPane = new CharacterPane(this);
 		controlPane = new ControlPane(this);
+		levelPane = new LevelPane(this);
 		
 		generateItems();
 		switchToMenu();
 	}
 	
-	public void generateItems() {
+	private void generateItems() {
 		itemList = new Item[50];
 		Item.generateItemList(itemList);
 		Item.printItemList();
@@ -40,6 +42,9 @@ public class MainApplication extends GraphicsApplication {
 	}
 	public void switchToControlPane() {
 		switchToScreen(controlPane);
+	}
+	public void switchToLevelPane() {
+		switchToScreen(levelPane);
 	}
 	
 	private void playMenuMusic() {

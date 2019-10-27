@@ -1,44 +1,107 @@
 package starter;
-import java.util.ArrayList;
+import java.util.*;
 
-/**
- * @author Nitin, revised by Greg Jewell
- *
- */
 
 public class Map {
-	private Board map1, map2, map3;
-	private Space nextMap;
-	private int numMoves;
+	private int Rows, Cols;
+	private Board board;
+	private Character[] barracks;
 	
-	public int getNumMoves() {
-		return numMoves;
-	}
-	
-	public void generateMap(int rows, int cols) {
-		nextMap = new Space(rows, cols);
-	}
-	
-	public int getColumns(Board b) {
-		return b.getNumCols();
-	}
-	
-	public int getRows(Board b) {
-		return b.getNumRows();
-	}
-	
-	public boolean nextLevel(Board b)
-	{
-		if(b.getStart().equals(nextMap))
-		{
-			return true;
+	//TODO fill out this class with a Level constructor
+	//all the other methods necessary and any other instance variables needed
+	public Map(int nRows, int nCols) {
+		Rows = nRows;
+		Cols = nCols;
+		board = new Board(Rows, Cols);
+
+		//Loads vehicles into array.
+		for(int i = 0; i < Rows; ++i) {
+			for(int j = 0; j < Cols; ++j) {
+				Character check = board.getCharacter(new Space(i, j));
+				if(check != null) {
+					board.getCharactersOnBoard().add(check);
+				}
+			}
 		}
-		return false;
+		//Generate the parkingLot.
+		barracks(getBoard());
 	}
 	
-	public Space getGoalSpace()
-	{
-		return nextMap;
+	/**
+	 * @param Board b
+	 * @return an array of Vehicles
+	 * 
+	 * Converts ArrayList to array
+	 */
+	public Character[] barracks(Board b) {
+		//Generate parkingLot - array of Vehicles on board
+		barracks = new Character[getBoard().getCharactersOnBoard().size()];
+		barracks = getBoard().getCharactersOnBoard().toArray(barracks);
+		
+		return barracks;
 	}
 	
+	/**
+	 * @return the number of columns on the board
+	 */
+	public int getColumns() {
+		//TODO: have this return the number of columns in the level
+		return Cols;
+	}
+	
+	public int getRows() {
+		return Rows;
+	}
+	
+	public Board getBoard() {
+		return board;
+	}
+	
+	//Methods already defined for you
+	/**
+	 * generates the string representation of the level, including the row and column headers to make it look like
+	 * a table
+	 * 
+	 * @return the string representation
+	 */
+	public String toString() {
+		String result = generateColHeader(getColumns());
+		result+=addRowHeader(board.toString());
+		return result;
+	}
+	
+	/**
+	 * This method will add the row information
+	 * needed to the board and is used by the toString method
+	 * 
+	 * @param origBoard the original board without the header information
+	 * @return the board with the header information
+	 */
+	private String addRowHeader(String origBoard) {
+		String result = "";
+		String[] elems = origBoard.split("\n");
+		for(int i = 0; i < elems.length; i++) {
+			result += (char)('A' + i) + "|" + elems[i] + "\n"; 
+		}
+		return result;
+	}
+	
+	/**
+	 * This one is responsible for making the row of column numbers at the top and is used by the toString method
+	 * 
+	 * @param cols the number of columns in the board
+	 * @return if the # of columns is five then it would return "12345\n-----\n"
+	 */
+	private String generateColHeader(int cols) {
+		String result = "  ";
+		for(int i = 1; i <= cols; i++) {
+			result+=i;
+		}
+		result+="\n  ";
+		for(int i = 0; i < cols; i++) {
+			result+="-";
+		}
+		result+="\n";
+		return result;
+	}
 }

@@ -33,6 +33,9 @@ public class Board {
 	{
 		return board[s.getRow()][s.getCol()];
 	}
+	public Character[][] getBoard() {
+		return board;
+	}
 	
 	public boolean characterOnSpace(Space space)
 	{
@@ -54,11 +57,15 @@ public class Board {
 			}
 		}
 		
-		for(int i = 0; i < charactersOnBoard.size(); i++) {
-			charactersOnBoard.get(i).printCharacter();
-		}
-		
 		return charactersOnBoard;
+	}
+	
+	public void printCharactersOnBoard() {
+		ArrayList<Character> list = this.getCharactersOnBoard();
+		
+		for(int i = 0; i < list.size(); i++) {
+			list.get(i).printCharacter();
+		}
 	}
 	
 	public boolean canMove(Space start, int nSpaces)
@@ -89,7 +96,7 @@ public class Board {
 	
 	public void addNPC(int row, int col) {
 		if(characterOnSpace(new Space(row, col))) {
-			Character c = new Character(row, col);
+			NPC c = new NPC(row, col);
 			c.cType = CharacterType.NPC;
 			board[c.getLocation().getRow()][c.getLocation().getCol()] = c;
 		}
@@ -100,10 +107,6 @@ public class Board {
 			Enemy e = new Enemy(row, col);
 			board[e.getLocation().getRow()][e.getLocation().getCol()] = e;
 		}
-	}
-	
-	public void printSpecial(Character c) {
-		
 	}
 	
 	//Do not touch this class, I already converted it.
@@ -118,7 +121,7 @@ public class Board {
 		map1.addEnemy(0, 1);
 		map1.addEnemy(3, 1);
 		System.out.println(map1);
-		map1.getCharactersOnBoard();
+		map1.printCharactersOnBoard();
 		//testCanMove(b);
 		//testMoving(b);
 		//System.out.println(b);

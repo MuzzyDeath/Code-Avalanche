@@ -21,6 +21,8 @@ public class Enemy extends Character {
 		this.setHealth(h);
 		
 		this.setBalance(this.randBalance());
+		
+		this.setName();
 	}
 
 //Set what the king's stats should be here!

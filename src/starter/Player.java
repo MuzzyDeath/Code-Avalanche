@@ -24,7 +24,7 @@ public class Player extends Character {
 	public Player(int row, int col) {
 		super(row, col);
 		// TODO Auto-generated constructor stub
-		this.setCharacterType();
+		//this.setCharacterType();
 		
 		if(cType == CharacterType.WARRIOR) {
 			this.strength = 4;
@@ -56,6 +56,9 @@ public class Player extends Character {
 			this.isKing = false;
 			this.balance = 5000;
 		}
+		
+		//Get Player Name & Make NPC Names
+		this.cName = setName();
 	}
 	
 //Player Setters(Mutators)

@@ -57,16 +57,19 @@ public class CharacterPane extends GraphicsPane {
 			System.out.println("Selected Warrior!");
 			user = new Player(Character.startSpace.getRow(), Character.startSpace.getCol());
 			user.cType = CharacterType.WARRIOR;
+			program.switchToLevelPane();
 		}
 		else if (obj == rogue) {
 			System.out.println("Selected Rogue!");
 			user = new Player(Character.startSpace.getRow(), Character.startSpace.getCol());
 			user.cType = CharacterType.ROGUE;
+			//program.switchToLevelPane();
 		}
 		else if (obj == mage) {
 			System.out.println("Selected Mage!");
 			user = new Player(Character.startSpace.getRow(), Character.startSpace.getCol());
 			user.cType = CharacterType.MAGE;
+			//program.switchToLevelPane();
 		}
 		else if (obj == back) {
 			back.setFillColor(Color.WHITE);
