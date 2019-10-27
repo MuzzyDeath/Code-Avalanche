@@ -17,7 +17,7 @@ import java.util.List;
 public class Inventory {
 	  /* This is how to declare HashMap */
 	 public HashMap<String, Integer> getItems() {
-		 return getItems();
+		 return getItems(); 
      }
  }
 

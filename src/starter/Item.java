@@ -78,7 +78,8 @@ public class Item {
 	}
 	
 	public static void printItemList() {
-		System.out.println("      INVENTORY ITEMS LIST      \n");
+		System.out.println("--------------------------------\n");
+		System.out.println("     INVENTORY ITEMS LIST      \n");
 		System.out.println("--------------------------------\n");
 
 		for(int i = 0; i < Items.length; i++) {
