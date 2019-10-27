@@ -1,64 +1,44 @@
 package starter;
 import java.util.ArrayList;
 
+/**
+ * @author Nitin, revised by Greg Jewell
+ *
+ */
+
 public class Map {
-	private Board board;
+	private Board map1, map2, map3;
 	private Space nextMap;
 	private int numMoves;
 	
-	public int getNumMoves()
-	{
+	public int getNumMoves() {
 		return numMoves;
 	}
 	
 	public void generateMap(int rows, int cols) {
 		nextMap = new Space(rows, cols);
 	}
-	public void incrementMoves()
-	{
-		numMoves++;
+	
+	public int getColumns(Board b) {
+		return b.getNumCols();
 	}
 	
-	public int getColumns()
-	{
-		return board.getNumCols();
+	public int getRows(Board b) {
+		return b.getNumRows();
 	}
 	
-	public int getRows()
+	public boolean nextLevel(Board b)
 	{
-		return board.getNumRows();
-	}
-	
-	public boolean nextLevel()
-	{
-		if(board.getStart().equals(nextMap))
+		if(b.getStart().equals(nextMap))
 		{
 			return true;
 		}
 		return false;
 	}
 	
-	public String toString()
-	{
-		return "Board: " + board.toString() + ", next Map: " + nextMap.toString() + ", number moves: " + numMoves;
-	}
-	
 	public Space getGoalSpace()
 	{
 		return nextMap;
-	}
-	
-	public ArrayList<Character> getCharactersOnLevel()
-	{
-		ArrayList<starter.Character> charactersOnLevel = new ArrayList<Character>();
-		for(int i = 0; i < board.getNumRows(); i++)
-		{
-			for(int j = 0; j < board.getNumCols(); j++)
-			{
-				charactersOnLevel = board.getCharactersOnBoard();
-			}
-		}
-		return charactersOnLevel;
 	}
 	
 }

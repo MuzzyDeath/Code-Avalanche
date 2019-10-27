@@ -12,14 +12,14 @@ public class Character{
 
 //Instance Variables
 	//Private Usable only in this class
-	protected CharacterType cType;
 	private int cRow, cCol, cMove, cHealth;
 	private Space location;
-	private boolean isPlayer, isHostile, isKing;
+	private String cName;
 	
 	//Protected usable in this class and child class(es)
 	protected int strength, charisma, agility, defense, balance, experience;
-	private String cName;
+	protected boolean isPlayer, isHostile, isKing;
+	protected CharacterType cType;
 	
 	//Public frowned upon, please do NOT implement any :)
 	
@@ -48,43 +48,25 @@ public class Character{
 		this.location = new Space(row, col);
 		
 		//Building Character Skills (All should total to 10, except NPC)
-		if(cType == CharacterType.WARRIOR) {
-			this.strength = 4;
-			this.charisma = 1;
-			this.agility = 3;
-			this.defense = 2;
-			this.isPlayer = true;
-			this.isHostile = false;
-			this.isKing = false;
-			this.balance = 5000;
-		}
-		else if(cType == CharacterType.ROGUE) {
-			this.strength = 3;
-			this.charisma = 4;
-			this.agility = 2;
-			this.defense = 1;
-			this.isPlayer = true;
-			this.isHostile = false;
-			this.isKing = false;
-			this.balance = 5000;
-		}
-		else if(cType == CharacterType.MAGE) {
-			this.strength = 1;
-			this.charisma = 2;
-			this.agility = 3;
-			this.defense = 4;
-			this.isPlayer = true;
-			this.isHostile = false;
-			this.isKing = false;
-			this.balance = 5000;
-		}
-		else {
+		if(cType == CharacterType.NPC) {
 			this.strength = 1;
 			this.charisma = 1;
 			this.agility = 1;
 			this.defense = 1;
 			this.isPlayer = false;
+			this.isHostile = false;
+			this.isKing = false;
 			this.balance = 0;
+		}
+		else if(cType == CharacterType.ENEMY){
+			this.strength = 3;
+			this.charisma = 3;
+			this.agility = 3;
+			this.defense = 3;
+			this.isPlayer = false;
+			this.isHostile = true;
+			this.isKing = false;
+			this.balance = this.randBalance();
 		}
 		
 		//Get Player Name & Make NPC Names
@@ -106,6 +88,10 @@ public class Character{
 	}
 	public void setHealth(int c) {
 		this.cHealth = c;
+	}
+	public void setBalance(int c) {
+		int update = c + this.balance;
+		this.balance = update;
 	}
 	public void setHostile() {
 		this.isHostile = true;
@@ -187,9 +173,16 @@ public class Character{
 	public boolean isKing() {
 		return this.isKing;
 	}
-	
 	public boolean isHostile() {
 		return this.isHostile;
+	}
+	
+	//Player Getters(Accessors)
+	public int getBalance() {
+		return this.balance;
+	}
+	public int getExperience() {
+		return this.experience;
 	}
 
 //Returns Character type (Warrior, Rogue, ....)
@@ -223,6 +216,17 @@ public class Character{
 		return null;	
 	}
 	
+//Gives enemies a small balance of gold for the player to steal!
+	public int randBalance() {
+        // create instance of Random class 
+        Random rand = new Random(); 
+  
+        // Generate random integers in range 0 to 500 
+        int balance = rand.nextInt(501); 
+        
+		return balance;
+	}
+	
 	public static void printSpaces(Space space) {
 			System.out.println("Current location is Row: " + space.getRow() + " Colomn: " + space.getCol() + "\n");
 	}
@@ -246,18 +250,22 @@ public class Character{
 		System.out.println("(3) Mage:\nStrength: 1\nCharisma: 2\nAgility: 3\nDefense: 4\n");
 	}
 	
-/*
-//String override
-	@Override
-	public String toString() {
+	public void printCharacter() {
 		System.out.println("\nInformation for : " + this.getName() + "\n");
 		System.out.println("Strength: " + this.getStrength() + "\n");
 		System.out.println("Charisma: " + this.getCharisma() + "\n");
 		System.out.println("Agility: " + this.getAgility() + "\n");
 		System.out.println("Defense: " + this.getDefense() + "\n");
-		return "---------------------------------------------";
+		
+		if(this.cType == CharacterType.ENEMY || this.isPlayer) {
+			System.out.println("Current Health: " + this.getHealth() + "\n");
+			System.out.println("Gold Balance: " + this.getBalance() + "\n");
+			if(this.isPlayer)
+				System.out.println("Current Experience: " + this.getExperience() + "\n");
+		}
+		
+		System.out.println("---------------------------------------\n");
 	}
-*/
 	
 	public static void main(String[] args) {
 		Space startSpace = new Space(1,1);

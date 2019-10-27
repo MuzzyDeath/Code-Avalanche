@@ -24,6 +24,38 @@ public class Player extends Character {
 	public Player(int row, int col) {
 		super(row, col);
 		// TODO Auto-generated constructor stub
+		this.setCharacterType();
+		
+		if(cType == CharacterType.WARRIOR) {
+			this.strength = 4;
+			this.charisma = 1;
+			this.agility = 3;
+			this.defense = 2;
+			this.isPlayer = true;
+			this.isHostile = false;
+			this.isKing = false;
+			this.balance = 5000;
+		}
+		else if(cType == CharacterType.ROGUE) {
+			this.strength = 3;
+			this.charisma = 4;
+			this.agility = 2;
+			this.defense = 1;
+			this.isPlayer = true;
+			this.isHostile = false;
+			this.isKing = false;
+			this.balance = 5000;
+		}
+		else if(cType == CharacterType.MAGE) {
+			this.strength = 1;
+			this.charisma = 2;
+			this.agility = 3;
+			this.defense = 4;
+			this.isPlayer = true;
+			this.isHostile = false;
+			this.isKing = false;
+			this.balance = 5000;
+		}
 	}
 	
 //Player Setters(Mutators)
@@ -47,14 +79,6 @@ public class Player extends Character {
 		this.defense = defense + 1;
 		
 		return this;
-	}
-	
-//Player Getters(Accessors)
-	public int getBalance() {
-		return this.balance;
-	}
-	public int getExperience() {
-		return this.experience;
 	}
 	
 //Player Printout
