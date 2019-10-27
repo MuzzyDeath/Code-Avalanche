@@ -50,6 +50,7 @@ public class ControlPane extends GraphicsPane {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
 		if (obj == back) {
 			back.setFillColor(Color.WHITE);
+			hideContents();
 			program.switchToMenu();
 		}
 	}

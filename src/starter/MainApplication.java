@@ -4,6 +4,8 @@ public class MainApplication extends GraphicsApplication {
 	public static final int WINDOW_HEIGHT = 600;
 	public static final String MUSIC_FOLDER = "music";
 	private static final String[] SOUND_FILES = { "Skyrim.mp3" };
+	
+	private AudioPlayer audio;
 
 	private CharacterPane characterPane;
 	private MenuPane menuPane;
@@ -11,18 +13,24 @@ public class MainApplication extends GraphicsApplication {
 	private LevelPane levelPane;
 	
 	private Item[] itemList;
+	private Map[] mapList;
+	
+	private Player pc;
 
 	public void init() {
 		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 	}
 
 	public void run() {
+		setTitle("King of BloodCity");
+		
 		System.out.println("If you see this, use the Java Applet, not the this!");
-		playMenuMusic();
 		menuPane = new MenuPane(this);
 		characterPane = new CharacterPane(this);
 		controlPane = new ControlPane(this);
 		levelPane = new LevelPane(this);
+		
+		mapList = levelPane.world;
 		
 		generateItems();
 		switchToMenu();
@@ -35,6 +43,7 @@ public class MainApplication extends GraphicsApplication {
 	}
 	
 	public void switchToMenu() {
+		playMenuMusic();
 		switchToScreen(menuPane);
 	}
 	public void switchToCharacterPane() {
@@ -44,11 +53,12 @@ public class MainApplication extends GraphicsApplication {
 		switchToScreen(controlPane);
 	}
 	public void switchToLevelPane() {
+		audio.stopSound(MUSIC_FOLDER, SOUND_FILES[0]);
 		switchToScreen(levelPane);
 	}
 	
 	private void playMenuMusic() {
-		AudioPlayer audio = AudioPlayer.getInstance();
+		audio = AudioPlayer.getInstance();
 		audio.playSound(MUSIC_FOLDER, SOUND_FILES[0]);
 	}
 	

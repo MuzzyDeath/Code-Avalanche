@@ -12,7 +12,7 @@ public class CharacterPane extends GraphicsPane {
 	private GButton back;
 	private GImage background, warrior, rogue, mage;
 	
-	private Player user;
+	protected Player user;
 	
 	private int windowHeight = program.WINDOW_HEIGHT;
 	private int windowWidth = program.WINDOW_WIDTH;
@@ -57,22 +57,26 @@ public class CharacterPane extends GraphicsPane {
 			System.out.println("Selected Warrior!");
 			user = new Player(Character.startSpace.getRow(), Character.startSpace.getCol());
 			user.cType = CharacterType.WARRIOR;
+			hideContents();
 			program.switchToLevelPane();
 		}
 		else if (obj == rogue) {
 			System.out.println("Selected Rogue!");
 			user = new Player(Character.startSpace.getRow(), Character.startSpace.getCol());
 			user.cType = CharacterType.ROGUE;
-			//program.switchToLevelPane();
+			hideContents();
+			program.switchToLevelPane();
 		}
 		else if (obj == mage) {
 			System.out.println("Selected Mage!");
 			user = new Player(Character.startSpace.getRow(), Character.startSpace.getCol());
 			user.cType = CharacterType.MAGE;
-			//program.switchToLevelPane();
+			hideContents();
+			program.switchToLevelPane();
 		}
 		else if (obj == back) {
 			back.setFillColor(Color.WHITE);
+			hideContents();
 			program.switchToMenu();
 		}
 	}

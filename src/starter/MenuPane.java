@@ -73,11 +73,13 @@ public class MenuPane extends GraphicsPane {
 		playSword();
 		if (obj == newGame) {
 			newGame.setFillColor(Color.WHITE);
+			hideContents();
 			program.switchToCharacterPane();
 		}
 		else if (obj == controls) {
 			System.out.println("Print controls");
 			controls.setFillColor(Color.WHITE);
+			hideContents();
 			program.switchToControlPane();
 		}
 		else if (obj == quit) {
