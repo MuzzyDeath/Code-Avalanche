@@ -23,9 +23,14 @@ public class MainApplication extends GraphicsApplication {
 		menuPane = new MenuPane(this);
 		characterPane = new CharacterPane(this);
 		controlPane = new ControlPane(this);
-		itemList = new Item[50];
-		itemList.toString();
+
 		switchToMenu();
+	}
+	
+	public void generateItems() {
+		itemList = new Item[50];
+		Item.generateItemList(itemList);
+		Item.printItemList();
 	}
 	
 	public void switchToMenu() {
