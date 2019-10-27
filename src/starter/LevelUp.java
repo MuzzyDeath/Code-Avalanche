@@ -1,41 +1,66 @@
 package starter;
 
+import java.util.Scanner;
+
 public class LevelUp {
 	
-	private static int stat;
+	private static int points;
+	private static int level;
 
-
-	public static int getStat() {
-		return stat;
+	public static int getPoints() {
+		return points;
 	}
 
-	public static void setStat(int stat) {
-		LevelUp.stat = stat;
+	public static void setPoints(int points) {
+		LevelUp.points = points;
 	}
-	
-	public static void setNewStat(Player c, int which, int s) {
+	public static int getLevel() {
+		return level;
+	}
+	public static void setLevel(int level) {
+		LevelUp.level = level;
+	}
+
+	public static void setNewStats(Player c, int total) {
 		
 		// 1 = strength
 		// 2 = charisma
 		// 3 = agility
 		// 4 = defense
-		if(which == 1) {
-			int temp = c.getStrength();
-			c.setStrength(temp + s);
+		for(int i = total - 1; i >= 0; --i) {
+			System.out.println("Which stat would you like to increase: \n1) strength \n2) Charisma \n3) Agility \n4) Defense");
+			
+			Scanner input = new Scanner(System.in);
+			int whichStat = input.nextInt();
+			
+			if(whichStat == 1 && total > 0) {
+				int temp = c.getStrength();
+				c.setStrength(temp + 1);
+				System.out.println("Added one strength.");
+				System.out.println("Total left: " + i);
+			}
+			else if(whichStat == 2 && total > 0) {
+				int temp = c.getCharisma();
+				c.setCharisma(temp + 1);
+				System.out.println("Added one Charisma.");
+				System.out.println("Total left: " + i);
+			}
+			else if(whichStat == 3 && total > 0) {
+				int temp = c.getAgility();
+				c.setAgility(temp + 1);
+				System.out.println("Added one Agility.");
+				System.out.println("Total left: " + i);
+			}
+			else if(whichStat == 4 && total > 0) {
+				int temp = c.getDefense();
+				c.setDefense(temp + 1);
+				System.out.println("Added one Defense.");
+				System.out.println("Total left: " + i);
+			}
+			
 		}
-		else if(which == 2) {
-			int temp = c.getCharisma();
-			c.setCharisma(temp + s);
-		}
-		else if(which == 3) {
-			int temp = c.getAgility();
-			c.setAgility(temp + s);
-		}
-		else if(which == 4) {
-			int temp = c.getStrength();
-			c.setDefense(temp + s);
-		}
-		
+			System.out.println("\n----------Your new stats----------");
+			c.printCharacter();
 	}
 
 }

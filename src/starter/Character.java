@@ -250,5 +250,11 @@ public class Character{
 		Player Muzzy = new Player(startSpace.getRow(), startSpace.getCol());
 		printSpaces(Muzzy.getLocation());
 		Muzzy.printPlayer();
+		LevelUp level = new LevelUp();
+		level.setNewStats(Muzzy, 3);
+		
+		
+		
+				
 	}
 }
