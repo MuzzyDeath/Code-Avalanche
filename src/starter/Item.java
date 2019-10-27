@@ -90,25 +90,13 @@ public class Item {
 		System.out.println("--------------------------------\n");
 	}
 	
-	//String override
-	@Override
-	public String toString() {
-		System.out.println("      INVENTORY ITEMS LIST      \n");
-		System.out.println("--------------------------------\n");
-
-		for(int i = 0; i < Items.length; i++) {
-			System.out.println("Item " + i + ": " + Items[i].itemName + "\n");
-		}
-
-		System.out.println("--------------------------------\n");
-		
-		return null;
+	public void printItemDetails() {
+		System.out.println(this.itemName + " and this item alters " + this.iType + "\n");
 	}
 
 	public static void main(String[] args) {
 		Items = new Item[50];
 		generateItemList(Items);
 		Items.toString();
-		//printItemList();
 	}
 }

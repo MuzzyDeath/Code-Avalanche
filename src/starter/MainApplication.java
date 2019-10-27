@@ -9,7 +9,6 @@ public class MainApplication extends GraphicsApplication {
 	private MenuPane menuPane;
 	private ControlPane controlPane;
 	
-	private Item item;
 	private Item[] itemList;
 	
 	//private int count;
@@ -24,14 +23,14 @@ public class MainApplication extends GraphicsApplication {
 		menuPane = new MenuPane(this);
 		characterPane = new CharacterPane(this);
 		controlPane = new ControlPane(this);
-		generateItems();
+
 		switchToMenu();
 	}
 	
 	public void generateItems() {
 		itemList = new Item[50];
-		item.generateItemList(itemList);
-		item.printItemList();;
+		Item.generateItemList(itemList);
+		Item.printItemList();
 	}
 	
 	public void switchToMenu() {
