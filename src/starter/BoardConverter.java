@@ -20,7 +20,7 @@ public class BoardConverter {
 		for(int row = 0; row < b.getNumRows(); row++) {
 			for(int col = 0; col < b.getNumCols(); col++) {
 				if(b.getCharacter(new Space(row, col)) != null) {
-					chboard[row][col] = b.getCharacter(new Space(row, col)).getCharacterType().toString().charAt(0);
+					chboard[row][col] = b.getCharacter(new Space(row, col)).getCharacterType().toString().toUpperCase().charAt(0);
 				}
 			}
 		}

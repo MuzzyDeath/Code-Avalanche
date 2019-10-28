@@ -121,7 +121,7 @@ public class Board {
 		map1.addEnemy(0, 1);
 		map1.addEnemy(3, 1);
 		System.out.println(map1);
-		map1.printCharactersOnBoard();
+		//map1.printCharactersOnBoard();
 		//testCanMove(b);
 		//testMoving(b);
 		//System.out.println(b);
