@@ -26,8 +26,6 @@ public class MainApplication extends GraphicsApplication {
 		
 		System.out.println("If you see this, use the Java Applet, not the this!");
 		menuPane = new MenuPane(this);
-		characterPane = new CharacterPane(this);
-		controlPane = new ControlPane(this);
 		levelPane = new LevelPane(this);
 		
 		mapList = levelPane.world;
@@ -47,9 +45,11 @@ public class MainApplication extends GraphicsApplication {
 		switchToScreen(menuPane);
 	}
 	public void switchToCharacterPane() {
+		characterPane = new CharacterPane(this);
 		switchToScreen(characterPane);
 	}
 	public void switchToControlPane() {
+		controlPane = new ControlPane(this);
 		switchToScreen(controlPane);
 	}
 	public void switchToLevelPane() {

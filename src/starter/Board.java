@@ -116,12 +116,12 @@ public class Board {
 	
 	public static void main(String[] args) {
 		Board map1 = new Board(5, 5);
-		map1.addPlayer(map1.getStart().getRow(), map1.getStart().getCol());
+		//map1.addPlayer(map1.getStart().getRow(), map1.getStart().getCol());
 		map1.addNPC(4, 4);
 		map1.addEnemy(0, 1);
 		map1.addEnemy(3, 1);
 		System.out.println(map1);
-		map1.printCharactersOnBoard();
+		//map1.printCharactersOnBoard();
 		//testCanMove(b);
 		//testMoving(b);
 		//System.out.println(b);

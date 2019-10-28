@@ -38,7 +38,7 @@ public class LevelPane extends GraphicsPane {
 	@Override
 	public void showContents() {
 		program.add(back);
-		loadMap(world[1]);
+		loadMap(world[0]);
 	}
 
 	@Override
