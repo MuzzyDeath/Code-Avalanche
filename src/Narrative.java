@@ -7,7 +7,9 @@ public class Narrative {
         
 		// Create an instance of File for data.txt file.
 		
-        File file = new File("/Users/djcriley/git/group-project-code-avalanche/Text Files/NPC");
+		
+
+        File file = new File("/Users/Pranav/git/group-project-code-avalanche/Text Files/NPC");
         try {
             // Create a new Scanner object which will read the data
             // from the file passed in. To check if there are more 

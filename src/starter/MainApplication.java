@@ -4,7 +4,9 @@ public class MainApplication extends GraphicsApplication {
 	public static final int WINDOW_HEIGHT = 600;
 	public static final String MUSIC_FOLDER = "music";
 	private static final String[] SOUND_FILES = { "Skyrim.mp3" };
-	
+	public static final String TEXT_FILES_FOLDER = "Text Files";
+	private static final String[] TEXT_FILES_FILES = { "NPC" };
+
 	private AudioPlayer audio;
 
 	private CharacterPane characterPane;
