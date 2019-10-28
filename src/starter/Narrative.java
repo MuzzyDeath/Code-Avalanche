@@ -9,6 +9,7 @@ public class Narrative {
 	private static int start = 0;
 	private static int end = 0;
 	private static Character c;
+	//private CharacterType warrior = ;
 	
 	public Narrative(Character c, int start, int end)
 	{
@@ -36,14 +37,8 @@ public class Narrative {
 		this.end = end;
 	}
 	public void read(Character c, int s, int e) throws FileNotFoundException {
-		
-		
-            // Create a new Scanner object which will read the data
-            // from the file passed in. To check if there are more 
-            // line to read from it we check by calling the 
-            // scanner.hasNextLine() method. We then read line one 
-            // by one till all lines is read.
             
+		//files for if the character is hostile (enemies before fights)
             if(c.isHostile() == true) {
             	
             	File file = new File("/Users/djcriley/git/group-project-code-avalanche/Text Files/Enemy");
@@ -54,6 +49,7 @@ public class Narrative {
 	                System.out.println(line);
 	            }
             }
+            // files for if the character is not hostile (dialouge characters)
             else if(c.isHostile() == false) {
             	
             	File file = new File("/Users/djcriley/git/group-project-code-avalanche/Text Files/NPC");
@@ -64,6 +60,7 @@ public class Narrative {
 	                System.out.println(line);
 	            }
             }
+            //files for if the character is the king
             else if(c.isKing() == true) {
             	
             	File file = new File("/Users/djcriley/git/group-project-code-avalanche/Text Files/King");
@@ -74,23 +71,17 @@ public class Narrative {
 	                System.out.println(line);
 	            }
             }
-            
-            /// then we can split the different class types of characters into separate files so this will simplify 
-            // so this would be for warrior
-//            else if(c.getCharacterType() == type) { 
-//            	
-//            	File file = new File("/Users/djcriley/git/group-project-code-avalanche/Text Files/King");
-//            	Scanner scanner = new Scanner(file);
-//            	
-//	            for (int i = start; i < end; i++) {
-//	                String line = scanner.nextLine();
-//	                System.out.println(line);
-//	            }
-//            }
-            //another for rouge
-            //another for mage
-		
-		
+            // file for if the character is the player
+            else if(c.isPlayer == true)
+            {
+            	File file = new File("/Users/djcriley/git/group-project-code-avalanche/Text Files/Player");
+            	Scanner scanner = new Scanner(file);
+            	
+	            for (int i = start; i < end; i++) {
+                    String line = scanner.nextLine();
+	                System.out.println(line);
+	            }
+            }
 	}
 	
 	
