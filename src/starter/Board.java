@@ -88,7 +88,7 @@ public class Board {
 	public void addPlayer(int row, int col)
 	{
 		if(characterOnSpace(new Space(row, col))) {
-			Player p = new Player(row, col);
+			Player p = new Player(row, col, CharacterType.ROGUE);
 		    
 		    board[p.getLocation().getRow()][p.getLocation().getCol()] = p;
 		}
@@ -116,7 +116,7 @@ public class Board {
 	
 	public static void main(String[] args) {
 		Board map1 = new Board(5, 5);
-		//map1.addPlayer(map1.getStart().getRow(), map1.getStart().getCol());
+		map1.addPlayer(2, 2);
 		map1.addNPC(4, 4);
 		map1.addEnemy(0, 1);
 		map1.addEnemy(3, 1);

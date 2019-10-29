@@ -48,6 +48,11 @@ public class Character{
 		this.location = new Space(row, col);
 	}
 
+	public Character(int row, int col, CharacterType cType)
+	{
+		this(row, col);
+		this.cType = cType;
+	}
 	//Basic Setters(Mutators)
 	public void setStrength(int c) {
 		this.strength = c;
