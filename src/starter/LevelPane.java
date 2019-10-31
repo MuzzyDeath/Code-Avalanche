@@ -31,7 +31,7 @@ public class LevelPane extends GraphicsPane {
 	//playerSprite Variables
 	private GImage playerSprite;
 	private double lastX, lastY, newX, newY;
-	private Player p = new Player(1, 1, CharacterType.MAGE);
+	private Player p = new Player(1, 1, CharacterType.ROGUE);
 	private int i;
 	
 	private Map map1, map2, map3;
@@ -108,6 +108,16 @@ public class LevelPane extends GraphicsPane {
 		        }
 	        }
 	        
+	        else if(p.getCharacterType() == CharacterType.ROGUE) {
+	        	playerSprite.setImage("rogue/rogue_" + i + ".png");
+	        	playerSprite.setSize(xWidth, yHeight);
+	        	System.out.println(i);
+	        	i++;
+	        	
+		        if(i == 8) 
+		        	i = 0;
+	        }
+	        
 	        else if(p.getCharacterType() == CharacterType.MAGE) {
 	        	playerSprite.setImage("mage/mage_" + i + ".png");
 	        	playerSprite.setSize(xWidth, yHeight);
@@ -131,6 +141,16 @@ public class LevelPane extends GraphicsPane {
 		        if(i == 10) {
 		        	i = 0;
 		        }
+	        }
+	        
+	        else if(p.getCharacterType() == CharacterType.ROGUE) {
+	        	playerSprite.setImage("rogue/rogue_" + i + ".png");
+	        	playerSprite.setSize(xWidth, yHeight);
+	        	System.out.println(i);
+	        	i++;
+	        	
+		        if(i == 8) 
+		        	i = 0;
 	        }
 	        
 	        else if(p.getCharacterType() == CharacterType.MAGE) {
@@ -158,6 +178,16 @@ public class LevelPane extends GraphicsPane {
 		        }
 	        }
 	        
+	        else if(p.getCharacterType() == CharacterType.ROGUE) {
+	        	playerSprite.setImage("rogue/rogue_" + i + ".png");
+	        	playerSprite.setSize(xWidth, yHeight);
+	        	System.out.println(i);
+	        	i++;
+	        	
+		        if(i == 8) 
+		        	i = 0;
+	        }
+	        
 	        else if(p.getCharacterType() == CharacterType.MAGE) {
 	        	playerSprite.setImage("mage/mage_" + i + ".png");
 	        	playerSprite.setSize(xWidth, yHeight);
@@ -181,6 +211,16 @@ public class LevelPane extends GraphicsPane {
 		        if(i == 10) {
 		        	i = 0;
 		        }
+	        }
+	        
+	        else if(p.getCharacterType() == CharacterType.ROGUE) {
+	        	playerSprite.setImage("rogue/rogue_" + i + ".png");
+	        	playerSprite.setSize(xWidth, yHeight);
+	        	System.out.println(i);
+	        	i++;
+	        	
+		        if(i == 8) 
+		        	i = 0;
 	        }
 	        
 	        else if(p.getCharacterType() == CharacterType.MAGE) {
@@ -207,10 +247,13 @@ public class LevelPane extends GraphicsPane {
 				playerSprite.sendToFront();
 			}
 			else if(p.getCharacterType() == CharacterType.ROGUE) {
-				//player = new GImage("auto_vert.png", (v.getStart().getCol() * spaceWidth()), (v.getStart().getRow() * spaceHeight()));
+				playerSprite =  new GImage("rogue/rogue_0.png", p.startSpace.getRow() * xWidth, p.startSpace.getCol() * yHeight);
+				lastX = playerSprite.getX();
+				lastY = playerSprite.getY();
+				playerSprite.setSize(xWidth, yHeight);
 			}
 			else if(p.getCharacterType() == CharacterType.MAGE) {
-				playerSprite =  new GImage("mage/mage_" + i + ".png", p.startSpace.getRow() * xWidth, p.startSpace.getCol() * yHeight);
+				playerSprite =  new GImage("mage/mage_0.png", p.startSpace.getRow() * xWidth, p.startSpace.getCol() * yHeight);
 				lastX = playerSprite.getX();
 				lastY = playerSprite.getY();
 				playerSprite.setSize(xWidth, yHeight);
