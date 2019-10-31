@@ -7,20 +7,7 @@ import java.awt.event.MouseEvent;
 
 public class LevelPane extends GraphicsPane {
 	private static final String BACKGROUND = "controlsImage.jpg";
-	private static final String[] BLUEKNIGHT = 
-		  { "knight/BlueKnight_entity_000_walk_000.png", 
-			"knight/BlueKnight_entity_000_walk_001.png", 
-			"knight/BlueKnight_entity_000_walk_002.png", 
-			"knight/BlueKnight_entity_000_walk_003.png", 
-			"knight/BlueKnight_entity_000_walk_004.png", 
-			"knight/BlueKnight_entity_000_walk_005.png", 
-			"knight/BlueKnight_entity_000_walk_006.png", 
-			"knight/BlueKnight_entity_000_walk_007.png", 
-			"knight/BlueKnight_entity_000_walk_008.png", 
-			"knight/BlueKnight_entity_000_walk_009.png" };
-	
-	private static final String[] MAGE =
-		{ "mage/walk_0.png", "mage/walk_1.png", "mage/walk_2.png", "mage/walk_3.png" };
+
 	
 	private MainApplication program; // you will use program to get access to
 										// all of the GraphicsProgram calls
@@ -31,7 +18,7 @@ public class LevelPane extends GraphicsPane {
 	//playerSprite Variables
 	private GImage playerSprite;
 	private double lastX, lastY, newX, newY;
-	private Player p = new Player(1, 1, CharacterType.ROGUE);
+	private Player p = new Player(1, 1, CharacterType.WARRIOR);
 	private int i;
 	
 	private Map map1, map2, map3;
@@ -98,12 +85,12 @@ public class LevelPane extends GraphicsPane {
 	        playerSprite.move(-5, 0);
 	        
 	        if(p.getCharacterType() == CharacterType.WARRIOR) {
-	        	playerSprite.setImage("knight/BlueKnight_entity_000_walk_00" + i + ".png");
+	        	playerSprite.setImage("knight/knight_" + i + ".png");
 	        	playerSprite.setSize(xWidth, yHeight);
 	        	System.out.println(i);
 	        	i++;
 	        	
-		        if(i == 10) {
+		        if(i == 8) {
 		        	i = 0;
 		        }
 	        }
@@ -133,12 +120,12 @@ public class LevelPane extends GraphicsPane {
 	        playerSprite.move(5, 0);
 	        
 	        if(p.getCharacterType() == CharacterType.WARRIOR) {
-	        	playerSprite.setImage("knight/BlueKnight_entity_000_walk_00" + i + ".png");
+	        	playerSprite.setImage("knight/knight_" + i + ".png");
 	        	playerSprite.setSize(xWidth, yHeight);
 	        	System.out.println(i);
 	        	i++;
 	        	
-		        if(i == 10) {
+		        if(i == 8) {
 		        	i = 0;
 		        }
 	        }
@@ -168,12 +155,12 @@ public class LevelPane extends GraphicsPane {
 	        playerSprite.move(0, -5);
 	        
 	        if(p.getCharacterType() == CharacterType.WARRIOR) {
-	        	playerSprite.setImage("knight/BlueKnight_entity_000_walk_00" + i + ".png");
+	        	playerSprite.setImage("knight/knight_" + i + ".png");
 	        	playerSprite.setSize(xWidth, yHeight);
 	        	System.out.println(i);
 	        	i++;
 	        	
-		        if(i == 10) {
+		        if(i == 8) {
 		        	i = 0;
 		        }
 	        }
@@ -203,12 +190,12 @@ public class LevelPane extends GraphicsPane {
 	        playerSprite.move(0, 5);
 	        
 	        if(p.getCharacterType() == CharacterType.WARRIOR) {
-	        	playerSprite.setImage("knight/BlueKnight_entity_000_walk_00" + i + ".png");
+	        	playerSprite.setImage("knight/knight_" + i + ".png");
 	        	playerSprite.setSize(xWidth, yHeight);
 	        	System.out.println(i);
 	        	i++;
 	        	
-		        if(i == 10) {
+		        if(i == 8) {
 		        	i = 0;
 		        }
 	        }
@@ -240,7 +227,7 @@ public class LevelPane extends GraphicsPane {
 	private void drawPlayer(Player p) {
 		// TODO implement drawCar
 			if(p.getCharacterType() == CharacterType.WARRIOR) {
-				playerSprite =  new GImage(BLUEKNIGHT[0], p.startSpace.getRow() * xWidth, p.startSpace.getCol() * yHeight);
+				playerSprite =  new GImage("knight/knight_0.png", p.startSpace.getRow() * xWidth, p.startSpace.getCol() * yHeight);
 				lastX = playerSprite.getX();
 				lastY = playerSprite.getY();
 				playerSprite.setSize(xWidth, yHeight);
