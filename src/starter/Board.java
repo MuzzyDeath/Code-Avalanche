@@ -85,10 +85,10 @@ public class Board {
 		}
 		return false;
 	}
-	public void addPlayer(int row, int col)
+	public void addPlayer(int row, int col, CharacterType cType)
 	{
 		if(characterOnSpace(new Space(row, col))) {
-			Player p = new Player(row, col, CharacterType.ROGUE);
+			Player p = new Player(row, col, cType);
 		    
 		    board[p.getLocation().getRow()][p.getLocation().getCol()] = p;
 		}
@@ -116,7 +116,7 @@ public class Board {
 	
 	public static void main(String[] args) {
 		Board map1 = new Board(5, 5);
-		map1.addPlayer(2, 2);
+		map1.addPlayer(2, 2, CharacterType.ROGUE);
 		map1.addNPC(4, 4);
 		map1.addEnemy(0, 1);
 		map1.addEnemy(3, 1);
