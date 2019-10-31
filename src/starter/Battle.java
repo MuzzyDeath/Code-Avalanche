@@ -6,11 +6,11 @@ public class Battle {
 	private int skillCheck;
 	private Character character;
 	
-	public Battle(int attackPoints, int defendPoints, int skillCheck, Character c)
+	public Battle(int attackPoints, Character character)
 	{
 		this.attackPoints = attackPoints;
-		this.defendPoints = defendPoints;
-		this.skillCheck = skillCheck;
+		defendPoints = character.getDefense();
+		skillCheck = character.getAgility();
 		this.character = character;
 	}
 	public int attack()
@@ -51,7 +51,7 @@ public class Battle {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Character c = new Character(0, 1, CharacterType.WARRIOR);
-		Battle b = new Battle(20, 30, 40, c);
+		Battle b = new Battle(20, c);
 		b.attack();
 		b.defend();
 		b.checkSkill();
