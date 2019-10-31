@@ -2,17 +2,23 @@ package starter;
 
 import acm.graphics.*;
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 public class LevelPane extends GraphicsPane {
 	private static final String BACKGROUND = "controlsImage.jpg";
+
 	
 	private MainApplication program; // you will use program to get access to
 										// all of the GraphicsProgram calls
 	private GButton back;
 	private GImage background;
 	private GLine line;
-	private GLabel warrior, rogue, mage, enemy, npc;
+	
+	//playerSprite Variables
+	private GImage playerSprite;
+	private Player p = new Player(1, 1, CharacterType.WARRIOR);
+	private int moveCount;
 	
 	private Map map1, map2, map3;
 	private Map current;
@@ -69,26 +75,138 @@ public class LevelPane extends GraphicsPane {
 		}
 	}
 	
+	//Really long and probably overly complicated, but it works.
+	@Override
+	public void keyPressed(KeyEvent e) {
+
+	    int key = e.getKeyCode();
+	    
+	    if(key == KeyEvent.VK_A || key == KeyEvent.VK_S || key == KeyEvent.VK_D || key == KeyEvent.VK_W) {
+	    	if(moveCount == 8)
+	    		moveCount = 0;
+	    }
+
+	    if (key == KeyEvent.VK_A) {
+	        playerSprite.move(-5, 0);
+	        
+	        if(p.getCharacterType() == CharacterType.WARRIOR) {
+	        	playerSprite.setImage("knight/knight_" + moveCount + ".png");
+	        	playerSprite.setSize(xWidth, yHeight);
+	        	System.out.println(moveCount);
+	        	moveCount++;
+	        }
+	        
+	        else if(p.getCharacterType() == CharacterType.ROGUE) {
+	        	playerSprite.setImage("rogue/rogue_" + moveCount + ".png");
+	        	playerSprite.setSize(xWidth, yHeight);
+	        	System.out.println(moveCount);
+	        	moveCount++;
+	        }
+	        
+	        else if(p.getCharacterType() == CharacterType.MAGE) {
+	        	playerSprite.setImage("mage/mage_" + moveCount + ".png");
+	        	playerSprite.setSize(xWidth, yHeight);
+	        	System.out.println(moveCount);
+	        	moveCount++;
+	        }
+	    }
+
+	    if (key == KeyEvent.VK_D) {
+	        playerSprite.move(5, 0);
+	        
+	        if(p.getCharacterType() == CharacterType.WARRIOR) {
+	        	playerSprite.setImage("knight/knight_" + moveCount + ".png");
+	        	playerSprite.setSize(xWidth, yHeight);
+	        	System.out.println(moveCount);
+	        	moveCount++;
+	        }
+	        
+	        else if(p.getCharacterType() == CharacterType.ROGUE) {
+	        	playerSprite.setImage("rogue/rogue_" + moveCount + ".png");
+	        	playerSprite.setSize(xWidth, yHeight);
+	        	System.out.println(moveCount);
+	        	moveCount++;
+	        }
+	        
+	        else if(p.getCharacterType() == CharacterType.MAGE) {
+	        	playerSprite.setImage("mage/mage_" + moveCount + ".png");
+	        	playerSprite.setSize(xWidth, yHeight);
+	        	System.out.println(moveCount);
+	        	moveCount++;
+	        }
+	    }
+
+	    if (key == KeyEvent.VK_W) {
+	        playerSprite.move(0, -5);
+	        
+	        if(p.getCharacterType() == CharacterType.WARRIOR) {
+	        	playerSprite.setImage("knight/knight_" + moveCount + ".png");
+	        	playerSprite.setSize(xWidth, yHeight);
+	        	System.out.println(moveCount);
+	        	moveCount++;
+	        }
+	        
+	        else if(p.getCharacterType() == CharacterType.ROGUE) {
+	        	playerSprite.setImage("rogue/rogue_" + moveCount + ".png");
+	        	playerSprite.setSize(xWidth, yHeight);
+	        	System.out.println(moveCount);
+	        	moveCount++;
+	        }
+	        
+	        else if(p.getCharacterType() == CharacterType.MAGE) {
+	        	playerSprite.setImage("mage/mage_" + moveCount + ".png");
+	        	playerSprite.setSize(xWidth, yHeight);
+	        	System.out.println(moveCount);
+	        	moveCount++;
+	        }
+	    }
+
+	    if (key == KeyEvent.VK_S) {
+	        playerSprite.move(0, 5);
+	        
+	        if(p.getCharacterType() == CharacterType.WARRIOR) {
+	        	playerSprite.setImage("knight/knight_" + moveCount + ".png");
+	        	playerSprite.setSize(xWidth, yHeight);
+	        	System.out.println(moveCount);
+	        	moveCount++;
+	        }
+	        
+	        else if(p.getCharacterType() == CharacterType.ROGUE) {
+	        	playerSprite.setImage("rogue/rogue_" + moveCount + ".png");
+	        	playerSprite.setSize(xWidth, yHeight);
+	        	System.out.println(moveCount);
+	        	moveCount++;
+	        }
+	        
+	        else if(p.getCharacterType() == CharacterType.MAGE) {
+	        	playerSprite.setImage("mage/mage_" + moveCount + ".png");
+	        	playerSprite.setSize(xWidth, yHeight);
+	        	System.out.println(moveCount);
+	        	moveCount++;
+	        }
+	    }
+	}
+	
 	//New Code below this line//
 	
 	private void drawPlayer(Player p) {
 		// TODO implement drawCar
-		GObject player =  new GImage("warrior_f_walk.gif", 80, 80);
-		
 			if(p.getCharacterType() == CharacterType.WARRIOR) {
-				//player = new GLabel("W", 80, 80);
-				program.add(player);
-				player.sendToFront();
+				playerSprite =  new GImage("knight/knight_0.png", p.startSpace.getRow() * xWidth, p.startSpace.getCol() * yHeight);
+				playerSprite.setSize(xWidth, yHeight);
+				playerSprite.sendToFront();
 			}
 			else if(p.getCharacterType() == CharacterType.ROGUE) {
-				//player = new GImage("auto_vert.png", (v.getStart().getCol() * spaceWidth()), (v.getStart().getRow() * spaceHeight()));
+				playerSprite =  new GImage("rogue/rogue_0.png", p.startSpace.getRow() * xWidth, p.startSpace.getCol() * yHeight);
+				playerSprite.setSize(xWidth, yHeight);
 			}
 			else if(p.getCharacterType() == CharacterType.MAGE) {
-				//player = new GImage("truck_vert.png", (v.getStart().getCol() * spaceWidth()), (v.getStart().getRow() * spaceHeight()));
+				playerSprite =  new GImage("mage/mage_0.png", p.startSpace.getRow() * xWidth, p.startSpace.getCol() * yHeight);
+				playerSprite.setSize(xWidth, yHeight);
 			}
 			
 		//Actually implements the GImage!
-		program.add(player);
+		program.add(playerSprite);
 		//player.sendBackward();
 	}
 	
@@ -108,8 +226,7 @@ public class LevelPane extends GraphicsPane {
 		drawLevel(m);
 		current = m;
 		
-		Player test = new Player(3, 3);
-		drawPlayer(test);
+		drawPlayer(p);
 	}
 	
 	private Space convertXYToSpace(double x, double y) {

@@ -28,9 +28,6 @@ public class MainApplication extends GraphicsApplication {
 		
 		System.out.println("If you see this, use the Java Applet, not the this!");
 		menuPane = new MenuPane(this);
-		levelPane = new LevelPane(this);
-		
-		mapList = levelPane.world;
 		
 		generateItems();
 		switchToMenu();
@@ -56,6 +53,8 @@ public class MainApplication extends GraphicsApplication {
 	}
 	public void switchToLevelPane() {
 		audio.stopSound(MUSIC_FOLDER, SOUND_FILES[0]);
+		levelPane = new LevelPane(this);
+		mapList = levelPane.world;
 		switchToScreen(levelPane);
 	}
 	
