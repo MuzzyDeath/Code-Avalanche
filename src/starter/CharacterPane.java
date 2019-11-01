@@ -12,7 +12,7 @@ public class CharacterPane extends GraphicsPane {
 	private GButton back;
 	private GImage background, warrior, rogue, mage;
 	
-	protected Player user;
+	protected Player selectedCharacter;
 	
 	private int windowHeight = program.WINDOW_HEIGHT;
 	private int windowWidth = program.WINDOW_WIDTH;
@@ -50,27 +50,31 @@ public class CharacterPane extends GraphicsPane {
 		}
 	}
 	
+	public Player sendPlayer() {
+		return selectedCharacter;
+	}
+	
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
 		if (obj == warrior) {
 			System.out.println("Selected Warrior!");
-			user = new Player(Character.startSpace.getRow(), Character.startSpace.getCol());
-			user.cType = CharacterType.WARRIOR;
+			selectedCharacter = new Player(Character.startSpace.getRow(), Character.startSpace.getCol(), CharacterType.WARRIOR);
+			program.user = selectedCharacter;
 			hideContents();
 			program.switchToLevelPane();
 		}
 		else if (obj == rogue) {
 			System.out.println("Selected Rogue!");
-			user = new Player(Character.startSpace.getRow(), Character.startSpace.getCol());
-			user.cType = CharacterType.ROGUE;
+			selectedCharacter = new Player(Character.startSpace.getRow(), Character.startSpace.getCol(), CharacterType.ROGUE);
+			program.user = selectedCharacter;
 			hideContents();
 			program.switchToLevelPane();
 		}
 		else if (obj == mage) {
 			System.out.println("Selected Mage!");
-			user = new Player(Character.startSpace.getRow(), Character.startSpace.getCol());
-			user.cType = CharacterType.MAGE;
+			selectedCharacter = new Player(Character.startSpace.getRow(), Character.startSpace.getCol(), CharacterType.MAGE);
+			program.user = selectedCharacter;
 			hideContents();
 			program.switchToLevelPane();
 		}

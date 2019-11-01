@@ -17,8 +17,10 @@ public class LevelPane extends GraphicsPane {
 	
 	//playerSprite Variables
 	private GImage playerSprite;
-	private Player p = new Player(1, 1, CharacterType.WARRIOR);
 	private int moveCount;
+	
+	//protected Player Protagonist = new Player(Character.startSpace.getRow(), Character.startSpace.getCol(), CharacterType.WARRIOR);
+	protected Player Protagonist;
 	
 	private Map map1, map2, map3;
 	private Map current;
@@ -34,6 +36,7 @@ public class LevelPane extends GraphicsPane {
 		background = new GImage(BACKGROUND);
 		back = new GButton("Back", 0, 0, 25, 25);
 		
+		Protagonist = app.user;
 		
 		
 		generateWorld();
@@ -89,21 +92,21 @@ public class LevelPane extends GraphicsPane {
 	    if (key == KeyEvent.VK_A) {
 	        playerSprite.move(-5, 0);
 	        
-	        if(p.getCharacterType() == CharacterType.WARRIOR) {
+	        if(Protagonist.getCharacterType() == CharacterType.WARRIOR) {
 	        	playerSprite.setImage("knight/knight_" + moveCount + ".png");
 	        	playerSprite.setSize(xWidth, yHeight);
 	        	System.out.println(moveCount);
 	        	moveCount++;
 	        }
 	        
-	        else if(p.getCharacterType() == CharacterType.ROGUE) {
+	        else if(Protagonist.getCharacterType() == CharacterType.ROGUE) {
 	        	playerSprite.setImage("rogue/rogue_" + moveCount + ".png");
 	        	playerSprite.setSize(xWidth, yHeight);
 	        	System.out.println(moveCount);
 	        	moveCount++;
 	        }
 	        
-	        else if(p.getCharacterType() == CharacterType.MAGE) {
+	        else if(Protagonist.getCharacterType() == CharacterType.MAGE) {
 	        	playerSprite.setImage("mage/mage_" + moveCount + ".png");
 	        	playerSprite.setSize(xWidth, yHeight);
 	        	System.out.println(moveCount);
@@ -114,21 +117,21 @@ public class LevelPane extends GraphicsPane {
 	    if (key == KeyEvent.VK_D) {
 	        playerSprite.move(5, 0);
 	        
-	        if(p.getCharacterType() == CharacterType.WARRIOR) {
+	        if(Protagonist.getCharacterType() == CharacterType.WARRIOR) {
 	        	playerSprite.setImage("knight/knight_" + moveCount + ".png");
 	        	playerSprite.setSize(xWidth, yHeight);
 	        	System.out.println(moveCount);
 	        	moveCount++;
 	        }
 	        
-	        else if(p.getCharacterType() == CharacterType.ROGUE) {
+	        else if(Protagonist.getCharacterType() == CharacterType.ROGUE) {
 	        	playerSprite.setImage("rogue/rogue_" + moveCount + ".png");
 	        	playerSprite.setSize(xWidth, yHeight);
 	        	System.out.println(moveCount);
 	        	moveCount++;
 	        }
 	        
-	        else if(p.getCharacterType() == CharacterType.MAGE) {
+	        else if(Protagonist.getCharacterType() == CharacterType.MAGE) {
 	        	playerSprite.setImage("mage/mage_" + moveCount + ".png");
 	        	playerSprite.setSize(xWidth, yHeight);
 	        	System.out.println(moveCount);
@@ -139,21 +142,21 @@ public class LevelPane extends GraphicsPane {
 	    if (key == KeyEvent.VK_W) {
 	        playerSprite.move(0, -5);
 	        
-	        if(p.getCharacterType() == CharacterType.WARRIOR) {
+	        if(Protagonist.getCharacterType() == CharacterType.WARRIOR) {
 	        	playerSprite.setImage("knight/knight_" + moveCount + ".png");
 	        	playerSprite.setSize(xWidth, yHeight);
 	        	System.out.println(moveCount);
 	        	moveCount++;
 	        }
 	        
-	        else if(p.getCharacterType() == CharacterType.ROGUE) {
+	        else if(Protagonist.getCharacterType() == CharacterType.ROGUE) {
 	        	playerSprite.setImage("rogue/rogue_" + moveCount + ".png");
 	        	playerSprite.setSize(xWidth, yHeight);
 	        	System.out.println(moveCount);
 	        	moveCount++;
 	        }
 	        
-	        else if(p.getCharacterType() == CharacterType.MAGE) {
+	        else if(Protagonist.getCharacterType() == CharacterType.MAGE) {
 	        	playerSprite.setImage("mage/mage_" + moveCount + ".png");
 	        	playerSprite.setSize(xWidth, yHeight);
 	        	System.out.println(moveCount);
@@ -164,21 +167,21 @@ public class LevelPane extends GraphicsPane {
 	    if (key == KeyEvent.VK_S) {
 	        playerSprite.move(0, 5);
 	        
-	        if(p.getCharacterType() == CharacterType.WARRIOR) {
+	        if(Protagonist.getCharacterType() == CharacterType.WARRIOR) {
 	        	playerSprite.setImage("knight/knight_" + moveCount + ".png");
 	        	playerSprite.setSize(xWidth, yHeight);
 	        	System.out.println(moveCount);
 	        	moveCount++;
 	        }
 	        
-	        else if(p.getCharacterType() == CharacterType.ROGUE) {
+	        else if(Protagonist.getCharacterType() == CharacterType.ROGUE) {
 	        	playerSprite.setImage("rogue/rogue_" + moveCount + ".png");
 	        	playerSprite.setSize(xWidth, yHeight);
 	        	System.out.println(moveCount);
 	        	moveCount++;
 	        }
 	        
-	        else if(p.getCharacterType() == CharacterType.MAGE) {
+	        else if(Protagonist.getCharacterType() == CharacterType.MAGE) {
 	        	playerSprite.setImage("mage/mage_" + moveCount + ".png");
 	        	playerSprite.setSize(xWidth, yHeight);
 	        	System.out.println(moveCount);
@@ -226,7 +229,7 @@ public class LevelPane extends GraphicsPane {
 		drawLevel(m);
 		current = m;
 		
-		drawPlayer(p);
+		drawPlayer(Protagonist);
 	}
 	
 	private Space convertXYToSpace(double x, double y) {
