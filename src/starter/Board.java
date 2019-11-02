@@ -59,7 +59,14 @@ public class Board {
 		
 		return charactersOnBoard;
 	}
-	
+	public Character getCharacter(Character c)
+	{
+		if(c.getLocation() != null && c.getLocation().getRow() < numRows && c.getLocation().getCol() < numCols)
+		{
+			return c;
+		}
+		return null;
+	}
 	public void printCharactersOnBoard() {
 		ArrayList<Character> list = this.getCharactersOnBoard();
 		
@@ -84,6 +91,16 @@ public class Board {
 			return true;
 		}
 		return false;
+	}
+	
+	public void moveNumSpaces(Space start, int numSpaces, int row, int col)
+	{
+		if(canMove(start, numSpaces))
+		{
+			row = start.getRow() + numSpaces;
+			col = start.getCol() + numSpaces;
+			Space end = new Space(row, col);
+		}
 	}
 	public void addPlayer(int row, int col, CharacterType cType)
 	{
@@ -116,11 +133,13 @@ public class Board {
 	
 	public static void main(String[] args) {
 		Board map1 = new Board(5, 5);
-		map1.addPlayer(2, 2, CharacterType.ROGUE);
+		map1.addPlayer(2, 2, CharacterType.MAGE);
 		map1.addNPC(4, 4);
 		map1.addEnemy(0, 1);
 		map1.addEnemy(3, 1);
 		System.out.println(map1);
+		System.out.println(map1);
+		System.out.println(map1.canMove(map1.getStart(), 2));
 		//map1.printCharactersOnBoard();
 		//testCanMove(b);
 		//testMoving(b);
