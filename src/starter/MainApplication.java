@@ -17,7 +17,7 @@ public class MainApplication extends GraphicsApplication {
 	private Item[] itemList;
 	private Map[] mapList;
 	
-	private Player pc;
+	protected Player user;
 
 	public void init() {
 		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -55,6 +55,7 @@ public class MainApplication extends GraphicsApplication {
 		audio.stopSound(MUSIC_FOLDER, SOUND_FILES[0]);
 		levelPane = new LevelPane(this);
 		mapList = levelPane.world;
+		user = characterPane.sendPlayer();
 		switchToScreen(levelPane);
 	}
 	
