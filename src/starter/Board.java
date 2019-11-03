@@ -8,6 +8,7 @@ public class Board {
 	
 	/*
 	private Space start = new Space(2, 0);
+	
 	*/
 	
 	/**
