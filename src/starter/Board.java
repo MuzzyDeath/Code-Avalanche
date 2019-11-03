@@ -3,81 +3,135 @@ import java.util.*;
 import java.util.ArrayList;
 
 public class Board {
-	private Character[][] board;
-	private int numRows;
-	private int numCols;
+	private Character[][] board; // 2D array of characters
+	ArrayList<Character> characters; // holds all the characters on the board
+	
+	/*
 	private Space start = new Space(2, 0);
 	
+	*/
+	
+	/**
+	 * Constructor for the board which sets up an empty grid of size rows by columns
+	 * Use the first array index as the rows and the second index as the columns
+	 * 
+	 * @param rows number of rows on the board
+	 * @param cols number of columns on the board
+	 */
 	public Board(int rows, int cols) {
-		//TODO finish implementing this constructor
-		this.numRows = rows;
-		this.numCols = cols;
-		this.board = new Character[rows][cols];
+		// Create a 2D array of characters
+		board = new Character[rows][cols];
+		characters = new ArrayList<Character>();
 	}
 	
-	public int getNumRows()
-	{
-		return this.numRows;
-	}
-	
+	/**
+	 * @return number of columns the board has
+	 */
 	public int getNumCols()
 	{
-		return this.numCols;
+		return board[0].length;
 	}
 	
-	public Space getStart()
+	/**
+	 * @return number of rows the board has
+	 */
+	public int getNumRows()
 	{
-		return this.start;
-	}
-	public Character getCharacter(Space s)
-	{
-		return board[s.getRow()][s.getCol()];
-	}
-	public Character[][] getBoard() {
-		return board;
+		return board.length;
 	}
 	
-	public boolean characterOnSpace(Space space)
-	{
-		boolean returnValue = false;
-		if(space != null)
+	/**
+	 * Grabs the character present on a particular space if any is there
+	 * 
+	 * @param s the desired space where you want to look to see if a character is there
+	 * @return a pointer to the Character object present on that space, if no Character is present, null is returned
+	 */
+	public Character getCharacter(Space s) {
+		Character retCharacter = null; 
+		// Look for the character at the given space
+		if(board[s.getRow()][s.getCol()] != null)
 		{
-			returnValue = true;
+			retCharacter =  board[s.getRow()][s.getCol()]; //Sets the retCharacter to character at that space if it is not null
 		}
-		return returnValue;
+		return retCharacter;
+	}
+	
+	/**
+	 * Checks if any character is present on a particular space if any is there
+	 * 
+	 * @param s the desired space where you want to look to see if a character is there
+	 * @return true if Character object present on that space, if no Character is present, false is returned
+	 */
+
+	public boolean isCharacterOnSpace(Space s) {
+		boolean retValue = false;
+		if(board[s.getRow()][s.getCol()] != null)
+		{
+			retValue = true;
+		}
+		return retValue;
 	}
 	
 	public ArrayList<Character> getCharactersOnBoard()
 	{
-		ArrayList<Character> charactersOnBoard = new ArrayList<Character>();
-		for(int i = 0; i < numRows; i++){
-			for(int j = 0; j < numCols; j++){
-				if(board[i][j] != null)
-					charactersOnBoard.add(board[i][j]);
-			}
-		}
-		
-		return charactersOnBoard;
+		return characters;
 	}
-	public Character getCharacter(Character c)
+
+
+	/**
+	 * adds a character to the board. It would be good to do some checks for a legal placement here.
+	 * 
+	 * @param type type of the character
+	 * @param startRow row for location of character's top
+	 * @param startCol column for for location of character
+
+	 */
+	public void addCharacter(CharacterType type, int startRow, int startCol) 
 	{
-		if(c.getLocation() != null && c.getLocation().getRow() < numRows && c.getLocation().getCol() < numCols)
+		boolean canAdd = true; 
+		
+		// The character you want to add that has the specified parameters
+		Character toAdd = new Character(startRow, startCol, type); 
+		
+		Space toOccupy = new Space(startRow, startCol);
+		
+		// Check row bounds
+		if(toOccupy.getRow() < 0 || toOccupy.getRow() > (getNumRows() - 1) || 
+				toOccupy.getCol() < 0 || toOccupy.getCol() > (getNumCols() - 1))
 		{
-			return c;
+			canAdd = false; // Specified row and column are out of bounds, so cannot add the vehicle
 		}
-		return null;
+		else if(isCharacterOnSpace(toOccupy))
+		{
+			canAdd = false; // space at specified index is occupied so can't add character
+		}
+		else {
+			// Set the character at specified row and column to the vehicle you want to add
+			board[toAdd.getLocation().getRow()][toAdd.getLocation().getCol()] = toAdd;
+			// Add it to the characters array list
+			characters.add(toAdd);
+		}
 	}
+
+	/*
+	public Space getStart()
+	{
+		return this.start;
+	}
+	
+	
+	
 	public void printCharactersOnBoard() {
 		ArrayList<Character> list = this.getCharactersOnBoard();
 		
 		for(int i = 0; i < list.size(); i++) {
 			list.get(i).printCharacter();
 		}
-	}
+	}*/
 	
 	public boolean canMove(Space start, int nSpaces)
 	{
-		if(start != null && nSpaces >= 0 && nSpaces < numRows && nSpaces < numCols)
+		if(start != null && nSpaces >= 0 && nSpaces < getNumRows() && nSpaces < getNumCols())
 		{
 			return true;
 		}
@@ -86,7 +140,7 @@ public class Board {
 	
 	public boolean move(Space start, int nSpaces)
 	{
-		if(start != null && nSpaces >= 0 && nSpaces < numRows && nSpaces < numCols)
+		if(start != null && nSpaces >= 0 && nSpaces < getNumRows() && nSpaces < getNumCols())
 		{
 			return true;
 		}
@@ -99,31 +153,24 @@ public class Board {
 		{
 			row = start.getRow() + numSpaces;
 			col = start.getCol() + numSpaces;
-			Space end = new Space(row, col);
+
 		}
 	}
+	
 	public void addPlayer(int row, int col, CharacterType cType)
 	{
-		if(characterOnSpace(new Space(row, col))) {
-			Player p = new Player(row, col, cType);
-		    
-		    board[p.getLocation().getRow()][p.getLocation().getCol()] = p;
-		}
+		addCharacter(cType, row, col);
+
 	}
 	
 	public void addNPC(int row, int col) {
-		if(characterOnSpace(new Space(row, col))) {
-			NPC c = new NPC(row, col);
-			c.cType = CharacterType.NPC;
-			board[c.getLocation().getRow()][c.getLocation().getCol()] = c;
-		}
+		addCharacter(CharacterType.NPC, row, col);
+
 	}
 	
 	public void addEnemy(int row, int col) {
-		if(characterOnSpace(new Space(row, col))) {
-			Enemy e = new Enemy(row, col);
-			board[e.getLocation().getRow()][e.getLocation().getCol()] = e;
-		}
+		addCharacter(CharacterType.ENEMY, row, col);
+
 	}
 	
 	//Do not touch this class, I already converted it.
@@ -138,8 +185,8 @@ public class Board {
 		map1.addEnemy(0, 1);
 		map1.addEnemy(3, 1);
 		System.out.println(map1);
-		System.out.println(map1);
-		System.out.println(map1.canMove(map1.getStart(), 2));
+		
+		//System.out.println(map1.canMove(map1.getStart(), 2));
 		//map1.printCharactersOnBoard();
 		//testCanMove(b);
 		//testMoving(b);

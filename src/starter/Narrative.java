@@ -1,7 +1,8 @@
 package starter;
 
 import java.io.File; 
-import java.io.FileNotFoundException; 
+import java.io.FileNotFoundException;
+import java.net.URL;
 import java.util.Scanner; 
 
 public class Narrative {
@@ -39,54 +40,41 @@ public class Narrative {
 		this.end = end;
 	}
 	public void read(Character c, int s, int e) throws FileNotFoundException {
-		
-		if(c.isHostile == true) {
-			if(c.isKing() == true) {
 
-				File file = new File("Text Files/King");
-				Scanner scanner = new Scanner(file);
+            
+		//files for if the character is hostile (enemies before fights)
+            if(c.isHostile() == true) {
+            	
+            	URL url = Narrative.class.getClassLoader().getResource("Enemy.txt");
+                System.out.println(url.getPath());
+	            }
+            
+            // files for if the character is not hostile (dialogue characters)
+            else if(c.isHostile() == false) {
+            	
+            	URL url = Narrative.class.getClassLoader().getResource("NPC.txt");
+                System.out.println(url.getPath());
+	            }
+            
+            //files for if the character is the king
+             else if(c.isKing() == true) {
+            	
+            	URL url = Narrative.class.getClassLoader().getResource("King.txt");
+                System.out.println(url.getPath());
+	            }
+            
+            // file for if the character is the player
+             else if(c.isPlayer == true)
+            {
+            	URL url = Narrative.class.getClassLoader().getResource("Player.txt");
+                System.out.println(url.getPath());
+	            }
+            }
 
-				for (int i = start; i <= end; i++) {
-					String line = scanner.nextLine();
-					System.out.println(line);
-				}
-			}
-			else {
-
-				File file = new File("Text Files/Enemy");
-				Scanner scanner = new Scanner(file);
-
-				for (int i = start; i <= end; i++) {
-					String line = scanner.nextLine();
-					System.out.println(line);
-				}
-			} 
-		}
-		else if(c.isHostile == false) {
-			if(c.isPlayer == true) {
-				
-				File file = new File("/Users/djcriley/git/group-project-code-avalanche/Text Files/Player");
-				Scanner scanner = new Scanner(file);
-
-				for (int i = start; i < end; i++) {
-					String line = scanner.nextLine();
-					System.out.println(line);
-				}
-			}
-			else {
-
-				File file = new File("Text Files/NPC");
-				Scanner scanner = new Scanner(file);
-
-				for (int i = start; i <= end; i++) {
-					String line = scanner.nextLine();
-					System.out.println(line);
-				}
-			}
-
-		}
-
-	}
 
 
 }
+
+	
+	
+
