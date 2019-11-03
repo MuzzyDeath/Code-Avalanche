@@ -1,51 +1,87 @@
 package starter;
 
 public class Battle {
-	private int attackPoints;
-	private int defendPoints;
-	private int skillCheck;
-	private Character character;
+	private Player c;
+	private Enemy e;
+	private int eHealth;
+	private int cHealth;
+	private int eStrength;
+	private int cStrength;
+	private int eDefense;
+	private int cDefense;
+	private int eCharisma;
+	private int cCharisma;
+	private int eMove;
 	
-	public Battle(int attackPoints, Character character)
+	public Battle(Enemy e, Player c)
 	{
-		this.attackPoints = attackPoints;
-		defendPoints = character.getDefense();
-		skillCheck = character.getAgility();
-		this.character = character;
+		eHealth = e.getHealth();
+		cHealth = c.getHealth();
+		eStrength = e.getStrength();
+		cStrength = c.getStrength();
+		eDefense = e.getDefense();
+		cDefense = c.getDefense();
+		eCharisma = e.getCharisma();
+		cCharisma = c.getCharisma();
+		
+		
+		// have statements to get what the user wants to do (Attack, defend, screech)
+		attack(eHealth, cHealth, x, y, z); // pass the stats to attack if the player chooses attack.
+		// call enemy move which will generate a random number to pass into attack for what move the enemy does
+		
+		// i can have the Attack, defend, and screech methods take the health away
+		// this would continue until someone's health reaches 0
+		
 	}
-	public int attack()
-	{
-		attackPoints += 10;
-		return attackPoints;
+	public int enemyMove() {
+		return eMove;
 	}
 	
-	public int defend()
-	{
-		defendPoints += 5;
-		return defendPoints;
-	}
-	
-	public int checkSkill()
-	{
-		if(attackPoints > 30 && attackPoints > defendPoints)
-		{
-			skillCheck += 100;
+	// attack will get passed both Healths, players Strength, The enemys stat based on their move
+	public int attack(int eH, int cH, int cS, int eStat, int enemyMove) {
+		if() {
+			// enemy attacks
 		}
-		return skillCheck;
-	}
-	
-	public boolean run()
-	{
-		if(attackPoints > defendPoints)
-		{
-			return true;
+		else if() {
+			// enemy screech
 		}
-		return false;
+		else {
+			// enemy blocks
+		}
+			
 	}
 	
-	public String toString()
-	{
-		return "Attack Points: " + attackPoints + ", defend Points: " + defendPoints + ", skill Check: " + skillCheck;
+	public int defend() {
+		if() {
+			// enemy attacks
+		}
+		else if() {
+			// enemy screech
+		}
+		else {
+			// enemy blocks
+		}
+	}
+	
+	public int screech() {
+		
+		if() {
+			// enemy attacks
+		}
+		else if() {
+			// enemy screech
+		}
+		else {
+			// enemy blocks
+		}
+	}
+	
+	public int checkSkill() {
+		
+	}
+	
+	public String toString() {
+		
 	}
 
 	public static void main(String[] args) {
