@@ -7,8 +7,6 @@ public class Board {
 	ArrayList<Character> characters; // holds all the characters on the board
 	
 	/*
-	private int numRows;
-	private int numCols;
 	private Space start = new Space(2, 0);
 	*/
 	
