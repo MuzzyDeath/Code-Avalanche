@@ -1,5 +1,6 @@
 package starter;
 import java.util.Scanner;
+import java.io.FileNotFoundException;
 import java.util.Random;
 
 /**
@@ -250,15 +251,16 @@ public class Character{
 		System.out.println("---------------------------------------\n");
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException {
 		Space startSpace = new Space(1,1);
 		Player Muzzy = new Player(startSpace.getRow(), startSpace.getCol());
+		Muzzy.isHostile = false;
 		printSpaces(Muzzy.getLocation());
 		Muzzy.printPlayer();
-		LevelUp level = new LevelUp();
-		level.setNewStats(Muzzy, 3);
-		
-		
+//		LevelUp level = new LevelUp();
+//		level.setNewStats(Muzzy, 3);
+		Narrative nar = new Narrative(Muzzy, 1, 2);
+		nar.read(Muzzy, 1, 2);
 		
 				
 	}
