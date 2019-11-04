@@ -173,6 +173,22 @@ public class Board {
 
 	}
 	
+	
+	/**
+	 * Moves the character at specified location  the given number of spaces
+	 * @param space the space at which the character is currently at 
+	 * @param numSpaces the number of spaces to move the player
+	 * @param isHorizontal if the move has to be horizontal or vertical
+	 * @return true if the character  can be moved
+	 */
+	public boolean moveNumSpaces(Space curSpace, int numSpaces, boolean isHorizontal)
+	{
+		boolean retValue = true;
+		// TODO: Implement this
+		return retValue;
+	}
+
+	
 	//Do not touch this class, I already converted it.
 	public String toString() {
 		return BoardConverter.createString(this);
@@ -182,8 +198,10 @@ public class Board {
 		Board map1 = new Board(5, 5);
 		map1.addPlayer(2, 2, CharacterType.MAGE);
 		map1.addNPC(4, 4);
+		
+		map1.addNPC(3, 3);
 		map1.addEnemy(0, 1);
-		map1.addEnemy(3, 1);
+		// map1.addEnemy(3, 1);
 		System.out.println(map1);
 		
 		//System.out.println(map1.canMove(map1.getStart(), 2));

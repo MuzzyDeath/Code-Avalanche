@@ -214,9 +214,9 @@ public class LevelPane extends GraphicsPane {
 	}
 	
 	private void generateWorld() {
-		world[0] = new Map(6, 6);
-		world[1] = new Map(10, 10);
-		world[2] = new Map(15, 15);
+		world[0] = Map.getMapForLevel(Map.LEVEL_BEGINNER);
+		world[1] = Map.getMapForLevel(Map.LEVEL_INTERMEDIATE);
+		world[2] = Map.getMapForLevel(Map.LEVEL_ADVANCED);
 	}
 
 	private void drawLevel(Map m) {
