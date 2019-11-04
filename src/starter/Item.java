@@ -9,9 +9,9 @@ public class Item {
 	
 	public Item(ItemType i, String name, int m) {
 		// TODO Auto-generated constructor stub
-		this.iType = i;
+		this.setiType(i);
 		this.itemName = name;
-		this.mutator = m;
+		this.setMutator(m);
 	}
 	
 	public static Item[] generateItemList(Item[] list) {
@@ -92,12 +92,28 @@ public class Item {
 	}
 	
 	public void printItemDetails() {
-		System.out.println(this.itemName + " and this item alters " + this.iType + "\n");
+		System.out.println(this.itemName + " and this item alters " + this.getiType() + "\n");
 	}
 
 	public static void main(String[] args) {
 		Items = new Item[50];
 		generateItemList(Items);
 		Items.toString();
+	}
+
+	public ItemType getiType() {
+		return iType;
+	}
+
+	public void setiType(ItemType iType) {
+		this.iType = iType;
+	}
+
+	public int getMutator() {
+		return mutator;
+	}
+
+	public void setMutator(int mutator) {
+		this.mutator = mutator;
 	}
 }
