@@ -11,15 +11,16 @@ public class LevelPane extends GraphicsPane {
 	
 	private MainApplication program; // you will use program to get access to
 										// all of the GraphicsProgram calls
-	private GButton back;
-	private GImage background;
+	private GButton play, controls, quit;
+	private GImage background, controlsImage;
 	private GLine line;
+	private GRect square;
 	
 	//playerSprite Variables
 	private GImage playerSprite;
 	private int moveCount;
+	private int escCount;
 	
-	//protected Player Protagonist = new Player(Character.startSpace.getRow(), Character.startSpace.getCol(), CharacterType.WARRIOR);
 	protected Player Protagonist;
 	
 	private Map map1, map2, map3;
@@ -34,7 +35,15 @@ public class LevelPane extends GraphicsPane {
 		super();
 		program = app;
 		background = new GImage(BACKGROUND);
-		back = new GButton("Back", 0, 0, 25, 25);
+		
+		//Pause options
+		play = new GButton("Resume", windowWidth/3, 200, 300, 75);
+		controls = new GButton("Controls", windowWidth/3, 300, 300, 75);
+		quit = new GButton("Quit", windowWidth/3 , 400, 300, 75);
+		square = new GRect(windowWidth/4, 150, 200, 200);
+		square.setFillColor(Color.BLACK);
+		square.setFilled(true);
+		controlsImage = new GImage("controlsImage.jpg");
 		
 		Protagonist = app.user;
 		
@@ -46,13 +55,36 @@ public class LevelPane extends GraphicsPane {
 
 	@Override
 	public void showContents() {
-		program.add(back);
 		loadMap(world[0]);
 	}
 
 	@Override
 	public void hideContents() {
 		program.removeAll();
+	}
+	
+	public void showPause() {
+		escCount = 1;
+		//Show Pause
+		program.add(square);
+		program.add(play);
+		program.add(controls);
+		program.add(quit);
+		
+		//Hides Level
+		
+	}
+	
+	public void hidePause() {
+		escCount = 0;
+		//Hides Pause
+		program.remove(square);
+		program.remove(play);
+		program.remove(controls);
+		program.remove(quit);
+		program.remove(controlsImage);
+		//Shows Level
+		
 	}
 	
 	@Override
@@ -63,18 +95,34 @@ public class LevelPane extends GraphicsPane {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
-		if (obj == back) {
-			back.setFillColor(Color.GRAY);
+		if (obj == play) {
+			play.setFillColor(Color.GRAY);
+		}
+		else if (obj == controls) {
+			controls.setFillColor(Color.GRAY);
+		}
+		else if (obj == quit) {
+			quit.setFillColor(Color.GRAY);
 		}
 	}
 	
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
-		if (obj == back) {
-			back.setFillColor(Color.WHITE);
-			hideContents();
-			program.switchToMenu();
+		if (obj == play) {
+			play.setFillColor(Color.WHITE);
+			hidePause();
+		}
+		else if (obj == controls) {
+			System.out.println("Print controls");
+			controls.setFillColor(Color.WHITE);
+			program.add(controlsImage);
+			controlsImage.sendToFront();
+		}
+		else if (obj == quit) {
+			System.out.println("Quit Game");
+			quit.setFillColor(Color.WHITE);
+			System.exit(0);
 		}
 	}
 	
@@ -83,6 +131,13 @@ public class LevelPane extends GraphicsPane {
 	public void keyPressed(KeyEvent e) {
 
 	    int key = e.getKeyCode();
+	    
+	    if(key == KeyEvent.VK_ESCAPE) {
+	    	if(escCount == 0)
+	    		showPause();
+	    	else if(escCount == 1)
+	    		hidePause();
+	    }
 	    
 	    if(key == KeyEvent.VK_A || key == KeyEvent.VK_S || key == KeyEvent.VK_D || key == KeyEvent.VK_W) {
 	    	if(moveCount == 8)
@@ -193,7 +248,7 @@ public class LevelPane extends GraphicsPane {
 	//New Code below this line//
 	
 	private void drawPlayer(Player p) {
-		// TODO implement drawCar
+		// TODO implement drawPlayer
 			if(p.getCharacterType() == CharacterType.WARRIOR) {
 				playerSprite =  new GImage("knight/knight_0.png", p.startSpace.getRow() * xWidth, p.startSpace.getCol() * yHeight);
 				playerSprite.setSize(xWidth, yHeight);
@@ -210,7 +265,6 @@ public class LevelPane extends GraphicsPane {
 			
 		//Actually implements the GImage!
 		program.add(playerSprite);
-		//player.sendBackward();
 	}
 	
 	private void generateWorld() {
@@ -221,8 +275,6 @@ public class LevelPane extends GraphicsPane {
 
 	private void drawLevel(Map m) {
 		drawGridLines(m);
-		//drawWinningTile();
-		//drawCars();
 	}
 	
 	private void loadMap(Map m) {
