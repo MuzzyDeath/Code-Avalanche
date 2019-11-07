@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public class Board {
 	private Character[][] board; // 2D array of characters
-	private boolean isHorizontal = true;
 	ArrayList<Character> characters; // holds all the characters on the board
 	
 	/*
@@ -71,24 +70,6 @@ public class Board {
 			retValue = true;
 		}
 		return retValue;
-	}
-	
-	public boolean isHorizontal(int numSpaces)
-	{
-		for(int i = 0; i < board.length; i++)
-		{
-			for(int j = 0; j < board[0].length; j++)
-			{
-				if(board[i][j] != null && board[i][j + 1] != null)
-				{
-					isHorizontal = true;
-				}
-				else {
-					isHorizontal = false;
-				}
-			}
-		}
-		return isHorizontal;
 	}
 	
 	public ArrayList<Character> getCharactersOnBoard()
@@ -166,17 +147,13 @@ public class Board {
 		return false;
 	}
 	
-	public void moveNumSpaces(Space start, int numSpaces)
+	public void moveNumSpaces(Space start, int numSpaces, int row, int col)
 	{
 		if(canMove(start, numSpaces))
 		{
-			if(isHorizontal(numSpaces)) // Character is horizontal
-			{
-				int col = start.getCol() + numSpaces;
-			}
-			else {
-				int row = start.getRow() + numSpaces;
-			}
+			row = start.getRow() + numSpaces;
+			col = start.getCol() + numSpaces;
+
 		}
 	}
 	
@@ -225,8 +202,6 @@ public class Board {
 		map1.addNPC(3, 3);
 		map1.addEnemy(0, 1);
 		// map1.addEnemy(3, 1);
-		System.out.println(map1);
-		map1.moveNumSpaces(new Space(2, 2), 2);
 		System.out.println(map1);
 		
 		//System.out.println(map1.canMove(map1.getStart(), 2));
