@@ -6,25 +6,27 @@ import java.net.URL;
 import java.util.Scanner; 
 
 public class Narrative {
-	
+
+
+
 	private static int start = 0;
 	private static int end = 0;
 	private static Character c;
 	//private CharacterType warrior = ;
-	
+
 	public Narrative(Character c, int start, int end)
 	{
-		
+
 	}
-	
+
 	public static Character getC() {
 		return c;
 	}
-	
+
 	public static void setC(Character c) {
 		Narrative.c = c;
 	}
-	
+
 	public int getStart() {
 		return start;
 	}
@@ -38,6 +40,7 @@ public class Narrative {
 		this.end = end;
 	}
 	public void read(Character c, int s, int e) throws FileNotFoundException {
+
             
 		//files for if the character is hostile (enemies before fights)
             if(c.isHostile() == true) {
@@ -67,6 +70,11 @@ public class Narrative {
                 System.out.println(url.getPath());
 	            }
             }
-	}
+
+
+
+}
+
 	
 	
+

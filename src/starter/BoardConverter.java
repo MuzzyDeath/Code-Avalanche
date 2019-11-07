@@ -24,13 +24,15 @@ public class BoardConverter {
 				}
 			}
 		}
+		// Add start/exit spaces
+		
 	}
 
 	private static String convertBoardToString(char[][] board, Board b) {
 		String result = "";
 		for(int row = 0; row < b.getNumRows(); row++) {
 			for(int col = 0; col < b.getNumCols(); col++) {
-				result+=board[row][col];
+				result+= " " + board[row][col] + " ";
 			}
 			result+="\n";
 		}

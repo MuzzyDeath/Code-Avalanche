@@ -15,11 +15,14 @@ public class LevelPane extends GraphicsPane {
 	private GImage background, controlsImage;
 	private GLine line;
 	private GRect square;
+	private GLabel attack;
 	
 	//playerSprite Variables
 	private GImage playerSprite;
 	private int moveCount;
 	private int escCount;
+	
+	private Battle battle;
 	
 	protected Player Protagonist;
 	
@@ -47,7 +50,6 @@ public class LevelPane extends GraphicsPane {
 		
 		Protagonist = app.user;
 		
-		
 		generateWorld();
 		
 		showContents();
@@ -56,6 +58,8 @@ public class LevelPane extends GraphicsPane {
 	@Override
 	public void showContents() {
 		loadMap(world[0]);
+		
+		BattleScreen();
 	}
 
 	@Override
@@ -85,6 +89,13 @@ public class LevelPane extends GraphicsPane {
 		program.remove(controlsImage);
 		//Shows Level
 		
+	}
+	
+	public void BattleScreen() {
+		background = new GImage("images/BattleStyle.png");
+		program.add(background);
+		attack = new GLabel("Attack", 10, 10);
+		program.add(attack);
 	}
 	
 	@Override
@@ -268,9 +279,9 @@ public class LevelPane extends GraphicsPane {
 	}
 	
 	private void generateWorld() {
-		world[0] = new Map(6, 6);
-		world[1] = new Map(10, 10);
-		world[2] = new Map(15, 15);
+		world[0] = Map.getMapForLevel(Map.LEVEL_BEGINNER);
+		world[1] = Map.getMapForLevel(Map.LEVEL_INTERMEDIATE);
+		world[2] = Map.getMapForLevel(Map.LEVEL_ADVANCED);
 	}
 
 	private void drawLevel(Map m) {
