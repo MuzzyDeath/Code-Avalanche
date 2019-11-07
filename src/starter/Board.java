@@ -201,7 +201,6 @@ public class Board {
 		
 		map1.addNPC(3, 3);
 		map1.addEnemy(0, 1);
-		// map1.addEnemy(3, 1);
 		System.out.println(map1);
 		
 		//System.out.println(map1.canMove(map1.getStart(), 2));
