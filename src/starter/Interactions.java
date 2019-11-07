@@ -1,5 +1,11 @@
 package starter;
 
+import java.net.URL;
+import acm.graphics.*;
+import java.awt.Color;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+
 public class Interactions {
 
 	public void keyPressed(KeyEvent e, Character c, NPC npc, int s) {
