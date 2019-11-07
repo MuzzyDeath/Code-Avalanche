@@ -1,56 +1,68 @@
 package starter;
 import java.util.Random;
-import java.util.Scanner; 
 
-public class Battle {
+import java.util.Scanner;
+
+import acm.graphics.*;
+import acm.program.GraphicsProgram;
+
+import java.awt.Image;
+
+
+public class Battle extends GraphicsProgram {
+	
+	private static final String BACKGROUND = "BattleStyle.png";
+	private GImage background;
+	private GLabel attack;
+	private GLabel block;
+	private GLabel screech;
+	 
 	private Player c;
 	private Enemy e;
 
+	// higher defense and screech doesn't affect
+	// if strength 
 
 	public Battle(Enemy e, Player c)
 	{
-		
-		
-		System.out.println("You are in battle!");
 
 
-		do{
-			System.out.println("Which move will you do: \n1) Attack \n2) Block \n3) Screech");
-			Scanner input = new Scanner(System.in);
-			int whichMove = input.nextInt();
-			
-			if(whichMove == 1) {
-				attack(c, e, enemyMove());
-			}
-			else if(whichMove == 2) {
-				block(c, e, enemyMove());
-			}
-			else {
-				screech(c, e, enemyMove());
-			}
-			
-			System.out.println("Your Health: " + c.getHealth() + " \nEnemy Health: " + e.getHealth() + "\n");
-			
-			
-		}while(e.getHealth() > 0 && c.getHealth() > 0);
-		
-		if(c.getHealth() <= 0) {
-			System.out.println("You lose!");
-			
-			c.setBalance(c.getBalance() - 100);
-		}
-		else {
-			System.out.println("You win!");
-			
-			c.setBalance(c.getBalance() + e.getBalance());
-		}
-		
-		// have statements to get what the user wants to do (Attack, defend, screech)
-		//attack(eHealth, cHealth, x, y, z); // pass the stats to attack if the player chooses attack.
-		// call enemy move which will generate a random number to pass into attack for what move the enemy does
+		//System.out.println("You are in battle!");
+		BattleScreen();
 
-		// i can have the Attack, defend, and screech methods take the health away
-		// this would continue until someone's health reaches 0
+
+//		do{
+//			System.out.println("Which move will you do: \n1) Attack \n2) Block \n3) Screech");
+//			Scanner input = new Scanner(System.in);
+//			int whichMove = input.nextInt();
+//
+//			if(whichMove == 1) {
+//				attack(c, e, enemyMove());
+//			}
+//			else if(whichMove == 2) {
+//				block(c, e, enemyMove());
+//			}
+//			else {
+//				screech(c, e, enemyMove());
+//			}
+//
+//			System.out.println("Your Health: " + c.getHealth() + " \nEnemy Health: " + e.getHealth() + "\n");
+//
+//
+//		}while(e.getHealth() > 0 && c.getHealth() > 0);
+//
+//		if(c.getHealth() <= 0) {
+//			System.out.println("You lose!");
+//
+//			c.setBalance(c.getBalance() - 100);
+//		}
+//		else {
+//			System.out.println("You win!");
+//
+//			c.setBalance(c.getBalance() + e.getBalance());
+//		}
+
+
 
 	}
 	public int enemyMove() {
@@ -71,7 +83,7 @@ public class Battle {
 			if(c.getStrength() > e.getStrength()) { // if player is > enemy
 
 				e.setHealth(e.getHealth() -2);
-				
+
 				System.out.println("Your attack was higher so you hurt him");
 
 
@@ -122,7 +134,7 @@ public class Battle {
 	public void screech(Player c, Enemy e, int enemyMove) {
 
 		if(enemyMove == 0) { // enemy attack
-			
+
 			c.setHealth(c.getHealth() - 2);
 			System.out.println("He attacked so you took damage");
 
@@ -133,7 +145,7 @@ public class Battle {
 
 		}
 		else if(enemyMove == 2){ // enemy block
-			
+
 			e.setHealth(e.getHealth() - 1);
 			System.out.println("He defended and your screech got in his head.");
 		}
@@ -144,15 +156,26 @@ public class Battle {
 	public boolean checkSkill(Player c, Enemy e) {
 		return true;
 	}
-
-	public static void main(String[] args) {
+	
+	public void BattleScreen() {
+		background = new GImage(BACKGROUND);
+		add(background);
+		attack = new GLabel("Attack", 10, 10);
+		add(attack);
 		
-		Player c = new Player(0, 1, CharacterType.WARRIOR);
+	}
+
+	
+	public static void main(String[] args) {
+
+		Player c = new Player(0, 1, CharacterType.MAGE);
 		Enemy e = new Enemy(1,2);
 		e.setHealth(10);
 		c.setHealth(10);
 		
+	
 		Battle b = new Battle(e, c);
+		// b.BattleScreen();
 
 
 	}
