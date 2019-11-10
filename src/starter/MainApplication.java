@@ -19,7 +19,7 @@ public class MainApplication extends GraphicsApplication {
 	private Item[] itemList;
 	private Map[] mapList;
 	
-	protected Player user;
+	protected static Player user;
 
 	public void init() {
 		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);

@@ -231,6 +231,10 @@ public class Map {
 		// TODO: Implement the move
 		// Get the player's current position and perform move if possible
 		Space curPosition = player.getLocation();
+		
+		//The return value here probably won't work.
+		//This is because you are making a recursive call to the very method you're calling.
+		//Please review, then fix.
 		return board.moveNumSpaces(curPosition, numSpaces, isHorizontal);
 	}
 	
