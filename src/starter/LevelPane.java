@@ -14,7 +14,11 @@ public class LevelPane extends GraphicsPane {
 	private static final String ROGUE = "Battle Image(Rogue).png";
 	private static final String ENEMY = "Battle Image(Enemy).png";
 	private static final String KING = "Battle Image(Boss).png";
+	public static final String MUSIC_FOLDER = "music";
+	private static final String[] SOUND_FILES = { "BattleMusic.mp3" };
+	
 
+	private AudioPlayer audio;
 
 	private MainApplication program; // you will use program to get access to
 	// all of the GraphicsProgram calls
@@ -124,7 +128,20 @@ public class LevelPane extends GraphicsPane {
 	public void keyPressed(KeyEvent e) {
 
 		int key = e.getKeyCode();
-
+		
+		//Overlay for the Inventory
+		//Press I to test.
+		if(key == KeyEvent.VK_I) {
+			if(!paused) {
+				paused = true;
+				pause.showInventory(program);
+				play = pause.play;
+			}
+			else if(paused) {
+				paused = false;
+				pause.hideInventory(program);
+			}
+		}
 		//Overlay for the Battle Image
 		//Press 0 to test.
 		if(key == KeyEvent.VK_0) {
@@ -132,11 +149,14 @@ public class LevelPane extends GraphicsPane {
 			if(battling == false) {
 				battling = true;
 				pause.battleScene(program);
-
+				audio = AudioPlayer.getInstance();
+				audio.playSound(MUSIC_FOLDER, SOUND_FILES[0]);
 			}
 			else {
 				battling = false;
 				pause.battleOver(program);
+				audio.stopSound(MUSIC_FOLDER, SOUND_FILES[0]);
+
 			}
 		}
 
