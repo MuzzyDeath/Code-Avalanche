@@ -173,114 +173,133 @@ public class LevelPane extends GraphicsPane {
 			else if(escCount == 1)
 				hidePause();
 		}
+		if(battling == false) {
+			if(key == KeyEvent.VK_A || key == KeyEvent.VK_S || key == KeyEvent.VK_D || key == KeyEvent.VK_W) {
+				if(moveCount == 8)
+					moveCount = 0;
+			}
 
-		if(key == KeyEvent.VK_A || key == KeyEvent.VK_S || key == KeyEvent.VK_D || key == KeyEvent.VK_W) {
-			if(moveCount == 8)
-				moveCount = 0;
+			if (key == KeyEvent.VK_A) {
+				playerSprite.move(-5, 0);
+
+				if(Protagonist.getCharacterType() == CharacterType.WARRIOR) {
+					playerSprite.setImage("knight/knight_" + moveCount + ".png");
+					playerSprite.setSize(xWidth, yHeight);
+					System.out.println(moveCount);
+					moveCount++;
+				}
+
+				else if(Protagonist.getCharacterType() == CharacterType.ROGUE) {
+					playerSprite.setImage("rogue/rogue_" + moveCount + ".png");
+					playerSprite.setSize(xWidth, yHeight);
+					System.out.println(moveCount);
+					moveCount++;
+				}
+
+				else if(Protagonist.getCharacterType() == CharacterType.MAGE) {
+					playerSprite.setImage("mage/mage_" + moveCount + ".png");
+					playerSprite.setSize(xWidth, yHeight);
+					System.out.println(moveCount);
+					moveCount++;
+				}
+
+			}
+
+			if (key == KeyEvent.VK_D) {
+				playerSprite.move(5, 0);
+
+				if(Protagonist.getCharacterType() == CharacterType.WARRIOR) {
+					playerSprite.setImage("knight/knight_" + moveCount + ".png");
+					playerSprite.setSize(xWidth, yHeight);
+					System.out.println(moveCount);
+					moveCount++;
+				}
+
+				else if(Protagonist.getCharacterType() == CharacterType.ROGUE) {
+					playerSprite.setImage("rogue/rogue_" + moveCount + ".png");
+					playerSprite.setSize(xWidth, yHeight);
+					System.out.println(moveCount);
+					moveCount++;
+				}
+
+				else if(Protagonist.getCharacterType() == CharacterType.MAGE) {
+					playerSprite.setImage("mage/mage_" + moveCount + ".png");
+					playerSprite.setSize(xWidth, yHeight);
+					System.out.println(moveCount);
+					moveCount++;
+				}
+			}
+
+			if (key == KeyEvent.VK_W) {
+				playerSprite.move(0, -5);
+
+				if(Protagonist.getCharacterType() == CharacterType.WARRIOR) {
+					playerSprite.setImage("knight/knight_" + moveCount + ".png");
+					playerSprite.setSize(xWidth, yHeight);
+					System.out.println(moveCount);
+					moveCount++;
+				}
+
+				else if(Protagonist.getCharacterType() == CharacterType.ROGUE) {
+					playerSprite.setImage("rogue/rogue_" + moveCount + ".png");
+					playerSprite.setSize(xWidth, yHeight);
+					System.out.println(moveCount);
+					moveCount++;
+				}
+
+				else if(Protagonist.getCharacterType() == CharacterType.MAGE) {
+					playerSprite.setImage("mage/mage_" + moveCount + ".png");
+					playerSprite.setSize(xWidth, yHeight);
+					System.out.println(moveCount);
+					moveCount++;
+				}
+			}
+
+			if (key == KeyEvent.VK_S) {
+				playerSprite.move(0, 5);
+
+				if(Protagonist.getCharacterType() == CharacterType.WARRIOR) {
+					playerSprite.setImage("knight/knight_" + moveCount + ".png");
+					playerSprite.setSize(xWidth, yHeight);
+					System.out.println(moveCount);
+					moveCount++;
+				}
+
+				else if(Protagonist.getCharacterType() == CharacterType.ROGUE) {
+					playerSprite.setImage("rogue/rogue_" + moveCount + ".png");
+					playerSprite.setSize(xWidth, yHeight);
+					System.out.println(moveCount);
+					moveCount++;
+				}
+
+				else if(Protagonist.getCharacterType() == CharacterType.MAGE) {
+					playerSprite.setImage("mage/mage_" + moveCount + ".png");
+					playerSprite.setSize(xWidth, yHeight);
+					System.out.println(moveCount);
+					moveCount++;
+				}
+			}
+
+			characterLocation(Protagonist);
+
 		}
-
-		if (key == KeyEvent.VK_A) {
-			playerSprite.move(-5, 0);
-
-			if(Protagonist.getCharacterType() == CharacterType.WARRIOR) {
-				playerSprite.setImage("knight/knight_" + moveCount + ".png");
-				playerSprite.setSize(xWidth, yHeight);
-				System.out.println(moveCount);
-				moveCount++;
+		else {
+			
+			if(key == KeyEvent.VK_1) {
+				// Battle.fight(1, Antagonist, Protagonist);
+				System.out.print("You chose attack");
+				
 			}
-
-			else if(Protagonist.getCharacterType() == CharacterType.ROGUE) {
-				playerSprite.setImage("rogue/rogue_" + moveCount + ".png");
-				playerSprite.setSize(xWidth, yHeight);
-				System.out.println(moveCount);
-				moveCount++;
+			
+			else if(key == KeyEvent.VK_2) {
+				// Battle.fight(2, Antagonist, Protagonist);
+				System.out.print("You chose block");
 			}
-
-			else if(Protagonist.getCharacterType() == CharacterType.MAGE) {
-				playerSprite.setImage("mage/mage_" + moveCount + ".png");
-				playerSprite.setSize(xWidth, yHeight);
-				System.out.println(moveCount);
-				moveCount++;
-			}
-
-		}
-
-		if (key == KeyEvent.VK_D) {
-			playerSprite.move(5, 0);
-
-			if(Protagonist.getCharacterType() == CharacterType.WARRIOR) {
-				playerSprite.setImage("knight/knight_" + moveCount + ".png");
-				playerSprite.setSize(xWidth, yHeight);
-				System.out.println(moveCount);
-				moveCount++;
-			}
-
-			else if(Protagonist.getCharacterType() == CharacterType.ROGUE) {
-				playerSprite.setImage("rogue/rogue_" + moveCount + ".png");
-				playerSprite.setSize(xWidth, yHeight);
-				System.out.println(moveCount);
-				moveCount++;
-			}
-
-			else if(Protagonist.getCharacterType() == CharacterType.MAGE) {
-				playerSprite.setImage("mage/mage_" + moveCount + ".png");
-				playerSprite.setSize(xWidth, yHeight);
-				System.out.println(moveCount);
-				moveCount++;
+			else if(key == KeyEvent.VK_3) {
+				// Battle.fight(3, Antagonist, Protagonist);
+				System.out.print("You chose defend");
 			}
 		}
-
-		if (key == KeyEvent.VK_W) {
-			playerSprite.move(0, -5);
-
-			if(Protagonist.getCharacterType() == CharacterType.WARRIOR) {
-				playerSprite.setImage("knight/knight_" + moveCount + ".png");
-				playerSprite.setSize(xWidth, yHeight);
-				System.out.println(moveCount);
-				moveCount++;
-			}
-
-			else if(Protagonist.getCharacterType() == CharacterType.ROGUE) {
-				playerSprite.setImage("rogue/rogue_" + moveCount + ".png");
-				playerSprite.setSize(xWidth, yHeight);
-				System.out.println(moveCount);
-				moveCount++;
-			}
-
-			else if(Protagonist.getCharacterType() == CharacterType.MAGE) {
-				playerSprite.setImage("mage/mage_" + moveCount + ".png");
-				playerSprite.setSize(xWidth, yHeight);
-				System.out.println(moveCount);
-				moveCount++;
-			}
-		}
-
-		if (key == KeyEvent.VK_S) {
-			playerSprite.move(0, 5);
-
-			if(Protagonist.getCharacterType() == CharacterType.WARRIOR) {
-				playerSprite.setImage("knight/knight_" + moveCount + ".png");
-				playerSprite.setSize(xWidth, yHeight);
-				System.out.println(moveCount);
-				moveCount++;
-			}
-
-			else if(Protagonist.getCharacterType() == CharacterType.ROGUE) {
-				playerSprite.setImage("rogue/rogue_" + moveCount + ".png");
-				playerSprite.setSize(xWidth, yHeight);
-				System.out.println(moveCount);
-				moveCount++;
-			}
-
-			else if(Protagonist.getCharacterType() == CharacterType.MAGE) {
-				playerSprite.setImage("mage/mage_" + moveCount + ".png");
-				playerSprite.setSize(xWidth, yHeight);
-				System.out.println(moveCount);
-				moveCount++;
-			}
-		}
-
-		characterLocation(Protagonist);
 
 	}
 
