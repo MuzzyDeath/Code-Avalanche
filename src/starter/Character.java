@@ -251,6 +251,10 @@ public class Character{
 		System.out.println("---------------------------------------\n");
 	}
 	
+	public boolean isPlayer() {
+		return isPlayer;
+	}
+	
 	public static void main(String[] args) throws FileNotFoundException {
 		Space startSpace = new Space(1,1);
 		Player Muzzy = new Player(startSpace.getRow(), startSpace.getCol());
