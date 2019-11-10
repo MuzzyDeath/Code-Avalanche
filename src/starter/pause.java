@@ -10,7 +10,11 @@ import java.awt.Font;
 import acm.graphics.*;
 
 public class pause {
-
+	
+	//Inventory Stuff
+	private static GImage inventory;
+	//End Of Inventory Stuff
+	
 	//Battle Stuff
 	private static GImage background, pPic, ePic;
 	private static GLabel attack, block, screech, cStrenght, cDefense, cCharisma, eStrength, eDefense, eCharisma;
@@ -115,5 +119,15 @@ public class pause {
 		app.remove(controls);
 		app.remove(quit);
 		app.remove(controlsImage);
+	}
+
+
+	public static void showInventory(MainApplication app) {
+		inventory = new GImage("images/InventoryBackground.png");
+		app.add(inventory);
+	}
+
+	public static void hideInventory(MainApplication app) {
+		app.remove(inventory);
 	}
 }
