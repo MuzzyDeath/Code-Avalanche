@@ -21,25 +21,18 @@ public class LevelPane extends GraphicsPane {
 	private GImage background, controlsImage, playerImage, enemyImage;
 	private GLine line;
 	private GRect square;
-<<<<<<< Upstream, based on branch 'master' of https://github.com/comp55/group-project-code-avalanche.git
 	private GLabel attack;
-=======
-	private GLabel attack, block, screech, cStrenght, cDefense, cAgility, cCharisma, eDefense, eStrength, eAgility, eCharisma;
->>>>>>> c67046b All class works just need enemy to be passed thru to display stats and picture
+
 
 	//playerSprite Variables
 	private GImage playerSprite;
 	private int moveCount;
 	private int escCount;
 
-<<<<<<< Upstream, based on branch 'master' of https://github.com/comp55/group-project-code-avalanche.git
+
 	private boolean battling;
 
-=======
-	private boolean isBattle;
-	private Battle battle;
-	
->>>>>>> c67046b All class works just need enemy to be passed thru to display stats and picture
+
 	protected Player Protagonist;
 
 	private Map map1, map2, map3;
@@ -55,11 +48,9 @@ public class LevelPane extends GraphicsPane {
 		program = app;
 		background = new GImage(BACKGROUND);
 
-<<<<<<< Upstream, based on branch 'master' of https://github.com/comp55/group-project-code-avalanche.git
 		battling = false;
 
-=======
->>>>>>> c67046b All class works just need enemy to be passed thru to display stats and picture
+
 		//Pause options
 		play = new GButton("Resume", windowWidth/3, 200, 300, 75);
 		controls = new GButton("Controls", windowWidth/3, 300, 300, 75);
@@ -80,12 +71,9 @@ public class LevelPane extends GraphicsPane {
 	public void showContents() {
 		loadMap(world[0]);
 
-<<<<<<< Upstream, based on branch 'master' of https://github.com/comp55/group-project-code-avalanche.git
+
 		//BattleScreen();
-=======
-		BattleScreen();
-		//HideBattleScreen();
->>>>>>> c67046b All class works just need enemy to be passed thru to display stats and picture
+
 	}
 
 	@Override
@@ -117,123 +105,7 @@ public class LevelPane extends GraphicsPane {
 
 	}
 
-<<<<<<< Upstream, based on branch 'master' of https://github.com/comp55/group-project-code-avalanche.git
-	/*
-=======
->>>>>>> c67046b All class works just need enemy to be passed thru to display stats and picture
-	public void BattleScreen() {
 
-		isBattle = true;
-		
-		//prints background
-		background = new GImage("images/BattleStyle.png");
-		program.add(background);
-		
-		//prints attack screech and block for user battle choices
-		attack = new GLabel("1) Attack", 50, 490);
-		attack.setFont(new Font("Monotype Corsiva", 1, 30));
-		attack.setColor(Color.black);
-		block = new GLabel("2) Block", 50, 530);
-		block.setFont(new Font("Monotype Corsiva", 1, 30));
-		block.setColor(Color.black);
-		screech = new GLabel("3) Screech", 50, 565);
-		screech.setFont(new Font("Monotype Corsiva", 1, 30));
-		screech.setColor(Color.black);
-		
-		program.add(attack);
-		program.add(block);
-		program.add(screech);
-		
-		
-		// prints player and enemy images
-		if(Protagonist.getCharacterType() == CharacterType.WARRIOR) {
-			playerImage = new GImage(WARRIOR);
-		}
-		else if(Protagonist.getCharacterType() == CharacterType.MAGE) {
-			playerImage = new GImage(MAGE);
-					
-		}
-		else {
-			playerImage = new GImage(ROGUE);
-		}
-		
-		program.add(playerImage);
-		
-		//prints enemy if king or regular enemy
-		
-//		if(Antagonist == CharacterType.ENEMY  && Antagonist.isKing() == true) {
-//			enemyImage = new GImage(KING);
-//		}
-//		else {
-//			enemyImage = new GImage(ENEMY);
-//		}
-//		enemyImage = new GImage(ENEMY);
-//		enemyImage.setLocation(400, 10);
-//		program.add(enemyImage);
-//		
-		//prints players stats
-		cStrenght = new GLabel("Strength: " + Protagonist.getStrength(), 55, 300);
-		cStrenght.setFont(new Font("Monotype Corsiva", 1, 15));
-		cStrenght.setColor(Color.black);
-		program.add(cStrenght);
-		
-		cDefense = new GLabel("Defense: " + Protagonist.getDefense(), 55, 330);
-		cDefense.setFont(new Font("Monotype Corsiva", 1, 15));
-		cDefense.setColor(Color.black);
-		program.add(cDefense);
-		
-		cCharisma = new GLabel("Charisma: " + Protagonist.getCharisma(), 55, 360);
-		cCharisma.setFont(new Font("Monotype Corsiva", 1, 15));
-		cCharisma.setColor(Color.black);
-		program.add(cCharisma);
-		
-		
-		// prints stats of enemy 
-		// needs way to pass enemy stats
-		
-		eStrength = new GLabel("Strength: 3", 500, 300);
-		eStrength.setFont(new Font("Monotype Corsiva", 1, 15));
-		eStrength.setColor(Color.black);
-		program.add(eStrength);
-		
-		eDefense = new GLabel("Defense: 3", 500, 330);
-		eDefense.setFont(new Font("Monotype Corsiva", 1, 15));
-		eDefense.setColor(Color.black);
-		program.add(eDefense);
-		
-		eCharisma = new GLabel("Charisma: 3", 500, 360);
-		eCharisma.setFont(new Font("Monotype Corsiva", 1, 15));
-		eCharisma.setColor(Color.black);
-		program.add(eCharisma);
-		
-		
-		
-		
-	}
-<<<<<<< Upstream, based on branch 'master' of https://github.com/comp55/group-project-code-avalanche.git
-	 */
-=======
-	public void HideBattleScreen() {
-
-		isBattle = false;
-		
-		// removes all images from battlescreen and allows input for character movement again
-		
-		program.remove(background);
-		program.remove(attack);
-		program.remove(block);
-		program.remove(screech);
-		program.remove(cStrenght);
-		program.remove(cDefense);
-		program.remove(cCharisma);
-		program.remove(eStrength);
-		program.remove(eDefense);
-		program.remove(eCharisma);
-		program.remove(playerImage);
-		program.remove(enemyImage);
-		
-	}
->>>>>>> c67046b All class works just need enemy to be passed thru to display stats and picture
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -280,43 +152,21 @@ public class LevelPane extends GraphicsPane {
 
 		int key = e.getKeyCode();
 
-<<<<<<< Upstream, based on branch 'master' of https://github.com/comp55/group-project-code-avalanche.git
 		//Overlay for the Battle Image
 		//Press 0 to test.
 		if(key == KeyEvent.VK_0) {
-=======
-		if(key == KeyEvent.VK_ESCAPE) {
-			if(escCount == 0)
-				showPause();
-			else if(escCount == 1)
-				hidePause();
-		}
-		if(isBattle == false) { // character movement
->>>>>>> c67046b All class works just need enemy to be passed thru to display stats and picture
 
-<<<<<<< Upstream, based on branch 'master' of https://github.com/comp55/group-project-code-avalanche.git
 			if(battling == false) {
 				battling = true;
 				pause.battleScene(program);
-=======
-			if(key == KeyEvent.VK_A || key == KeyEvent.VK_S || key == KeyEvent.VK_D || key == KeyEvent.VK_W) {
-				if(moveCount == 8)
-					moveCount = 0;
->>>>>>> c67046b All class works just need enemy to be passed thru to display stats and picture
-			}
 
-<<<<<<< Upstream, based on branch 'master' of https://github.com/comp55/group-project-code-avalanche.git
+			}
 			else {
 				battling = false;
 				pause.battleOver(program);
 			}
 		}
-=======
-			if (key == KeyEvent.VK_A) {
-				playerSprite.move(-5, 0);
->>>>>>> c67046b All class works just need enemy to be passed thru to display stats and picture
 
-<<<<<<< Upstream, based on branch 'master' of https://github.com/comp55/group-project-code-avalanche.git
 		if(key == KeyEvent.VK_ESCAPE) {
 			if(escCount == 0)
 				showPause();
@@ -431,131 +281,12 @@ public class LevelPane extends GraphicsPane {
 		}
 
 		characterLocation(Protagonist);
-=======
-				if(Protagonist.getCharacterType() == CharacterType.WARRIOR) {
-					playerSprite.setImage("knight/knight_" + moveCount + ".png");
-					playerSprite.setSize(xWidth, yHeight);
-					System.out.println(moveCount);
-					moveCount++;
-				}
 
-				else if(Protagonist.getCharacterType() == CharacterType.ROGUE) {
-					playerSprite.setImage("rogue/rogue_" + moveCount + ".png");
-					playerSprite.setSize(xWidth, yHeight);
-					System.out.println(moveCount);
-					moveCount++;
-				}
-
-				else if(Protagonist.getCharacterType() == CharacterType.MAGE) {
-					playerSprite.setImage("mage/mage_" + moveCount + ".png");
-					playerSprite.setSize(xWidth, yHeight);
-					System.out.println(moveCount);
-					moveCount++;
-				}
-			}
-
-			if (key == KeyEvent.VK_D) {
-				playerSprite.move(5, 0);
-
-				if(Protagonist.getCharacterType() == CharacterType.WARRIOR) {
-					playerSprite.setImage("knight/knight_" + moveCount + ".png");
-					playerSprite.setSize(xWidth, yHeight);
-					System.out.println(moveCount);
-					moveCount++;
-				}
-
-				else if(Protagonist.getCharacterType() == CharacterType.ROGUE) {
-					playerSprite.setImage("rogue/rogue_" + moveCount + ".png");
-					playerSprite.setSize(xWidth, yHeight);
-					System.out.println(moveCount);
-					moveCount++;
-				}
-
-				else if(Protagonist.getCharacterType() == CharacterType.MAGE) {
-					playerSprite.setImage("mage/mage_" + moveCount + ".png");
-					playerSprite.setSize(xWidth, yHeight);
-					System.out.println(moveCount);
-					moveCount++;
-				}
-			}
-
-			if (key == KeyEvent.VK_W) {
-				playerSprite.move(0, -5);
-
-				if(Protagonist.getCharacterType() == CharacterType.WARRIOR) {
-					playerSprite.setImage("knight/knight_" + moveCount + ".png");
-					playerSprite.setSize(xWidth, yHeight);
-					System.out.println(moveCount);
-					moveCount++;
-				}
-
-				else if(Protagonist.getCharacterType() == CharacterType.ROGUE) {
-					playerSprite.setImage("rogue/rogue_" + moveCount + ".png");
-					playerSprite.setSize(xWidth, yHeight);
-					System.out.println(moveCount);
-					moveCount++;
-				}
-
-				else if(Protagonist.getCharacterType() == CharacterType.MAGE) {
-					playerSprite.setImage("mage/mage_" + moveCount + ".png");
-					playerSprite.setSize(xWidth, yHeight);
-					System.out.println(moveCount);
-					moveCount++;
-				}
-			}
-
-			if (key == KeyEvent.VK_S) {
-				playerSprite.move(0, 5);
-
-				if(Protagonist.getCharacterType() == CharacterType.WARRIOR) {
-					playerSprite.setImage("knight/knight_" + moveCount + ".png");
-					playerSprite.setSize(xWidth, yHeight);
-					System.out.println(moveCount);
-					moveCount++;
-				}
-
-				else if(Protagonist.getCharacterType() == CharacterType.ROGUE) {
-					playerSprite.setImage("rogue/rogue_" + moveCount + ".png");
-					playerSprite.setSize(xWidth, yHeight);
-					System.out.println(moveCount);
-					moveCount++;
-				}
-
-				else if(Protagonist.getCharacterType() == CharacterType.MAGE) {
-					playerSprite.setImage("mage/mage_" + moveCount + ".png");
-					playerSprite.setSize(xWidth, yHeight);
-					System.out.println(moveCount);
-					moveCount++;
-				}
-			}
-		}
-
-		else if(isBattle == true) { 
-			// keyboard inputs for the player moves
-			
-			
-				if(key == KeyEvent.VK_1) {
-					// Battle.fight(1, Antagonist, Protagonist);
-					System.out.print("You chose attack");
-					
-				}
-				
-				else if(key == KeyEvent.VK_2) {
-					// Battle.fight(2, Antagonist, Protagonist);
-					System.out.print("You chose block");
-				}
-				else if(key == KeyEvent.VK_3) {
-					// Battle.fight(3, Antagonist, Protagonist);
-					System.out.print("You chose defend");
-				}
-				
-		}
->>>>>>> c67046b All class works just need enemy to be passed thru to display stats and picture
 	}
 
 	//New Code below this line//
 
-<<<<<<< Upstream, based on branch 'master' of https://github.com/comp55/group-project-code-avalanche.git
+
 	public void characterLocation(Character c) {
 		Space currentLocation = convertXYToSpace(playerSprite.getX(),playerSprite.getY());
 		c.setLocation(currentLocation.getRow(), currentLocation.getCol());
@@ -564,8 +295,7 @@ public class LevelPane extends GraphicsPane {
 		System.out.println("The character's location is now:\nRow: " + c.getLocation().getRow() + "\nColumn: " + c.getLocation().getCol());
 	}
 
-=======
->>>>>>> c67046b All class works just need enemy to be passed thru to display stats and picture
+
 	private void drawPlayer(Player p) {
 		// TODO implement drawPlayer
 		if(p.getCharacterType() == CharacterType.WARRIOR) {
@@ -602,12 +332,8 @@ public class LevelPane extends GraphicsPane {
 
 		drawPlayer(Protagonist);
 	}
-
-<<<<<<< Upstream, based on branch 'master' of https://github.com/comp55/group-project-code-avalanche.git
 	public Space convertXYToSpace(double x, double y) {
-=======
-	private Space convertXYToSpace(double x, double y) {
->>>>>>> c67046b All class works just need enemy to be passed thru to display stats and picture
+
 		// TODO write this implementation hint (use helper methods below)
 		int r = (int) (y/xWidth);
 		int c = (int) (x/yHeight);
