@@ -22,7 +22,7 @@ public class LevelPane extends GraphicsPane {
 	private int moveCount;
 	private int escCount;
 
-	private Battle battle;
+	private boolean battling;
 
 	protected Player Protagonist;
 
@@ -38,6 +38,8 @@ public class LevelPane extends GraphicsPane {
 		super();
 		program = app;
 		background = new GImage(BACKGROUND);
+
+		battling = false;
 
 		//Pause options
 		play = new GButton("Resume", windowWidth/3, 200, 300, 75);
@@ -145,6 +147,21 @@ public class LevelPane extends GraphicsPane {
 
 		int key = e.getKeyCode();
 
+		//Overlay for the Battle Image
+		//Press 0 to test.
+		if(key == KeyEvent.VK_0) {
+
+			if(battling == false) {
+				battling = true;
+				pause.battleScene(program);
+			}
+
+			else {
+				battling = false;
+				pause.battleOver(program);
+			}
+		}
+
 		if(key == KeyEvent.VK_ESCAPE) {
 			if(escCount == 0)
 				showPause();
@@ -180,7 +197,7 @@ public class LevelPane extends GraphicsPane {
 				System.out.println(moveCount);
 				moveCount++;
 			}
-			
+
 		}
 
 		if (key == KeyEvent.VK_D) {
@@ -257,17 +274,18 @@ public class LevelPane extends GraphicsPane {
 				moveCount++;
 			}
 		}
-		
+
 		characterLocation(Protagonist);
 	}
 
 	//New Code below this line//
-	
+
 	public void characterLocation(Character c) {
-        Space currentLocation = convertXYToSpace(playerSprite.getX(),playerSprite.getY());
-        c.setLocation(currentLocation.getRow(), currentLocation.getCol());
-        
-        System.out.println("The character's location is now:\nRow: " + c.getLocation().getRow() + "\nColumn: " + c.getLocation().getCol());
+		Space currentLocation = convertXYToSpace(playerSprite.getX(),playerSprite.getY());
+		c.setLocation(currentLocation.getRow(), currentLocation.getCol());
+
+		//Testing line, remove after production is set.
+		System.out.println("The character's location is now:\nRow: " + c.getLocation().getRow() + "\nColumn: " + c.getLocation().getCol());
 	}
 
 	private void drawPlayer(Player p) {
