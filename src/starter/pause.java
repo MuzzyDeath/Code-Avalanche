@@ -10,8 +10,11 @@ import acm.graphics.*;
 public class pause {
 	private static GImage background, pPic, ePic;
 	private static GLabel attack, block, screech, cStrenght, cDefense, cCharisma, eStrength, eDefense, eCharisma;
+	private static Player Protagonist = MainApplication.user;
 	
 	public static void battleScene(MainApplication app) {
+		
+		
 		background = new GImage("images/BattleStyle.png");
 		app.add(background);
 		
@@ -31,17 +34,17 @@ public class pause {
 		
 		//prints players stats
 		
-		cStrenght = new GLabel("Strength: ", 55, 300);
+		cStrenght = new GLabel("Strength: " + Protagonist.getStrength(), 55, 300);
 		cStrenght.setFont(new Font("Monotype Corsiva", 1, 15));
 		cStrenght.setColor(Color.black);
 		app.add(cStrenght);
 		
-		cDefense = new GLabel("Defense: " , 55, 330);
+		cDefense = new GLabel("Defense: " + Protagonist.getDefense(), 55, 330);
 		cDefense.setFont(new Font("Monotype Corsiva", 1, 15));
 		cDefense.setColor(Color.black);
 		app.add(cDefense);
 		
-		cCharisma = new GLabel("Charisma: " , 55, 360);
+		cCharisma = new GLabel("Charisma: " + + Protagonist.getCharisma(), 55, 360);
 		cCharisma.setFont(new Font("Monotype Corsiva", 1, 15));
 		cCharisma.setColor(Color.black);
 		app.add(cCharisma);
