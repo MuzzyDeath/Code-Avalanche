@@ -4,6 +4,8 @@ import acm.graphics.*;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.awt.Font;
 
 public class LevelPane extends GraphicsPane {
 	private static final String BACKGROUND = "controlsImage.jpg";
@@ -17,39 +19,54 @@ public class LevelPane extends GraphicsPane {
 	private MainApplication program; // you will use program to get access to
 	// all of the GraphicsProgram calls
 	private GButton play, controls, quit;
-	private GImage controlsImage;
+	private GImage background, controlsImage, playerImage, enemyImage;
 	private GLine line;
 
 
 	//playerSprite Variables
 	private GImage playerSprite;
 	private int moveCount;
+	
+	private Enemy opponent;
+
 
 	private boolean battling;
 	private boolean paused;
 
 
-	protected static Player Protagonist;
+	protected Player Protagonist;
 
 	private Map map1, map2, map3;
+	private Map current;
 	protected Map[] world = { map1, map2, map3 };
 
 	private int xWidth, yHeight;
-	
-	private static int windowHeight, windowWidth;
+	private int windowHeight = program.WINDOW_HEIGHT;
+	private int windowWidth = program.WINDOW_WIDTH;
 
 	public LevelPane(MainApplication app) {
 		super();
 		program = app;
+		background = new GImage(BACKGROUND);
 
 		battling = false;
 		paused = false;
 
 		Protagonist = app.user;
+		
+		opponent = Board.CharacterAtSpace(Protagonist);
+		
+		test();
 
 		generateWorld();
 
 		showContents();
+	}
+	
+	//For testing, feel free to use it, if other are not! :)
+	private void test() {
+		System.out.println("Is there an enemy showing from the Board.java? Find out below! :D");
+		System.out.println("\nThe 'temp' enemy is at:\nRow: " + opponent.getLocation().getRow() + "\nCol: " + opponent.getLocation().getCol() + "\n");
 	}
 
 	@Override
@@ -310,6 +327,7 @@ public class LevelPane extends GraphicsPane {
 
 	private void loadMap(Map m) {
 		drawLevel(m);
+		current = m;
 
 		drawPlayer(Protagonist);
 	}

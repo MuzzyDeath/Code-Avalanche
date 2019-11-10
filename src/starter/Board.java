@@ -6,6 +6,8 @@ public class Board {
 	private static Character[][] board; // 2D array of characters
 	ArrayList<Character> characters; // holds all the characters on the board
 
+	public static Enemy temp;
+	
 	/*
 	private Space start = new Space(2, 0);
 
@@ -238,29 +240,27 @@ public class Board {
 	//This function below is to return a enemy in order to access it in the battle class and levelpane and pause(battlepane)
 	// only thing i need help with is setting temp to the enemy in the given space 
 	
-//	public static Enemy CharacterAtSpace(Player player) {
-//
-//		Enemy temp;
-//
-//		Space space = player.getLocation();
-//
-//
-//		if(board[space.getRow()][space.getCol() + 1] != null) { // checks above the player for enemy
-//			Character.
-//			temp = new Enemy()
-//			return temp;
-//		}
-//		else if(board[space.getRow() + 1][space.getCol()] != null){ // enemy is to the right of the player
-//			return temp;
-//		}
-//		else if(board[space.getRow() - 1][space.getCol()] != null) { //enemy is to the left of the player
-//			return temp;
-//		}
-//		else { // enemy is below the player
-//			return temp;
-//		}
-//
-//	}
+	public static Enemy CharacterAtSpace(Player player) {
+
+		Space space = player.getLocation();
+
+		//For testing in passing Enemy object to other class
+		temp = new Enemy(3, 2);
+		
+
+		/*
+		 * if(board[space.getRow()][space.getCol() + 1] != null) { // checks above the
+		 * player for enemy //temp = new Enemy() return temp; } else
+		 * if(board[space.getRow() + 1][space.getCol()] != null){ // enemy is to the
+		 * right of the player return temp; } else if(board[space.getRow() -
+		 * 1][space.getCol()] != null) { //enemy is to the left of the player return
+		 * temp; } else { // enemy is below the player return temp; }
+		 */
+
+		//This is purely to show that the temp is being passed!
+		//Remove this for real code implementation!
+		return temp;
+	}
 
 	public static void main(String[] args) {
 		Board map1 = new Board(5, 5);
