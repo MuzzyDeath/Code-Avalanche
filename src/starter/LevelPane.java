@@ -20,8 +20,6 @@ public class LevelPane extends GraphicsPane {
 	private GButton play, controls, quit;
 	private GImage background, controlsImage, playerImage, enemyImage;
 	private GLine line;
-	private GRect square;
-	private GLabel attack;
 
 
 	//playerSprite Variables
@@ -31,6 +29,7 @@ public class LevelPane extends GraphicsPane {
 
 
 	private boolean battling;
+	private boolean paused;
 
 
 	protected Player Protagonist;
@@ -49,16 +48,7 @@ public class LevelPane extends GraphicsPane {
 		background = new GImage(BACKGROUND);
 
 		battling = false;
-
-
-		//Pause options
-		play = new GButton("Resume", windowWidth/3, 200, 300, 75);
-		controls = new GButton("Controls", windowWidth/3, 300, 300, 75);
-		quit = new GButton("Quit", windowWidth/3 , 400, 300, 75);
-		square = new GRect(windowWidth/4, 150, 200, 200);
-		square.setFillColor(Color.BLACK);
-		square.setFilled(true);
-		controlsImage = new GImage("controlsImage.jpg");
+		paused = false;
 
 		Protagonist = app.user;
 
@@ -70,42 +60,12 @@ public class LevelPane extends GraphicsPane {
 	@Override
 	public void showContents() {
 		loadMap(world[0]);
-
-
-		//BattleScreen();
-
 	}
 
 	@Override
 	public void hideContents() {
 		program.removeAll();
 	}
-
-	public void showPause() {
-		escCount = 1;
-		//Show Pause
-		program.add(square);
-		program.add(play);
-		program.add(controls);
-		program.add(quit);
-
-		//Hides Level
-
-	}
-
-	public void hidePause() {
-		escCount = 0;
-		//Hides Pause
-		program.remove(square);
-		program.remove(play);
-		program.remove(controls);
-		program.remove(quit);
-		program.remove(controlsImage);
-		//Shows Level
-
-	}
-
-
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -131,7 +91,8 @@ public class LevelPane extends GraphicsPane {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
 		if (obj == play) {
 			play.setFillColor(Color.WHITE);
-			hidePause();
+			paused = false;
+			pause.unpause(program);
 		}
 		else if (obj == controls) {
 			System.out.println("Print controls");
@@ -168,10 +129,17 @@ public class LevelPane extends GraphicsPane {
 		}
 
 		if(key == KeyEvent.VK_ESCAPE) {
-			if(escCount == 0)
-				showPause();
-			else if(escCount == 1)
-				hidePause();
+			if(!paused) {
+				paused = true;
+				pause.pause(program);
+				play = pause.play;
+				controls = pause.controls;
+				quit = pause.quit;
+			}
+			else if(paused) {
+				paused = false;
+				pause.unpause(program);
+			}
 		}
 
 		if(key == KeyEvent.VK_A || key == KeyEvent.VK_S || key == KeyEvent.VK_D || key == KeyEvent.VK_W) {
