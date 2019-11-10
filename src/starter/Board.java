@@ -129,13 +129,43 @@ public class Board {
 		}
 	}*/
 	
-	public boolean canMove(Space start, int nSpaces)
+	public boolean canMove(Space start, int nSpaces, boolean isHorizontal)
 	{
-		if(start != null && nSpaces >= 0 && nSpaces < getNumRows() && nSpaces < getNumCols())
+		boolean canMove = true;
+		int endRow = 0, endCol = 0;
+		if(getCharacter(start) == null)
+		{
+			canMove = false;
+		}
+		else {
+			if(isHorizontal == true)
+			{
+				
+					endRow = start.getRow();
+					endCol = start.getCol() + nSpaces;
+			}
+			else {
+				
+					endRow = start.getRow() + nSpaces;
+					endCol = start.getCol();	
+			}
+			if(endRow < 0 || endRow > getNumRows() - 1 || endCol < 0 || endCol > getNumCols() - 1)
+			{
+				canMove = false;
+			}
+			if(getCharacter(new Space(endRow, endCol)) != null)
+			{
+				canMove = false;
+			}
+		}
+		return canMove;
+		
+		
+		/*if(start != null && nSpaces >= 0 && nSpaces < getNumRows() && nSpaces < getNumCols())
 		{
 			return true;
 		}
-		return false;
+		return false;*/
 	}
 	
 	public boolean move(Space start, int nSpaces)
@@ -147,15 +177,26 @@ public class Board {
 		return false;
 	}
 	
-	public void moveNumSpaces(Space start, int numSpaces, int row, int col)
+	public void moveNumSpaces(Space start, int numSpaces, boolean isHorizontal)
 	{
-		if(canMove(start, numSpaces))
+		int endRow = start.getRow(), endCol = start.getCol();
+		Character toMove = getCharacter(start);
+		if(canMove(start, numSpaces, isHorizontal) == true)
 		{
-			row = start.getRow() + numSpaces;
-			col = start.getCol() + numSpaces;
-
+			if(isHorizontal == true)
+			{
+				endCol += numSpaces;
+				endRow = start.getRow();
+			}
+			else {
+				endRow += numSpaces;
+				endCol = start.getCol();
+			}
 		}
+		board[endRow][endCol] = toMove;
+		board[start.getRow()][start.getCol()] = null;
 	}
+	
 	
 	public void addPlayer(int row, int col, CharacterType cType)
 	{
@@ -181,12 +222,12 @@ public class Board {
 	 * @param isHorizontal if the move has to be horizontal or vertical
 	 * @return true if the character  can be moved
 	 */
-	public boolean moveNumSpaces(Space curSpace, int numSpaces, boolean isHorizontal)
+	/*public boolean moveNumSpaces(Space curSpace, int numSpaces, boolean isHorizontal)
 	{
 		boolean retValue = true;
 		// TODO: Implement this
 		return retValue;
-	}
+	}*/
 
 	
 	//Do not touch this class, I already converted it.
@@ -201,6 +242,10 @@ public class Board {
 		
 		map1.addNPC(3, 3);
 		map1.addEnemy(0, 1);
+		System.out.println(map1);
+		
+		System.out.println(map1.canMove(new Space(2, 2), 2, true));
+		map1.moveNumSpaces(new Space(2, 2), 2, true);
 		System.out.println(map1);
 		
 		//System.out.println(map1.canMove(map1.getStart(), 2));
