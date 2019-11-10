@@ -11,11 +11,6 @@ import java.awt.Image;
 
 public class Battle extends GraphicsProgram {
 	
-	private static final String BACKGROUND = "BattleStyle.png";
-	private GImage background;
-	private GLabel attack;
-	private GLabel block;
-	private GLabel screech;
 	 
 	private Player c;
 	private Enemy e;
@@ -23,49 +18,48 @@ public class Battle extends GraphicsProgram {
 	// higher defense and screech doesn't affect
 	// if strength 
 
-	public Battle(Enemy e, Player c)
-	{
-
-
-		//System.out.println("You are in battle!");
-		BattleScreen();
+	public Battle() {
+		
+		// default constructor
+	}
+	
+	
+	public static void Fight(int userMove, Enemy e, Player c) {
+		
+		System.out.println("You are in battle!");
 
 
 //		do{
-//			System.out.println("Which move will you do: \n1) Attack \n2) Block \n3) Screech");
-//			Scanner input = new Scanner(System.in);
-//			int whichMove = input.nextInt();
-//
-//			if(whichMove == 1) {
-//				attack(c, e, enemyMove());
-//			}
-//			else if(whichMove == 2) {
-//				block(c, e, enemyMove());
-//			}
-//			else {
-//				screech(c, e, enemyMove());
-//			}
-//
-//			System.out.println("Your Health: " + c.getHealth() + " \nEnemy Health: " + e.getHealth() + "\n");
-//
-//
+			
+			if(userMove == 1) {
+				attack(c, e, enemyMove());
+			}
+			else if(userMove == 2) {
+				block(c, e, enemyMove());
+			}
+			else {
+				screech(c, e, enemyMove());
+			}
+			
+			System.out.println("Your Health: " + c.getHealth() + " \nEnemy Health: " + e.getHealth() + "\n");
+
+
 //		}while(e.getHealth() > 0 && c.getHealth() > 0);
-//
-//		if(c.getHealth() <= 0) {
-//			System.out.println("You lose!");
-//
-//			c.setBalance(c.getBalance() - 100);
-//		}
-//		else {
-//			System.out.println("You win!");
-//
-//			c.setBalance(c.getBalance() + e.getBalance());
-//		}
 
+		if(c.getHealth() <= 0) {
+			System.out.println("You lose!");
 
+			c.setBalance(c.getBalance() - 100);
+		}
+		else {
+			System.out.println("You win!");
 
+			c.setBalance(c.getBalance() + e.getBalance());
+		}
+
+		
 	}
-	public int enemyMove() {
+	public static int enemyMove() {
 
 		Random rand = new Random(); 
 
@@ -77,7 +71,7 @@ public class Battle extends GraphicsProgram {
 	}
 
 	// attack will get passed both Healths, players Strength, The enemys stat based on their move
-	public void attack(Player c, Enemy e, int enemyMove) {
+	public static void attack(Player c, Enemy e, int enemyMove) {
 
 		if(enemyMove == 0) { // enemy attack
 			if(c.getStrength() > e.getStrength()) { // if player is > enemy
@@ -109,7 +103,7 @@ public class Battle extends GraphicsProgram {
 
 	}
 
-	public void block(Player c, Enemy e, int enemyMove) {
+	public static void block(Player c, Enemy e, int enemyMove) {
 
 		if(enemyMove == 0) { // enemy attack
 
@@ -131,7 +125,7 @@ public class Battle extends GraphicsProgram {
 
 	}
 
-	public void screech(Player c, Enemy e, int enemyMove) {
+	public static void screech(Player c, Enemy e, int enemyMove) {
 
 		if(enemyMove == 0) { // enemy attack
 
@@ -158,14 +152,8 @@ public class Battle extends GraphicsProgram {
 	}
 	
 	public void BattleScreen() {
-		background = new GImage(BACKGROUND);
-		add(background);
-		attack = new GLabel("Attack", 10, 10);
-		add(attack);
 		
-	}
-
-	
+	}	
 	public static void main(String[] args) {
 
 		Player c = new Player(0, 1, CharacterType.MAGE);
@@ -174,9 +162,8 @@ public class Battle extends GraphicsProgram {
 		c.setHealth(10);
 		
 	
-		Battle b = new Battle(e, c);
-		// b.BattleScreen();
-
+		Battle b = new Battle();
+		b.Fight(1, e, c);
 
 	}
 
