@@ -150,7 +150,7 @@ public class LevelPane extends GraphicsPane {
 				battling = true;
 				
 				opponent = Board.CharacterAtSpace(Protagonist);
-				pause.battleScene(program);
+//				pause.battleScene(program);
 
 
 				Overlay.battleScene(program);

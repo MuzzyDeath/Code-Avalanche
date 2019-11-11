@@ -27,11 +27,11 @@ public class Battle extends GraphicsProgram {
 	
 	public static void Fight(int userMove, Enemy e, Player c) {
 		
-		System.out.println("You are in battle!");
+		//System.out.println("You are in battle!");
 
 
 //		do{
-			
+			while(Overlay.opponent.getHealth() > 0 && c.getHealth() > 0)
 			if(userMove == 1) {
 				attack(c, e, enemyMove());
 			}
@@ -47,7 +47,7 @@ public class Battle extends GraphicsProgram {
 
 //		}while(e.getHealth() > 0 && c.getHealth() > 0);
 
-		if(c.getHealth() <= 0) {
+		if(c.getHealth() <= 0 && Overlay.opponent.getHealth() > 0) {
 			System.out.println("You lose!");
 
 			c.setBalance(c.getBalance() - 100);
@@ -75,9 +75,10 @@ public class Battle extends GraphicsProgram {
 	public static void attack(Player c, Enemy e, int enemyMove) {
 
 		if(enemyMove == 0) { // enemy attack
+			
 			if(c.getStrength() > e.getStrength()) { // if player is > enemy
 
-				pause.opponent.setHealth(e.getHealth() -2);
+				Overlay.opponent.setHealth(e.getHealth() -2);
 
 				System.out.println("Your attack was higher so you hurt him");
 

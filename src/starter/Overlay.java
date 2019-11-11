@@ -111,17 +111,20 @@ public class Overlay {
 		if(Protagonist.cType == CharacterType.WARRIOR) {
 			pPic = new GImage(WARRIOR);
 			pPic.setLocation(20, 20);
+			pPic.setSize(150, 240);
 			app.add(pPic);
 					
 		}
 		else if(Protagonist.cType == CharacterType.ROGUE) {
 			pPic = new GImage(ROGUE);
 			pPic.setLocation(20, 20);
+			pPic.setSize(150, 240);
 			app.add(pPic);
 		}
 		else {
 			pPic = new GImage(MAGE);
 			pPic.setLocation(20, 20);
+			pPic.setSize(150, 240);
 			app.add(pPic);
 		}
 		
@@ -130,14 +133,19 @@ public class Overlay {
 	
 
 		if(opponent.isHostile == true) {
+			
 			if(opponent.isKing == true) { // prints king pic
 				ePic = new GImage(KING);
-				ePic.setLocation(400, 20);
+				ePic.setLocation(520, 20);
+				ePic.setSize(200, 340);
 				app.add(ePic);
 			}
 			
+			// prints enemy pic
+			
 			ePic = new GImage(ENEMY);
-			ePic.setLocation(400, 20);
+			ePic.setLocation(520, 20);
+			ePic.setSize(150, 240);
 			app.add(ePic);
 		}
 
