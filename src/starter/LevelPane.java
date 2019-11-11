@@ -36,7 +36,7 @@ public class LevelPane extends GraphicsPane {
 
 	private boolean battling;
 	private boolean paused;
-
+	private boolean inventory;
 
 	protected Player Protagonist;
 
@@ -55,7 +55,8 @@ public class LevelPane extends GraphicsPane {
 
 		battling = false;
 		paused = false;
-
+		inventory = false;
+		
 		Protagonist = app.user;
 
 		opponent = Board.CharacterAtSpace(Protagonist);
@@ -134,14 +135,14 @@ public class LevelPane extends GraphicsPane {
 		//Overlay for the Inventory
 		//Press I to test.
 		if(key == KeyEvent.VK_I) {
-			if(!paused) {
-				paused = true;
+			if(!inventory) {
+				inventory = true;
 				Overlay.showInventory(program);
 				play = Overlay.play;
 				controls = Overlay.controls;
 			}
-			else if(paused) {
-				paused = false;
+			else if(inventory) {
+				inventory = false;
 				Overlay.hideInventory(program);
 			}
 		}
