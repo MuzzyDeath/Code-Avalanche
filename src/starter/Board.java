@@ -88,7 +88,7 @@ public class Board {
 	 * @param startCol column for for location of character
 
 	 */
-	public void addCharacter(CharacterType type, int startRow, int startCol) 
+	public boolean addCharacter(CharacterType type, int startRow, int startCol) 
 	{
 		boolean canAdd = true; 
 
@@ -113,6 +113,7 @@ public class Board {
 			// Add it to the characters array list
 			characters.add(toAdd);
 		}
+		return canAdd;
 	}
 
 	/*
@@ -131,10 +132,18 @@ public class Board {
 		}
 	}*/
 
+	/**
+	 * checks if the character at the given space can move or not.
+	 * 
+	 * @param start location of character
+	 * @param nSpaces num of spaces the character needs to move
+	 * @param isHorizontal boolean indicating whether the move is horizontal or not
+	 * 
+	 * @return boolean true if the move can be performed.
+	 */
 	public boolean canMove(Space start, int nSpaces, boolean isHorizontal)
 	{
 		boolean canMove = true;
-		// int endRow = 0, endCol = 0;
 		Character toMove = getCharacter(start);
 		if(toMove == null)
 		{
@@ -169,26 +178,22 @@ public class Board {
 		return canMove;
 	}
 
+	/**
+	 * moves the  character at the given space .
+	 * 
+	 * @param start location of character
+	 * @param nSpaces num of spaces the character needs to move
+	 * @param isHorizontal boolean indicating whether the move is horizontal or not
+	 * 
+	 * @return boolean true if the move is performed.
+	 */
 	public boolean moveNumSpaces(Space start, int numSpaces, boolean isHorizontal)
 	{
 		boolean retVal = false;
-		int endRow = 0, endCol = 0;
 		
 		if(canMove(start, numSpaces, isHorizontal) == true)
 		{
 			Character toMove = getCharacter(start);
-			
-			/*
-			if(isHorizontal == true)
-			{
-				endCol += numSpaces;
-				endRow = start.getRow();
-			}
-			else {
-				endRow += numSpaces;
-				endCol = start.getCol();
-			}
-			*/
 			
 			// Clear the old space
 			// board[start.getRow()][start.getCol()] = null;
@@ -222,21 +227,6 @@ public class Board {
 		addCharacter(CharacterType.ENEMY, row, col);
 
 	}
-
-
-	/**
-	 * Moves the character at specified location  the given number of spaces
-	 * @param space the space at which the character is currently at 
-	 * @param numSpaces the number of spaces to move the player
-	 * @param isHorizontal if the move has to be horizontal or vertical
-	 * @return true if the character  can be moved
-	 */
-	/*public boolean moveNumSpaces(Space curSpace, int numSpaces, boolean isHorizontal)
-	{
-		boolean retValue = true;
-		// TODO: Implement this
-		return retValue;
-	}*/
 
 
 	//Do not touch this class, I already converted it.
