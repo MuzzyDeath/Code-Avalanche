@@ -21,9 +21,9 @@ public class pause {
 	
 	//Battle Stuff
 	private static GImage background, pPic, ePic;
-	private static GLabel attack, block, screech, cStrenght, cDefense, cCharisma, eStrength, eDefense, eCharisma;
+	private static GLabel attack, block, screech, cStrenght, cDefense, cCharisma, eStrength, eDefense, eCharisma, eHealth, cHealth;
 	private static Player Protagonist = MainApplication.user;
-	private static Enemy opponent;
+	static Enemy opponent;
 	//End Battle Stuff
 
 	//Pause Stuff
@@ -72,6 +72,12 @@ public class pause {
 		cCharisma.setFont(new Font("Monotype Corsiva", 1, 15));
 		cCharisma.setColor(Color.black);
 		app.add(cCharisma);
+		
+		//make so it updates with the players health as battle goes on.
+		cHealth = new GLabel("Health: " + Protagonist.getHealth(), 55, 390);
+		cHealth.setFont(new Font("Monotype Corsiva", 1, 15));
+		cHealth.setColor(Color.black);
+		app.add(cHealth);
 
 
 		// prints stats of enemy 
@@ -91,6 +97,13 @@ public class pause {
 		eCharisma.setFont(new Font("Monotype Corsiva", 1, 15));
 		eCharisma.setColor(Color.black);
 		app.add(eCharisma);
+		
+		//make so it updates with the enemy health as battle goes on.
+		eHealth = new GLabel("Health: " + opponent.getHealth(), 500, 390);
+		eHealth.setFont(new Font("Monotype Corsiva", 1, 15));
+		eHealth.setColor(Color.black);
+		app.add(eHealth);
+		
 		
 	 // prints player pic
 		
@@ -114,9 +127,7 @@ public class pause {
 		//prints enemy pic
 		
 	
-//		ePic = new GImage(ENEMY);
-//		ePic.setLocation(400, 20);
-//		app.add(ePic);
+
 		if(opponent.isHostile == true) {
 			if(opponent.isKing == true) { // prints king pic
 				ePic = new GImage(KING);

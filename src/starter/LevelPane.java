@@ -27,7 +27,7 @@ public class LevelPane extends GraphicsPane {
 	private GImage playerSprite;
 	private int moveCount;
 	
-	private Enemy opponent;
+	private static Enemy opponent;
 
 
 	private boolean battling;
@@ -131,6 +131,7 @@ public class LevelPane extends GraphicsPane {
 
 			if(battling == false) {
 				battling = true;
+				opponent = Board.CharacterAtSpace(Protagonist);
 				pause.battleScene(program);
 
 			}
@@ -266,17 +267,17 @@ public class LevelPane extends GraphicsPane {
 		else {
 			
 			if(key == KeyEvent.VK_1) {
-				// Battle.fight(1, Antagonist, Protagonist);
+				Battle.Fight(1, opponent, Protagonist);
 				System.out.print("You chose attack");
 				
 			}
 			
 			else if(key == KeyEvent.VK_2) {
-				// Battle.fight(2, Antagonist, Protagonist);
+				Battle.Fight(2, opponent, Protagonist);
 				System.out.print("You chose block");
 			}
 			else if(key == KeyEvent.VK_3) {
-				// Battle.fight(3, Antagonist, Protagonist);
+				Battle.Fight(3, opponent, Protagonist);
 				System.out.print("You chose defend");
 			}
 		}
