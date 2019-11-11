@@ -9,12 +9,21 @@ import java.awt.Color;
 import java.awt.Font;
 import acm.graphics.*;
 
-public class pause {
 
+public class pause {
+	
+	//pictures
+	private static final String MAGE = "Battle Image(Mage).png";
+	private static final String WARRIOR = "Battle Image(Warrior).png";
+	private static final String ROGUE = "Battle Image(Rogue).png";
+	private static final String ENEMY = "Battle Image (Enemy).png";
+	private static final String KING = "Battle Image(Boss).png";
+	
 	//Battle Stuff
 	private static GImage background, pPic, ePic;
 	private static GLabel attack, block, screech, cStrenght, cDefense, cCharisma, eStrength, eDefense, eCharisma;
 	private static Player Protagonist = MainApplication.user;
+	private static Enemy opponent;
 	//End Battle Stuff
 
 	//Pause Stuff
@@ -27,7 +36,8 @@ public class pause {
 
 
 	public static void battleScene(MainApplication app) {
-
+		
+		opponent = Board.CharacterAtSpace(Protagonist);
 
 		background = new GImage("images/BattleStyle.png");
 		app.add(background);
@@ -67,21 +77,57 @@ public class pause {
 		// prints stats of enemy 
 		// needs way to pass enemy stats
 
-		eStrength = new GLabel("Strength: 3", 500, 300);
+		eStrength = new GLabel("Strength: " + opponent.getStrength(), 500, 300);
 		eStrength.setFont(new Font("Monotype Corsiva", 1, 15));
 		eStrength.setColor(Color.black);
 		app.add(eStrength);
 
-		eDefense = new GLabel("Defense: 3", 500, 330);
+		eDefense = new GLabel("Defense: " + opponent.getDefense(), 500, 330);
 		eDefense.setFont(new Font("Monotype Corsiva", 1, 15));
 		eDefense.setColor(Color.black);
 		app.add(eDefense);
 
-		eCharisma = new GLabel("Charisma: 3", 500, 360);
+		eCharisma = new GLabel("Charisma: " + opponent.getCharisma(), 500, 360);
 		eCharisma.setFont(new Font("Monotype Corsiva", 1, 15));
 		eCharisma.setColor(Color.black);
 		app.add(eCharisma);
-
+		
+	 // prints player pic
+		
+		if(Protagonist.cType == CharacterType.WARRIOR) {
+			pPic = new GImage(WARRIOR);
+			pPic.setLocation(20, 20);
+			app.add(pPic);
+					
+		}
+		else if(Protagonist.cType == CharacterType.ROGUE) {
+			pPic = new GImage(ROGUE);
+			pPic.setLocation(20, 20);
+			app.add(pPic);
+		}
+		else {
+			pPic = new GImage(MAGE);
+			pPic.setLocation(20, 20);
+			app.add(pPic);
+		}
+		
+		//prints enemy pic
+		
+	
+//		ePic = new GImage(ENEMY);
+//		ePic.setLocation(400, 20);
+//		app.add(ePic);
+		if(opponent.isHostile == true) {
+			if(opponent.isKing == true) { // prints king pic
+				ePic = new GImage(KING);
+				ePic.setLocation(400, 20);
+				app.add(ePic);
+			}
+			
+			ePic = new GImage(ENEMY);
+			ePic.setLocation(400, 20);
+			app.add(ePic);
+		}
 
 
 	}
@@ -97,6 +143,8 @@ public class pause {
 		app.remove(eStrength);
 		app.remove(eDefense);
 		app.remove(eCharisma);
+		app.remove(ePic);
+		app.remove(pPic);
 	}
 	
 	
