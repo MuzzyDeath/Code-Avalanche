@@ -12,8 +12,9 @@ import java.awt.Image;
 public class Battle extends GraphicsProgram {
 	
 	 
-	private Player c;
+	private Player c =  MainApplication.user;
 	private Enemy e;
+	
 
 	// higher defense and screech doesn't affect
 	// if strength 
@@ -76,7 +77,7 @@ public class Battle extends GraphicsProgram {
 		if(enemyMove == 0) { // enemy attack
 			if(c.getStrength() > e.getStrength()) { // if player is > enemy
 
-				e.setHealth(e.getHealth() -2);
+				pause.opponent.setHealth(e.getHealth() -2);
 
 				System.out.println("Your attack was higher so you hurt him");
 
