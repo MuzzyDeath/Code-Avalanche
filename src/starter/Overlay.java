@@ -9,7 +9,7 @@ import java.awt.Color;
 import java.awt.Font;
 import acm.graphics.*;
 
-public class pause {
+public class Overlay {
 	
 	//Inventory Stuff
 	private static GImage inventory;

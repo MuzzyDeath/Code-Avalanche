@@ -108,7 +108,7 @@ public class LevelPane extends GraphicsPane {
 		if (obj == play) {
 			play.setFillColor(Color.WHITE);
 			paused = false;
-			pause.unpause(program);
+			Overlay.unpause(program);
 		}
 		else if (obj == controls) {
 			System.out.println("Print controls");
@@ -134,12 +134,12 @@ public class LevelPane extends GraphicsPane {
 		if(key == KeyEvent.VK_I) {
 			if(!paused) {
 				paused = true;
-				pause.showInventory(program);
-				play = pause.play;
+				Overlay.showInventory(program);
+				play = Overlay.play;
 			}
 			else if(paused) {
 				paused = false;
-				pause.hideInventory(program);
+				Overlay.hideInventory(program);
 			}
 		}
 		//Overlay for the Battle Image
@@ -148,13 +148,13 @@ public class LevelPane extends GraphicsPane {
 
 			if(battling == false) {
 				battling = true;
-				pause.battleScene(program);
+				Overlay.battleScene(program);
 				audio = AudioPlayer.getInstance();
 				audio.playSound(MUSIC_FOLDER, SOUND_FILES[0]);
 			}
 			else {
 				battling = false;
-				pause.battleOver(program);
+				Overlay.battleOver(program);
 				audio.stopSound(MUSIC_FOLDER, SOUND_FILES[0]);
 
 			}
@@ -163,14 +163,14 @@ public class LevelPane extends GraphicsPane {
 		if(key == KeyEvent.VK_ESCAPE) {
 			if(!paused) {
 				paused = true;
-				pause.pause(program);
-				play = pause.play;
-				controls = pause.controls;
-				quit = pause.quit;
+				Overlay.pause(program);
+				play = Overlay.play;
+				controls = Overlay.controls;
+				quit = Overlay.quit;
 			}
 			else if(paused) {
 				paused = false;
-				pause.unpause(program);
+				Overlay.unpause(program);
 			}
 		}
 		if(battling == false) {
