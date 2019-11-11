@@ -31,8 +31,7 @@ public class Overlay {
 	public static GButton play = new GButton("Resume", MainApplication.WINDOW_WIDTH/3, 200, 300, 75);
 	public static GButton controls = new GButton("Controls", MainApplication.WINDOW_WIDTH/3, 300, 300, 75);
 	public static GButton quit = new GButton("Quit", MainApplication.WINDOW_WIDTH/3 , 400, 300, 75);
-	private static GRect square = new GRect(MainApplication.WINDOW_WIDTH/4, 150, 400, 400);
-	private static GImage controlsImage = new GImage("controlsImage.jpg");
+	private static GImage controlsImage = new GImage("images/controlsImage.jpg");
 	//End Pause Stuff
 
 
@@ -172,16 +171,12 @@ public class Overlay {
 	
 	
 	public static void pause(MainApplication app) {
-		square.setFillColor(Color.BLACK);
-		square.setFilled(true);
-		app.add(square);
 		app.add(play);
 		app.add(controls);
 		app.add(quit);
 	}
 	
 	public static void unpause(MainApplication app) {
-		app.remove(square);
 		app.remove(play);
 		app.remove(controls);
 		app.remove(quit);
