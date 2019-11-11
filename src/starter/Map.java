@@ -110,8 +110,7 @@ public class Map {
 		board.addNPC(4, 3);
 		
 		
-		board.addEnemy(4, 5);
-		
+		board.addEnemy(4, 5);	
 	}
 	
 	/**
@@ -179,19 +178,31 @@ public class Map {
 
 	
 	/**
+	 * Returns the character at the given space
+	 * 
 	 * @param space the space at which the vehicle needs to be fetched 
-	 * @return the vehicle at the given location
+	 * @return the character at the given location
 	 */
 	public Character getCharacter(Space space)
 	{
 		return board.getCharacter(space);
 	}
 	
+	/**
+	 * Returns all the characters on the board
+	 * 
+	 * @return arraylist of characters on the map
+	 */
 	public ArrayList<Character> getCharactersOnMap()
 	{
 		return board.getCharactersOnBoard();
 	}
 
+	/**
+	 * Returns map for the given level
+	 * 
+	 * @return Map for the given level
+	 */
 	public static Map getMapForLevel(int level)
 	{
 		Map retMap = null;
@@ -232,9 +243,7 @@ public class Map {
 		// Get the player's current position and perform move if possible
 		Space curPosition = player.getLocation();
 		
-		//The return value here probably won't work.
-		//This is because you are making a recursive call to the very method you're calling.
-		//Please review, then fix.
+		// Delegate to board to move the given character
 		return board.moveNumSpaces(curPosition, numSpaces, isHorizontal);
 	}
 	
@@ -294,8 +303,8 @@ public class Map {
 	
 	public static void main(String[] args) {
 		Map mapB = Map.getMapForLevel(LEVEL_BEGINNER);
-		Map mapI = Map.getMapForLevel(LEVEL_INTERMEDIATE);
-		Map mapA = Map.getMapForLevel(LEVEL_ADVANCED);
+		//Map mapI = Map.getMapForLevel(LEVEL_INTERMEDIATE);
+		//Map mapA = Map.getMapForLevel(LEVEL_ADVANCED);
 		
 	
 		// Add the player and make moves to the exit location
@@ -303,12 +312,19 @@ public class Map {
 		System.out.println(mapB);
 		
 		mapB.moveNumSpaces(1, true);
+		System.out.println("After moving 1 space horizontally \n" + mapB);
 		mapB.moveNumSpaces(-1, false);
+		System.out.println("After moving -1 space vertically \n" + mapB);
 		mapB.moveNumSpaces(3, true);
+		System.out.println("After moving 3 spaces horizontally \n" + mapB);
 		mapB.moveNumSpaces(3, false);
+		System.out.println("After moving 3 space vertically \n" + mapB);
 		mapB.moveNumSpaces(1, true);
+		System.out.println("After moving 1 space horizontally \n" + mapB);
 		mapB.moveNumSpaces(2, false); // Face the enemy
+		System.out.println("After moving 2 spaces vertically \n" + mapB);
 		mapB.moveNumSpaces(-1, true);
+		System.out.println("After moving -1 space horizontally \n" + mapB);
 		
 		//System.out.println(mapI);
 		

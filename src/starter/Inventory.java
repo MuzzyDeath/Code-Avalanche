@@ -41,7 +41,7 @@ public class Inventory {
 
 	public boolean equip (Item i, Character c) {
 		
-		// if there is another item equipped in the same category already, swap
+
 		if (isInBackpack(i, backpack)) { 
 			// item temp is at index
 			Item temp = backpack.get(index);

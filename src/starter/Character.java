@@ -14,7 +14,7 @@ public class Character{
 //Instance Variables
 	//Private Usable only in this class
 	private int cRow, cCol, cMove, cHealth;
-	private Space location;
+	//private Space location;
 	
 	//Protected usable in this class and child class(es)
 	protected int strength, charisma, agility, defense, balance, experience;
@@ -46,7 +46,7 @@ public class Character{
 		this.cRow = row;
 		this.cCol = col;
 		this.cHealth = 100;
-		this.location = new Space(row, col);
+		setLocation(row, col);
 	}
 
 	public Character(int row, int col, CharacterType cType)
@@ -80,10 +80,12 @@ public class Character{
 	public void setKing() {
 		this.isKing = true;
 	}
+	
+	
 	public Space setLocation(int r, int c) {
-		this.location.setRow(r);
-		this.location.setCol(c);
-		return this.location;
+		cRow = r;
+		cCol = c;
+		return getLocation();
 	}
 	
 	//Set User name
@@ -151,8 +153,19 @@ public class Character{
 	public String getName() {
 		return this.cName;
 	}
-	public Space getLocation() {
-		return this.location;
+	
+	public Space getLocation()
+	{
+		return new Space(cRow, cCol);
+	}
+	
+	public int getRow()
+	{
+		return cRow;
+	}
+	public int getCol()
+	{
+		return cCol;
 	}
 	public boolean isKing() {
 		return this.isKing;
@@ -175,8 +188,15 @@ public class Character{
 	}
 	
 	//TODO: Implement this function
-	public void Move(int numSpaces) {
-		cMove = numSpaces;
+	public void move(int numSpaces, boolean isHorizontal) {
+		
+		if(isHorizontal)
+		{
+			cCol += numSpaces;
+		}
+		else {
+			cRow += numSpaces;
+		}
 	}
 
 	//TODO: Implement this function
@@ -193,11 +213,51 @@ public class Character{
 	 *            The number of spaces to move (can be negative or positive)
 	 * @return The array of Spaces that would need to be checked for Characters
 	 */
-	public Space[] spacesOccupiedOnTrail(int numSpaces) {
+	public Space[] spacesOccupiedOnTrail(int numSpaces, boolean isHorizontal) {
 		cMove = numSpaces;
+
+		// array of spaces that holds what all spaces the character has traveled on to
+		// reach its final position
+		Space[] spaces = new Space[numSpaces]; 
+		
+		if(isHorizontal)
+		{
+			if(numSpaces > 0)
+			{
+				// Iterate thru the numSpaces and add spaces with (cRow, cCol + i)
+				for(int i = 0; i < numSpaces; i++)
+				{
+					spaces[i] = new Space(cRow, cCol + i + 1);
+				}
+			}
+			else {
+				// Iterate thru the numSpaces and add spaces with (cRow, cCol - i)
+				for(int i = 0; i < numSpaces; i++)
+				{
+					spaces[i] = new Space(cRow, cCol - i - 1);
+				}
+			}
+		}
+		else {
+			if(numSpaces > 0)
+			{
+				// Iterate thru the numSpaces and add spaces with (cRow + i, cCol)
+				for(int i = 0; i < numSpaces; i++)
+				{
+					spaces[i] = new Space(cRow + i + 1, cCol);
+				}
+			}
+			else {
 				
-//Needs to return a value of type Space[];
-		return null;	
+				// Iterate thru the numSpaces and add spaces with (cRow - i, cCol)
+				for(int i = 0; i < numSpaces; i++)
+				{
+					spaces[i] = new Space(cRow - i - 1, cCol);
+				}
+			}
+		}
+
+		return spaces;	
 	}
 	
 //Gives enemies a small balance of gold for the player to steal!
@@ -249,6 +309,10 @@ public class Character{
 		}
 		
 		System.out.println("---------------------------------------\n");
+	}
+	
+	public boolean isPlayer() {
+		return isPlayer;
 	}
 	
 	public static void main(String[] args) throws FileNotFoundException {

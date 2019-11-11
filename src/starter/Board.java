@@ -88,7 +88,7 @@ public class Board {
 	 * @param startCol column for for location of character
 
 	 */
-	public void addCharacter(CharacterType type, int startRow, int startCol) 
+	public boolean addCharacter(CharacterType type, int startRow, int startCol) 
 	{
 		boolean canAdd = true; 
 
@@ -113,6 +113,7 @@ public class Board {
 			// Add it to the characters array list
 			characters.add(toAdd);
 		}
+		return canAdd;
 	}
 
 	/*
@@ -131,78 +132,89 @@ public class Board {
 		}
 	}*/
 
+	/**
+	 * checks if the character at the given space can move or not.
+	 * 
+	 * @param start location of character
+	 * @param nSpaces num of spaces the character needs to move
+	 * @param isHorizontal boolean indicating whether the move is horizontal or not
+	 * 
+	 * @return boolean true if the move can be performed.
+	 */
 	public boolean canMove(Space start, int nSpaces, boolean isHorizontal)
 	{
 		boolean canMove = true;
-		int endRow = 0, endCol = 0;
-		if(getCharacter(start) == null)
+		Character toMove = getCharacter(start);
+		if(toMove == null)
 		{
 			canMove = false;
 		}
 		else {
-			if(isHorizontal == true)
+			// Get the spaces this move will affect
+			Space[] spacesTrailed = toMove.spacesOccupiedOnTrail(nSpaces, isHorizontal);
+			
+			// Check that spaces trailed are within bounds of grid and that there are 
+			// no characters at these spaces
+			for(int i = 0; i < spacesTrailed.length; i++)
 			{
-
-				endRow = start.getRow();
-				endCol = start.getCol() + nSpaces;
-			}
-			else {
-
-				endRow = start.getRow() + nSpaces;
-				endCol = start.getCol();	
-			}
-			if(endRow < 0 || endRow > getNumRows() - 1 || endCol < 0 || endCol > getNumCols() - 1)
-			{
-				canMove = false;
-			}
-			if(getCharacter(new Space(endRow, endCol)) != null)
-			{
-				canMove = false;
+				// Check for out of bounds
+				if(spacesTrailed[i].getRow() < 0 || spacesTrailed[i].getRow() > (getNumRows() - 1) ||
+					spacesTrailed[i].getCol() < 0 || spacesTrailed[i].getCol() > (getNumCols() - 1))
+				{
+					// space trailed is out of bounds of board, so move can't be performed
+					canMove = false;
+					break;
+				}
+				// Check for other characters
+				if(getCharacter(spacesTrailed[i]) != null) 
+				{
+					// Character is present at space i, so the move can't be performed
+					canMove = false;
+					break;
+				}
+					
 			}
 		}
 		return canMove;
-
-
-		/*if(start != null && nSpaces >= 0 && nSpaces < getNumRows() && nSpaces < getNumCols())
-		{
-			return true;
-		}
-		return false;*/
 	}
 
-	public boolean move(Space start, int nSpaces)
+	/**
+	 * moves the  character at the given space .
+	 * 
+	 * @param start location of character
+	 * @param nSpaces num of spaces the character needs to move
+	 * @param isHorizontal boolean indicating whether the move is horizontal or not
+	 * 
+	 * @return boolean true if the move is performed.
+	 */
+	public boolean moveNumSpaces(Space start, int numSpaces, boolean isHorizontal)
 	{
-		if(start != null && nSpaces >= 0 && nSpaces < getNumRows() && nSpaces < getNumCols())
-		{
-			return true;
-		}
-		return false;
-	}
-
-	public void moveNumSpaces(Space start, int numSpaces, boolean isHorizontal)
-	{
-		int endRow = start.getRow(), endCol = start.getCol();
-		Character toMove = getCharacter(start);
+		boolean retVal = false;
+		
 		if(canMove(start, numSpaces, isHorizontal) == true)
 		{
-			if(isHorizontal == true)
-			{
-				endCol += numSpaces;
-				endRow = start.getRow();
-			}
-			else {
-				endRow += numSpaces;
-				endCol = start.getCol();
-			}
+			Character toMove = getCharacter(start);
+			
+			// Clear the old space
+			// board[start.getRow()][start.getCol()] = null;
+			board[toMove.getLocation().getRow()][toMove.getLocation().getCol()] = null;
+			
+			// Move the character 
+			toMove.move(numSpaces, isHorizontal);
+			
+			// Update board with new location of character
+			board[toMove.getLocation().getRow()][toMove.getLocation().getCol()] = toMove;
+			
+			retVal = true;
+			
 		}
-		board[endRow][endCol] = toMove;
-		board[start.getRow()][start.getCol()] = null;
+		return retVal;
 	}
 
 
 	public void addPlayer(int row, int col, CharacterType cType)
 	{
-		addCharacter(cType, row, col);
+		addCharacter(cType, row, +col);
 
 	}
 
@@ -215,21 +227,6 @@ public class Board {
 		addCharacter(CharacterType.ENEMY, row, col);
 
 	}
-
-
-	/**
-	 * Moves the character at specified location  the given number of spaces
-	 * @param space the space at which the character is currently at 
-	 * @param numSpaces the number of spaces to move the player
-	 * @param isHorizontal if the move has to be horizontal or vertical
-	 * @return true if the character  can be moved
-	 */
-	/*public boolean moveNumSpaces(Space curSpace, int numSpaces, boolean isHorizontal)
-	{
-		boolean retValue = true;
-		// TODO: Implement this
-		return retValue;
-	}*/
 
 
 	//Do not touch this class, I already converted it.
@@ -266,7 +263,6 @@ public class Board {
 		Board map1 = new Board(5, 5);
 		map1.addPlayer(2, 2, CharacterType.MAGE);
 		map1.addNPC(4, 4);
-
 		map1.addNPC(3, 3);
 		map1.addEnemy(0, 1);
 		System.out.println(map1);
