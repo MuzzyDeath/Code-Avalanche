@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.ListIterator;
 import java.awt.Font;
 
 public class LevelPane extends GraphicsPane {
@@ -28,7 +29,7 @@ public class LevelPane extends GraphicsPane {
 
 
 	//playerSprite Variables
-	private GImage playerSprite;
+	private GImage playerSprite, sprite;
 	private int moveCount;
 
 	private static Enemy opponent;
@@ -345,11 +346,28 @@ public class LevelPane extends GraphicsPane {
 		//Actually implements the GImage!
 		program.add(playerSprite);
 	}
+	
+	private void drawCharacters(Map m) {
+		ListIterator<Character> iterator = m.getBoard().getCharactersOnBoard().listIterator();
+		
+		while(iterator.hasNext()) {
+			Character toAdd = iterator.next();
+			if(toAdd.cType == CharacterType.NPC) {
+				sprite =  new GImage("knight/knight_0.png", toAdd.getRow() * xWidth, toAdd.getCol() * yHeight);
+				sprite.setSize(xWidth, yHeight);
+				sprite.sendToFront();
+			}
+			//Actually implements the GImage!
+			program.add(sprite);
+			toAdd.printCharacter();
+		}
+		
+	}
 
 	private void generateWorld() {
-		world[0] = Map.getMapForLevel(Map.LEVEL_BEGINNER);
-		world[1] = Map.getMapForLevel(Map.LEVEL_INTERMEDIATE);
-		world[2] = Map.getMapForLevel(Map.LEVEL_ADVANCED);
+		world[0] = Map.getMap(Map.LEVEL_BEGINNER);
+		//world[1] = Map.getMapForLevel(Map.LEVEL_INTERMEDIATE);
+		//world[2] = Map.getMapForLevel(Map.LEVEL_ADVANCED);
 	}
 
 	private void drawLevel(Map m) {
@@ -361,6 +379,7 @@ public class LevelPane extends GraphicsPane {
 		current = m;
 
 		drawPlayer(Protagonist);
+		drawCharacters(m);
 	}
 	public Space convertXYToSpace(double x, double y) {
 
@@ -375,12 +394,12 @@ public class LevelPane extends GraphicsPane {
 
 	private double spaceWidth(Map m) {
 		// TODO fix this method
-		xWidth = (windowWidth)/m.getRows();
+		xWidth = (windowWidth)/m.getBoard().getNumRows();
 		return xWidth;
 	}
 	private double spaceHeight(Map m) {
 		// TODO fix this method
-		yHeight = (windowHeight)/m.getColumns();
+		yHeight = (windowHeight)/m.getBoard().getNumCols();
 		return yHeight;
 	}
 

@@ -14,91 +14,56 @@ public class Map {
 	public static final int LEVEL_ADVANCED     = 3;
 	public static final int MAX_LEVELS         = 3;
 	
-	
-	//private int Rows, Cols;
 	private Board board;
-	private Player player;
-	private int level;
+	private Map map;
 	
-	private Space startSpace; // Player starts the level at this space
-	private Space exitSpace;  // Player needs to reach this space to win.
-	private int numMoves;
+	//private Space startSpace; // Player starts the level at this space
+	//private Space exitSpace;  // Player needs to reach this space to win.
+	//private int numMoves;
 	
 	
 	// Constructor that takes in a level and initializes the map for that level
-	private Map(int level)
-	{
-		this.level = level;
-		numMoves = 0;
-		switch(level)
-		{
+	private Map(int level) {
+		switch(level) {
 		case LEVEL_BEGINNER:
 			setupBeginnerMap();
 			break;
 		case LEVEL_INTERMEDIATE:
-			setupIntermediateMap();
+			//setupIntermediateMap();
 			break;
 		case LEVEL_ADVANCED:
-			setupAdvancedMap();
+			//setupAdvancedMap();
 			break;
 		default:
 			System.out.println("Invalid level " + level + ". Levels supported are from 0 to " + MAX_LEVELS);
 			break;
 		}
-
 	}
 	
-	/**
-	 * @return the number of columns on the board
-	 */
-	public int getColumns() {
-		// return the number of columns in the level
-		return board.getNumCols();
-	}
-	/**
-	 * @return the number of rows on the board
-	 */
-	public int getRows() {
-		return board.getNumRows();
+	public Board getBoard() {
+		return this.board;
 	}
 	
-	/**
-	 * @return the winning space
-	 */
-	public Space getGoalSpace()
-	{
-		return exitSpace;
-	}
-	/**
-	 * @return the number of moves done so far on the board
-	 */
-	public int getNumMoves()
-	{
-		return numMoves;
-	}
-	/**
-	 * increment the number of moves
-	 */
-	public void incrementMoves()
-	{
-		numMoves++;
-	}
-
+//	/**
+//	 * @return the winning space
+//	 */
+//	public Space getGoalSpace() {
+//		return exitSpace;
+//	}
 
 	/**
 	 * add characters for the beginner map
 	 * initialize the board, exit position, and number of moves
 	 */
-	public void setupBeginnerMap()
-	{
+	public void setupBeginnerMap() {
 		// Add characters and set up exit space.
 		// Initialize board with the maxRows and maxCols
 		board = new Board(6, 6);
 		
-		startSpace = new Space(1, 1);
+		//startSpace = new Space(1, 1);
 		
 		// Winning space for this level is for Player  to reach r4c4
-		exitSpace = new Space(4, 4);
+		//exitSpace = new Space(4, 4);
 		
 		// Add NPCs to the board
 		board.addCharacter(new NPC(0, 5));
@@ -117,51 +82,51 @@ public class Map {
 	 * initialize the board, exit position, and number of moves
 	 */
 	
-	public void setupIntermediateMap()
-	{
-		// Add characters and set up exit space.
-		// Initialize board with the maxRows and maxCols
-		board = new Board(10, 10);
-		
-		startSpace = new Space(0, 3);
-		
-		// Winning space for this level is for Player  to reach r4c4
-		exitSpace = new Space(7, 7);
-		
-		/*
-		 * board.addNPC(0, 5); board.addNPC(1, 3); board.addNPC(2, 6); board.addNPC(3,
-		 * 0); board.addNPC(3, 4); board.addNPC(5, 4); board.addNPC(4, 3);
-		 * board.addNPC(6, 7); board.addNPC(7, 8); board.addNPC(8, 7);
-		 */
-		
-		//board.addEnemy(7, 6);
-		
-	}
-
-	/**
-	 * add characters for the intermediate map
-	 * initialize the board, exit position, and number of moves
-	 */
-	
-	public void setupAdvancedMap()
-	{
-		// Add characters and set up exit space.
-		// Initialize board with the maxRows and maxCols
-		board = new Board(15, 15);
-		
-		// Winning space for this level is for  Player  to reach r4c4
-		exitSpace = new Space(12, 2);
-		
-		
-		/*
-		 * board.addNPC(0, 5); board.addNPC(1, 3); board.addNPC(2, 6); board.addNPC(3,
-		 * 0); board.addNPC(3, 4); board.addNPC(5, 4); board.addNPC(4, 3);
-		 * board.addNPC(12, 1); board.addNPC(12, 3); board.addNPC(13, 2);
-		 * 
-		 * board.addEnemy(11, 2);
-		 */
-		
-	}
+//	public void setupIntermediateMap()
+//	{
+//		// Add characters and set up exit space.
+//		// Initialize board with the maxRows and maxCols
+//		board = new Board(10, 10);
+//		
+//		startSpace = new Space(0, 3);
+//		
+//		// Winning space for this level is for Player  to reach r4c4
+//		exitSpace = new Space(7, 7);
+//		
+//		/*
+//		 * board.addNPC(0, 5); board.addNPC(1, 3); board.addNPC(2, 6); board.addNPC(3,
+//		 * 0); board.addNPC(3, 4); board.addNPC(5, 4); board.addNPC(4, 3);
+//		 * board.addNPC(6, 7); board.addNPC(7, 8); board.addNPC(8, 7);
+//		 */
+//		
+//		//board.addEnemy(7, 6);
+//		
+//	}
+//
+//	/**
+//	 * add characters for the intermediate map
+//	 * initialize the board, exit position, and number of moves
+//	 */
+//	
+//	public void setupAdvancedMap()
+//	{
+//		// Add characters and set up exit space.
+//		// Initialize board with the maxRows and maxCols
+//		board = new Board(15, 15);
+//		
+//		// Winning space for this level is for  Player  to reach r4c4
+//		exitSpace = new Space(12, 2);
+//		
+//		
+//		/*
+//		 * board.addNPC(0, 5); board.addNPC(1, 3); board.addNPC(2, 6); board.addNPC(3,
+//		 * 0); board.addNPC(3, 4); board.addNPC(5, 4); board.addNPC(4, 3);
+//		 * board.addNPC(12, 1); board.addNPC(12, 3); board.addNPC(13, 2);
+//		 * 
+//		 * board.addEnemy(11, 2);
+//		 */
+//		
+//	}
 
 	
 	/**
@@ -174,23 +139,13 @@ public class Map {
 	{
 		return board.getCharacter(space);
 	}
-	
-	/**
-	 * Returns all the characters on the board
-	 * 
-	 * @return arraylist of characters on the map
-	 */
-	public ArrayList<Character> getCharactersOnMap()
-	{
-		return board.getCharactersOnBoard();
-	}
 
 	/**
 	 * Returns map for the given level
 	 * 
 	 * @return Map for the given level
 	 */
-	public static Map getMapForLevel(int level)
+	public static Map getMap(int level)
 	{
 		Map retMap = null;
 		
@@ -203,19 +158,7 @@ public class Map {
 		}
 
 		return retMap;
-	}
-	
-	/**
-	 * adds Player to the board. Player is added to the starting position of the map.
-	 * 
-	 * @param ctype type of the player
-	 */
-	public void addPlayer(CharacterType cType)
-	{
-		//player = new Player(startSpace.getRow(), startSpace.getCol(), cType);
-		//board.addPlayer(startSpace.getRow(), startSpace.getCol(), cType);
-	}
-	
+	}	
 	
 	/**
 	 * Moves the player from his current space the given number of spaces
@@ -234,11 +177,6 @@ public class Map {
 //		//return board.moveNumSpaces(curPosition, numSpaces, isHorizontal);
 //	}
 	
-	/*
-	public Board getBoard() {
-		return board;
-	}*/
-	
 	//Methods already defined for you
 	/**
 	 * generates the string representation of the level, including the row and column headers to make it look like
@@ -247,7 +185,7 @@ public class Map {
 	 * @return the string representation
 	 */
 	public String toString() {
-		String result = generateColHeader(getColumns());
+		String result = generateColHeader(board.getNumCols());
 		result+=addRowHeader(board.toString());
 		return result;
 	}
@@ -288,41 +226,41 @@ public class Map {
 		return result;
 	}
 	
-	public static void main(String[] args) {
-		Map mapB = Map.getMapForLevel(LEVEL_BEGINNER);
-		//Map mapI = Map.getMapForLevel(LEVEL_INTERMEDIATE);
-		//Map mapA = Map.getMapForLevel(LEVEL_ADVANCED);
-		
-	
-		// Add the player and make moves to the exit location
-		mapB.addPlayer(CharacterType.WARRIOR);
-		System.out.println(mapB);
-		
-//		mapB.moveNumSpaces(1, true);
-//		System.out.println("After moving 1 space horizontally \n" + mapB);
-//		mapB.moveNumSpaces(-1, false);
-//		System.out.println("After moving -1 space vertically \n" + mapB);
-//		mapB.moveNumSpaces(3, true);
-//		System.out.println("After moving 3 spaces horizontally \n" + mapB);
-//		mapB.moveNumSpaces(3, false);
-//		System.out.println("After moving 3 space vertically \n" + mapB);
-//		mapB.moveNumSpaces(1, true);
-//		System.out.println("After moving 1 space horizontally \n" + mapB);
-//		mapB.moveNumSpaces(2, false); // Face the enemy
-//		System.out.println("After moving 2 spaces vertically \n" + mapB);
-//		mapB.moveNumSpaces(-1, true);
-//		System.out.println("After moving -1 space horizontally \n" + mapB);
-		
-		//System.out.println(mapI);
-		
-		//System.out.println(mapA);
-		
-		
-		//System.out.println(map1.canMove(map1.getStart(), 2));
-		//map1.printCharactersOnBoard();
-		//testCanMove(b);
-		//testMoving(b);
-		//System.out.println(b);
-	}
+//	public static void main(String[] args) {
+//		Map mapB = Map.getMapForLevel(LEVEL_BEGINNER);
+//		//Map mapI = Map.getMapForLevel(LEVEL_INTERMEDIATE);
+//		//Map mapA = Map.getMapForLevel(LEVEL_ADVANCED);
+//		
+//	
+//		// Add the player and make moves to the exit location
+//		mapB.addPlayer(CharacterType.WARRIOR);
+//		System.out.println(mapB);
+//		
+////		mapB.moveNumSpaces(1, true);
+////		System.out.println("After moving 1 space horizontally \n" + mapB);
+////		mapB.moveNumSpaces(-1, false);
+////		System.out.println("After moving -1 space vertically \n" + mapB);
+////		mapB.moveNumSpaces(3, true);
+////		System.out.println("After moving 3 spaces horizontally \n" + mapB);
+////		mapB.moveNumSpaces(3, false);
+////		System.out.println("After moving 3 space vertically \n" + mapB);
+////		mapB.moveNumSpaces(1, true);
+////		System.out.println("After moving 1 space horizontally \n" + mapB);
+////		mapB.moveNumSpaces(2, false); // Face the enemy
+////		System.out.println("After moving 2 spaces vertically \n" + mapB);
+////		mapB.moveNumSpaces(-1, true);
+////		System.out.println("After moving -1 space horizontally \n" + mapB);
+//		
+//		//System.out.println(mapI);
+//		
+//		//System.out.println(mapA);
+//		
+//		
+//		//System.out.println(map1.canMove(map1.getStart(), 2));
+//		//map1.printCharactersOnBoard();
+//		//testCanMove(b);
+//		//testMoving(b);
+//		//System.out.println(b);
+//	}
 	
 }
