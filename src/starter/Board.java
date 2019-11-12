@@ -2,16 +2,18 @@ package starter;
 import java.util.*;
 import java.util.ArrayList;
 
+/**
+ * COMP 55: Application Development final Project
+ *  @author Nitin Pinnamaneni & Greg Jewell
+ */
+
 public class Board {
 	private static Character[][] board; // 2D array of characters
-	ArrayList<Character> characters; // holds all the characters on the board
+	private static ArrayList<Character> characters; // holds all the characters on the board
+	
+	private static int rows, cols;
 
 	public static Enemy temp;
-	
-	/*
-	private Space start = new Space(2, 0);
-
-	 */
 
 	/**
 	 * Constructor for the board which sets up an empty grid of size rows by columns
@@ -20,26 +22,31 @@ public class Board {
 	 * @param rows number of rows on the board
 	 * @param cols number of columns on the board
 	 */
-	public Board(int rows, int cols) {
+	public Board(int r, int c) {
+		
+		System.out.println("Generating board!");
+		
+		rows = r;
+		cols = c;
+		
 		// Create a 2D array of characters
 		board = new Character[rows][cols];
 		characters = new ArrayList<Character>();
+
 	}
 
 	/**
 	 * @return number of columns the board has
 	 */
-	public int getNumCols()
-	{
-		return board[0].length;
+	public static int getNumCols() {
+		return cols;
 	}
 
 	/**
 	 * @return number of rows the board has
 	 */
-	public int getNumRows()
-	{
-		return board.length;
+	public static int getNumRows() {
+		return rows;
 	}
 
 	/**
@@ -51,10 +58,10 @@ public class Board {
 	public Character getCharacter(Space s) {
 		Character retCharacter = null; 
 		// Look for the character at the given space
-		if(board[s.getRow()][s.getCol()] != null)
-		{
+		if(board[s.getRow()][s.getCol()] != null){
 			retCharacter =  board[s.getRow()][s.getCol()]; //Sets the retCharacter to character at that space if it is not null
 		}
+		
 		return retCharacter;
 	}
 
@@ -66,174 +73,32 @@ public class Board {
 	 */
 
 	public boolean isCharacterOnSpace(Space s) {
-		boolean retValue = false;
 		if(board[s.getRow()][s.getCol()] != null)
 		{
-			retValue = true;
+			return true;
 		}
-		return retValue;
+		else
+			return false;
 	}
 
-	public ArrayList<Character> getCharactersOnBoard()
-	{
+	//Iterates through board, and adds Characters to ArrayList
+	//ArrayList is returnable
+	public static ArrayList<Character> getCharactersOnBoard() {
+		for(int i = 0; i < rows; i++)
+			for(int j = 0; j < cols; j++) {
+				if(board[i][j] != null)
+					characters.add(board[i][j]);
+			}
+		
+		ListIterator<Character> iterator = characters.listIterator();
+		
+		while(iterator.hasNext()) {
+			iterator.next().printCharacter();
+		}
+
 		return characters;
 	}
-
-
-	/**
-	 * adds a character to the board. It would be good to do some checks for a legal placement here.
-	 * 
-	 * @param type type of the character
-	 * @param startRow row for location of character's top
-	 * @param startCol column for for location of character
-
-	 */
-	public boolean addCharacter(CharacterType type, int startRow, int startCol) 
-	{
-		boolean canAdd = true; 
-
-		// The character you want to add that has the specified parameters
-		Character toAdd = new Character(startRow, startCol, type); 
-
-		Space toOccupy = new Space(startRow, startCol);
-
-		// Check row bounds
-		if(toOccupy.getRow() < 0 || toOccupy.getRow() > (getNumRows() - 1) || 
-				toOccupy.getCol() < 0 || toOccupy.getCol() > (getNumCols() - 1))
-		{
-			canAdd = false; // Specified row and column are out of bounds, so cannot add the vehicle
-		}
-		else if(isCharacterOnSpace(toOccupy))
-		{
-			canAdd = false; // space at specified index is occupied so can't add character
-		}
-		else {
-			// Set the character at specified row and column to the vehicle you want to add
-			board[toAdd.getLocation().getRow()][toAdd.getLocation().getCol()] = toAdd;
-			// Add it to the characters array list
-			characters.add(toAdd);
-		}
-		return canAdd;
-	}
-
-	/*
-	public Space getStart()
-	{
-		return this.start;
-	}
-
-
-
-	public void printCharactersOnBoard() {
-		ArrayList<Character> list = this.getCharactersOnBoard();
-
-		for(int i = 0; i < list.size(); i++) {
-			list.get(i).printCharacter();
-		}
-	}*/
-
-	/**
-	 * checks if the character at the given space can move or not.
-	 * 
-	 * @param start location of character
-	 * @param nSpaces num of spaces the character needs to move
-	 * @param isHorizontal boolean indicating whether the move is horizontal or not
-	 * 
-	 * @return boolean true if the move can be performed.
-	 */
-	public boolean canMove(Space start, int nSpaces, boolean isHorizontal)
-	{
-		boolean canMove = true;
-		Character toMove = getCharacter(start);
-		if(toMove == null)
-		{
-			canMove = false;
-		}
-		else {
-			// Get the spaces this move will affect
-			Space[] spacesTrailed = toMove.spacesOccupiedOnTrail(nSpaces, isHorizontal);
-			
-			// Check that spaces trailed are within bounds of grid and that there are 
-			// no characters at these spaces
-			for(int i = 0; i < spacesTrailed.length; i++)
-			{
-				// Check for out of bounds
-				if(spacesTrailed[i].getRow() < 0 || spacesTrailed[i].getRow() > (getNumRows() - 1) ||
-					spacesTrailed[i].getCol() < 0 || spacesTrailed[i].getCol() > (getNumCols() - 1))
-				{
-					// space trailed is out of bounds of board, so move can't be performed
-					canMove = false;
-					break;
-				}
-				// Check for other characters
-				if(getCharacter(spacesTrailed[i]) != null) 
-				{
-					// Character is present at space i, so the move can't be performed
-					canMove = false;
-					break;
-				}
-					
-			}
-		}
-		return canMove;
-	}
-
-	/**
-	 * moves the  character at the given space .
-	 * 
-	 * @param start location of character
-	 * @param nSpaces num of spaces the character needs to move
-	 * @param isHorizontal boolean indicating whether the move is horizontal or not
-	 * 
-	 * @return boolean true if the move is performed.
-	 */
-	public boolean moveNumSpaces(Space start, int numSpaces, boolean isHorizontal)
-	{
-		boolean retVal = false;
-		
-		if(canMove(start, numSpaces, isHorizontal) == true)
-		{
-			Character toMove = getCharacter(start);
-			
-			// Clear the old space
-			// board[start.getRow()][start.getCol()] = null;
-			board[toMove.getLocation().getRow()][toMove.getLocation().getCol()] = null;
-			
-			// Move the character 
-			toMove.move(numSpaces, isHorizontal);
-			
-			// Update board with new location of character
-			board[toMove.getLocation().getRow()][toMove.getLocation().getCol()] = toMove;
-			
-			retVal = true;
-			
-		}
-		return retVal;
-	}
-
-
-	public void addPlayer(int row, int col, CharacterType cType)
-	{
-		addCharacter(cType, row, +col);
-
-	}
-
-	public void addNPC(int row, int col) {
-		addCharacter(CharacterType.NPC, row, col);
-
-	}
-
-	public void addEnemy(int row, int col) {
-		addCharacter(CharacterType.ENEMY, row, col);
-
-	}
-
-
-	//Do not touch this class, I already converted it.
-	public String toString() {
-		return BoardConverter.createString(this);
-	}
-
+	
 	//This function below is to return a enemy in order to access it in the battle class and levelpane and pause(battlepane)
 	// only thing i need help with is setting temp to the enemy in the given space 
 	
@@ -259,21 +124,69 @@ public class Board {
 		return temp;
 	}
 
+
+	/**
+	 * adds a character to the board. It would be good to do some checks for a legal placement here.
+	 * 
+	 * @param type type of the character
+	 * @param startRow row for location of character's top
+	 * @param startCol column for for location of character
+
+	 */
+	public void addCharacter(Character character) {
+		System.out.println("Checking if Character can be added!");
+		
+		int cRow = character.getRow();
+		int cCol = character.getCol();
+		
+		System.out.println("Row: " + cRow + "\nColumn: " + cCol + "\n");
+		
+		//Checking bounds
+		if(cRow >= 0 && cRow <= rows && cCol >= 0 && cCol <= cols) {
+			System.out.println("In Limits");
+			if(board[cRow][cCol] == null) {
+				System.out.println("Character added to Row: " + cRow + "\nCol: " + cCol + "\n");
+				board[cRow][cCol] = character;
+			}
+		}
+		else
+			System.out.println("Location occuppied! Skipping Character Addition!!!!");
+	}
+	
+	public boolean canMove(Character c, Space newSpace) {
+		//Java short circuits, so it's okay to have everything here.
+		if(board[newSpace.getRow()][newSpace.getCol()] == null && newSpace.getRow() > 0 && newSpace.getRow() < rows && newSpace.getCol() > 0 && newSpace.getCol() < cols) {
+			return true;
+		}
+		else
+			return false;
+	}
+
+	//Do not touch this class, I already converted it.
+	public String toString() {
+		return BoardConverter.createString(this);
+	}
+
 	public static void main(String[] args) {
-		Board map1 = new Board(5, 5);
-		map1.addPlayer(2, 2, CharacterType.MAGE);
-		map1.addNPC(4, 4);
-		map1.addNPC(3, 3);
-		map1.addEnemy(0, 1);
-		System.out.println(map1);
+		//Test board
+		Board testBoard = new Board(5, 5);
+		
+		//Add test Character's Below
+		Player p = new Player(1, 1);
+		p.cType = CharacterType.MAGE;
+		
+		testBoard.addCharacter(new Enemy(3,4));
+		testBoard.addCharacter(p);
+		Board.getCharactersOnBoard();
+		System.out.println(testBoard);
 
-		System.out.println(map1.canMove(new Space(2, 2), 2, true));
-		map1.moveNumSpaces(new Space(2, 2), 2, true);
-		System.out.println(map1);
+		//System.out.println(testBoard.canMove(new Space(2, 2), 2, true));
+		//testBoard.moveNumSpaces(new Space(2, 2), 2, true);
+		//System.out.println(testBoard);
 
-		System.out.println(map1.canMove(new Space(2, 4), 2, true));
-		map1.moveNumSpaces(new Space(2, 4), 2, true);
-		System.out.println(map1);
+		//System.out.println(testBoard.canMove(new Space(2, 4), 2, true));
+		//testBoard.moveNumSpaces(new Space(2, 4), 2, true);
+		//System.out.println(testBoard);
 
 		//System.out.println(map1.canMove(map1.getStart(), 2));
 		//map1.printCharactersOnBoard();

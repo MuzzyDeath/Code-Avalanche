@@ -3,7 +3,7 @@ import java.util.*;
 
 /**
  * COMP 55: Application Development final Project
- *  @author Nitin Pinnamaneni
+ *  @author Nitin Pinnamaneni & Greg Jewell
  */
 
 
@@ -18,7 +18,7 @@ public class Map {
 	//private int Rows, Cols;
 	private Board board;
 	private Player player;
-	private int level = 0;
+	private int level;
 	
 	private Space startSpace; // Player starts the level at this space
 	private Space exitSpace;  // Player needs to reach this space to win.
@@ -101,16 +101,15 @@ public class Map {
 		exitSpace = new Space(4, 4);
 		
 		// Add NPCs to the board
-		board.addNPC(0, 5);
-		board.addNPC(1, 3);
-		board.addNPC(2, 6);
-		board.addNPC(3, 0);
-		board.addNPC(3, 4);
-		board.addNPC(5, 4);
-		board.addNPC(4, 3);
+		board.addCharacter(new NPC(0, 5));
+		board.addCharacter(new NPC(1, 3));
+		board.addCharacter(new NPC(2, 5));
+		board.addCharacter(new NPC(3, 0));
+		board.addCharacter(new NPC(3, 4));
+		board.addCharacter(new NPC(5, 4));
+		board.addCharacter(new NPC(4, 3));
 		
-		
-		board.addEnemy(4, 5);	
+		board.addCharacter(new Enemy(4, 5));
 	}
 	
 	/**
@@ -129,20 +128,13 @@ public class Map {
 		// Winning space for this level is for Player  to reach r4c4
 		exitSpace = new Space(7, 7);
 		
+		/*
+		 * board.addNPC(0, 5); board.addNPC(1, 3); board.addNPC(2, 6); board.addNPC(3,
+		 * 0); board.addNPC(3, 4); board.addNPC(5, 4); board.addNPC(4, 3);
+		 * board.addNPC(6, 7); board.addNPC(7, 8); board.addNPC(8, 7);
+		 */
 		
-		board.addNPC(0, 5);
-		board.addNPC(1, 3);
-		board.addNPC(2, 6);
-		board.addNPC(3, 0);
-		board.addNPC(3, 4);
-		board.addNPC(5, 4);
-		board.addNPC(4, 3);
-		board.addNPC(6, 7);
-		board.addNPC(7, 8);
-		board.addNPC(8, 7);
-		
-		
-		board.addEnemy(7, 6);
+		//board.addEnemy(7, 6);
 		
 	}
 
@@ -161,18 +153,13 @@ public class Map {
 		exitSpace = new Space(12, 2);
 		
 		
-		board.addNPC(0, 5);
-		board.addNPC(1, 3);
-		board.addNPC(2, 6);
-		board.addNPC(3,  0);
-		board.addNPC(3, 4);
-		board.addNPC(5, 4);
-		board.addNPC(4, 3);
-		board.addNPC(12, 1);
-		board.addNPC(12, 3);
-		board.addNPC(13, 2);
-		
-		board.addEnemy(11, 2);
+		/*
+		 * board.addNPC(0, 5); board.addNPC(1, 3); board.addNPC(2, 6); board.addNPC(3,
+		 * 0); board.addNPC(3, 4); board.addNPC(5, 4); board.addNPC(4, 3);
+		 * board.addNPC(12, 1); board.addNPC(12, 3); board.addNPC(13, 2);
+		 * 
+		 * board.addEnemy(11, 2);
+		 */
 		
 	}
 
@@ -225,8 +212,8 @@ public class Map {
 	 */
 	public void addPlayer(CharacterType cType)
 	{
-		player = new Player(startSpace.getRow(), startSpace.getCol(), cType);
-		board.addPlayer(startSpace.getRow(), startSpace.getCol(), cType);
+		//player = new Player(startSpace.getRow(), startSpace.getCol(), cType);
+		//board.addPlayer(startSpace.getRow(), startSpace.getCol(), cType);
 	}
 	
 	
@@ -237,15 +224,15 @@ public class Map {
 	 * @param isHorizontal if the move has to be horizontal or vertical
 	 * @return true if the character  can be moved
 	 */
-	public boolean moveNumSpaces(int numSpaces, boolean isHorizontal)
-	{
-		// TODO: Implement the move
-		// Get the player's current position and perform move if possible
-		Space curPosition = player.getLocation();
-		
-		// Delegate to board to move the given character
-		return board.moveNumSpaces(curPosition, numSpaces, isHorizontal);
-	}
+//	public boolean moveNumSpaces(int numSpaces, boolean isHorizontal)
+//	{
+//		// TODO: Implement the move
+//		// Get the player's current position and perform move if possible
+//		//Space curPosition = player.getLocation();
+//		
+//		// Delegate to board to move the given character
+//		//return board.moveNumSpaces(curPosition, numSpaces, isHorizontal);
+//	}
 	
 	/*
 	public Board getBoard() {
@@ -311,20 +298,20 @@ public class Map {
 		mapB.addPlayer(CharacterType.WARRIOR);
 		System.out.println(mapB);
 		
-		mapB.moveNumSpaces(1, true);
-		System.out.println("After moving 1 space horizontally \n" + mapB);
-		mapB.moveNumSpaces(-1, false);
-		System.out.println("After moving -1 space vertically \n" + mapB);
-		mapB.moveNumSpaces(3, true);
-		System.out.println("After moving 3 spaces horizontally \n" + mapB);
-		mapB.moveNumSpaces(3, false);
-		System.out.println("After moving 3 space vertically \n" + mapB);
-		mapB.moveNumSpaces(1, true);
-		System.out.println("After moving 1 space horizontally \n" + mapB);
-		mapB.moveNumSpaces(2, false); // Face the enemy
-		System.out.println("After moving 2 spaces vertically \n" + mapB);
-		mapB.moveNumSpaces(-1, true);
-		System.out.println("After moving -1 space horizontally \n" + mapB);
+//		mapB.moveNumSpaces(1, true);
+//		System.out.println("After moving 1 space horizontally \n" + mapB);
+//		mapB.moveNumSpaces(-1, false);
+//		System.out.println("After moving -1 space vertically \n" + mapB);
+//		mapB.moveNumSpaces(3, true);
+//		System.out.println("After moving 3 spaces horizontally \n" + mapB);
+//		mapB.moveNumSpaces(3, false);
+//		System.out.println("After moving 3 space vertically \n" + mapB);
+//		mapB.moveNumSpaces(1, true);
+//		System.out.println("After moving 1 space horizontally \n" + mapB);
+//		mapB.moveNumSpaces(2, false); // Face the enemy
+//		System.out.println("After moving 2 spaces vertically \n" + mapB);
+//		mapB.moveNumSpaces(-1, true);
+//		System.out.println("After moving -1 space horizontally \n" + mapB);
 		
 		//System.out.println(mapI);
 		

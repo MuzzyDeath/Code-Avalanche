@@ -21,8 +21,8 @@ public class Player extends Character {
 	 */
 	
 // TODO: Literally all of it xD
-	public Player(int row, int col, CharacterType cType) {
-		super(row, col, cType);
+	public Player(int row, int col) {
+		super(row, col);
 		// TODO Auto-generated constructor stub
 		//this.setCharacterType();
 		
@@ -60,12 +60,7 @@ public class Player extends Character {
 		//Get Player Name & Make NPC Names
 		//this.cName = setName();
 	}
-	
-	public Player(int row, int col)
-	{
-		this(row, col, CharacterType.ROGUE);
-	}
-	
+
 //Player Setters(Mutators)
 	public Character setStrength() {
 		int change = this.getStrength();

@@ -83,11 +83,14 @@ public class Interactions {
 	public static void main(String[] args) {
 		Interactions i = new Interactions();
 		ArrayList<Character> c = new ArrayList<Character>();
-		Character r = new Player(2, 2, CharacterType.MAGE);
+		Character r = new Player(2, 2);
+		r.cType = CharacterType.MAGE;
 		c.add(r);
-		r = new Character(3, 3, CharacterType.ENEMY);
+		r = new Character(3, 3);
+		r.cType = CharacterType.ENEMY;
 		c.add(r);
-		r = new Character(1, 1, CharacterType.ENEMY);
+		r = new Character(1, 1);
+		r.cType = CharacterType.ENEMY;
 		NPC npc = new NPC(5, 5);
 		i.keyPressed(null, c, npc, 0);
 	}

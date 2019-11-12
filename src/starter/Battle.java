@@ -158,7 +158,8 @@ public class Battle extends GraphicsProgram {
 	}	
 	public static void main(String[] args) {
 
-		Player c = new Player(0, 1, CharacterType.MAGE);
+		Player c = new Player(0, 1);
+		c.cType = CharacterType.MAGE;
 		Enemy e = new Enemy(1,2);
 		e.setHealth(10);
 		c.setHealth(10);

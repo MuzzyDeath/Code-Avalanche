@@ -59,21 +59,24 @@ public class CharacterPane extends GraphicsPane {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
 		if (obj == warrior) {
 			System.out.println("Selected Warrior!");
-			selectedCharacter = new Player(Character.startSpace.getRow(), Character.startSpace.getCol(), CharacterType.WARRIOR);
+			selectedCharacter = new Player(Character.startSpace.getRow(), Character.startSpace.getCol());
+			selectedCharacter.cType = CharacterType.WARRIOR;
 			program.user = selectedCharacter;
 			hideContents();
 			program.switchToLevelPane();
 		}
 		else if (obj == rogue) {
 			System.out.println("Selected Rogue!");
-			selectedCharacter = new Player(Character.startSpace.getRow(), Character.startSpace.getCol(), CharacterType.ROGUE);
+			selectedCharacter = new Player(Character.startSpace.getRow(), Character.startSpace.getCol());
+			selectedCharacter.cType = CharacterType.ROGUE;
 			program.user = selectedCharacter;
 			hideContents();
 			program.switchToLevelPane();
 		}
 		else if (obj == mage) {
 			System.out.println("Selected Mage!");
-			selectedCharacter = new Player(Character.startSpace.getRow(), Character.startSpace.getCol(), CharacterType.MAGE);
+			selectedCharacter = new Player(Character.startSpace.getRow(), Character.startSpace.getCol());
+			selectedCharacter.cType = CharacterType.MAGE;
 			program.user = selectedCharacter;
 			hideContents();
 			program.switchToLevelPane();

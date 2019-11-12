@@ -8,52 +8,47 @@ import java.util.Random;
  */
 
 public class Character{
-	
+
 	public static final Space startSpace = new Space(1,1);
 
-//Instance Variables
+	//Instance Variables
 	//Private Usable only in this class
-	private int cRow, cCol, cMove, cHealth;
+	private int cRow, cCol, cHealth;
 	//private Space location;
-	
+
 	//Protected usable in this class and child class(es)
 	protected int strength, charisma, agility, defense, balance, experience;
 	protected boolean isPlayer, isHostile, isKing;
 	protected CharacterType cType;
 	protected String cName;
-	
-	//Public frowned upon, please do NOT implement any :)
-	
 
-/**
- * The constructor takes: 
- * @param CharacterType
- * @param row
- * @param col
- * 
- * The row/column are used to set the location they occupy.
- * 
- * There is a lot of information here, so that it can be adjusted if needed, rather than
- * being spread over multiple classes
- * 
- * The CharacterType is assigned here in the parameters, but it should actually be
- * selected via a click or keyboard selection from the user!
- */
-	
+	//Public frowned upon, please do NOT implement any :)
+
+
+	/**
+	 * The constructor takes: 
+	 * @param CharacterType
+	 * @param row
+	 * @param col
+	 * 
+	 * The row/column are used to set the location they occupy.
+	 * 
+	 * There is a lot of information here, so that it can be adjusted if needed, rather than
+	 * being spread over multiple classes
+	 * 
+	 * The CharacterType is assigned here in the parameters, but it should actually be
+	 * selected via a click or keyboard selection from the user!
+	 */
+
 	// Character Constructor
 	// TODO: Finish adding the variables and functions associated with the Character Class
 	public Character(int row, int col) {
 		this.cRow = row;
 		this.cCol = col;
 		this.cHealth = 100;
-		setLocation(row, col);
+		this.setLocation(row, col);
 	}
 
-	public Character(int row, int col, CharacterType cType)
-	{
-		this(row, col);
-		this.cType = cType;
-	}
 	//Basic Setters(Mutators)
 	public void setStrength(int c) {
 		this.strength = c;
@@ -80,14 +75,13 @@ public class Character{
 	public void setKing() {
 		this.isKing = true;
 	}
-	
-	
-	public Space setLocation(int r, int c) {
-		cRow = r;
-		cCol = c;
-		return getLocation();
+
+
+	public void setLocation(int r, int c) {
+		this.cRow = r;
+		this.cCol = c;
 	}
-	
+
 	//Set User name
 	public String setName() {
 		String name = null;
@@ -104,17 +98,17 @@ public class Character{
 
 		return name;
 	}
-	
+
 	//Set User class
 	public void setCharacterType() {
 		int choice = 0;
-		
+
 		System.out.println("Please select the NUMBER of your class:\n");
 		printWarrior();
 		printRogue();
 		printMage();
 		choice = new Scanner(System.in).nextInt();
-		
+
 		if(choice == 1) {
 			System.out.println("Warrior Selected");
 			this.cType = CharacterType.WARRIOR;
@@ -134,7 +128,7 @@ public class Character{
 		}
 	}
 
-//Basic Getters(Accessors)
+	//Basic Getters(Accessors)
 	public int getStrength() {
 		return this.strength;
 	}
@@ -153,12 +147,12 @@ public class Character{
 	public String getName() {
 		return this.cName;
 	}
-	
+
 	public Space getLocation()
 	{
 		return new Space(cRow, cCol);
 	}
-	
+
 	public int getRow()
 	{
 		return cRow;
@@ -173,7 +167,7 @@ public class Character{
 	public boolean isHostile() {
 		return this.isHostile;
 	}
-	
+
 	//Player Getters(Accessors)
 	public int getBalance() {
 		return this.balance;
@@ -182,108 +176,35 @@ public class Character{
 		return this.experience;
 	}
 
-//Returns Character type (Warrior, Rogue, ....)
+	//Returns Character type (Warrior, Rogue, ....)
 	public CharacterType getCharacterType() {
 		return cType;
 	}
-	
-	//TODO: Implement this function
-	public void move(int numSpaces, boolean isHorizontal) {
-		
-		if(isHorizontal)
-		{
-			cCol += numSpaces;
-		}
-		else {
-			cRow += numSpaces;
-		}
-	}
 
-	//TODO: Implement this function
-	public void ifIWereToMove(int numSpaces) {
-		cMove = numSpaces;
-		//"If I were to move...."
-	}
-		
-	/**
-	 * Calculates an array of the spaces that would be traveled if a character
-	 * were to move numSpaces
-	 * 
-	 * @param numSpaces
-	 *            The number of spaces to move (can be negative or positive)
-	 * @return The array of Spaces that would need to be checked for Characters
-	 */
-	public Space[] spacesOccupiedOnTrail(int numSpaces, boolean isHorizontal) {
-		cMove = numSpaces;
-
-		// array of spaces that holds what all spaces the character has traveled on to
-		// reach its final position
-		Space[] spaces = new Space[numSpaces]; 
-		
-		if(isHorizontal)
-		{
-			if(numSpaces > 0)
-			{
-				// Iterate thru the numSpaces and add spaces with (cRow, cCol + i)
-				for(int i = 0; i < numSpaces; i++)
-				{
-					spaces[i] = new Space(cRow, cCol + i + 1);
-				}
-			}
-			else {
-				// Iterate thru the numSpaces and add spaces with (cRow, cCol - i)
-				for(int i = 0; i < numSpaces; i++)
-				{
-					spaces[i] = new Space(cRow, cCol - i - 1);
-				}
-			}
-		}
-		else {
-			if(numSpaces > 0)
-			{
-				// Iterate thru the numSpaces and add spaces with (cRow + i, cCol)
-				for(int i = 0; i < numSpaces; i++)
-				{
-					spaces[i] = new Space(cRow + i + 1, cCol);
-				}
-			}
-			else {
-				
-				// Iterate thru the numSpaces and add spaces with (cRow - i, cCol)
-				for(int i = 0; i < numSpaces; i++)
-				{
-					spaces[i] = new Space(cRow - i - 1, cCol);
-				}
-			}
-		}
-
-		return spaces;	
-	}
-	
-//Gives enemies a small balance of gold for the player to steal!
+	//Gives enemies a small balance of gold for the player to steal!
 	public int randBalance() {
-        // create instance of Random class 
-        Random rand = new Random(); 
-  
-        // Generate random integers in range 0 to 500 
-        int balance = rand.nextInt(501); 
-        
+		// create instance of Random class 
+		Random rand = new Random(); 
+
+		// Generate random integers in range 0 to 500 
+		int balance = rand.nextInt(501); 
+
 		return balance;
 	}
-	
+
 	public static void printSpaces(Space space) {
-			System.out.println("Current location is Row: " + space.getRow() + " Colomn: " + space.getCol() + "\n");
+		System.out.println("Current location is Row: " + space.getRow() + " Colomn: " + space.getCol() + "\n");
 	}
-	
+
 	public String npcNames() {
 		String name;
 		String[] names = {"Pranav", "Nitin", "Greg", "Cooper", "Samantha", "Cherlynn", "Tiffany", "Amber"};
 		int index = (int)(Math.random() * names.length);
 		name = names[index];
-		
+
 		return name;
 	}
-	
+
 	public static void printWarrior() {
 		System.out.println("(1) Warrior:\nStrength: 4\nCharisma: 1\nAgility: 3\nDefense: 2\n");
 	}
@@ -293,39 +214,39 @@ public class Character{
 	public static void printMage() {
 		System.out.println("(3) Mage:\nStrength: 1\nCharisma: 2\nAgility: 3\nDefense: 4\n");
 	}
-	
+
 	public void printCharacter() {
 		System.out.println("\nInformation for : " + this.getName() + "\n");
 		System.out.println("Strength: " + this.getStrength() + "\n");
 		System.out.println("Charisma: " + this.getCharisma() + "\n");
 		System.out.println("Agility: " + this.getAgility() + "\n");
 		System.out.println("Defense: " + this.getDefense() + "\n");
-		
+
 		if(this.cType == CharacterType.ENEMY || this.isPlayer) {
 			System.out.println("Current Health: " + this.getHealth() + "\n");
 			System.out.println("Gold Balance: " + this.getBalance() + "\n");
 			if(this.isPlayer)
 				System.out.println("Current Experience: " + this.getExperience() + "\n");
 		}
-		
+
 		System.out.println("---------------------------------------\n");
 	}
-	
+
 	public boolean isPlayer() {
 		return isPlayer;
 	}
-	
+
 	public static void main(String[] args) throws FileNotFoundException {
 		Space startSpace = new Space(1,1);
 		Player Muzzy = new Player(startSpace.getRow(), startSpace.getCol());
 		Muzzy.isHostile = false;
 		printSpaces(Muzzy.getLocation());
 		Muzzy.printPlayer();
-//		LevelUp level = new LevelUp();
-//		level.setNewStats(Muzzy, 3);
+		//		LevelUp level = new LevelUp();
+		//		level.setNewStats(Muzzy, 3);
 		Narrative nar = new Narrative(Muzzy, 1, 2);
 		nar.read(Muzzy, 1, 2);
-		
-				
+
+
 	}
 }
