@@ -68,11 +68,7 @@ public class Map {
 		// Add NPCs to the board
 		board.addCharacter(new NPC(0, 5));
 		board.addCharacter(new NPC(1, 3));
-		board.addCharacter(new NPC(2, 5));
-		board.addCharacter(new NPC(3, 0));
-		board.addCharacter(new NPC(3, 4));
-		board.addCharacter(new NPC(5, 4));
-		board.addCharacter(new NPC(4, 3));
+
 		
 		board.addCharacter(new Enemy(4, 5));
 	}
