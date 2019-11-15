@@ -22,9 +22,10 @@ public class Overlay {
 	
 	//Battle Stuff
 	private static GImage background, pPic, ePic;
-	private static GLabel attack, block, screech, cStrenght, cDefense, cCharisma, eStrength, eDefense, eCharisma, eHealth, cHealth;
-	private static Player Protagonist = MainApplication.user;
-	static Enemy opponent;
+	private static GLabel attack, block, screech, cStrenght, cDefense, cCharisma, eStrength, eDefense, eCharisma;
+	private static Player Protagonist;
+	public static Enemy opponent;
+	public static GLabel eHealth, cHealth;
 	//End Battle Stuff
 
 	//Pause Stuff
@@ -37,6 +38,7 @@ public class Overlay {
 
 	public static void battleScene(MainApplication app) {
 		
+		Protagonist = MainApplication.user;
 		opponent = Board.CharacterAtSpace(Protagonist);
 
 		background = new GImage("images/BattleStyle.png");

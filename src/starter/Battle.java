@@ -10,28 +10,27 @@ import java.awt.Image;
 
 
 public class Battle extends GraphicsProgram {
-	
-	 
-	private Player c =  MainApplication.user;
-	private Enemy e;
-	
 
+	// instance variables for health and at end of battle set protag and opponents health to it, then reprint glabel
+	private Player c;
+	private Enemy e;
+
+	public static GLabel eHealth, cHealth;
 	// higher defense and screech doesn't affect
 	// if strength 
 
 	public Battle() {
-		
+
 		// default constructor
 	}
-	
-	
+
+
 	public static void Fight(int userMove, Enemy e, Player c) {
-		
+
 		//System.out.println("You are in battle!");
 
-
-//		do{
-			while(Overlay.opponent.getHealth() > 0 && c.getHealth() > 0)
+		// make new GLAbel with temps
+		if(c.getHealth() > 0 && e.getHealth() > 0) {
 			if(userMove == 1) {
 				attack(c, e, enemyMove());
 			}
@@ -42,23 +41,20 @@ public class Battle extends GraphicsProgram {
 				screech(c, e, enemyMove());
 			}
 			
+			MainApplication.user.setHealth(c.getHealth());
+			
+			Overlay.cHealth.setLabel("Health: " + MainApplication.user.getHealth());
+			Overlay.eHealth.setLabel("Health: " + e.getHealth());
+			
+			
 			System.out.println("Your Health: " + c.getHealth() + " \nEnemy Health: " + e.getHealth() + "\n");
 
-
-//		}while(e.getHealth() > 0 && c.getHealth() > 0);
-
-		if(c.getHealth() <= 0 && Overlay.opponent.getHealth() > 0) {
-			System.out.println("You lose!");
-
-			c.setBalance(c.getBalance() - 100);
 		}
 		else {
-			System.out.println("You win!");
+			System.out.println("You or the enemy are out of health");
 
-			c.setBalance(c.getBalance() + e.getBalance());
 		}
 
-		
 	}
 	public static int enemyMove() {
 
@@ -72,13 +68,15 @@ public class Battle extends GraphicsProgram {
 	}
 
 	// attack will get passed both Healths, players Strength, The enemys stat based on their move
+
 	public static void attack(Player c, Enemy e, int enemyMove) {
 
 		if(enemyMove == 0) { // enemy attack
-			
+
 			if(c.getStrength() > e.getStrength()) { // if player is > enemy
 
-				Overlay.opponent.setHealth(e.getHealth() -2);
+				e.setHealth(e.getHealth() - 2);
+				// .set("");
 
 				System.out.println("Your attack was higher so you hurt him");
 
@@ -88,7 +86,6 @@ public class Battle extends GraphicsProgram {
 
 				c.setHealth(c.getHealth() - 2);
 				System.out.println("Your attack was lower so he hurt you");
-
 
 			}
 		}
@@ -100,6 +97,24 @@ public class Battle extends GraphicsProgram {
 		}
 		else if(enemyMove == 2){
 			System.out.println("He blocked your attack");
+		}
+
+		if(c.getHealth() < 0 && e.getHealth() > 0) {
+
+			System.out.println("You lose!");
+
+			c.setBalance(c.getBalance() - 100);
+
+			c.setHealth(0);
+
+		}
+		else if(c.getHealth() > 0 && e.getHealth() < 0) {
+
+			System.out.println("You win!");
+
+			c.setBalance(c.getBalance() + e.getBalance());
+
+			e.setHealth(0);
 		}
 
 
@@ -122,6 +137,24 @@ public class Battle extends GraphicsProgram {
 		else if(enemyMove == 2){ // enemy defends
 
 			System.out.println("You both defended, nothing happened");
+		}
+
+		if(c.getHealth() < 0 && e.getHealth() > 0) {
+
+			System.out.println("You lose!");
+
+			c.setBalance(c.getBalance() - 100);
+
+			c.setHealth(0);
+
+		}
+		else if(c.getHealth() > 0 && e.getHealth() < 0) {
+
+			System.out.println("You win!");
+
+			c.setBalance(c.getBalance() + e.getBalance());
+
+			e.setHealth(0);
 		}
 
 
@@ -147,27 +180,47 @@ public class Battle extends GraphicsProgram {
 		}
 
 
+		if(c.getHealth() < 0 && e.getHealth() > 0) {
+
+			System.out.println("You lose!");
+
+			c.setBalance(c.getBalance() - 100);
+
+			c.setHealth(0);
+
+		}
+		else if(c.getHealth() > 0 && e.getHealth() < 0) {
+
+			System.out.println("You win!");
+
+			c.setBalance(c.getBalance() + e.getBalance());
+
+			e.setHealth(0);
+		}
+
+
 	}
 
 	public boolean checkSkill(Player c, Enemy e) {
 		return true;
 	}
-	
+
 	public void BattleScreen() {
-		
+
 	}	
-	public static void main(String[] args) {
 
-		Player c = new Player(0, 1);
-		c.cType = CharacterType.MAGE;
-		Enemy e = new Enemy(1,2);
-		e.setHealth(10);
-		c.setHealth(10);
-		
-	
-		Battle b = new Battle();
-		b.Fight(1, e, c);
-
-	}
+	//	public static void main(String[] args) {
+	//
+	//		Player c = new Player(0, 1);
+	//		c.cType = CharacterType.MAGE;
+	//		Enemy e = new Enemy(1,2);
+	//		e.setHealth(10);
+	//		c.setHealth(10);
+	//		
+	//	
+	//		Battle b = new Battle();
+	//		b.Fight(1, e, c);
+	//
+	//	}
 
 }
