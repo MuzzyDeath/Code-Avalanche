@@ -286,7 +286,7 @@ public class LevelPane extends GraphicsPane {
 						}
 					}
 					else
-						playerSprite.setLocation(lastX, 0);
+						playerSprite.setLocation(lastX, lastY+5);
 				}
 
 				if (key == KeyEvent.VK_S) {
@@ -299,14 +299,12 @@ public class LevelPane extends GraphicsPane {
 							System.out.println(moveCount);
 							moveCount++;
 						}
-
 						else if(Protagonist.getCharacterType() == CharacterType.ROGUE) {
 							playerSprite.setImage("rogue/rogue_" + moveCount + ".png");
 							playerSprite.setSize(xWidth, yHeight);
 							System.out.println(moveCount);
 							moveCount++;
 						}
-
 						else if(Protagonist.getCharacterType() == CharacterType.MAGE) {
 							playerSprite.setImage("mage/mage_" + moveCount + ".png");
 							playerSprite.setSize(xWidth, yHeight);
@@ -315,7 +313,7 @@ public class LevelPane extends GraphicsPane {
 						}
 					}
 					else
-						playerSprite.setLocation(lastX, windowHeight-yHeight);
+						playerSprite.setLocation(lastX, lastY-5);
 				}
 			}
 
