@@ -299,17 +299,17 @@ public class LevelPane extends GraphicsPane {
 
 			if(key == KeyEvent.VK_1) {
 				Battle.Fight(1, opponent, Protagonist);
-				System.out.print("You chose attack");
+				System.out.print("You chose attack \n");
 
 			}
 
 			else if(key == KeyEvent.VK_2) {
 				Battle.Fight(2, opponent, Protagonist);
-				System.out.print("You chose block");
+				System.out.print("You chose block \n");
 			}
 			else if(key == KeyEvent.VK_3) {
 				Battle.Fight(3, opponent, Protagonist);
-				System.out.print("You chose defend");
+				System.out.print("You chose defend \n");
 			}
 		}
 
