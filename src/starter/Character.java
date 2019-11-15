@@ -45,7 +45,7 @@ public class Character{
 	public Character(int row, int col) {
 		this.cRow = row;
 		this.cCol = col;
-		this.cHealth = 100;
+		this.cHealth = 50;
 		this.setLocation(row, col);
 	}
 
