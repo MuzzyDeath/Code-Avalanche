@@ -60,8 +60,6 @@ public class LevelPane extends GraphicsPane {
 		paused = false;
 		inventory = false;
 
-		program.add(ground);
-
 		MainApplication.user.cName = "Tester";
 		Protagonist = MainApplication.user;
 		Protagonist.printPlayer();
@@ -386,6 +384,9 @@ public class LevelPane extends GraphicsPane {
 	private void loadMap(Map m) {
 		drawLevel(m);
 		current = m;
+		
+		program.add(ground);
+		ground.sendToBack();
 
 		drawPlayer(Protagonist);
 		drawCharacters(m);
