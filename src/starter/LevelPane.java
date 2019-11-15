@@ -58,12 +58,14 @@ public class LevelPane extends GraphicsPane {
 		paused = false;
 		inventory = false;
 		
-		Protagonist = app.user;
+		MainApplication.user.cName = "Tester";
+		Protagonist = MainApplication.user;
+		Protagonist.printPlayer();
 
 		opponent = Board.CharacterAtSpace(Protagonist);
 		
 		controlsImage = new GImage("controlsImage.jpg");
-
+		
 		test();
 
 		generateWorld();
@@ -359,7 +361,6 @@ public class LevelPane extends GraphicsPane {
 			}
 			//Actually implements the GImage!
 			program.add(sprite);
-			toAdd.printCharacter();
 		}
 		
 	}

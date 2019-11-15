@@ -21,10 +21,11 @@ public class Player extends Character {
 	 */
 	
 // TODO: Literally all of it xD
-	public Player(int row, int col) {
+	public Player(int row, int col, CharacterType type) {
 		super(row, col);
 		// TODO Auto-generated constructor stub
 		//this.setCharacterType();
+		this.cType = type;
 		
 		if(cType == CharacterType.WARRIOR) {
 			this.strength = 4;
@@ -86,7 +87,7 @@ public class Player extends Character {
 	
 //Player Printout
 	public String printPlayer() {
-		this.toString();
+		this.printCharacter();
 		System.out.println("Current Health: " + this.getHealth() + "\n");
 		System.out.println("Gold Balance: " + this.getBalance() + "\n");
 		System.out.println("Current Experience: " + this.getExperience() + "\n");
