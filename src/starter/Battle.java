@@ -210,6 +210,7 @@ public class Battle extends GraphicsProgram {
 
 	}	
 
+
 	//	public static void main(String[] args) {
 	//
 	//		Player c = new Player(0, 1);
@@ -223,5 +224,6 @@ public class Battle extends GraphicsProgram {
 	//		b.Fight(1, e, c);
 	//
 	//	}
+
 
 }

@@ -90,11 +90,10 @@ public class Board {
 					characters.add(board[i][j]);
 			}
 		
-		ListIterator<Character> iterator = characters.listIterator();
-		
-		while(iterator.hasNext()) {
-			iterator.next().printCharacter();
-		}
+//		ListIterator<Character> iterator = characters.listIterator();
+//		while(iterator.hasNext()) {
+//			iterator.next().printCharacter();
+//		}
 
 		return characters;
 	}
@@ -168,17 +167,17 @@ public class Board {
 	}
 
 	public static void main(String[] args) {
-		//Test board
-		Board testBoard = new Board(5, 5);
+//		//Test board
+//		Board testBoard = new Board(5, 5);
+//		
+//		//Add test Character's Below
+//		Player p = new Player(1, 1);
+//		p.cType = CharacterType.MAGE;
 		
-		//Add test Character's Below
-		Player p = new Player(1, 1);
-		p.cType = CharacterType.MAGE;
-		
-		testBoard.addCharacter(new Enemy(3,4));
-		testBoard.addCharacter(p);
-		Board.getCharactersOnBoard();
-		System.out.println(testBoard);
+//		testBoard.addCharacter(new Enemy(3,4));
+//		testBoard.addCharacter(p);
+//		//Board.getCharactersOnBoard();
+//		System.out.println(testBoard);
 
 		//System.out.println(testBoard.canMove(new Space(2, 2), 2, true));
 		//testBoard.moveNumSpaces(new Space(2, 2), 2, true);

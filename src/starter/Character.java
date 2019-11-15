@@ -233,19 +233,19 @@ public class Character{
 	}
 
 	public boolean isPlayer() {
-		return isPlayer;
+		return this.isPlayer;
 	}
 
 	public static void main(String[] args) throws FileNotFoundException {
 		Space startSpace = new Space(1,1);
-		Player Muzzy = new Player(startSpace.getRow(), startSpace.getCol());
+		Player Muzzy = new Player(startSpace.getRow(), startSpace.getCol(), CharacterType.WARRIOR);
 		Muzzy.isHostile = false;
 		printSpaces(Muzzy.getLocation());
 		Muzzy.printPlayer();
 		//		LevelUp level = new LevelUp();
 		//		level.setNewStats(Muzzy, 3);
-		Narrative nar = new Narrative(Muzzy, 1, 2);
-		nar.read(Muzzy, 1, 2);
+		//Narrative nar = new Narrative(Muzzy, 1, 2);
+		//nar.read(Muzzy, 1, 2);
 
 
 	}
