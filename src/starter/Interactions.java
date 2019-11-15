@@ -83,8 +83,7 @@ public class Interactions {
 	public static void main(String[] args) {
 		Interactions i = new Interactions();
 		ArrayList<Character> c = new ArrayList<Character>();
-		Character r = new Player(2, 2);
-		r.cType = CharacterType.MAGE;
+		Character r = new Player(2, 2, CharacterType.MAGE);
 		c.add(r);
 		r = new Character(3, 3);
 		r.cType = CharacterType.ENEMY;
