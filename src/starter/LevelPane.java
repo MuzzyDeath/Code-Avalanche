@@ -327,7 +327,7 @@ public class LevelPane extends GraphicsPane {
 
 
 	public void characterLocation(Character c) {
-		Space currentLocation = convertXYToSpace(playerSprite.getX(),playerSprite.getY());
+		Space currentLocation = convertXYToSpace(playerSprite.getX() + (xWidth / 2), playerSprite.getY() + (yHeight / 2));
 		c.setLocation(currentLocation.getRow(), currentLocation.getCol());
 
 		//Testing line, remove after production is set.
@@ -338,16 +338,16 @@ public class LevelPane extends GraphicsPane {
 	private void drawPlayer(Player p) {
 		// TODO implement drawPlayer
 		if(p.getCharacterType() == CharacterType.WARRIOR) {
-			playerSprite =  new GImage("knight/knight_0.png", p.startSpace.getRow() * xWidth, p.startSpace.getCol() * yHeight);
+			playerSprite =  new GImage("knight/knight_0.png", Character.startSpace.getRow() * xWidth, Character.startSpace.getCol() * yHeight);
 			playerSprite.setSize(xWidth, yHeight);
 			playerSprite.sendToFront();
 		}
 		else if(p.getCharacterType() == CharacterType.ROGUE) {
-			playerSprite =  new GImage("rogue/rogue_0.png", p.startSpace.getRow() * xWidth, p.startSpace.getCol() * yHeight);
+			playerSprite =  new GImage("rogue/rogue_0.png", Character.startSpace.getRow() * xWidth, Character.startSpace.getCol() * yHeight);
 			playerSprite.setSize(xWidth, yHeight);
 		}
 		else if(p.getCharacterType() == CharacterType.MAGE) {
-			playerSprite =  new GImage("mage/mage_0.png", p.startSpace.getRow() * xWidth, p.startSpace.getCol() * yHeight);
+			playerSprite =  new GImage("mage/mage_0.png", Character.startSpace.getRow() * xWidth, Character.startSpace.getCol() * yHeight);
 			playerSprite.setSize(xWidth, yHeight);
 		}
 
@@ -356,7 +356,8 @@ public class LevelPane extends GraphicsPane {
 	}
 
 	private void drawCharacters(Map m) {
-		ListIterator<Character> iterator = m.getBoard().getCharactersOnBoard().listIterator();
+		m.getBoard();
+		ListIterator<Character> iterator = Board.getCharactersOnBoard().listIterator();
 
 		while(iterator.hasNext()) {
 			Character toAdd = iterator.next();
@@ -401,13 +402,13 @@ public class LevelPane extends GraphicsPane {
 	}
 
 	private double spaceWidth(Map m) {
-		// TODO fix this method
-		xWidth = (windowWidth)/m.getBoard().getNumRows();
+		m.getBoard();
+		xWidth = (windowWidth)/Board.getNumRows();
 		return xWidth;
 	}
 	private double spaceHeight(Map m) {
-		// TODO fix this method
-		yHeight = (windowHeight)/m.getBoard().getNumCols();
+		m.getBoard();
+		yHeight = (windowHeight)/Board.getNumCols();
 		return yHeight;
 	}
 
