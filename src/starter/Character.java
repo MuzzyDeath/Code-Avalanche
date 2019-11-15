@@ -222,12 +222,12 @@ public class Character{
 		System.out.println("Agility: " + this.getAgility() + "\n");
 		System.out.println("Defense: " + this.getDefense() + "\n");
 
-//		if(this.cType == CharacterType.ENEMY || this.isPlayer) {
-//			System.out.println("Current Health: " + this.getHealth() + "\n");
-//			System.out.println("Gold Balance: " + this.getBalance() + "\n");
-//			if(this.isPlayer)
-//				System.out.println("Current Experience: " + this.getExperience() + "\n");
-//		}
+		if(this.cType == CharacterType.ENEMY || this.isPlayer) {
+			System.out.println("Current Health: " + this.getHealth() + "\n");
+			System.out.println("Gold Balance: " + this.getBalance() + "\n");
+			if(this.isPlayer)
+				System.out.println("Current Experience: " + this.getExperience() + "\n");
+		}
 
 		System.out.println("---------------------------------------\n");
 	}

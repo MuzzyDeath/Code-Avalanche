@@ -88,9 +88,9 @@ public class Player extends Character {
 //Player Printout
 	public String printPlayer() {
 		this.printCharacter();
-		System.out.println("Current Health: " + this.getHealth() + "\n");
-		System.out.println("Gold Balance: " + this.getBalance() + "\n");
-		System.out.println("Current Experience: " + this.getExperience() + "\n");
+//		System.out.println("Current Health: " + this.getHealth() + "\n");
+//		System.out.println("Gold Balance: " + this.getBalance() + "\n");
+//		System.out.println("Current Experience: " + this.getExperience() + "\n");
 		return "---------------------------------------------";
 	}
 
