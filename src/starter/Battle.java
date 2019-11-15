@@ -30,6 +30,7 @@ public class Battle extends GraphicsProgram {
 		//System.out.println("You are in battle!");
 
 		// make new GLAbel with temps
+		
 		if(c.getHealth() > 0 && e.getHealth() > 0) {
 			if(userMove == 1) {
 				attack(c, e, enemyMove());

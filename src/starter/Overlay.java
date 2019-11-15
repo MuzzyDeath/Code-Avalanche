@@ -39,6 +39,7 @@ public class Overlay {
 	public static void battleScene(MainApplication app) {
 		
 		Protagonist = MainApplication.user;
+		
 		opponent = Board.CharacterAtSpace(Protagonist);
 
 		background = new GImage("images/BattleStyle.png");
@@ -70,7 +71,7 @@ public class Overlay {
 		cDefense.setColor(Color.black);
 		app.add(cDefense);
 
-		cCharisma = new GLabel("Charisma: " + + Protagonist.getCharisma(), 55, 360);
+		cCharisma = new GLabel("Charisma: " + Protagonist.getCharisma(), 55, 360);
 		cCharisma.setFont(new Font("Monotype Corsiva", 1, 15));
 		cCharisma.setColor(Color.black);
 		app.add(cCharisma);
