@@ -10,6 +10,7 @@ import java.awt.Font;
 
 public class LevelPane extends GraphicsPane {
 	private static final String BACKGROUND = "controlsImage.jpg";
+	private static final String GROUND = "ground.png";
 	private static final String MAGE = "Battle Image(Mage).png";
 	private static final String WARRIOR = "Battle Image(Warrior).png";
 	private static final String ROGUE = "Battle Image(Rogue).png";
@@ -24,7 +25,7 @@ public class LevelPane extends GraphicsPane {
 	private MainApplication program; // you will use program to get access to
 	// all of the GraphicsProgram calls
 	private GButton play, controls, quit;
-	private GImage background, controlsImage, playerImage, enemyImage;
+	private GImage ground, background, controlsImage, playerImage, enemyImage;
 	private GLine line;
 
 
@@ -53,19 +54,22 @@ public class LevelPane extends GraphicsPane {
 		super();
 		program = app;
 		background = new GImage(BACKGROUND);
+		ground = new GImage(GROUND);
 
 		battling = false;
 		paused = false;
 		inventory = false;
-		
+
+		program.add(ground);
+
 		MainApplication.user.cName = "Tester";
 		Protagonist = MainApplication.user;
 		Protagonist.printPlayer();
 
 		opponent = Board.CharacterAtSpace(Protagonist);
-		
+
 		controlsImage = new GImage("controlsImage.jpg");
-		
+
 		test();
 
 		generateWorld();
@@ -97,35 +101,39 @@ public class LevelPane extends GraphicsPane {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
-		if (obj == play) {
-			play.setFillColor(Color.GRAY);
-		}
-		else if (obj == controls) {
-			controls.setFillColor(Color.GRAY);
-		}
-		else if (obj == quit) {
-			quit.setFillColor(Color.GRAY);
+		if(obj != null) {
+			if (obj == play) {
+				play.setFillColor(Color.GRAY);
+			}
+			else if (obj == controls) {
+				controls.setFillColor(Color.GRAY);
+			}
+			else if (obj == quit) {
+				quit.setFillColor(Color.GRAY);
+			}
 		}
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
-		if (obj == play) {
-			play.setFillColor(Color.WHITE);
-			paused = false;
-			Overlay.unpause(program);
-		}
-		else if (obj == controls) {
-			System.out.println("Print controls");
-			controls.setFillColor(Color.WHITE);
-			program.add(controlsImage);
-			controlsImage.sendToFront();
-		}
-		else if (obj == quit) {
-			System.out.println("Quit Game");
-			quit.setFillColor(Color.WHITE);
-			System.exit(0);
+		if(obj != null) {
+			if (obj == play) {
+				play.setFillColor(Color.WHITE);
+				paused = false;
+				Overlay.unpause(program);
+			}
+			else if (obj == controls) {
+				System.out.println("Print controls");
+				controls.setFillColor(Color.WHITE);
+				program.add(controlsImage);
+				controlsImage.sendToFront();
+			}
+			else if (obj == quit) {
+				System.out.println("Quit Game");
+				quit.setFillColor(Color.WHITE);
+				System.exit(0);
+			}
 		}
 	}
 
@@ -157,7 +165,7 @@ public class LevelPane extends GraphicsPane {
 				battling = true;
 
 				opponent = Board.CharacterAtSpace(Protagonist);
-//				pause.battleScene(program);
+				//				pause.battleScene(program);
 
 
 				Overlay.battleScene(program);
@@ -348,10 +356,10 @@ public class LevelPane extends GraphicsPane {
 		//Actually implements the GImage!
 		program.add(playerSprite);
 	}
-	
+
 	private void drawCharacters(Map m) {
 		ListIterator<Character> iterator = m.getBoard().getCharactersOnBoard().listIterator();
-		
+
 		while(iterator.hasNext()) {
 			Character toAdd = iterator.next();
 			if(toAdd.cType == CharacterType.NPC) {
@@ -362,7 +370,7 @@ public class LevelPane extends GraphicsPane {
 			//Actually implements the GImage!
 			program.add(sprite);
 		}
-		
+
 	}
 
 	private void generateWorld() {
@@ -383,8 +391,6 @@ public class LevelPane extends GraphicsPane {
 		drawCharacters(m);
 	}
 	public Space convertXYToSpace(double x, double y) {
-
-		// TODO write this implementation hint (use helper methods below)
 		int r = (int) (y/xWidth);
 		int c = (int) (x/yHeight);
 
