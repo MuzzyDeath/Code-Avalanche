@@ -286,7 +286,7 @@ public class LevelPane extends GraphicsPane {
 						}
 					}
 					else
-						playerSprite.setLocation(lastX, lastY+5);
+						playerSprite.setLocation(lastX, 5);
 				}
 
 				if (key == KeyEvent.VK_S) {
@@ -313,7 +313,7 @@ public class LevelPane extends GraphicsPane {
 						}
 					}
 					else
-						playerSprite.setLocation(lastX, lastY-5);
+						playerSprite.setLocation(lastX, windowHeight - (yHeight+5));
 				}
 			}
 
