@@ -235,6 +235,14 @@ public class Character{
 	public boolean isPlayer() {
 		return this.isPlayer;
 	}
+	
+	@Override
+	public String toString() {
+		return "Character [cRow=" + cRow + ", cCol=" + cCol + ", cHealth=" + cHealth + ", strength=" + strength
+				+ ", charisma=" + charisma + ", agility=" + agility + ", defense=" + defense + ", balance=" + balance
+				+ ", experience=" + experience + ", isPlayer=" + isPlayer + ", isHostile=" + isHostile + ", isKing="
+				+ isKing + ", cType=" + cType + ", cName=" + cName + "]";
+	}
 
 	public static void main(String[] args) throws FileNotFoundException {
 		Space startSpace = new Space(1,1);
