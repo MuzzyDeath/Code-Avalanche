@@ -139,7 +139,7 @@ public class LevelPane extends GraphicsPane {
 	public void keyPressed(KeyEvent e) {
 
 		int key = e.getKeyCode();
-		
+
 		System.out.println(world[0].getBoard());
 
 		// Overlay for the Inventory
@@ -209,7 +209,7 @@ public class LevelPane extends GraphicsPane {
 				double lastX, lastY;
 				lastX = playerSprite.getX();
 				lastY = playerSprite.getY();
-				
+
 				world[0].getBoard().moveCharacter(Protagonist, Protagonist.getLocation());
 
 				if (key == KeyEvent.VK_A) {
@@ -238,7 +238,7 @@ public class LevelPane extends GraphicsPane {
 						}
 
 					} else
-						playerSprite.setLocation(0, lastY);
+						playerSprite.setLocation((Protagonist.getCol()) * (yHeight + 2), lastY);
 				}
 
 				if (key == KeyEvent.VK_D) {
@@ -265,8 +265,10 @@ public class LevelPane extends GraphicsPane {
 							System.out.println(moveCount);
 							moveCount++;
 						}
-					} else
-						playerSprite.setLocation(windowWidth - xWidth, lastY);
+					}
+
+					else 
+						playerSprite.setLocation((Protagonist.getCol() - 1) * yHeight, lastY);
 				}
 
 				if (key == KeyEvent.VK_W) {
@@ -294,7 +296,7 @@ public class LevelPane extends GraphicsPane {
 							moveCount++;
 						}
 					} else
-						playerSprite.setLocation(lastX, lastY + 5);
+						playerSprite.setLocation(lastX, (Protagonist.getRow()) * yHeight);
 				}
 
 				if (key == KeyEvent.VK_S) {
@@ -318,10 +320,10 @@ public class LevelPane extends GraphicsPane {
 							moveCount++;
 						}
 					} else
-						playerSprite.setLocation(lastX, lastY - 5);
+						playerSprite.setLocation(lastX, (Protagonist.getRow() + 1) * yHeight);
 				}
 			}
-			
+
 			characterLocation(Protagonist);
 
 		} else {
@@ -444,7 +446,7 @@ public class LevelPane extends GraphicsPane {
 
 		program.add(ground);
 		ground.sendToBack();
-		
+
 		world[0].getBoard().addCharacter(Protagonist);
 
 		drawPlayer(Protagonist);
