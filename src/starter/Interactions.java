@@ -58,7 +58,7 @@ public class Interactions {
 			URL url = null;
 			if (cL.isKing() == true) {
 				url = Narrative.class.getClassLoader().getResource("King");
-			} else if (cL.isHostile() == true) {
+			} else if (cL.cType == CharacterType.ENEMY) {
 				url = Narrative.class.getClassLoader().getResource("Enemy");
 			} else {
 				url = Narrative.class.getClassLoader().getResource("NPC");
@@ -91,6 +91,7 @@ public class Interactions {
 		r = new Character(1, 1);
 		r.cType = CharacterType.ENEMY;
 		NPC npc = new NPC(5, 5);
+		
 		i.keyPressed(null, c, npc, 0);
 	}
 }
