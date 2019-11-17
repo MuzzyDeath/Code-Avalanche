@@ -27,10 +27,14 @@ public class MenuPane extends GraphicsPane {
 		newGame = new GButton("New Game", windowWidth/3, 200, 300, 75);
 		controls = new GButton("Controls", windowWidth/3, 300, 300, 75);
 		quit = new GButton("Quit", windowWidth/3 , 400, 300, 75);
-		
+
 		newGame.setFillColor(Color.WHITE);
 		controls.setFillColor(Color.WHITE);
 		quit.setFillColor(Color.WHITE);
+		
+		newGame.setVisible(false);
+		controls.setVisible(false);
+		quit.setVisible(false);
 		
 		showContents();
 	}
