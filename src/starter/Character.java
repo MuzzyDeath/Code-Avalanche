@@ -214,6 +214,12 @@ public class Character{
 	public static void printMage() {
 		System.out.println("(3) Mage:\nStrength: 1\nCharisma: 2\nAgility: 3\nDefense: 4\n");
 	}
+	
+	public String toString() {
+		String result = "[NAME = " + cName + " TYPE = " + cType + " Location = r" + cRow + "c" + cCol + "]";
+		return result; 
+	}
+
 
 	public void printCharacter() {
 		System.out.println("\nInformation for : " + this.getName() + "\n");

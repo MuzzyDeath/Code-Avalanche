@@ -15,7 +15,7 @@ public class Map {
 	public static final int MAX_LEVELS         = 3;
 	
 	private Board board;
-	private Map map;
+	//private Map map;
 	
 	//private Space startSpace; // Player starts the level at this space
 	//private Space exitSpace;  // Player needs to reach this space to win.
