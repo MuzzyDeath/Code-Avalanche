@@ -32,6 +32,7 @@ public class pause {
 	public static GButton quit = new GButton("Quit", MainApplication.WINDOW_WIDTH/3 , 400, 300, 75);
 	private static GRect square = new GRect(MainApplication.WINDOW_WIDTH/4, 150, 400, 400);
 	private static GImage controlsImage = new GImage("controlsImage.jpg");
+	private static GImage pauseImage = new GImage("pauseImage.png");
 	//End Pause Stuff
 
 
@@ -160,15 +161,21 @@ public class pause {
 	
 	
 	public static void pause(MainApplication app) {
+		pauseImage = new GImage("images/pauseImage.png");
+		app.add(pauseImage);
 		square.setFillColor(Color.BLACK);
 		square.setFilled(true);
 		app.add(square);
 		app.add(play);
 		app.add(controls);
 		app.add(quit);
+		play.setVisible(false);
+		controls.setVisible(false);
+		quit.setVisible(false);
 	}
 	
 	public static void unpause(MainApplication app) {
+		app.remove(pauseImage);
 		app.remove(square);
 		app.remove(play);
 		app.remove(controls);

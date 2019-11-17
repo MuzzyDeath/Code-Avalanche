@@ -59,7 +59,7 @@ public class Map {
 		// Add characters and set up exit space.
 		// Initialize board with the maxRows and maxCols
 		board = new Board(6, 6);
-		
+
 		//startSpace = new Space(1, 1);
 		
 		// Winning space for this level is for Player  to reach r4c4
@@ -135,7 +135,10 @@ public class Map {
 	{
 		return board.getCharacter(space);
 	}
-
+	public ArrayList<Character> getCharactersOnMap()
+	{
+		return board.getCharactersOnBoard();
+	}
 	/**
 	 * Returns map for the given level
 	 * 

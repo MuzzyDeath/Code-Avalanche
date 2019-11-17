@@ -1,6 +1,9 @@
 package starter;
+import java.awt.Color;
 import java.util.*;
 import java.util.ArrayList;
+
+import acm.graphics.GLine;
 
 /**
  * COMP 55: Application Development final Project
@@ -12,7 +15,7 @@ public class Board {
 	private static ArrayList<Character> characters; // holds all the characters on the board
 	
 	private static int rows, cols;
-
+	
 	public static Enemy temp;
 
 	/**
@@ -83,7 +86,7 @@ public class Board {
 
 	//Iterates through board, and adds Characters to ArrayList
 	//ArrayList is returnable
-	public static ArrayList<Character> getCharactersOnBoard() {
+	public ArrayList<Character> getCharactersOnBoard() {
 		for(int i = 0; i < rows; i++)
 			for(int j = 0; j < cols; j++) {
 				if(board[i][j] != null)
@@ -154,43 +157,68 @@ public class Board {
 	
 	public boolean canMove(Character c, Space newSpace) {
 		//Java short circuits, so it's okay to have everything here.
-		if(board[newSpace.getRow()][newSpace.getCol()] == null && newSpace.getRow() > 0 && newSpace.getRow() < rows && newSpace.getCol() > 0 && newSpace.getCol() < cols) {
-			return true;
-		}
+		if(newSpace.getRow() < rows && newSpace.getCol() < cols)
+			if(board[newSpace.getRow()][newSpace.getCol()] == null && newSpace.getRow() > 0 && newSpace.getRow() < rows && newSpace.getCol() > 0 && newSpace.getCol() < cols) {
+				return true;
+			}
+			else
+				return false;
 		else
 			return false;
+	}
+	
+	public void moveCharacter(Character c, Space newSpace) {
+		if(canMove(c, newSpace)) {
+			int row, col;
+			row = c.getRow();
+			col = c.getCol();
+			board[row][col] = null;
+			
+			board[newSpace.getRow()][newSpace.getCol()] = c;
+		}
+		else
+			System.out.println("Can't move!");
 	}
 
 	//Do not touch this class, I already converted it.
 	public String toString() {
 		return BoardConverter.createString(this);
 	}
-
+	
 	public static void main(String[] args) {
-//		//Test board
-//		Board testBoard = new Board(5, 5);
-//		
-//		//Add test Character's Below
-//		Player p = new Player(1, 1);
-//		p.cType = CharacterType.MAGE;
+		//Test board
+		Board testBoard = new Board(5, 5);
 		
-//		testBoard.addCharacter(new Enemy(3,4));
-//		testBoard.addCharacter(p);
-//		//Board.getCharactersOnBoard();
-//		System.out.println(testBoard);
+		//Add test Character's Below
+		Player p = new Player(1, 1, CharacterType.MAGE);
+		Enemy e = new Enemy(3, 4);
+		
+		testBoard.addCharacter(e);
+		testBoard.addCharacter(p);
+		testBoard.getCharactersOnBoard();
+		System.out.println(testBoard);
+		
+		Space playerSpot = new Space(p.getRow(), p.getCol() + 1);
+		Space enemySpot = new Space(e.getRow(), e.getCol() - 1);
+		Space offBoard = new Space(e.getRow(), e.getCol() + 1);
+		
+		//Testing canMove()
+		//Passing
+		System.out.println(testBoard.canMove(p, playerSpot));
+		System.out.println(testBoard.canMove(e, enemySpot));
+		
+		//Failing
+		System.out.println(testBoard.canMove(e, offBoard));
+		
+		//Testing moveCharacter()
+		//Passing
+		testBoard.moveCharacter(p, playerSpot);
+		testBoard.moveCharacter(e, enemySpot);
+		
+		//Failing
+		testBoard.canMove(e, offBoard);
+		
+		System.out.println(testBoard);
 
-		//System.out.println(testBoard.canMove(new Space(2, 2), 2, true));
-		//testBoard.moveNumSpaces(new Space(2, 2), 2, true);
-		//System.out.println(testBoard);
-
-		//System.out.println(testBoard.canMove(new Space(2, 4), 2, true));
-		//testBoard.moveNumSpaces(new Space(2, 4), 2, true);
-		//System.out.println(testBoard);
-
-		//System.out.println(map1.canMove(map1.getStart(), 2));
-		//map1.printCharactersOnBoard();
-		//testCanMove(b);
-		//testMoving(b);
-		//System.out.println(b);
 	}
 }

@@ -26,7 +26,7 @@ public class GParagraph extends GCompound {
 		labels.add(new GLabel("", startX, startY));
 		processLabels();
 	}
-
+	
 	public void setColor(Color c) {
 		for (GLabel l : labels) {
 			l.setColor(c);

@@ -8,11 +8,13 @@ import acm.graphics.GObject;
 
 public class ControlPane extends GraphicsPane {
 	private static final String BACKGROUND = "controlsImage.jpg";
-	
+	private static final String BACKIMAGE = "backButton.png";
+
 	private MainApplication program; // you will use program to get access to
 										// all of the GraphicsProgram calls
 	private GButton back;
 	private GImage background;
+	private GImage backbutton;
 	
 	private int windowHeight = program.WINDOW_HEIGHT;
 	private int windowWidth = program.WINDOW_WIDTH;
@@ -21,7 +23,10 @@ public class ControlPane extends GraphicsPane {
 		super();
 		program = app;
 		background = new GImage(BACKGROUND);
-		back = new GButton("Back", 0, 0, 25, 25);
+		backbutton = new GImage(BACKIMAGE);
+		back = new GButton("Back", 0, 0, 86, 30);
+	
+		back.setVisible(false);
 		
 		showContents();
 	}
@@ -29,6 +34,7 @@ public class ControlPane extends GraphicsPane {
 	@Override
 	public void showContents() {
 		program.add(background);
+		program.add(backbutton);
 		program.add(back);
 	}
 

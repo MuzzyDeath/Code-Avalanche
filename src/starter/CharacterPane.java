@@ -25,7 +25,7 @@ public class CharacterPane extends GraphicsPane {
 		warrior = new GImage(IMAGES[2], windowWidth - (windowWidth * .99), windowHeight/6);
 		rogue = new GImage(IMAGES[3], (windowWidth * .33) + 10, windowHeight/6);
 		mage = new GImage(IMAGES[1], (windowWidth * .66) + 10, windowHeight/6);
-		back = new GButton("Back", 0, 0, 25, 25);
+		back = new GButton("Back", 0, 0, 86, 30);
 	}
 
 	@Override
@@ -35,6 +35,8 @@ public class CharacterPane extends GraphicsPane {
 		program.add(rogue);
 		program.add(mage);
 		program.add(back);
+		back.setVisible(false);
+		
 	}
 
 	@Override
