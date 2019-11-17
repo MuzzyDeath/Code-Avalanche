@@ -169,12 +169,15 @@ public class Board {
 	
 	public void moveCharacter(Character c, Space newSpace) {
 		if(canMove(c, newSpace)) {
-			int row, col;
-			row = c.getRow();
-			col = c.getCol();
-			board[row][col] = null;
+			board[c.getRow()][c.getCol()] = null;
 			
-			board[newSpace.getRow()][newSpace.getCol()] = c;
+			for(int i = 0; i < rows; i++)
+				for(int j = 0; j < cols; j++) {
+					if(board[i][j] == c)
+						board[i][j] = null;
+				}
+			
+			addCharacter(c);
 		}
 		else
 			System.out.println("Can't move!");

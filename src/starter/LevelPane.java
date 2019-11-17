@@ -70,7 +70,7 @@ public class LevelPane extends GraphicsPane {
 
 		controlsImage = new GImage("controlsImage.jpg");
 
-		test();
+		//test();
 
 		generateWorld();
 
@@ -139,6 +139,8 @@ public class LevelPane extends GraphicsPane {
 	public void keyPressed(KeyEvent e) {
 
 		int key = e.getKeyCode();
+		
+		System.out.println(world[0].getBoard());
 
 		// Overlay for the Inventory
 		// Press I to test.
@@ -207,6 +209,8 @@ public class LevelPane extends GraphicsPane {
 				double lastX, lastY;
 				lastX = playerSprite.getX();
 				lastY = playerSprite.getY();
+				
+				world[0].getBoard().moveCharacter(Protagonist, Protagonist.getLocation());
 
 				if (key == KeyEvent.VK_A) {
 					if (checkBounds(playerSprite)) {
@@ -232,6 +236,7 @@ public class LevelPane extends GraphicsPane {
 							System.out.println(moveCount);
 							moveCount++;
 						}
+
 					} else
 						playerSprite.setLocation(0, lastY);
 				}
@@ -316,7 +321,7 @@ public class LevelPane extends GraphicsPane {
 						playerSprite.setLocation(lastX, lastY - 5);
 				}
 			}
-
+			
 			characterLocation(Protagonist);
 
 		} else {
@@ -378,7 +383,7 @@ public class LevelPane extends GraphicsPane {
 		while (iterator.hasNext()) {
 			Character toAdd = iterator.next();
 			if (toAdd.cType == CharacterType.NPC) {
-				sprite = new GImage("npcTemp.png", toAdd.getRow() * xWidth, toAdd.getCol() * yHeight);
+				sprite = new GImage("npcTemp.png", toAdd.getCol() * xWidth, toAdd.getRow() * yHeight);
 				sprite.setSize(xWidth, yHeight);
 				sprite.sendToFront();
 			}
@@ -439,6 +444,8 @@ public class LevelPane extends GraphicsPane {
 
 		program.add(ground);
 		ground.sendToBack();
+		
+		world[0].getBoard().addCharacter(Protagonist);
 
 		drawPlayer(Protagonist);
 		drawCharacters(m);
@@ -504,28 +511,28 @@ public class LevelPane extends GraphicsPane {
 	public void interactions(ArrayList<Character> c) {
 		int key = 0;
 
-	//	int player = -1;
+		//	int player = -1;
 		int closest = -1;
 		int distance = 0;
-//	for (int i = 0; i < c.size(); i++) {
-//			System.out.println(c.get(i));
-//			if (c.get(i).isPlayer()) {
-//				player = i;
-//				break;
-//			}
-//
-	//	}
-//		if (player == -1) {
-//			System.out.println("Error. Player was not found.");
-//			return;
-//		}
-//		else {
-//			System.out.println("Player was found at " + player);
-//		}
+		//	for (int i = 0; i < c.size(); i++) {
+		//			System.out.println(c.get(i));
+		//			if (c.get(i).isPlayer()) {
+		//				player = i;
+		//				break;
+		//			}
+		//
+		//	}
+		//		if (player == -1) {
+		//			System.out.println("Error. Player was not found.");
+		//			return;
+		//		}
+		//		else {
+		//			System.out.println("Player was found at " + player);
+		//		}
 		for (int i = 0; i < c.size(); i++) {
-//			if (i == player) {
-//				continue;
-//			}
+			//			if (i == player) {
+			//				continue;
+			//			}
 			int newDistance = getDistance(Protagonist, c.get(i));
 			if (closest == -1 || newDistance < distance) {
 				distance = newDistance;
