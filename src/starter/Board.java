@@ -1,6 +1,9 @@
 package starter;
+import java.awt.Color;
 import java.util.*;
 import java.util.ArrayList;
+
+import acm.graphics.GLine;
 
 /**
  * COMP 55: Application Development final Project
@@ -12,7 +15,7 @@ public class Board {
 	private static ArrayList<Character> characters; // holds all the characters on the board
 	
 	private static int rows, cols;
-
+	
 	public static Enemy temp;
 
 	/**
@@ -83,7 +86,7 @@ public class Board {
 
 	//Iterates through board, and adds Characters to ArrayList
 	//ArrayList is returnable
-	public static ArrayList<Character> getCharactersOnBoard() {
+	public ArrayList<Character> getCharactersOnBoard() {
 		for(int i = 0; i < rows; i++)
 			for(int j = 0; j < cols; j++) {
 				if(board[i][j] != null)
