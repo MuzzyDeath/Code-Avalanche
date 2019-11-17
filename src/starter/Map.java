@@ -44,6 +44,21 @@ public class Map {
 		return this.board;
 	}
 	
+	/**
+	 * @return the number of columns on the board
+	 */
+	public int getColumns() {
+		// return the number of columns in the level
+		return board.getNumCols();
+	}
+	/**
+	 * @return the number of rows on the board
+	 */
+	public int getRows() {
+		return board.getNumRows();
+	}
+
+	
 //	/**
 //	 * @return the winning space
 //	 */
@@ -135,6 +150,17 @@ public class Map {
 	{
 		return board.getCharacter(space);
 	}
+	
+	/**
+	 * Returns all the characters on the board
+	 * 
+	 * @return arraylist of characters on the map
+	 */
+	public ArrayList<Character> getCharactersOnMap()
+	{
+		return board.getCharactersOnBoard();
+	}
+
 
 	/**
 	 * Returns map for the given level
@@ -155,6 +181,14 @@ public class Map {
 
 		return retMap;
 	}	
+	
+	/**
+	 * Moves the player from his current space the given number of spaces
+	 * @param space the space at which the vehicle is currently at 
+	 * @param numSpaces the number of spaces to move the player
+	 * @param isHorizontal if the move has to be horizontal or vertical
+	 * @return true if the character  can be moved
+	 */
 	
 	/**
 	 * Moves the player from his current space the given number of spaces
