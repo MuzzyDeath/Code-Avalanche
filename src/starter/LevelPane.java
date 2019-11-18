@@ -221,10 +221,19 @@ public class LevelPane extends GraphicsPane {
 			// then they press E again and it sets battle to true
 
 			if (battling == false) {
+				battling = true;
 
+
+				// pause.battleScene(program);
+
+				Overlay.battleScene(program);
+				audio = AudioPlayer.getInstance();
+				audio.playSound(MUSIC_FOLDER, SOUND_FILES[0]);
 
 			} else {
-
+				battling = false;
+				Overlay.battleOver(program);
+				audio.stopSound(MUSIC_FOLDER, SOUND_FILES[0]);
 
 			}
 		}
