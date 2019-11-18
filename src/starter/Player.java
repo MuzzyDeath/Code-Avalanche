@@ -57,8 +57,8 @@ public class Player extends Character {
 			this.isKing = false;
 			this.balance = 5000;
 		}
-		System.out.println("I am in the player constructor" + this.isPlayer);
-		System.out.println(this);
+		// System.out.println("I am in the player constructor" + this.isPlayer);
+		// System.out.println(this);
 		//Get Player Name & Make NPC Names
 		//this.cName = setName();
 	}

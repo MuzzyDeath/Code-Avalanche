@@ -434,6 +434,7 @@ public class LevelPane extends GraphicsPane {
 		world[0] = Map.getMap(Map.LEVEL_BEGINNER);
 		// world[1] = Map.getMapForLevel(Map.LEVEL_INTERMEDIATE);
 		// world[2] = Map.getMapForLevel(Map.LEVEL_ADVANCED);
+		current = world[0];
 	}
 
 	private void drawLevel(Map m) {
@@ -464,13 +465,13 @@ public class LevelPane extends GraphicsPane {
 
 	private double spaceWidth(Map m) {
 		m.getBoard();
-		xWidth = (windowWidth) / Board.getNumRows();
+		xWidth = (windowWidth) / current.getBoard().getNumRows();
 		return xWidth;
 	}
 
 	private double spaceHeight(Map m) {
 		m.getBoard();
-		yHeight = (windowHeight) / Board.getNumCols();
+		yHeight = (windowHeight) / current.getBoard().getNumCols();
 		return yHeight;
 	}
 
