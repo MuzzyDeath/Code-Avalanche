@@ -159,33 +159,36 @@ public class LevelPane extends GraphicsPane {
 		//set to only read npc file for now
 		// Press E to test.
 		if (key == KeyEvent.VK_E) {
-			interactions(current.getCharactersOnMap());
-			if(Interactions.cL != null) { //The error catch I just added.
-				if(Interactions.cL.getCharacterType() == CharacterType.ENEMY) {
-
-					opponent = (Enemy) Interactions.cL;
-					battling = true;
-
-					if(battling == true) {
-						battling = true;
-
-
-						// pause.battleScene(program);
-
-						Overlay.battleScene(program);
-						audio = AudioPlayer.getInstance();
-						audio.playSound(MUSIC_FOLDER, SOUND_FILES[0]);
-					}
-					else {
-
-						battling = false;
-						Overlay.battleOver(program);
-						audio.stopSound(MUSIC_FOLDER, SOUND_FILES[0]);
-					}
-				}
-
-
-			}
+			
+//			Interactions.keyPressed(key, map1, Protagonist);
+			
+////			Interactions.keyPressed(key, c, npc, s);
+//			if(Interactions.cL != null) { //The error catch I just added.
+//				if(Interactions.cL.getCharacterType() == CharacterType.ENEMY) {
+//
+//					opponent = (Enemy) Interactions.cL;
+//					battling = true;
+//
+//					if(battling == true) {
+//						battling = true;
+//
+//
+//						// pause.battleScene(program);
+//
+//						Overlay.battleScene(program);
+//						audio = AudioPlayer.getInstance();
+//						audio.playSound(MUSIC_FOLDER, SOUND_FILES[0]);
+//					}
+//					else {
+//
+//						battling = false;
+//						Overlay.battleOver(program);
+//						audio.stopSound(MUSIC_FOLDER, SOUND_FILES[0]);
+//					}
+//				}
+//
+//
+//			}
 		}
 		// Overlay for the Battle Image
 		// Press 0 to test.
@@ -532,75 +535,5 @@ public class LevelPane extends GraphicsPane {
 		return col + row;
 	}
 
-	public void interactions(ArrayList<Character> c) {
-		int key = 0;
-
-		//	int player = -1;
-		int closest = -1;
-		int distance = 0;
-		//	for (int i = 0; i < c.size(); i++) {
-		//			System.out.println(c.get(i));
-		//			if (c.get(i).isPlayer()) {
-		//				player = i;
-		//				break;
-		//			}
-		//
-		//	}
-		//		if (player == -1) {
-		//			System.out.println("Error. Player was not found.");
-		//			return;
-		//		}
-		//		else {
-		//			System.out.println("Player was found at " + player);
-		//		}
-		for (int i = 0; i < c.size(); i++) {
-			//			if (i == player) {
-			//				continue;
-			//			}
-			int newDistance = getDistance(Protagonist, c.get(i));
-			if (closest == -1 || newDistance < distance) {
-				distance = newDistance;
-				closest = i;
-			}
-		}
-		if (closest == -1) {
-			System.out.println("No closest character found");
-			return;
-		}
-		Character cL = c.get(closest);
-		URL url = null;
-		if (cL.isKing() == true) {
-			url = Narrative.class.getClassLoader().getResource("King");
-		} else if (cL.cType == CharacterType.ENEMY) {
-			url = Narrative.class.getClassLoader().getResource("Enemy");
-		} else {
-			url = Narrative.class.getClassLoader().getResource("NPC");
-		}
-		try {
-			// System.out.println(url.getPath());
-			BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
-			String line;
-			String text = "";
-			while ((line = in.readLine()) != null) {
-				System.out.println(line);
-				text += line;
-			}
-			if (!textbox) {
-				textbox = true;
-				Overlay.showTextbox(program, text);
-				play = Overlay.play;
-				controls = Overlay.controls;
-			} else if (textbox) {
-				textbox = false;
-				Overlay.hideTextbox(program);
-			}
-			in.close();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			System.out.println("Unable to open file: " + url.getPath());
-		} catch (NullPointerException e1) {
-			System.out.println("Unable To Load Resource");
-
-		}
-	}
+	
 }
