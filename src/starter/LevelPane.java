@@ -166,6 +166,32 @@ public class LevelPane extends GraphicsPane {
 		// Press E to test.
 		if (key == KeyEvent.VK_E) {
 			interactions(current.getCharactersOnMap());
+			if(Interactions.cL != null) { //The error catch I just added.
+				if(Interactions.cL.getCharacterType() == CharacterType.ENEMY) {
+
+					opponent = (Enemy) Interactions.cL;
+					battling = true;
+
+					if(battling == true) {
+						battling = true;
+
+
+						// pause.battleScene(program);
+
+						Overlay.battleScene(program);
+						audio = AudioPlayer.getInstance();
+						audio.playSound(MUSIC_FOLDER, SOUND_FILES[0]);
+					}
+					else {
+
+						battling = false;
+						Overlay.battleOver(program);
+						audio.stopSound(MUSIC_FOLDER, SOUND_FILES[0]);
+					}
+				}
+
+
+			}
 		}
 		
 		// Overlay for the Level up Image
@@ -195,19 +221,10 @@ public class LevelPane extends GraphicsPane {
 			// then they press E again and it sets battle to true
 
 			if (battling == false) {
-				battling = true;
 
-				opponent = Board.CharacterAtSpace(Protagonist);
-				// pause.battleScene(program);
-
-				Overlay.battleScene(program);
-				audio = AudioPlayer.getInstance();
-				audio.playSound(MUSIC_FOLDER, SOUND_FILES[0]);
 
 			} else {
-				battling = false;
-				Overlay.battleOver(program);
-				audio.stopSound(MUSIC_FOLDER, SOUND_FILES[0]);
+
 
 			}
 		}

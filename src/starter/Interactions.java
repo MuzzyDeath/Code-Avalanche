@@ -14,8 +14,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Interactions {
+	
+	public static Character cL;
 
-	public int getDistance(Character a, Character b) {
+	public static int getDistance(Character a, Character b) {
 		int col = Math.abs(a.getLocation().getCol() - b.getLocation().getCol());
 		int row = Math.abs(a.getLocation().getRow() - b.getLocation().getRow());
 		return col + row;
@@ -54,12 +56,13 @@ public class Interactions {
 			if (closest == -1) {
 				return;
 			}
-			Character cL = c.get(closest);
+			cL = c.get(closest);
 			URL url = null;
 			if (cL.isKing() == true) {
 				url = Narrative.class.getClassLoader().getResource("King");
 			} else if (cL.cType == CharacterType.ENEMY) {
 				url = Narrative.class.getClassLoader().getResource("Enemy");
+				
 			} else {
 				url = Narrative.class.getClassLoader().getResource("NPC");
 			}
@@ -78,6 +81,11 @@ public class Interactions {
 				System.out.println("Unable To Load Resource");
 			}
 		}
+	}
+	public static Character CharacterInteractions(Character c) {
+		
+		return c;
+		
 	}
 
 	public static void main(String[] args) {
