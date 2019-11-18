@@ -390,7 +390,7 @@ public class LevelPane extends GraphicsPane {
 				sprite.sendToFront();
 			}
 			else if (toAdd.cType == CharacterType.ENEMY) {
-				sprite = new GImage("knight/knight_0.png", toAdd.getCol() * xWidth, toAdd.getRow() * yHeight);
+				sprite = new GImage("enemyTemp.png", toAdd.getCol() * xWidth, toAdd.getRow() * yHeight);
 				sprite.setSize(xWidth, yHeight);
 				sprite.sendToFront();
 			}
