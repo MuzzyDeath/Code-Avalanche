@@ -58,7 +58,7 @@ public class Board {
 	 * @param s the desired space where you want to look to see if a character is there
 	 * @return a pointer to the Character object present on that space, if no Character is present, null is returned
 	 */
-	public Character getCharacter(Space s) {
+	public static Character getCharacter(Space s) {
 		Character retCharacter = null; 
 		// Look for the character at the given space
 		if(board[s.getRow()][s.getCol()] != null){
