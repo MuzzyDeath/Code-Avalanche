@@ -255,7 +255,7 @@ public class LevelPane extends GraphicsPane {
 
 				if (key == KeyEvent.VK_A) {
 					if (checkBounds(playerSprite)) {
-						playerSprite.move(-5, 0);
+						playerSprite.move(-10, 0);
 
 						if (Protagonist.getCharacterType() == CharacterType.WARRIOR) {
 							playerSprite.setImage("knight/knight_" + moveCount + ".png");
@@ -284,7 +284,7 @@ public class LevelPane extends GraphicsPane {
 
 				if (key == KeyEvent.VK_D) {
 					if (checkBounds(playerSprite)) {
-						playerSprite.move(5, 0);
+						playerSprite.move(10, 0);
 
 						if (Protagonist.getCharacterType() == CharacterType.WARRIOR) {
 							playerSprite.setImage("knight/knight_" + moveCount + ".png");
@@ -314,7 +314,7 @@ public class LevelPane extends GraphicsPane {
 
 				if (key == KeyEvent.VK_W) {
 					if (checkBounds(playerSprite)) {
-						playerSprite.move(0, -5);
+						playerSprite.move(0, -10);
 
 						if (Protagonist.getCharacterType() == CharacterType.WARRIOR) {
 							playerSprite.setImage("knight/knight_" + moveCount + ".png");
@@ -342,7 +342,7 @@ public class LevelPane extends GraphicsPane {
 
 				if (key == KeyEvent.VK_S) {
 					if (checkBounds(playerSprite)) {
-						playerSprite.move(0, 5);
+						playerSprite.move(0, 10);
 
 						if (Protagonist.getCharacterType() == CharacterType.WARRIOR) {
 							playerSprite.setImage("knight/knight_" + moveCount + ".png");
