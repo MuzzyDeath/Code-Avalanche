@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Interactions {
-	
+
 	public static Character cL;
 
 	public static int getDistance(Character a, Character b) {
@@ -23,49 +23,48 @@ public class Interactions {
 		return col + row;
 	}
 
-	public void keyPressed(KeyEvent e, ArrayList<Character> c, NPC npc, int s) {
+	public static void keyPressed(KeyEvent e, Character[][] board, Player p) {
+
 		int key = 0;
-		if (e != null) {
+
+		if (e != null) {	
+
 			key = e.getKeyCode();
 		}
+
 		if (e == null || key == KeyEvent.VK_E) {
-			int player = -1;
-			int closest = -1;
-			int distance = 0;
-			for (int i = 0; i < c.size(); i++) {
-				if (c.get(i).isPlayer()) {
-					player = i;
-					break;
-				}
+
+			Space space = p.getLocation();
+
+			URL url = null;
+			
+			if(board[space.getRow() + 1][space.getCol()] != null) { // checks to the right of the character
+				
+					Character temp = Board.getCharacter(space);
+					
+					
+					
+					if(temp.cType == CharacterType.ENEMY) { // launches enemy dialouge then battle
+						
+						url = Narrative.class.getClassLoader().getResource("Enemy");
+					}
+					else if(temp.isKing == true) { // launches kings dialouge then battle
+						url = Narrative.class.getClassLoader().getResource("King");
+					}
+					else { // launches NPC dialouge
+						url = Narrative.class.getClassLoader().getResource("NPC");
+					}
+			}
+			else if(board[space.getRow() - 1][space.getCol()] != null) { // checks to the left of the character
 
 			}
-			if (player == -1) {
-				System.out.println("Error. Player was not found.");
-				return;
+			else if(board[space.getRow()][space.getCol() + 1] != null) { // checks above of the character
+
 			}
-			for (int i = 0; i < c.size(); i++) {
-				if (i == player) {
-					continue;
-				}
-				int newDistance = getDistance(c.get(player), c.get(i));
-				if (closest == -1 || newDistance < distance) {
-					distance = newDistance;
-					closest = i;
-				}
+			else if(board[space.getRow()][space.getCol() - 1] != null) { // checks below of the character
+
 			}
-			if (closest == -1) {
-				return;
-			}
-			cL = c.get(closest);
-			URL url = null;
-			if (cL.isKing() == true) {
-				url = Narrative.class.getClassLoader().getResource("King");
-			} else if (cL.cType == CharacterType.ENEMY) {
-				url = Narrative.class.getClassLoader().getResource("Enemy");
-				
-			} else {
-				url = Narrative.class.getClassLoader().getResource("NPC");
-			}
+			
 			try {
 				//System.out.println(url.getPath());
 				BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
@@ -81,25 +80,72 @@ public class Interactions {
 				System.out.println("Unable To Load Resource");
 			}
 		}
-	}
+
+
+		}
+		//		int key = 0;
+		//		if (e != null) {
+		//			key = e.getKeyCode();
+		//		}
+		//		if (e == null || key == KeyEvent.VK_E) {
+		//			int player = -1;
+		//			int closest = -1;
+		//			int distance = 0;
+		//			for (int i = 0; i < c.size(); i++) {
+		//				if (c.get(i).isPlayer()) {
+		//					player = i;
+		//					break;
+		//				}
+		//
+		//			}
+		//			if (player == -1) {
+		//				System.out.println("Error. Player was not found.");
+		//				return;
+		//			}
+		//			for (int i = 0; i < c.size(); i++) {
+		//				if (i == player) {
+		//					continue;
+		//				}
+		//				int newDistance = getDistance(c.get(player), c.get(i));
+		//				if (closest == -1 || newDistance < distance) {
+		//					distance = newDistance;
+		//					closest = i;
+		//				}
+		//			}
+		//			if (closest == -1) {
+		//				return;
+		//			}
+		//			cL = c.get(closest);
+		//			
+		//			if (cL.isKing() == true) {
+		//				
+		//			} else if (cL.cType == CharacterType.ENEMY) {
+		//				
+		//				
+		//			} else {
+		//				
+		//			}
+					
+	
 	public static Character CharacterInteractions(Character c) {
-		
+
 		return c;
-		
+
 	}
 
 	public static void main(String[] args) {
-		Interactions i = new Interactions();
-		ArrayList<Character> c = new ArrayList<Character>();
-		Character r = new Player(2, 2, CharacterType.MAGE);
-		c.add(r);
-		r = new Character(3, 3);
-		r.cType = CharacterType.ENEMY;
-		c.add(r);
-		r = new Character(1, 1);
-		r.cType = CharacterType.ENEMY;
-		NPC npc = new NPC(5, 5);
 		
-		i.keyPressed(null, c, npc, 0);
+//		Interactions i = new Interactions();
+//		ArrayList<Character> c = new ArrayList<Character>();
+//		Character r = new Player(2, 2, CharacterType.MAGE);
+//		c.add(r);
+//		r = new Character(3, 3);
+//		r.cType = CharacterType.ENEMY;
+//		c.add(r);
+//		r = new Character(1, 1);
+//		r.cType = CharacterType.ENEMY;
+//		NPC npc = new NPC(5, 5);
+//
+//		i.keyPressed(null, c, npc, 0);
 	}
 }
