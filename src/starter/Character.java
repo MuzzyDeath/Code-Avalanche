@@ -238,12 +238,10 @@ public class Character{
 	
 	@Override
 	public String toString() {
-		// Dont dump everthing. Changing to list only relevant data
-		return "[cType=" + cType + ", cRow=" + cRow + ", cCol=" + cCol + ", cHealth=" + cHealth + ", strength=" + strength
-				+ ", charisma=" + charisma + ", agility=" + agility + ", defense=" + defense + ", balance=" + balance +
-				// ", experience=" + experience + ", isPlayer=" + isPlayer + ", isHostile=" + isHostile + ", isKing=" +
-				// isKing + ",  cName=" + cName + 
-				"]";
+		return "Character [cRow=" + cRow + ", cCol=" + cCol + ", cHealth=" + cHealth + ", strength=" + strength
+				+ ", charisma=" + charisma + ", agility=" + agility + ", defense=" + defense + ", balance=" + balance
+				+ ", experience=" + experience + ", isPlayer=" + isPlayer + ", isHostile=" + isHostile + ", isKing="
+				+ isKing + ", cType=" + cType + ", cName=" + cName + "]";
 	}
 
 	public static void main(String[] args) throws FileNotFoundException {
