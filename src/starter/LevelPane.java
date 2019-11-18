@@ -41,6 +41,7 @@ public class LevelPane extends GraphicsPane {
 	private boolean paused;
 	private boolean inventory;
 	private boolean textbox;
+	private boolean levelup;
 
 	protected Player Protagonist;
 
@@ -117,6 +118,7 @@ public class LevelPane extends GraphicsPane {
 	public void mouseReleased(MouseEvent e) {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
 		if (obj != null) {
+			// System.out.println(" Obj selected  = " + obj);
 			if (obj == play) {
 				play.setFillColor(Color.WHITE);
 				paused = false;
@@ -131,6 +133,10 @@ public class LevelPane extends GraphicsPane {
 				quit.setFillColor(Color.WHITE);
 				System.exit(0);
 			}
+			else if (levelup) {
+				Overlay.processLevelupEvent(program, e);
+			}
+				
 		}
 	}
 
@@ -161,6 +167,24 @@ public class LevelPane extends GraphicsPane {
 		if (key == KeyEvent.VK_E) {
 			interactions(current.getCharactersOnMap());
 		}
+		
+		// Overlay for the Level up Image
+		// Press l to test.
+		
+		if (key == KeyEvent.VK_L) {
+			
+			if (!levelup)
+			{
+				levelup = true;
+				Overlay.showLevelUp(program);
+			}
+			else
+			{
+				levelup = false;
+				Overlay.hideLevelUp(program);
+			}
+		}
+		
 		// Overlay for the Battle Image
 		// Press 0 to test.
 		if (key == KeyEvent.VK_0) {

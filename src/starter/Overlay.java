@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 
 import acm.graphics.*;
+import java.awt.event.MouseEvent;
 
 public class Overlay {
 	
@@ -46,6 +47,29 @@ public class Overlay {
 	private static GImage pauseScreen = new GImage("images/pauseMenu.png");
 	private static GImage controlsImage = new GImage("images/controlsImage.jpg");
 	//End Pause Stuff
+	
+	// Levelup Stuff
+	private static final String LU_BACKGROUND_IMAGE = "images/LevelUpPaneImage2.jpg";
+	private static final int LU_BASE_X = 475, LU_BASE_Y = 250, LU_LINE_SPACE=75;
+	private static final int LU_MINUS_OFFSET = 200, LU_PLUS_OFFSET = 250, LU_BUTTON_WIDTH= 25, LU_BUTTON_HEIGHT = 30;
+	
+	private static final String LU_FONT = "Comic Sans";
+	private static final int LU_FONT_SIZE = 30;
+	
+	private static final String STRENGTH_TEXT = "Strength";
+	private static final String AGILITY_TEXT  = "Agility";
+	private static final String DEFENSE_TEXT  = "Defenese";
+	private static final String CHARISMA_TEXT = "Charisma";
+	private static final String HEALTH_TEXT   = "Health";
+	private static final String PLUS_TEXT     = "[ + ]";
+	private static final String MINUS_TEXT    = "[ - ]";
+	
+	private static final int MIN_THRESHOLD = 1;
+	
+	private static GImage luBackground;
+	public static GLabel luStrength, luAgility, luDefense, luCharisma, luHealth;
+	public static GButton luStrengthDown, luStrengthUp, luAgilityDown, luAgilityUp, luDefenseDown, luDefenseUp, luCharismaDown, luCharismaUp, luHealthDown, luHealthUp;
+	// End Levelup Stuff
 
 
 	public static void battleScene(MainApplication app) {
@@ -226,4 +250,171 @@ public class Overlay {
 	public static void hideInventory(MainApplication app) {
 		app.remove(inventory);
 	}
+	
+	public static void showLevelUp(MainApplication app) {
+		
+		// Get user so that his stats can be shown
+		Player player = MainApplication.user; 
+		
+		luBackground = new GImage(LU_BACKGROUND_IMAGE);
+		app.add(luBackground); 
+		
+		luStrength = new GLabel(STRENGTH_TEXT + " : " +  player.getStrength(), LU_BASE_X, LU_BASE_Y);
+		luStrength.setFont(new Font(LU_FONT, 1, LU_FONT_SIZE));
+		luStrength.setColor(Color.black);
+		app.add(luStrength);
+		
+		luStrengthDown = new GButton(MINUS_TEXT, LU_BASE_X + LU_MINUS_OFFSET, LU_BASE_Y - LU_FONT_SIZE , LU_BUTTON_WIDTH, LU_BUTTON_HEIGHT);
+		luStrengthDown.setFillColor(Color.LIGHT_GRAY);
+		luStrengthDown.setColor(Color.black);
+		app.add(luStrengthDown);
+		
+		luStrengthUp = new GButton(PLUS_TEXT, LU_BASE_X + LU_PLUS_OFFSET, LU_BASE_Y - LU_FONT_SIZE , LU_BUTTON_WIDTH, LU_BUTTON_HEIGHT);
+		luStrengthUp.setFillColor(Color.LIGHT_GRAY);
+		luStrengthUp.setColor(Color.black);
+		app.add(luStrengthUp);
+
+		
+		luDefense = new GLabel(DEFENSE_TEXT + " : " + player.getDefense(), LU_BASE_X, LU_BASE_Y + LU_LINE_SPACE); 
+		luDefense.setFont(new Font(LU_FONT, 1, 30));
+		luDefense.setColor(Color.black);
+		app.add(luDefense);
+		
+		luDefenseDown = new GButton(MINUS_TEXT, LU_BASE_X + LU_MINUS_OFFSET, LU_BASE_Y - LU_FONT_SIZE  + LU_LINE_SPACE, LU_BUTTON_WIDTH, LU_BUTTON_HEIGHT);
+		luDefenseDown.setFillColor(Color.LIGHT_GRAY);
+		luDefenseDown.setColor(Color.black);
+		app.add(luDefenseDown);
+		
+		luDefenseUp = new GButton(PLUS_TEXT, LU_BASE_X + LU_PLUS_OFFSET, LU_BASE_Y - LU_FONT_SIZE  + LU_LINE_SPACE, LU_BUTTON_WIDTH, LU_BUTTON_HEIGHT);
+		luDefenseUp.setFillColor(Color.LIGHT_GRAY);
+		luDefenseUp.setColor(Color.black);
+		app.add(luDefenseUp);
+
+		
+		luCharisma = new GLabel(CHARISMA_TEXT + " : " + player.getCharisma(), LU_BASE_X, LU_BASE_Y + 2* LU_LINE_SPACE); //  + opponent.getCharisma(),
+		luCharisma.setFont(new Font(LU_FONT, 1, 30));
+		luCharisma.setColor(Color.black);
+		app.add(luCharisma);
+		
+		luCharismaDown = new GButton(MINUS_TEXT, LU_BASE_X + LU_MINUS_OFFSET, LU_BASE_Y - LU_FONT_SIZE + 2* LU_LINE_SPACE, LU_BUTTON_WIDTH, LU_BUTTON_HEIGHT);
+		luCharismaDown.setFillColor(Color.LIGHT_GRAY);
+		luCharismaDown.setColor(Color.black);
+		app.add(luCharismaDown);
+		
+		luCharismaUp = new GButton(PLUS_TEXT, LU_BASE_X + LU_PLUS_OFFSET, LU_BASE_Y - LU_FONT_SIZE + 2* LU_LINE_SPACE, LU_BUTTON_WIDTH, LU_BUTTON_HEIGHT);
+		luCharismaUp.setFillColor(Color.LIGHT_GRAY);
+		luCharismaUp.setColor(Color.black);
+		app.add(luCharismaUp);
+
+		
+		luHealth  = new GLabel(HEALTH_TEXT + " : " + player.getHealth(), LU_BASE_X, LU_BASE_Y + 3* LU_LINE_SPACE)	;
+		luHealth.setFont(new Font(LU_FONT, 1, 30));
+		luHealth.setColor(Color.black);	
+		app.add(luHealth);
+		
+		luHealthDown = new GButton(MINUS_TEXT, LU_BASE_X + LU_MINUS_OFFSET, LU_BASE_Y - LU_FONT_SIZE + 3* LU_LINE_SPACE, LU_BUTTON_WIDTH, LU_BUTTON_HEIGHT);
+		luHealthDown.setFillColor(Color.LIGHT_GRAY);
+		luHealthDown.setColor(Color.black);
+		app.add(luHealthDown);
+		
+		luHealthUp = new GButton(PLUS_TEXT, LU_BASE_X + LU_PLUS_OFFSET, LU_BASE_Y - LU_FONT_SIZE + 3* LU_LINE_SPACE, LU_BUTTON_WIDTH, LU_BUTTON_HEIGHT);
+		luHealthUp.setFillColor(Color.LIGHT_GRAY);
+		luHealthUp.setColor(Color.black);
+		app.add(luHealthUp);
+
+	}
+	
+	public static void hideLevelUp(MainApplication app) {
+		app.remove(luStrength);
+		app.remove(luStrengthDown);
+		app.remove(luStrengthUp);
+		
+		app.remove(luDefense);
+		app.remove(luDefenseDown);
+		app.remove(luDefenseUp);
+
+		app.remove(luCharisma);
+		app.remove(luCharismaDown);
+		app.remove(luCharismaUp);
+
+		app.remove(luHealth);
+		app.remove(luHealthDown);
+		app.remove(luHealthUp);
+
+		app.remove(luBackground);
+	}
+	
+	public static void processLevelupEvent(MainApplication app, MouseEvent e) {
+		GObject obj = app.getElementAt(e.getX(), e.getY());
+		if (obj != null) {
+			Player player = MainApplication.user;
+			
+			// System.out.println(" Obj selected  = " + obj);
+			if (obj == luStrengthDown) {
+				// Decrement only when value is > min_threshold
+				if (player.getStrength() > MIN_THRESHOLD )
+				{
+					player.setStrength(player.getStrength() -1);
+					luStrength.setLabel(STRENGTH_TEXT + " : " +  player.getStrength());
+				}
+				else
+				{
+					System.out.println("Not supported. Strength cannot be decremented below " + MIN_THRESHOLD);
+				}
+			}
+			else if (obj == luStrengthUp) {
+				player.setStrength(player.getStrength() + 1);
+				luStrength.setLabel(STRENGTH_TEXT + " : " +  player.getStrength());
+			}
+			else if (obj == luDefenseDown) {
+				// Decrement only when value is > min_threshold
+				if (player.getDefense() > MIN_THRESHOLD )
+				{
+					player.setDefense(player.getDefense() - 1);
+					luDefense.setLabel(DEFENSE_TEXT + " : " +  player.getDefense());
+				}
+				else
+				{
+					System.out.println("Not supported. Defense cannot be decremented below " + MIN_THRESHOLD);
+				}
+			}
+			else if (obj == luDefenseUp) {
+				player.setDefense(player.getDefense() + 1);
+				luDefense.setLabel(DEFENSE_TEXT + " : " +  player.getDefense());
+			}
+			else if (obj == luCharismaDown) {
+				// Decrement only when value is > min_threshold
+				if (player.getCharisma() > MIN_THRESHOLD )
+				{
+					player.setCharisma(player.getCharisma() - 1);
+					luCharisma.setLabel(CHARISMA_TEXT + " : " +  player.getCharisma());
+				}
+				else
+				{
+					System.out.println("Not supported. Charisma cannot be decremented below " + MIN_THRESHOLD);
+				}
+			}
+			else if (obj == luCharismaUp) {
+				player.setCharisma(player.getCharisma() + 1);
+				luCharisma.setLabel(CHARISMA_TEXT + " : " +  player.getCharisma());
+			}
+			else if (obj == luHealthDown) {
+				// Decrement only when value is > min_threshold
+				if (player.getHealth() > MIN_THRESHOLD )
+				{
+					player.setHealth(player.getHealth() - 1);
+					luHealth.setLabel(HEALTH_TEXT + " : " +  player.getHealth());
+				}
+				else
+				{
+					System.out.println("Not supported. Health cannot be decremented below " + MIN_THRESHOLD);
+				}
+			}
+			else if (obj == luHealthUp) {
+				player.setHealth(player.getHealth() + 1);
+				luHealth.setLabel(HEALTH_TEXT + " : " +  player.getHealth());
+			}
+		}
+	}
+	
 }
