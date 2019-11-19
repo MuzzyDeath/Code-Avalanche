@@ -50,7 +50,7 @@ public class Overlay {
 	
 	// Levelup Stuff
 	private static final String LU_BACKGROUND_IMAGE = "images/LevelUpPaneImage2.jpg";
-	private static final int LU_BASE_X = 475, LU_BASE_Y = 250, LU_LINE_SPACE=75;
+	private static final int LU_BASE_X = 475, LU_BASE_Y = 250, LU_LINE_SPACE=60;
 	private static final int LU_MINUS_OFFSET = 200, LU_PLUS_OFFSET = 250, LU_BUTTON_WIDTH= 25, LU_BUTTON_HEIGHT = 30;
 	
 	private static final String LU_FONT = "Comic Sans";
@@ -274,50 +274,64 @@ public class Overlay {
 		luStrengthUp.setColor(Color.black);
 		app.add(luStrengthUp);
 
+		luAgility = new GLabel(AGILITY_TEXT + " : " +  player.getAgility(), LU_BASE_X, LU_BASE_Y + 1 * LU_LINE_SPACE);
+		luAgility.setFont(new Font(LU_FONT, 1, LU_FONT_SIZE));
+		luAgility.setColor(Color.black);
+		app.add(luAgility);
 		
-		luDefense = new GLabel(DEFENSE_TEXT + " : " + player.getDefense(), LU_BASE_X, LU_BASE_Y + LU_LINE_SPACE); 
+		luAgilityDown = new GButton(MINUS_TEXT, LU_BASE_X + LU_MINUS_OFFSET, LU_BASE_Y + (1 * LU_LINE_SPACE)  - LU_FONT_SIZE , LU_BUTTON_WIDTH, LU_BUTTON_HEIGHT);
+		luAgilityDown.setFillColor(Color.LIGHT_GRAY);
+		luAgilityDown.setColor(Color.black);
+		app.add(luAgilityDown);
+		
+		luAgilityUp = new GButton(PLUS_TEXT, LU_BASE_X + LU_PLUS_OFFSET, LU_BASE_Y + (1 * LU_LINE_SPACE) - LU_FONT_SIZE , LU_BUTTON_WIDTH, LU_BUTTON_HEIGHT);
+		luAgilityUp.setFillColor(Color.LIGHT_GRAY);
+		luAgilityUp.setColor(Color.black);
+		app.add(luAgilityUp);
+		
+		luDefense = new GLabel(DEFENSE_TEXT + " : " + player.getDefense(), LU_BASE_X, LU_BASE_Y + 2 * LU_LINE_SPACE); 
 		luDefense.setFont(new Font(LU_FONT, 1, 30));
 		luDefense.setColor(Color.black);
 		app.add(luDefense);
 		
-		luDefenseDown = new GButton(MINUS_TEXT, LU_BASE_X + LU_MINUS_OFFSET, LU_BASE_Y - LU_FONT_SIZE  + LU_LINE_SPACE, LU_BUTTON_WIDTH, LU_BUTTON_HEIGHT);
+		luDefenseDown = new GButton(MINUS_TEXT, LU_BASE_X + LU_MINUS_OFFSET, LU_BASE_Y - LU_FONT_SIZE  + (2 * LU_LINE_SPACE), LU_BUTTON_WIDTH, LU_BUTTON_HEIGHT);
 		luDefenseDown.setFillColor(Color.LIGHT_GRAY);
 		luDefenseDown.setColor(Color.black);
 		app.add(luDefenseDown);
 		
-		luDefenseUp = new GButton(PLUS_TEXT, LU_BASE_X + LU_PLUS_OFFSET, LU_BASE_Y - LU_FONT_SIZE  + LU_LINE_SPACE, LU_BUTTON_WIDTH, LU_BUTTON_HEIGHT);
+		luDefenseUp = new GButton(PLUS_TEXT, LU_BASE_X + LU_PLUS_OFFSET, LU_BASE_Y - LU_FONT_SIZE  + (2 * LU_LINE_SPACE), LU_BUTTON_WIDTH, LU_BUTTON_HEIGHT);
 		luDefenseUp.setFillColor(Color.LIGHT_GRAY);
 		luDefenseUp.setColor(Color.black);
 		app.add(luDefenseUp);
 
 		
-		luCharisma = new GLabel(CHARISMA_TEXT + " : " + player.getCharisma(), LU_BASE_X, LU_BASE_Y + 2* LU_LINE_SPACE); //  + opponent.getCharisma(),
+		luCharisma = new GLabel(CHARISMA_TEXT + " : " + player.getCharisma(), LU_BASE_X, LU_BASE_Y + 3 * LU_LINE_SPACE); //  + opponent.getCharisma(),
 		luCharisma.setFont(new Font(LU_FONT, 1, 30));
 		luCharisma.setColor(Color.black);
 		app.add(luCharisma);
 		
-		luCharismaDown = new GButton(MINUS_TEXT, LU_BASE_X + LU_MINUS_OFFSET, LU_BASE_Y - LU_FONT_SIZE + 2* LU_LINE_SPACE, LU_BUTTON_WIDTH, LU_BUTTON_HEIGHT);
+		luCharismaDown = new GButton(MINUS_TEXT, LU_BASE_X + LU_MINUS_OFFSET, LU_BASE_Y - LU_FONT_SIZE + 3 * LU_LINE_SPACE, LU_BUTTON_WIDTH, LU_BUTTON_HEIGHT);
 		luCharismaDown.setFillColor(Color.LIGHT_GRAY);
 		luCharismaDown.setColor(Color.black);
 		app.add(luCharismaDown);
 		
-		luCharismaUp = new GButton(PLUS_TEXT, LU_BASE_X + LU_PLUS_OFFSET, LU_BASE_Y - LU_FONT_SIZE + 2* LU_LINE_SPACE, LU_BUTTON_WIDTH, LU_BUTTON_HEIGHT);
+		luCharismaUp = new GButton(PLUS_TEXT, LU_BASE_X + LU_PLUS_OFFSET, LU_BASE_Y - LU_FONT_SIZE + (3 * LU_LINE_SPACE), LU_BUTTON_WIDTH, LU_BUTTON_HEIGHT);
 		luCharismaUp.setFillColor(Color.LIGHT_GRAY);
 		luCharismaUp.setColor(Color.black);
 		app.add(luCharismaUp);
 
 		
-		luHealth  = new GLabel(HEALTH_TEXT + " : " + player.getHealth(), LU_BASE_X, LU_BASE_Y + 3* LU_LINE_SPACE)	;
+		luHealth  = new GLabel(HEALTH_TEXT + " : " + player.getHealth(), LU_BASE_X, LU_BASE_Y + 4 * LU_LINE_SPACE)	;
 		luHealth.setFont(new Font(LU_FONT, 1, 30));
 		luHealth.setColor(Color.black);	
 		app.add(luHealth);
 		
-		luHealthDown = new GButton(MINUS_TEXT, LU_BASE_X + LU_MINUS_OFFSET, LU_BASE_Y - LU_FONT_SIZE + 3* LU_LINE_SPACE, LU_BUTTON_WIDTH, LU_BUTTON_HEIGHT);
+		luHealthDown = new GButton(MINUS_TEXT, LU_BASE_X + LU_MINUS_OFFSET, LU_BASE_Y - LU_FONT_SIZE + 4* LU_LINE_SPACE, LU_BUTTON_WIDTH, LU_BUTTON_HEIGHT);
 		luHealthDown.setFillColor(Color.LIGHT_GRAY);
 		luHealthDown.setColor(Color.black);
 		app.add(luHealthDown);
 		
-		luHealthUp = new GButton(PLUS_TEXT, LU_BASE_X + LU_PLUS_OFFSET, LU_BASE_Y - LU_FONT_SIZE + 3* LU_LINE_SPACE, LU_BUTTON_WIDTH, LU_BUTTON_HEIGHT);
+		luHealthUp = new GButton(PLUS_TEXT, LU_BASE_X + LU_PLUS_OFFSET, LU_BASE_Y - LU_FONT_SIZE + 4* LU_LINE_SPACE, LU_BUTTON_WIDTH, LU_BUTTON_HEIGHT);
 		luHealthUp.setFillColor(Color.LIGHT_GRAY);
 		luHealthUp.setColor(Color.black);
 		app.add(luHealthUp);
@@ -328,6 +342,10 @@ public class Overlay {
 		app.remove(luStrength);
 		app.remove(luStrengthDown);
 		app.remove(luStrengthUp);
+		
+		app.remove(luAgility);
+		app.remove(luAgilityDown);
+		app.remove(luAgilityUp);
 		
 		app.remove(luDefense);
 		app.remove(luDefenseDown);
@@ -365,6 +383,22 @@ public class Overlay {
 			else if (obj == luStrengthUp) {
 				player.setStrength(player.getStrength() + 1);
 				luStrength.setLabel(STRENGTH_TEXT + " : " +  player.getStrength());
+			}
+			else if(obj == luAgilityDown)
+			{
+				if(player.getAgility() > MIN_THRESHOLD)
+				{
+					player.setAgility(player.getAgility() - 1);
+					luAgility.setLabel(AGILITY_TEXT + " : " +  player.getAgility());
+				}
+				else {
+					System.out.println("Not supported. Defense cannot be decremented below " + MIN_THRESHOLD);
+				}
+			}
+			else if(obj == luAgilityUp)
+			{
+				player.setAgility(player.getAgility() + 1);
+				luAgility.setLabel(AGILITY_TEXT + " : " +  player.getAgility());
 			}
 			else if (obj == luDefenseDown) {
 				// Decrement only when value is > min_threshold
