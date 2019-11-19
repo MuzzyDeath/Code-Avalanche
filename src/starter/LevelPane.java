@@ -152,7 +152,7 @@ public class LevelPane extends GraphicsPane {
 
 		// Overlay for the Inventory
 		// Press I to test.
-		if (key == KeyEvent.VK_I) {
+		if (key == KeyEvent.VK_O) {
 			if (!inventory) {
 				inventory = true;
 				Overlay.showInventory(program);
