@@ -521,12 +521,12 @@ public class LevelPane extends GraphicsPane {
 
 		// horizontal grid lines
 		while (total <= windowWidth) {
-			double w = j * spaceHeight(m);
-			total = total + spaceHeight(m);
+			double w = j * spaceWidth(m);
+			total = total + spaceWidth(m);
 
 			line = new GLine(w, 0, w, windowHeight - 2);
 			program.add(line);
-			line.setVisible(false);
+			line.setVisible(true);
 			j++;
 		}
 
@@ -535,12 +535,12 @@ public class LevelPane extends GraphicsPane {
 		j = 0;
 
 		while (total <= windowHeight) {
-			double h = j * spaceWidth(m);
-			total = total + spaceWidth(m);
+			double h = j * spaceHeight(m);
+			total = total + spaceHeight(m);
 
 			line = new GLine(0, h, windowWidth - 2, h);
 			program.add(line);
-			line.setVisible(false);
+			line.setVisible(true);
 			j++;
 		}
 	}
