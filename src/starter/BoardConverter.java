@@ -25,7 +25,8 @@ public class BoardConverter {
 			}
 		}
 		// Add start/exit spaces
-		
+		Space exit = b.getExit();
+		chboard[exit.getRow()][exit.getCol()] = 'X';
 	}
 
 	private static String convertBoardToString(char[][] board, Board b) {

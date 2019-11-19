@@ -305,7 +305,7 @@ public class Overlay {
 		app.add(luDefenseUp);
 
 		
-		luCharisma = new GLabel(CHARISMA_TEXT + " : " + player.getCharisma(), LU_BASE_X, LU_BASE_Y + 3 * LU_LINE_SPACE); //  + opponent.getCharisma(),
+		luCharisma = new GLabel(CHARISMA_TEXT + " : " + player.getCharisma(), LU_BASE_X, LU_BASE_Y + 3 * LU_LINE_SPACE);
 		luCharisma.setFont(new Font(LU_FONT, 1, 30));
 		luCharisma.setColor(Color.black);
 		app.add(luCharisma);

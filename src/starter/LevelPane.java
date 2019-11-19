@@ -83,8 +83,8 @@ public class LevelPane extends GraphicsPane {
 	// For testing, feel free to use it, if other are not! :)
 	private void test() {
 		int row, col;
-		row = world[current].getBoard().getExit().getRow();
-		col = world[current].getBoard().getExit().getCol();
+		row = world[current].getExit().getRow();
+		col = world[current].getExit().getCol();
 		System.out.printf("The exit space is:\nRow: %d\nCol: %d\n", row, col);
 	}
 
@@ -149,7 +149,7 @@ public class LevelPane extends GraphicsPane {
 
 		int key = e.getKeyCode();
 
-		System.out.println(world[current].getBoard());
+		System.out.println(world[current]);
 
 		// Overlay for the Inventory
 		// Press I to test.
@@ -251,7 +251,7 @@ public class LevelPane extends GraphicsPane {
 
 				if (key == KeyEvent.VK_A) {
 					if (checkBounds(playerSprite) && checkContainment(Protagonist)) {
-						world[current].getBoard().moveCharacter(Protagonist, Protagonist.getLocation());
+						world[current].moveCharacter(Protagonist, Protagonist.getLocation());
 						playerSprite.move(-10, 0);
 
 						if (Protagonist.getCharacterType() == CharacterType.WARRIOR) {
@@ -285,7 +285,7 @@ public class LevelPane extends GraphicsPane {
 
 				if (key == KeyEvent.VK_D) {
 					if (checkBounds(playerSprite) && checkContainment(Protagonist)) {
-						world[current].getBoard().moveCharacter(Protagonist, Protagonist.getLocation());
+						world[current].moveCharacter(Protagonist, Protagonist.getLocation());
 						playerSprite.move(10, 0);
 
 						if (Protagonist.getCharacterType() == CharacterType.WARRIOR) {
@@ -318,7 +318,7 @@ public class LevelPane extends GraphicsPane {
 
 				if (key == KeyEvent.VK_W) {
 					if (checkBounds(playerSprite) && checkContainment(Protagonist)) {
-						world[current].getBoard().moveCharacter(Protagonist, Protagonist.getLocation());
+						world[current].moveCharacter(Protagonist, Protagonist.getLocation());
 						playerSprite.move(0, -10);
 
 						if (Protagonist.getCharacterType() == CharacterType.WARRIOR) {
@@ -351,7 +351,7 @@ public class LevelPane extends GraphicsPane {
 
 				if (key == KeyEvent.VK_S) {
 					if (checkBounds(playerSprite) && checkContainment(Protagonist)) {
-						world[current].getBoard().moveCharacter(Protagonist, Protagonist.getLocation());
+						world[current].moveCharacter(Protagonist, Protagonist.getLocation());
 						playerSprite.move(0, 10);
 
 						if (Protagonist.getCharacterType() == CharacterType.WARRIOR) {
@@ -408,8 +408,8 @@ public class LevelPane extends GraphicsPane {
 		int row, col, eRow, eCol;
 		row = s.getRow();
 		col = s.getCol();
-		eRow = world[current].getBoard().getExit().getRow();
-		eCol = world[current].getBoard().getExit().getCol();
+		eRow = world[current].getExit().getRow();
+		eCol = world[current].getExit().getCol();
 		
 		if (row == eRow && col == eCol) {
 			System.out.println("Character on exit!");
@@ -451,7 +451,7 @@ public class LevelPane extends GraphicsPane {
 	}
 
 	private void drawCharacters(Map m) {
-		m.getBoard();
+		//m.getBoard();
 		ListIterator<Character> iterator = world[current].getCharactersOnMap().listIterator();
 
 		while (iterator.hasNext()) {
@@ -477,7 +477,7 @@ public class LevelPane extends GraphicsPane {
 		row = c.getRow();
 		col = c.getCol();
 
-		if (row >= 0 && row < Board.getNumRows() && col >= 0 && col < Board.getNumCols()) {
+		if (row >= 0 && row < world[current].getNumRows() && col >= 0 && col < world[current].getNumCols()) {
 			return true;
 		}
 
@@ -522,7 +522,8 @@ public class LevelPane extends GraphicsPane {
 	private void generateWorld() {
 		world[0] = Map.getMap(Map.LEVEL_BEGINNER);
 		world[1] = Map.getMap(Map.LEVEL_INTERMEDIATE);
-		// world[2] = Map.getMapForLevel(Map.LEVEL_ADVANCED);
+		world[2] = Map.getMap(Map.LEVEL_ADVANCED);
+		current = 0;
 	}
 
 	private void drawLevel(Map m) {
@@ -535,7 +536,7 @@ public class LevelPane extends GraphicsPane {
 		program.add(ground);
 		ground.sendToBack();
 
-		world[current].getBoard().addCharacter(Protagonist);
+		world[current].addPlayer(Protagonist);
 
 		drawPlayer(Protagonist);
 		drawCharacters(m);
@@ -552,14 +553,14 @@ public class LevelPane extends GraphicsPane {
 	}
 
 	private float spaceWidth(Map m) {
-		m.getBoard();
-		xWidth = (windowWidth) / Board.getNumRows();
+		//m.getBoard();
+		xWidth = (windowWidth) / world[current].getNumRows();
 		return xWidth;
 	}
 
 	private float spaceHeight(Map m) {
-		m.getBoard();
-		yHeight = (windowHeight) / Board.getNumCols();
+		//m.getBoard();
+		yHeight = (windowHeight) / world[current].getNumCols();
 		return yHeight;
 	}
 
