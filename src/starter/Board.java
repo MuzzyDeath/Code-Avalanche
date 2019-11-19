@@ -15,6 +15,8 @@ public class Board {
 	private static ArrayList<Character> characters; // holds all the characters on the board
 
 	private static int rows, cols;
+	
+	private Space exit;
 
 	public static Enemy temp;
 
@@ -50,6 +52,14 @@ public class Board {
 	 */
 	public static int getNumRows() {
 		return rows;
+	}
+	
+	public void setExit(Space s) {
+		exit = s;
+	}
+	
+	public Space getExit() {
+		return this.exit;
 	}
 
 	/**

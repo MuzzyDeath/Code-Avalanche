@@ -46,7 +46,7 @@ public class LevelPane extends GraphicsPane {
 	protected Player Protagonist;
 
 	private Map map1, map2, map3;
-	private Map current;
+	private int current;
 	protected Map[] world = { map1, map2, map3 };
 
 	private float xWidth, yHeight;
@@ -59,6 +59,8 @@ public class LevelPane extends GraphicsPane {
 		background = new GImage(BACKGROUND);
 		ground = new GImage(GROUND);
 
+		current = 0;
+		
 		battling = false;
 		paused = false;
 		inventory = false;
@@ -71,23 +73,24 @@ public class LevelPane extends GraphicsPane {
 
 		controlsImage = new GImage("controlsImage.jpg");
 
-		//test();
-
 		generateWorld();
-
+		
+		test();
+		
 		showContents();
 	}
 
 	// For testing, feel free to use it, if other are not! :)
 	private void test() {
-		System.out.println("Is there an enemy showing from the Board.java? Find out below! :D");
-		System.out.println("\nThe 'temp' enemy is at:\nRow: " + opponent.getLocation().getRow() + "\nCol: "
-				+ opponent.getLocation().getCol() + "\n");
+		int row, col;
+		row = world[current].getBoard().getExit().getRow();
+		col = world[current].getBoard().getExit().getCol();
+		System.out.printf("The exit space is:\nRow: %d\nCol: %d\n", row, col);
 	}
 
 	@Override
 	public void showContents() {
-		loadMap(world[0]);
+		loadMap(world[current]);
 	}
 
 	@Override
@@ -146,7 +149,7 @@ public class LevelPane extends GraphicsPane {
 
 		int key = e.getKeyCode();
 
-		System.out.println(world[0].getBoard());
+		System.out.println(world[current].getBoard());
 
 		// Overlay for the Inventory
 		// Press I to test.
@@ -248,7 +251,7 @@ public class LevelPane extends GraphicsPane {
 
 				if (key == KeyEvent.VK_A) {
 					if (checkBounds(playerSprite) && checkContainment(Protagonist)) {
-						world[0].getBoard().moveCharacter(Protagonist, Protagonist.getLocation());
+						world[current].getBoard().moveCharacter(Protagonist, Protagonist.getLocation());
 						playerSprite.move(-10, 0);
 
 						if (Protagonist.getCharacterType() == CharacterType.WARRIOR) {
@@ -273,7 +276,7 @@ public class LevelPane extends GraphicsPane {
 						}
 
 					} 
-					
+
 					else if (checkContainment(Protagonist)) {
 						Protagonist.setLocation(Protagonist.getRow(), Protagonist.getCol());
 						playerSprite.setLocation((Protagonist.getCol()) * (xWidth + 2), lastY);
@@ -282,7 +285,7 @@ public class LevelPane extends GraphicsPane {
 
 				if (key == KeyEvent.VK_D) {
 					if (checkBounds(playerSprite) && checkContainment(Protagonist)) {
-						world[0].getBoard().moveCharacter(Protagonist, Protagonist.getLocation());
+						world[current].getBoard().moveCharacter(Protagonist, Protagonist.getLocation());
 						playerSprite.move(10, 0);
 
 						if (Protagonist.getCharacterType() == CharacterType.WARRIOR) {
@@ -306,7 +309,7 @@ public class LevelPane extends GraphicsPane {
 							moveCount++;
 						}
 					}
-					
+
 					else if (checkContainment(Protagonist)) {
 						Protagonist.setLocation(Protagonist.getRow(), Protagonist.getCol());
 						playerSprite.setLocation(Protagonist.getCol() * xWidth, lastY);
@@ -315,7 +318,7 @@ public class LevelPane extends GraphicsPane {
 
 				if (key == KeyEvent.VK_W) {
 					if (checkBounds(playerSprite) && checkContainment(Protagonist)) {
-						world[0].getBoard().moveCharacter(Protagonist, Protagonist.getLocation());
+						world[current].getBoard().moveCharacter(Protagonist, Protagonist.getLocation());
 						playerSprite.move(0, -10);
 
 						if (Protagonist.getCharacterType() == CharacterType.WARRIOR) {
@@ -339,7 +342,7 @@ public class LevelPane extends GraphicsPane {
 							moveCount++;
 						}
 					} 
-					
+
 					else if (checkContainment(Protagonist)) {
 						Protagonist.setLocation(Protagonist.getRow(), Protagonist.getCol());
 						playerSprite.setLocation(lastX, (Protagonist.getRow()) * yHeight);
@@ -348,7 +351,7 @@ public class LevelPane extends GraphicsPane {
 
 				if (key == KeyEvent.VK_S) {
 					if (checkBounds(playerSprite) && checkContainment(Protagonist)) {
-						world[0].getBoard().moveCharacter(Protagonist, Protagonist.getLocation());
+						world[current].getBoard().moveCharacter(Protagonist, Protagonist.getLocation());
 						playerSprite.move(0, 10);
 
 						if (Protagonist.getCharacterType() == CharacterType.WARRIOR) {
@@ -368,15 +371,16 @@ public class LevelPane extends GraphicsPane {
 							moveCount++;
 						}
 					}
-					
+
 					else if (checkContainment(Protagonist)) {
 						Protagonist.setLocation(Protagonist.getRow(), Protagonist.getCol());
 						playerSprite.setLocation(lastX, (Protagonist.getRow()) * yHeight);
 					}
 				}
 			}
-
+			
 			characterLocation(Protagonist);
+			exitCheck(Protagonist.getLocation()); //Checks if Character is on exit space
 
 		} else {
 
@@ -398,6 +402,22 @@ public class LevelPane extends GraphicsPane {
 	}
 
 	// New Code below this line//
+
+	private boolean exitCheck(Space s) {
+		
+		int row, col, eRow, eCol;
+		row = s.getRow();
+		col = s.getCol();
+		eRow = world[current].getBoard().getExit().getRow();
+		eCol = world[current].getBoard().getExit().getCol();
+		
+		if (row == eRow && col == eCol) {
+			System.out.println("Character on exit!");
+			return true;
+		}
+		
+		return false;
+	}
 
 	public void characterLocation(Character c) {
 		Space currentLocation = convertXYToSpace(playerSprite.getX() + (xWidth / 2),
@@ -432,7 +452,7 @@ public class LevelPane extends GraphicsPane {
 
 	private void drawCharacters(Map m) {
 		m.getBoard();
-		ListIterator<Character> iterator = current.getCharactersOnMap().listIterator();
+		ListIterator<Character> iterator = world[current].getCharactersOnMap().listIterator();
 
 		while (iterator.hasNext()) {
 			Character toAdd = iterator.next();
@@ -501,7 +521,7 @@ public class LevelPane extends GraphicsPane {
 
 	private void generateWorld() {
 		world[0] = Map.getMap(Map.LEVEL_BEGINNER);
-		// world[1] = Map.getMapForLevel(Map.LEVEL_INTERMEDIATE);
+		world[1] = Map.getMap(Map.LEVEL_INTERMEDIATE);
 		// world[2] = Map.getMapForLevel(Map.LEVEL_ADVANCED);
 	}
 
@@ -511,12 +531,11 @@ public class LevelPane extends GraphicsPane {
 
 	private void loadMap(Map m) {
 		drawLevel(m);
-		current = m;
 
 		program.add(ground);
 		ground.sendToBack();
 
-		world[0].getBoard().addCharacter(Protagonist);
+		world[current].getBoard().addCharacter(Protagonist);
 
 		drawPlayer(Protagonist);
 		drawCharacters(m);

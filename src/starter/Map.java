@@ -71,6 +71,8 @@ public class Map {
 
 		
 		board.addCharacter(new Enemy(4, 5));
+		
+		board.setExit(new Space(2,3));
 	}
 	
 	/**
@@ -78,26 +80,26 @@ public class Map {
 	 * initialize the board, exit position, and number of moves
 	 */
 	
-//	public void setupIntermediateMap()
-//	{
-//		// Add characters and set up exit space.
-//		// Initialize board with the maxRows and maxCols
-//		board = new Board(10, 10);
-//		
-//		startSpace = new Space(0, 3);
-//		
-//		// Winning space for this level is for Player  to reach r4c4
-//		exitSpace = new Space(7, 7);
-//		
-//		/*
-//		 * board.addNPC(0, 5); board.addNPC(1, 3); board.addNPC(2, 6); board.addNPC(3,
-//		 * 0); board.addNPC(3, 4); board.addNPC(5, 4); board.addNPC(4, 3);
-//		 * board.addNPC(6, 7); board.addNPC(7, 8); board.addNPC(8, 7);
-//		 */
-//		
-//		//board.addEnemy(7, 6);
-//		
-//	}
+	public void setupIntermediateMap()
+	{
+		// Add characters and set up exit space.
+		// Initialize board with the maxRows and maxCols
+		board = new Board(10, 10);
+		
+		//startSpace = new Space(0, 3);
+		
+		// Winning space for this level is for Player  to reach r4c4
+		board.setExit(new Space(7, 7));
+		
+		/*
+		 * board.addNPC(0, 5); board.addNPC(1, 3); board.addNPC(2, 6); board.addNPC(3,
+		 * 0); board.addNPC(3, 4); board.addNPC(5, 4); board.addNPC(4, 3);
+		 * board.addNPC(6, 7); board.addNPC(7, 8); board.addNPC(8, 7);
+		 */
+		
+		board.addCharacter(new Enemy(7, 6));
+		
+	}
 //
 //	/**
 //	 * add characters for the intermediate map
