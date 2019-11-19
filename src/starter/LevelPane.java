@@ -49,7 +49,7 @@ public class LevelPane extends GraphicsPane {
 	private Map current;
 	protected Map[] world = { map1, map2, map3 };
 
-	private int xWidth, yHeight;
+	private float xWidth, yHeight;
 	private int windowHeight = program.WINDOW_HEIGHT;
 	private int windowWidth = program.WINDOW_WIDTH;
 
@@ -495,21 +495,22 @@ public class LevelPane extends GraphicsPane {
 	}
 
 	public Space convertXYToSpace(double x, double y) {
-		int r = (int) (y / xWidth);
-		int c = (int) (x / yHeight);
+		int r = (int) (y / yHeight);
+		int c = (int) (x / xWidth);
 
 		Space square = new Space(r, c);
-		System.out.printf("Row:%d Column:%d\n", square.getRow(), square.getCol());
+		System.out.printf("X pixel: %f\nY pixel: %f", (float) x, (float) y);
+		System.out.printf("\nRow:%d Column:%d\n", square.getRow(), square.getCol());
 		return square;
 	}
 
-	private double spaceWidth(Map m) {
+	private float spaceWidth(Map m) {
 		m.getBoard();
 		xWidth = (windowWidth) / Board.getNumRows();
 		return xWidth;
 	}
 
-	private double spaceHeight(Map m) {
+	private float spaceHeight(Map m) {
 		m.getBoard();
 		yHeight = (windowHeight) / Board.getNumCols();
 		return yHeight;
