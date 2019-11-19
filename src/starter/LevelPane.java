@@ -342,7 +342,7 @@ public class LevelPane extends GraphicsPane {
 					
 					else if (checkContainment(Protagonist)) {
 						Protagonist.setLocation(Protagonist.getRow(), Protagonist.getCol());
-						playerSprite.setLocation(Protagonist.getCol() * yHeight, lastY);
+						playerSprite.setLocation(lastX, (Protagonist.getRow()) * yHeight);
 					}
 				}
 
@@ -371,7 +371,7 @@ public class LevelPane extends GraphicsPane {
 					
 					else if (checkContainment(Protagonist)) {
 						Protagonist.setLocation(Protagonist.getRow(), Protagonist.getCol());
-						playerSprite.setLocation(lastX, (Protagonist.getRow() + 1) * yHeight);
+						playerSprite.setLocation(lastX, (Protagonist.getRow()) * yHeight);
 					}
 				}
 			}

@@ -182,7 +182,7 @@ public class Board {
 		System.out.println("Row: " + cRow + "\nColumn: " + cCol + "\n");
 
 		//Checking bounds
-		if(cRow >= 0 && cRow <= rows && cCol >= 0 && cCol <= cols) {
+		if(cRow >= 0 && cRow < rows && cCol >= 0 && cCol < cols) {
 			System.out.println("In Limits");
 			if(board[cRow][cCol] == null) {
 				System.out.println("Character added to Row: " + cRow + "\nCol: " + cCol + "\n");
