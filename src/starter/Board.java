@@ -11,7 +11,7 @@ import acm.graphics.GLine;
  */
 
 public class Board {
-	private Character[][] board; // 2D array of characters
+	private static Character[][] board; // 2D array of characters
 	private ArrayList<Character> characters; // holds all the characters on the board
 
 	//private int rows, cols;
@@ -81,7 +81,7 @@ public class Board {
 		return retCharacter;
 	}
 
-	public Character spaceCheck(Player p) {
+	public static Character spaceCheck(Player p) {
 
 		Character tempUp = board[p.getRow() - 1][p.getCol()];
 		Character tempDown = board[p.getRow() + 1][p.getCol()];

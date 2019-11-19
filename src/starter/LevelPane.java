@@ -35,7 +35,7 @@ public class LevelPane extends GraphicsPane {
 	private GImage playerSprite, sprite;
 	private int moveCount;
 
-	private static Enemy opponent;
+	static Enemy opponent;
 
 	private boolean battling;
 	private boolean paused;
@@ -60,7 +60,7 @@ public class LevelPane extends GraphicsPane {
 		ground = new GImage(GROUND);
 
 		//current = 0;
-		
+
 		battling = false;
 		paused = false;
 		inventory = false;
@@ -69,14 +69,13 @@ public class LevelPane extends GraphicsPane {
 		Protagonist = MainApplication.user;
 		Protagonist.printPlayer();
 
-		opponent = Board.CharacterAtSpace(Protagonist);
 
 		controlsImage = new GImage("controlsImage.jpg");
 
 		generateWorld();
-		
+
 		test();
-		
+
 		showContents();
 	}
 
@@ -169,15 +168,15 @@ public class LevelPane extends GraphicsPane {
 		// Press E to test.
 		if (key == KeyEvent.VK_E) {
 
-			//opponent = (Enemy) Board.spaceCheck(Protagonist);
+			opponent = (Enemy) Board.spaceCheck(Protagonist);
 
-			//			battling = true;	
-			//			//pause.battleScene(program);
-			//
-			//			Overlay.battleScene(program);
-			//			audio = AudioPlayer.getInstance();
-			//			audio.playSound(MUSIC_FOLDER, SOUND_FILES[0]);
-			//			
+			battling = true;	
+			//pause.battleScene(program);
+
+			Overlay.battleScene(program);
+			audio = AudioPlayer.getInstance();
+			audio.playSound(MUSIC_FOLDER, SOUND_FILES[0]);
+
 
 
 
@@ -378,7 +377,7 @@ public class LevelPane extends GraphicsPane {
 					}
 				}
 			}
-			
+
 			characterLocation(Protagonist);
 			exitCheck(Protagonist.getLocation()); //Checks if Character is on exit space
 
@@ -404,18 +403,18 @@ public class LevelPane extends GraphicsPane {
 	// New Code below this line//
 
 	private boolean exitCheck(Space s) {
-		
+
 		int row, col, eRow, eCol;
 		row = s.getRow();
 		col = s.getCol();
 		eRow = Map.getCurrentMap().getExit().getRow();
 		eCol = Map.getCurrentMap().getExit().getCol();
-		
+
 		if (row == eRow && col == eCol) {
 			System.out.println("Character on exit!");
 			return true;
 		}
-		
+
 		return false;
 	}
 

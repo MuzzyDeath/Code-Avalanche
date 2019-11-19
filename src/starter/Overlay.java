@@ -36,7 +36,6 @@ public class Overlay {
 	private static GImage background, pPic, ePic;
 	private static GLabel attack, block, screech, cStrenght, cDefense, cCharisma, eStrength, eDefense, eCharisma, cTextBox;
 	private static Player Protagonist;
-	public static Enemy opponent;
 	public static GLabel eHealth, cHealth;
 	//End Battle Stuff
 
@@ -76,7 +75,7 @@ public class Overlay {
 		
 		Protagonist = MainApplication.user;
 		
-		opponent = Board.CharacterAtSpace(Protagonist);
+//		opponent = Board.CharacterAtSpace(Protagonist);
 
 		background = new GImage("images/BattleStyle.png");
 		app.add(background);
@@ -122,23 +121,23 @@ public class Overlay {
 		// prints stats of enemy 
 		// needs way to pass enemy stats
 
-		eStrength = new GLabel("Strength: " + opponent.getStrength(), 500, 300);
+		eStrength = new GLabel("Strength: " + LevelPane.opponent.getStrength(), 500, 300);
 		eStrength.setFont(new Font("Comic Sans", 1, 15));
 		eStrength.setColor(Color.black);
 		app.add(eStrength);
 
-		eDefense = new GLabel("Defense: " + opponent.getDefense(), 500, 330);
+		eDefense = new GLabel("Defense: " + LevelPane.opponent.getDefense(), 500, 330);
 		eDefense.setFont(new Font("Comic Sans", 1, 15));
 		eDefense.setColor(Color.black);
 		app.add(eDefense);
 
-		eCharisma = new GLabel("Charisma: " + opponent.getCharisma(), 500, 360);
+		eCharisma = new GLabel("Charisma: " + LevelPane.opponent.getCharisma(), 500, 360);
 		eCharisma.setFont(new Font("Comic Sans", 1, 15));
 		eCharisma.setColor(Color.black);
 		app.add(eCharisma);
 		
 		//make so it updates with the enemy health as battle goes on.
-		eHealth = new GLabel("Health: " + opponent.getHealth(), 500, 390);
+		eHealth = new GLabel("Health: " + LevelPane.opponent.getHealth(), 500, 390);
 		eHealth.setFont(new Font("Comic Sans", 1, 15));
 		eHealth.setColor(Color.black);
 		app.add(eHealth);
@@ -170,9 +169,9 @@ public class Overlay {
 		
 	
 
-		if(opponent.isHostile == true) {
+		if(LevelPane.opponent.isHostile == true) {
 			
-			if(opponent.isKing == true) { // prints king pic
+			if(LevelPane.opponent.isKing == true) { // prints king pic
 				ePic = new GImage(KING);
 				ePic.setLocation(520, 20);
 				ePic.setSize(200, 340);
