@@ -166,7 +166,7 @@ public class LevelPane extends GraphicsPane {
 		// Press E to test.
 		if (key == KeyEvent.VK_E) {
 
-			opponent = (Enemy) Board.spaceCheck(Protagonist);
+			//opponent = (Enemy) Board.spaceCheck(Protagonist);
 			
 //			battling = true;	
 //			//pause.battleScene(program);
@@ -207,6 +207,7 @@ public class LevelPane extends GraphicsPane {
 			// then they press E again and it sets battle to true
 
 			if (battling == false) {
+
 				battling = true;	
 				//pause.battleScene(program);
 
@@ -214,8 +215,8 @@ public class LevelPane extends GraphicsPane {
 				audio = AudioPlayer.getInstance();
 				audio.playSound(MUSIC_FOLDER, SOUND_FILES[0]);
 
-			} else {
-				
+			} 
+			else {
 				battling = false;
 				Overlay.battleOver(program);
 				audio.stopSound(MUSIC_FOLDER, SOUND_FILES[0]);
@@ -249,7 +250,7 @@ public class LevelPane extends GraphicsPane {
 
 				if (key == KeyEvent.VK_A) {
 					if (checkBounds(playerSprite)) {
-						playerSprite.move(-5, 0);
+						playerSprite.move(-10, 0);
 
 						if (Protagonist.getCharacterType() == CharacterType.WARRIOR) {
 							playerSprite.setImage("knight/knight_" + moveCount + ".png");
@@ -278,7 +279,7 @@ public class LevelPane extends GraphicsPane {
 
 				if (key == KeyEvent.VK_D) {
 					if (checkBounds(playerSprite)) {
-						playerSprite.move(5, 0);
+						playerSprite.move(10, 0);
 
 						if (Protagonist.getCharacterType() == CharacterType.WARRIOR) {
 							playerSprite.setImage("knight/knight_" + moveCount + ".png");
@@ -308,7 +309,7 @@ public class LevelPane extends GraphicsPane {
 
 				if (key == KeyEvent.VK_W) {
 					if (checkBounds(playerSprite)) {
-						playerSprite.move(0, -5);
+						playerSprite.move(0, -10);
 
 						if (Protagonist.getCharacterType() == CharacterType.WARRIOR) {
 							playerSprite.setImage("knight/knight_" + moveCount + ".png");
@@ -336,7 +337,7 @@ public class LevelPane extends GraphicsPane {
 
 				if (key == KeyEvent.VK_S) {
 					if (checkBounds(playerSprite)) {
-						playerSprite.move(0, 5);
+						playerSprite.move(0, 10);
 
 						if (Protagonist.getCharacterType() == CharacterType.WARRIOR) {
 							playerSprite.setImage("knight/knight_" + moveCount + ".png");
