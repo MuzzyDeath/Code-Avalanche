@@ -49,7 +49,7 @@ public class LevelPane extends GraphicsPane {
 	private Map current;
 	protected Map[] world = { map1, map2, map3 };
 
-	private int xWidth, yHeight;
+	private float xWidth, yHeight;
 	private int windowHeight = program.WINDOW_HEIGHT;
 	private int windowWidth = program.WINDOW_WIDTH;
 
@@ -167,16 +167,16 @@ public class LevelPane extends GraphicsPane {
 		if (key == KeyEvent.VK_E) {
 
 			//opponent = (Enemy) Board.spaceCheck(Protagonist);
-			
-//			battling = true;	
-//			//pause.battleScene(program);
-//
-//			Overlay.battleScene(program);
-//			audio = AudioPlayer.getInstance();
-//			audio.playSound(MUSIC_FOLDER, SOUND_FILES[0]);
-//			
-			
-			
+
+			//			battling = true;	
+			//			//pause.battleScene(program);
+			//
+			//			Overlay.battleScene(program);
+			//			audio = AudioPlayer.getInstance();
+			//			audio.playSound(MUSIC_FOLDER, SOUND_FILES[0]);
+			//			
+
+
 
 		}
 
@@ -246,10 +246,9 @@ public class LevelPane extends GraphicsPane {
 				lastX = playerSprite.getX();
 				lastY = playerSprite.getY();
 
-				world[0].getBoard().moveCharacter(Protagonist, Protagonist.getLocation());
-
 				if (key == KeyEvent.VK_A) {
-					if (checkBounds(playerSprite)) {
+					if (checkBounds(playerSprite) && checkContainment(Protagonist)) {
+						world[0].getBoard().moveCharacter(Protagonist, Protagonist.getLocation());
 						playerSprite.move(-10, 0);
 
 						if (Protagonist.getCharacterType() == CharacterType.WARRIOR) {
@@ -273,12 +272,17 @@ public class LevelPane extends GraphicsPane {
 							moveCount++;
 						}
 
-					} else
-						playerSprite.setLocation((Protagonist.getCol()) * (yHeight + 2), lastY);
+					} 
+					
+					else if (checkContainment(Protagonist)) {
+						Protagonist.setLocation(Protagonist.getRow(), Protagonist.getCol());
+						playerSprite.setLocation((Protagonist.getCol()) * (xWidth + 2), lastY);
+					}
 				}
 
 				if (key == KeyEvent.VK_D) {
-					if (checkBounds(playerSprite)) {
+					if (checkBounds(playerSprite) && checkContainment(Protagonist)) {
+						world[0].getBoard().moveCharacter(Protagonist, Protagonist.getLocation());
 						playerSprite.move(10, 0);
 
 						if (Protagonist.getCharacterType() == CharacterType.WARRIOR) {
@@ -302,13 +306,16 @@ public class LevelPane extends GraphicsPane {
 							moveCount++;
 						}
 					}
-
-					else 
-						playerSprite.setLocation((Protagonist.getCol() - 1) * yHeight, lastY);
+					
+					else if (checkContainment(Protagonist)) {
+						Protagonist.setLocation(Protagonist.getRow(), Protagonist.getCol());
+						playerSprite.setLocation(Protagonist.getCol() * xWidth, lastY);
+					}
 				}
 
 				if (key == KeyEvent.VK_W) {
-					if (checkBounds(playerSprite)) {
+					if (checkBounds(playerSprite) && checkContainment(Protagonist)) {
+						world[0].getBoard().moveCharacter(Protagonist, Protagonist.getLocation());
 						playerSprite.move(0, -10);
 
 						if (Protagonist.getCharacterType() == CharacterType.WARRIOR) {
@@ -331,12 +338,17 @@ public class LevelPane extends GraphicsPane {
 							System.out.println(moveCount);
 							moveCount++;
 						}
-					} else
+					} 
+					
+					else if (checkContainment(Protagonist)) {
+						Protagonist.setLocation(Protagonist.getRow(), Protagonist.getCol());
 						playerSprite.setLocation(lastX, (Protagonist.getRow()) * yHeight);
+					}
 				}
 
 				if (key == KeyEvent.VK_S) {
-					if (checkBounds(playerSprite)) {
+					if (checkBounds(playerSprite) && checkContainment(Protagonist)) {
+						world[0].getBoard().moveCharacter(Protagonist, Protagonist.getLocation());
 						playerSprite.move(0, 10);
 
 						if (Protagonist.getCharacterType() == CharacterType.WARRIOR) {
@@ -355,8 +367,12 @@ public class LevelPane extends GraphicsPane {
 							System.out.println(moveCount);
 							moveCount++;
 						}
-					} else
-						playerSprite.setLocation(lastX, (Protagonist.getRow() + 1) * yHeight);
+					}
+					
+					else if (checkContainment(Protagonist)) {
+						Protagonist.setLocation(Protagonist.getRow(), Protagonist.getCol());
+						playerSprite.setLocation(lastX, (Protagonist.getRow()) * yHeight);
+					}
 				}
 			}
 
@@ -436,6 +452,18 @@ public class LevelPane extends GraphicsPane {
 
 	}
 
+	private boolean checkContainment(Character c) {
+		int row, col;
+		row = c.getRow();
+		col = c.getCol();
+
+		if (row >= 0 && row < Board.getNumRows() && col >= 0 && col < Board.getNumCols()) {
+			return true;
+		}
+
+		return false;
+	}
+
 	private boolean checkBounds(GImage obj) {
 		if (checkLeft(obj) && checkRight(obj) && checkTop(obj) && checkBottom(obj))
 			return true;
@@ -495,21 +523,22 @@ public class LevelPane extends GraphicsPane {
 	}
 
 	public Space convertXYToSpace(double x, double y) {
-		int r = (int) (y / xWidth);
-		int c = (int) (x / yHeight);
+		int r = (int) (y / yHeight);
+		int c = (int) (x / xWidth);
 
 		Space square = new Space(r, c);
-		System.out.printf("Row:%d Column:%d\n", square.getRow(), square.getCol());
+		System.out.printf("X pixel: %f\nY pixel: %f", (float) x, (float) y);
+		System.out.printf("\nRow:%d Column:%d\n", square.getRow(), square.getCol());
 		return square;
 	}
 
-	private double spaceWidth(Map m) {
+	private float spaceWidth(Map m) {
 		m.getBoard();
 		xWidth = (windowWidth) / Board.getNumRows();
 		return xWidth;
 	}
 
-	private double spaceHeight(Map m) {
+	private float spaceHeight(Map m) {
 		m.getBoard();
 		yHeight = (windowHeight) / Board.getNumCols();
 		return yHeight;
@@ -521,12 +550,12 @@ public class LevelPane extends GraphicsPane {
 
 		// horizontal grid lines
 		while (total <= windowWidth) {
-			double w = j * spaceHeight(m);
-			total = total + spaceHeight(m);
+			double w = j * spaceWidth(m);
+			total = total + spaceWidth(m);
 
 			line = new GLine(w, 0, w, windowHeight - 2);
 			program.add(line);
-			line.setVisible(false);
+			line.setVisible(true);
 			j++;
 		}
 
@@ -535,12 +564,12 @@ public class LevelPane extends GraphicsPane {
 		j = 0;
 
 		while (total <= windowHeight) {
-			double h = j * spaceWidth(m);
-			total = total + spaceWidth(m);
+			double h = j * spaceHeight(m);
+			total = total + spaceHeight(m);
 
 			line = new GLine(0, h, windowWidth - 2, h);
 			program.add(line);
-			line.setVisible(false);
+			line.setVisible(true);
 			j++;
 		}
 	}
