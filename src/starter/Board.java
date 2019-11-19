@@ -196,13 +196,11 @@ public class Board {
 	public boolean canMove(Character c, Space newSpace) {
 		//Java short circuits, so it's okay to have everything here.
 		if(newSpace.getRow() < rows && newSpace.getCol() < cols)
-			if(board[newSpace.getRow()][newSpace.getCol()] == null && newSpace.getRow() > 0 && newSpace.getRow() < rows && newSpace.getCol() > 0 && newSpace.getCol() < cols) {
-				return true;
-			}
-			else
-				return false;
-		else
-			return false;
+			if(newSpace.getRow() >= 0 && newSpace.getRow() < rows && newSpace.getCol() >= 0 && newSpace.getCol() < cols)
+				if(board[newSpace.getRow()][newSpace.getCol()] == null || board[newSpace.getRow()][newSpace.getCol()] == c )
+					return true;
+
+		return false;
 	}
 
 	public void moveCharacter(Character c, Space newSpace) {

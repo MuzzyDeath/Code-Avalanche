@@ -167,16 +167,16 @@ public class LevelPane extends GraphicsPane {
 		if (key == KeyEvent.VK_E) {
 
 			//opponent = (Enemy) Board.spaceCheck(Protagonist);
-			
-//			battling = true;	
-//			//pause.battleScene(program);
-//
-//			Overlay.battleScene(program);
-//			audio = AudioPlayer.getInstance();
-//			audio.playSound(MUSIC_FOLDER, SOUND_FILES[0]);
-//			
-			
-			
+
+			//			battling = true;	
+			//			//pause.battleScene(program);
+			//
+			//			Overlay.battleScene(program);
+			//			audio = AudioPlayer.getInstance();
+			//			audio.playSound(MUSIC_FOLDER, SOUND_FILES[0]);
+			//			
+
+
 
 		}
 
@@ -246,10 +246,9 @@ public class LevelPane extends GraphicsPane {
 				lastX = playerSprite.getX();
 				lastY = playerSprite.getY();
 
-				world[0].getBoard().moveCharacter(Protagonist, Protagonist.getLocation());
-
 				if (key == KeyEvent.VK_A) {
-					if (checkBounds(playerSprite)) {
+					if (checkBounds(playerSprite) && checkContainment(Protagonist)) {
+						world[0].getBoard().moveCharacter(Protagonist, Protagonist.getLocation());
 						playerSprite.move(-10, 0);
 
 						if (Protagonist.getCharacterType() == CharacterType.WARRIOR) {
@@ -273,12 +272,17 @@ public class LevelPane extends GraphicsPane {
 							moveCount++;
 						}
 
-					} else
-						playerSprite.setLocation((Protagonist.getCol()) * (yHeight + 2), lastY);
+					} 
+					
+					else if (checkContainment(Protagonist)) {
+						Protagonist.setLocation(Protagonist.getRow(), Protagonist.getCol());
+						playerSprite.setLocation((Protagonist.getCol()) * (xWidth + 2), lastY);
+					}
 				}
 
 				if (key == KeyEvent.VK_D) {
-					if (checkBounds(playerSprite)) {
+					if (checkBounds(playerSprite) && checkContainment(Protagonist)) {
+						world[0].getBoard().moveCharacter(Protagonist, Protagonist.getLocation());
 						playerSprite.move(10, 0);
 
 						if (Protagonist.getCharacterType() == CharacterType.WARRIOR) {
@@ -302,13 +306,16 @@ public class LevelPane extends GraphicsPane {
 							moveCount++;
 						}
 					}
-
-					else 
-						playerSprite.setLocation((Protagonist.getCol() - 1) * yHeight, lastY);
+					
+					else if (checkContainment(Protagonist)) {
+						Protagonist.setLocation(Protagonist.getRow(), Protagonist.getCol());
+						playerSprite.setLocation(Protagonist.getCol() * xWidth, lastY);
+					}
 				}
 
 				if (key == KeyEvent.VK_W) {
-					if (checkBounds(playerSprite)) {
+					if (checkBounds(playerSprite) && checkContainment(Protagonist)) {
+						world[0].getBoard().moveCharacter(Protagonist, Protagonist.getLocation());
 						playerSprite.move(0, -10);
 
 						if (Protagonist.getCharacterType() == CharacterType.WARRIOR) {
@@ -331,12 +338,17 @@ public class LevelPane extends GraphicsPane {
 							System.out.println(moveCount);
 							moveCount++;
 						}
-					} else
-						playerSprite.setLocation(lastX, (Protagonist.getRow()) * yHeight);
+					} 
+					
+					else if (checkContainment(Protagonist)) {
+						Protagonist.setLocation(Protagonist.getRow(), Protagonist.getCol());
+						playerSprite.setLocation(Protagonist.getCol() * yHeight, lastY);
+					}
 				}
 
 				if (key == KeyEvent.VK_S) {
-					if (checkBounds(playerSprite)) {
+					if (checkBounds(playerSprite) && checkContainment(Protagonist)) {
+						world[0].getBoard().moveCharacter(Protagonist, Protagonist.getLocation());
 						playerSprite.move(0, 10);
 
 						if (Protagonist.getCharacterType() == CharacterType.WARRIOR) {
@@ -355,8 +367,12 @@ public class LevelPane extends GraphicsPane {
 							System.out.println(moveCount);
 							moveCount++;
 						}
-					} else
+					}
+					
+					else if (checkContainment(Protagonist)) {
+						Protagonist.setLocation(Protagonist.getRow(), Protagonist.getCol());
 						playerSprite.setLocation(lastX, (Protagonist.getRow() + 1) * yHeight);
+					}
 				}
 			}
 
@@ -434,6 +450,18 @@ public class LevelPane extends GraphicsPane {
 			program.add(sprite);
 		}
 
+	}
+
+	private boolean checkContainment(Character c) {
+		int row, col;
+		row = c.getRow();
+		col = c.getCol();
+
+		if (row >= 0 && row < Board.getNumRows() && col >= 0 && col < Board.getNumCols()) {
+			return true;
+		}
+
+		return false;
 	}
 
 	private boolean checkBounds(GImage obj) {
