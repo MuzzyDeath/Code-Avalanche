@@ -23,62 +23,67 @@ public class Interactions {
 		return col + row;
 	}
 
-	public static void keyPressed(KeyEvent e, Character[][] board, Player p) {
+	public static void keyPressed(int key, Board board, Player p) {
 
-		int key = 0;
 
-		if (e != null) {	
-
-			key = e.getKeyCode();
-		}
-
-		if (e == null || key == KeyEvent.VK_E) {
+		
+		if (key == KeyEvent.VK_E) {
 
 			Space space = p.getLocation();
+			
+			Board b = board;
 
 			URL url = null;
 			
-			if(board[space.getRow() + 1][space.getCol()] != null) { // checks to the right of the character
+			Space tempS = new Space(p.getRow() + 1, p.getCol());
+			
+			if(b.getCharacter(tempS) != null) { // checks to the right of the character
 				
-					Character temp = Board.getCharacter(space);
+					Character temp = b.getCharacter(space);
 					
 					
 					
 					if(temp.cType == CharacterType.ENEMY) { // launches enemy dialouge then battle
 						
 						url = Narrative.class.getClassLoader().getResource("Enemy");
+						System.out.println("ENEMY");
 					}
 					else if(temp.isKing == true) { // launches kings dialouge then battle
 						url = Narrative.class.getClassLoader().getResource("King");
+						System.out.println("KING");
 					}
-					else { // launches NPC dialouge
+					else if (temp.isHostile() == false){ // launches NPC dialouge
 						url = Narrative.class.getClassLoader().getResource("NPC");
+						System.out.println("NPC");
+					}
+					else {
+						System.out.println("you are not next to a character");
 					}
 			}
-			else if(board[space.getRow() - 1][space.getCol()] != null) { // checks to the left of the character
-
-			}
-			else if(board[space.getRow()][space.getCol() + 1] != null) { // checks above of the character
-
-			}
-			else if(board[space.getRow()][space.getCol() - 1] != null) { // checks below of the character
-
-			}
+//			else if(board[space.getRow() - 1][space.getCol()] != null) { // checks to the left of the character
+//
+//			}
+//			else if(board[space.getRow()][space.getCol() + 1] != null) { // checks above of the character
+//
+//			}
+//			else if(board[space.getRow()][space.getCol() - 1] != null) { // checks below of the character
+//
+//			}
 			
-			try {
-				//System.out.println(url.getPath());
-				BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
-				String line;
-				while ((line = in.readLine()) != null) {
-					System.out.println(line);
-				}
-				in.close();
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				System.out.println("Unable to open file: " + url.getPath());
-			} catch (NullPointerException e1) {
-				System.out.println("Unable To Load Resource");
-			}
+//			try {
+//				//System.out.println(url.getPath());
+//				BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+//				String line;
+//				while ((line = in.readLine()) != null) {
+//					System.out.println(line);
+//				}
+//				in.close();
+//			} catch (IOException e1) {
+//				// TODO Auto-generated catch block
+//				System.out.println("Unable to open file: " + url.getPath());
+//			} catch (NullPointerException e1) {
+//				System.out.println("Unable To Load Resource");
+//			}
 		}
 
 
