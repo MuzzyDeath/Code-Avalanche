@@ -17,7 +17,7 @@ public class MainApplication extends GraphicsApplication {
 	private LevelPane levelPane;
 	
 	private Item[] itemList;
-	private Map[] mapList;
+	//private Map[] mapList;
 	
 	protected static Player user;
 
@@ -57,7 +57,7 @@ public class MainApplication extends GraphicsApplication {
 	public void switchToLevelPane() {
 		audio.stopSound(MUSIC_FOLDER, SOUND_FILES[0]);
 		levelPane = new LevelPane(this);
-		mapList = levelPane.world;
+		//mapList = levelPane.world;
 		user = characterPane.sendPlayer();
 		switchToScreen(levelPane);
 	}

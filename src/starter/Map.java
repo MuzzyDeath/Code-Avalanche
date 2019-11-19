@@ -15,6 +15,12 @@ public class Map {
 	public static final int MAX_LEVELS         = 3;
 	
 	private Board board;
+	private boolean isEnemyDefeated = false;
+	private Enemy e;
+	private Player p;
+	
+	private static Map[] levels;
+	private static int currentLevel = LEVEL_BEGINNER;
 	private Map map;
 	
 	//private Space startSpace; // Player starts the level at this space
@@ -66,7 +72,6 @@ public class Map {
 		return board.getExit();
 	}
 
-	
 	/*
 	 * We need to encapsulate baord, we should not give out board.
 	 *  All board methods have to be encoded in Map
@@ -83,6 +88,7 @@ public class Map {
 	
 	
 	public void addPlayer(Player player) {
+		p = player;
 		board.addCharacter(player);
 	}
 
@@ -112,8 +118,8 @@ public class Map {
 		board.addCharacter(new NPC(0, 5));
 		board.addCharacter(new NPC(1, 3));
 
-		
-		board.addCharacter(new Enemy(4, 5));
+		e = new Enemy(4, 5);
+		board.addCharacter(e);
 		
 		board.setExit(new Space(2,3));
 	}
@@ -132,7 +138,7 @@ public class Map {
 		//startSpace = new Space(0, 3);
 		
 		// Winning space for this level is for Player  to reach r7c7
-		board.setExit(new Space(7, 7));
+		board.setExit(new Space(2, 8));
 		
 		 board.addCharacter(new NPC(0, 5)); 
 		 board.addCharacter(new NPC(1, 3)); 
@@ -145,7 +151,8 @@ public class Map {
 		 board.addCharacter(new NPC(7, 8));
 		 board.addCharacter(new NPC(8, 7));
 		 
-		board.addCharacter(new Enemy(7, 6));
+		 e = new Enemy(7, 6);
+		board.addCharacter(e);
 		
 	}
 //
@@ -177,8 +184,8 @@ public class Map {
 		 board.addCharacter(new NPC(12, 3));
 		 board.addCharacter(new NPC(13, 2));
 	 
-	
-		 board.addCharacter(new Enemy(11, 2));
+		 e = new Enemy(11, 2);
+		 board.addCharacter(e);
 
 	}
 	
@@ -214,8 +221,80 @@ public class Map {
 		}
 
 		return retMap;
-	}	
+	}
 	
+	public static Map getCurrentMap()
+	{
+		if(levels == null)
+		{
+			// Initialize the maps
+			levels = new Map[MAX_LEVELS];
+			levels[0] = getMap(LEVEL_BEGINNER);
+			levels[1] = getMap(LEVEL_INTERMEDIATE);
+			levels[2] = getMap(LEVEL_ADVANCED);
+		}
+		return levels[currentLevel - 1];
+	}
+	
+	public static int getCurrentLevel()
+	{
+		return currentLevel;
+	}
+	
+	public static void incrementLevel()
+	{
+		if(currentLevel < MAX_LEVELS)
+		{
+			currentLevel++;
+		}
+	}
+	
+	public boolean isFacingEnemy()
+	{
+		boolean retVal = false;
+		// TO DO: If player is nearby enemy, return true.
+		// Check if enemy is left of the player
+		/*System.out.println("Player = " + p);
+		System.out.println("Enemy = " + e);*/
+		if(e.getRow() == p.getRow() - 1 && p.getCol() == e.getCol())
+		{
+			retVal = true;
+		}
+		// Right
+		else if(e.getRow() == p.getRow() + 1 && e.getCol() == p.getCol())
+		{
+			retVal = true;
+		}
+		// Enemy above of player
+		else if(e.getRow() == p.getRow() && e.getCol() == p.getCol() - 1)
+		{
+			retVal = true;
+		}
+		// Below
+		else if(p.getRow() == e.getRow()  && e.getCol() == p.getCol() + 1)
+		{
+			retVal = true;
+		}
+		
+		return retVal;
+	}
+	
+	public void setEnemyDefeated(boolean isDefeated)
+	{
+		isEnemyDefeated = isDefeated;
+	}
+	
+	
+	public boolean isLevelComplete()
+	{
+		boolean retVal = false;
+		if(isEnemyDefeated && p.getRow() == getExit().getRow() && p.getCol() == getExit().getCol())
+		{
+			// TO DO: Check if the player's current space is the exit space
+			retVal = true;
+		}
+		return retVal;
+	}
 	/**
 	 * Moves the player from his current space the given number of spaces
 	 * @param space the space at which the vehicle is currently at 
@@ -280,6 +359,21 @@ public class Map {
 		return result;
 	}
 	
+	public static void moveAndPrintStats(Map m1, Character p, int numSpaces, boolean isHorizontal)
+	{
+		boolean canMove = false;
+		String direction = "horizontally";
+		if(!isHorizontal)
+		{
+			direction = "vertically";
+		}
+		canMove = m1.moveNumSpaces(p, numSpaces, isHorizontal);
+		System.out.println("Move " + numSpaces + " space " + direction + " " + canMove + 
+				" facing enemy = " + m1.isFacingEnemy() + 
+				", complete = " + m1.isLevelComplete() + "\n" + m1);
+	}
+	
+	
 	public static void testNavigateBeginnerLevel(Map beginMap)
 	{
 		Player p = new Player(1, 1, CharacterType.MAGE);
@@ -288,17 +382,28 @@ public class Map {
 		
 		boolean canMove = false;
 		
-		canMove = beginMap.moveNumSpaces(p, 1, true);
-		System.out.println("Move 1 space horizontally - " + canMove + "\n" + beginMap);
+		moveAndPrintStats(beginMap, p, 1, true);
 		
-		canMove= beginMap.moveNumSpaces(p, -1, false);
-		System.out.println("Move -1 space vertically - " + canMove + "\n" + beginMap);
+		moveAndPrintStats(beginMap, p, -1, false);
 		
-		canMove = beginMap.moveNumSpaces(p, 2, true);
-		System.out.println("Move 2 space horizontally - " + canMove + "\n" + beginMap);
+		moveAndPrintStats(beginMap, p, 2, true);
 		
-		canMove = beginMap.moveNumSpaces(p, 4, false);
-		System.out.println("Move 4 space vertically - " + canMove + "\n" + beginMap);
+		moveAndPrintStats(beginMap, p, 4, false);
+		
+		
+		
+		// 
+		System.out.println("Is Facing Enemy = " + beginMap.isFacingEnemy());
+		// Facing the enemy, battle and defeat enemy
+		beginMap.setEnemyDefeated(true);
+		
+		moveAndPrintStats(beginMap, p, -2, false);
+		
+		moveAndPrintStats(beginMap, p, -1, true);
+		
+		
+		System.out.println("Level Complete = " + beginMap.isLevelComplete());
+		
 	}
 	
 	public static void testNavigateIntermediateLevel(Map interMap)
@@ -308,24 +413,28 @@ public class Map {
 		interMap.addPlayer(p);
 		System.out.println(interMap);
 		
-		canMove = interMap.moveNumSpaces(p, 1, true);
-		System.out.println("Move 1 space horizontally - " + canMove + "\n" + interMap);
+		moveAndPrintStats(interMap, p, 1, true);
 		
-		canMove = interMap.moveNumSpaces(p, -1, false);
-		System.out.println("Move -1 space vertically - " + canMove + "\n" + interMap);
 		
-		canMove = interMap.moveNumSpaces(p, 2, true);
-		System.out.println("Move 2 space horizontally - " + canMove + "\n" + interMap);
+		moveAndPrintStats(interMap, p, -1, false);
 		
-		canMove = interMap.moveNumSpaces(p, 2, false);
-		System.out.println("Move 2 space vertically - " + canMove + "\n" + interMap);
+		moveAndPrintStats(interMap, p, 2, true);
 		
-		canMove = interMap.moveNumSpaces(p, 1, true);
-		System.out.println("Move 1 space horizontally - " + canMove + "\n" + interMap);
+		moveAndPrintStats(interMap, p, 2, false);
+		
+		
+		moveAndPrintStats(interMap, p, 1, true);
+		
 
-		canMove = interMap.moveNumSpaces(p, 5, false);
-		System.out.println("Move 5 space vertically - " + canMove + "\n" + interMap);
-
+		moveAndPrintStats(interMap, p, 5, false);
+		
+		interMap.setEnemyDefeated(true);
+		
+		moveAndPrintStats(interMap, p, -4, false);
+		
+		moveAndPrintStats(interMap, p, 3, true);
+		
+		moveAndPrintStats(interMap, p, -1, false);
 	}
 
 	
@@ -361,16 +470,22 @@ public class Map {
 
 	
 	public static void main(String[] args) {
-		Map mapB = Map.getMap(LEVEL_BEGINNER);
-		Map mapI = Map.getMap(LEVEL_INTERMEDIATE);
-		Map mapA = Map.getMap(LEVEL_ADVANCED);
+		Map m1 = Map.getCurrentMap();
+		System.out.println("Current Level = " + Map.getCurrentLevel());
+		testNavigateBeginnerLevel(m1);
 		
-		testNavigateBeginnerLevel(mapB);
+		Map.incrementLevel();
+		m1 = Map.getCurrentMap();
+		System.out.println("Current Level = " + Map.getCurrentLevel());
+		testNavigateIntermediateLevel(m1);
 		
-		testNavigateIntermediateLevel(mapI);
+		Map.incrementLevel();
+		m1 = Map.getCurrentMap();
+		System.out.println("Current Level = " + Map.getCurrentLevel());
+	    testNavigateAdvancedLevel(m1);
 		
-		testNavigateAdvancedLevel(mapA);
-		
+		Map.incrementLevel();
+		System.out.println("Current Level = " + Map.getCurrentLevel());
 	}
 	
 //	public static void main(String[] args) {
