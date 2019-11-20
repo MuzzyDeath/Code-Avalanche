@@ -38,8 +38,9 @@ public class pause {
 
 	public static void battleScene(MainApplication app) {
 		
-		opponent = Board.CharacterAtSpace(Protagonist);
-
+		//opponent = Map.getCurrentMap().getCharacter(space)(Protagonist);
+		opponent = Map.getCurrentMap().getEnemy();
+		
 		background = new GImage("images/BattleStyle.png");
 		app.add(background);
 
