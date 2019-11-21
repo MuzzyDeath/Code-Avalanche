@@ -21,9 +21,14 @@ public class Overlay {
 	private static GImage textbox;
 	//pictures
 
-
 	//Inventory Stuff
 	private static GImage inventory;
+
+	private static final String SFONT = "Times New Roman";
+	private static final int S_FONT_SIZE = 30;
+
+	public static GLabel StrengthV, CharismaV, AgilityV, DefenseV, HealthV, GoldV;
+	
 	//pictures
 	private static final String MAGE = "Battle Image(Mage).png";
 	private static final String WARRIOR = "Battle Image(Warrior).png";
@@ -245,12 +250,37 @@ public class Overlay {
 	}
 
 	public static void showInventory(MainApplication app) {
+		Player player = MainApplication.user; 
 		inventory = new GImage("images/InventoryBackground.png");
 		app.add(inventory);
+		StrengthV = new GLabel("" + player.getStrength(), LU_BASE_X - 175, 204); 
+		app.add(StrengthV);
+		StrengthV.setFont(new Font(LU_FONT, 1, LU_FONT_SIZE));
+		StrengthV.setColor(Color.orange);
+		AgilityV = new GLabel("" + player.getAgility(), LU_BASE_X - 200, 264); 
+		app.add(AgilityV);
+		AgilityV.setFont(new Font(LU_FONT, 1, LU_FONT_SIZE));
+		AgilityV.setColor(Color.orange);
+		DefenseV = new GLabel("" + player.getDefense(), LU_BASE_X - 195, 327); 
+		app.add(DefenseV);
+		DefenseV.setFont(new Font(LU_FONT, 1, LU_FONT_SIZE));
+		DefenseV.setColor(Color.orange);
+		CharismaV = new GLabel("" + player.getCharisma(), LU_BASE_X - 177, 389); 
+		app.add(CharismaV);
+		CharismaV.setFont(new Font(LU_FONT, 1, LU_FONT_SIZE));
+		CharismaV.setColor(Color.orange);
+		GoldV = new GLabel("" + player.getBalance(), LU_BASE_X - 140, 481); 
+		app.add(GoldV);
+		GoldV.setFont(new Font(LU_FONT, 1, LU_FONT_SIZE));
+		GoldV.setColor(Color.orange);
 	}
 
 	public static void hideInventory(MainApplication app) {
 		app.remove(inventory);
+		app.remove(StrengthV);
+		app.remove(AgilityV);
+		app.remove(DefenseV);
+		app.remove(CharismaV);
 	}
 
 	public static void showLevelUp(MainApplication app) {
