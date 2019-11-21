@@ -49,7 +49,7 @@ public class Overlay {
 	// Levelup Stuff
 	private static final String LU_BACKGROUND_IMAGE = "images/LevelUpPaneImage2.jpg";
 	private static final int LU_BASE_X = 475, LU_BASE_Y = 250, LU_LINE_SPACE=60;
-	private static final int LU_MINUS_OFFSET = 200, LU_PLUS_OFFSET = 250, LU_BUTTON_WIDTH= 25, LU_BUTTON_HEIGHT = 30;
+	private static final int LU_MINUS_OFFSET = 250, LU_PLUS_OFFSET = 200, LU_BUTTON_WIDTH= 25, LU_BUTTON_HEIGHT = 30;
 
 	private static final String LU_FONT = "Comic Sans";
 	private static final int LU_FONT_SIZE = 30;
@@ -265,16 +265,17 @@ public class Overlay {
 		luStrength.setFont(new Font(LU_FONT, 1, LU_FONT_SIZE));
 		luStrength.setColor(Color.black);
 		app.add(luStrength);
+		
+		luStrengthUp = new GButton(PLUS_TEXT, LU_BASE_X + LU_PLUS_OFFSET, LU_BASE_Y - LU_FONT_SIZE , LU_BUTTON_WIDTH, LU_BUTTON_HEIGHT);
+		luStrengthUp.setFillColor(Color.LIGHT_GRAY);
+		luStrengthUp.setColor(Color.black);
+		app.add(luStrengthUp);
 
 		luStrengthDown = new GButton(MINUS_TEXT, LU_BASE_X + LU_MINUS_OFFSET, LU_BASE_Y - LU_FONT_SIZE , LU_BUTTON_WIDTH, LU_BUTTON_HEIGHT);
 		luStrengthDown.setFillColor(Color.LIGHT_GRAY);
 		luStrengthDown.setColor(Color.black);
 		app.add(luStrengthDown);
 
-		luStrengthUp = new GButton(PLUS_TEXT, LU_BASE_X + LU_PLUS_OFFSET, LU_BASE_Y - LU_FONT_SIZE , LU_BUTTON_WIDTH, LU_BUTTON_HEIGHT);
-		luStrengthUp.setFillColor(Color.LIGHT_GRAY);
-		luStrengthUp.setColor(Color.black);
-		app.add(luStrengthUp);
 
 		luAgility = new GLabel(AGILITY_TEXT + " : " +  player.getAgility(), LU_BASE_X, LU_BASE_Y + 1 * LU_LINE_SPACE);
 		luAgility.setFont(new Font(LU_FONT, 1, LU_FONT_SIZE));
