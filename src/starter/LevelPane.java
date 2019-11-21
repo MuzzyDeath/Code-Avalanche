@@ -140,6 +140,13 @@ public class LevelPane extends GraphicsPane {
 		int key = e.getKeyCode();
 
 		System.out.println(Map.getCurrentMap());
+		
+		//Purely to test that removing
+		//a character sprite works
+		//REMOVE BEFORE FINAL CHECK!
+		if (key == KeyEvent.VK_P) {
+			removeCharacter(new Space(4, 5));
+		}
 
 		// Overlay for the Inventory
 		// Press I to test.
@@ -500,7 +507,7 @@ public class LevelPane extends GraphicsPane {
 			System.out.println("No character to delete");
 		}
 	}
-
+	
 	private boolean checkContainment(Character c) {
 		int row, col;
 		row = c.getRow();
