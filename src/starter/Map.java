@@ -12,7 +12,8 @@ public class Map {
 	public static final int LEVEL_BEGINNER     = 1;
 	public static final int LEVEL_INTERMEDIATE = 2;
 	public static final int LEVEL_ADVANCED     = 3;
-	public static final int MAX_LEVELS         = 3;
+	public static final int LEVEL_FINAL        = 4;
+	public static final int MAX_LEVELS         = 4;
 
 	private Board board;
 	private boolean isEnemyDefeated = false;
@@ -39,6 +40,9 @@ public class Map {
 			break;
 		case LEVEL_ADVANCED:
 			setupAdvancedMap();
+			break;
+		case LEVEL_FINAL:
+			setupFinalMap();
 			break;
 		default:
 			System.out.println("Invalid level " + level + ". Levels supported are from 0 to " + MAX_LEVELS);
@@ -114,13 +118,17 @@ public class Map {
 		//exitSpace = new Space(4, 4);
 
 		// Add NPCs to the board
-		board.addCharacter(new NPC(0, 5));
+		board.addCharacter(new NPC(4, 2));
 		board.addCharacter(new NPC(1, 3));
 
 		e = new Enemy(4, 5);
 		board.addCharacter(e);
-
-		board.setExit(new Space(2,3));
+		e = new Enemy(2, 5);
+		board.addCharacter(e);
+		e = new Enemy(3, 4);
+		board.addCharacter(e);
+		
+		board.setExit(new Space(3,5));
 	}
 
 	/**
@@ -132,27 +140,21 @@ public class Map {
 	{
 		// Add characters and set up exit space.
 		// Initialize board with the maxRows and maxCols
-		board = new Board(10, 10);
+		board = new Board(6, 6);
 
 		//startSpace = new Space(0, 3);
 
 		// Winning space for this level is for Player  to reach r7c7
-		board.setExit(new Space(2, 8));
+		board.setExit(new Space(5, 5));
 
-		board.addCharacter(new NPC(0, 5)); 
+		board.addCharacter(new NPC(0, 4)); 
 		board.addCharacter(new NPC(1, 3)); 
-		board.addCharacter(new NPC(2, 6)); 
-		board.addCharacter(new NPC(3, 0)); 
-		board.addCharacter(new NPC(3, 4)); 
-		board.addCharacter(new NPC(5, 4));
-		board.addCharacter(new NPC(4, 3));
-		board.addCharacter(new NPC(6, 7)); 
-		board.addCharacter(new NPC(7, 8));
-		board.addCharacter(new NPC(8, 7));
+		board.addCharacter(new NPC(4, 2)); 
 
-		e = new Enemy(7, 6);
+		e = new Enemy(5, 4);
 		board.addCharacter(e);
-
+		e = new Enemy(4, 5);
+		board.addCharacter(e);
 	}
 	//
 	//	/**
@@ -164,27 +166,38 @@ public class Map {
 	{
 		// Add characters and set up exit space.
 		// Initialize board with the maxRows and maxCols
-		board = new Board(15, 15);
+		board = new Board(6, 6);
 		//		
 		//		// Winning space for this level is for  Player  to reach r4c4
 
 
 		// Winning space for this level is for Player  to reach r7c7
-		board.setExit(new Space(10, 10));
+		board.setExit(new Space(5, 2));
 
-		board.addCharacter(new NPC(0, 5)); 
-		board.addCharacter(new NPC(1, 3)); 
-		board.addCharacter(new NPC(2, 6)); 
-		board.addCharacter(new NPC(3, 0)); 
-		board.addCharacter(new NPC(3, 4)); 
-		board.addCharacter(new NPC(5, 4));
-		board.addCharacter(new NPC(4, 3));
-		board.addCharacter(new NPC(12, 1)); 
-		board.addCharacter(new NPC(12, 3));
-		board.addCharacter(new NPC(13, 2));
+		board.addCharacter(new NPC(4, 0)); 
+		board.addCharacter(new NPC(3, 1)); 
+		board.addCharacter(new NPC(1, 4)); 
+		
 
-		e = new Enemy(11, 2);
+		e = new Enemy(4, 2);
 		board.addCharacter(e);
+		e = new Enemy(4, 3);
+		board.addCharacter(e);
+		e = new Enemy(4, 4);
+		board.addCharacter(e);
+
+	}
+	
+	public void setupFinalMap()
+	{
+		// Add characters
+		// Initialize board with the maxRows and maxCols
+		board = new Board(6, 6);
+	
+		//e = new Enemy(5, 2);
+		//board.addCharacter(e);
+
+		board.setExit(new Space(5,5));
 
 	}
 
@@ -240,6 +253,7 @@ public class Map {
 			levels[0] = getMap(LEVEL_BEGINNER);
 			levels[1] = getMap(LEVEL_INTERMEDIATE);
 			levels[2] = getMap(LEVEL_ADVANCED);
+			levels[3] = getMap(LEVEL_FINAL);
 		}
 		return levels[currentLevel - 1];
 	}
