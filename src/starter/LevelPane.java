@@ -76,6 +76,7 @@ public class LevelPane extends GraphicsPane {
 		controlsImage = new GImage("controlsImage.jpg");
 		generateWorld();
 		showContents();
+		
 	}
 
 	@Override
@@ -140,6 +141,13 @@ public class LevelPane extends GraphicsPane {
 		int key = e.getKeyCode();
 
 		System.out.println(Map.getCurrentMap());
+		
+		//Purely to test that removing
+		//a character sprite works
+		//REMOVE BEFORE FINAL CHECK!
+		if (key == KeyEvent.VK_P) {
+			removeCharacter(new Space(4, 5));
+		}
 
 		// Overlay for the Inventory
 		// Press I to test.
@@ -236,6 +244,13 @@ public class LevelPane extends GraphicsPane {
 				audio.stopSound(MUSIC_FOLDER, SOUND_FILES[0]);
 
 			}
+		}
+		
+		//Purely to test that removing
+		//a character sprite works
+		//REMOVE BEFORE FINAL CHECK!
+		if (key == KeyEvent.VK_P) {
+			removeCharacter(new Space(4, 5));
 		}
 
 		if (key == KeyEvent.VK_ESCAPE) {
@@ -472,7 +487,28 @@ public class LevelPane extends GraphicsPane {
 		}
 
 	}
-
+	
+	private void removeCharacter(Space s) {
+		int x, y;
+		x = (int) ((s.getCol() * xWidth));
+		y = (int) ((s.getRow() * yHeight));
+		
+		System.out.printf("X pixel: %d\nY pixel: %d\n", x, y);
+		
+		GObject image = program.getElementAt(x, y);
+		
+		if(image != null) {
+		program.remove(image);
+		
+		program.remove(program.getElementAt(x, y));
+		System.out.println("Should have deleted a character");
+		}
+		
+		else {
+			System.out.println("No character to delete");
+		}
+	}
+	
 	private boolean checkContainment(Character c) {
 		int row, col;
 		row = c.getRow();
@@ -602,7 +638,7 @@ public class LevelPane extends GraphicsPane {
 
 			line = new GLine(w, 0, w, windowHeight - 2);
 			program.add(line);
-			line.setVisible(true);
+			line.setVisible(false);
 			j++;
 		}
 
@@ -616,7 +652,7 @@ public class LevelPane extends GraphicsPane {
 
 			line = new GLine(0, h, windowWidth - 2, h);
 			program.add(line);
-			line.setVisible(true);
+			line.setVisible(false);
 			j++;
 		}
 	}
