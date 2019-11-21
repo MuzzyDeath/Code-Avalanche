@@ -45,9 +45,9 @@ public class LevelPane extends GraphicsPane {
 
 	protected static Player Protagonist;
 
-	private Map map1, map2, map3;
+	private static Map map1, map2, map3;
 
-	protected Map[] world = { map1, map2, map3 };
+	protected static Map[] world = { map1, map2, map3 };
 
 	private float xWidth, yHeight;
 	private int windowHeight = program.WINDOW_HEIGHT;
@@ -55,7 +55,8 @@ public class LevelPane extends GraphicsPane {
 
 
 	private static GRect win, lose;
-
+	private static GLabel labelW, labelL, bal;
+	private static int winlose = 0;
 	public LevelPane(MainApplication app) {
 		super();
 		program = app;
@@ -68,7 +69,7 @@ public class LevelPane extends GraphicsPane {
 
 		MainApplication.user.cName = "Tester";
 		Protagonist = MainApplication.user;
-		
+
 		Protagonist.printPlayer();
 		controlsImage = new GImage("controlsImage.jpg");
 		generateWorld();
@@ -176,10 +177,19 @@ public class LevelPane extends GraphicsPane {
 
 
 		}
-		
-		if(key == KeyEvent.KEY_PRESSED) {
-			
-			System.out.println("Battle not possible since not nearby the opponent");
+
+		if(key == KeyEvent.VK_SPACE) {
+
+
+			if(winlose == 1){
+				removeWin(program);
+			}
+			else if(winlose == 2) {
+				removeLose(program);
+			}
+			else {
+				System.out.println("Battle not possible since not nearby the opponent");
+			}
 		}
 
 		// Overlay for the Level up Image
@@ -507,7 +517,7 @@ public class LevelPane extends GraphicsPane {
 		else
 			return false;
 	}
-	
+
 	private boolean exitCheck(Space s) {
 
 		int row, col, eRow, eCol;
@@ -548,12 +558,12 @@ public class LevelPane extends GraphicsPane {
 		drawPlayer(Protagonist);
 		drawCharacters(m);
 	}
-	
+
 	private void nextMap(Map m) {
 		program.removeAll();
-		
+
 		Map.incrementLevel();
-		
+
 		loadMap(Map.getCurrentMap());
 	}
 
@@ -620,28 +630,91 @@ public class LevelPane extends GraphicsPane {
 
 
 		if(Protagonist.getHealth() > 0 && opponent.getHealth() <= 0) {
+
+			Protagonist.setBalance(Protagonist.getBalance() + opponent.getBalance());
+
+			world[0].getBoard().removeCharacter(opponent.getLocation());
+
+
+
 			Overlay.battleOver(app);
 
-			win = new GRect(10, 10, 100, 100);
+			Protagonist.setHealth(50);
+
+			win = new GRect(10, 10, 400, 400);
+			win.setColor(Color.gray);
+			win.setFilled(true);
+
+			bal = new GLabel("Balance: " + Protagonist.getBalance(), 100, 200);
+			bal.setFont(new Font("Comic Sans", 1, 20));
+			bal.setColor(Color.black);
+
+			labelW = new GLabel("You win!" , 50, 50);
+			labelW.setFont(new Font("Comic Sans", 1, 40));
+			labelW.setColor(Color.black);
+
+
+			app.add(labelW);
 			app.add(win);
-			
-			battling = false;
-			
+			app.add(bal);
+			labelW.sendToFront();
+
+			winlose = 1;
+
 		}
-
-
-
 	}
 	public static void battleLose(MainApplication app) {
 
 		if(Protagonist.getHealth() <= 0 && opponent.getHealth() > 0) {
+
+			Protagonist.setBalance(Protagonist.getBalance() - opponent.getBalance());
+
+			world[0].getBoard().removeCharacter(opponent.getLocation());
+
+
+
 			Overlay.battleOver(app);
-			win = new GRect(10, 10, 100, 100);
-			app.add(win);
-			
-			battling = false;
-			
+
+			Protagonist.setHealth(50);
+
+			lose = new GRect(10, 10, 400, 400);
+			lose.setColor(Color.gray);
+			lose.setFilled(true);
+
+			bal = new GLabel("Balance: " + Protagonist.getBalance(), 100, 200);
+			bal.setFont(new Font("Comic Sans", 1, 20));
+			bal.setColor(Color.black);
+
+			labelL = new GLabel("You lose!" , 50, 50);
+			labelL.setFont(new Font("Comic Sans", 1, 40));
+			labelL.setColor(Color.black);
+
+
+			app.add(labelL);
+			app.add(lose);
+			app.add(bal);
+			labelL.sendToFront();
+
+			winlose = 2;
+
 		}
+	}
+
+	public static void removeWin(MainApplication app) {
+
+		app.remove(labelW);
+		app.remove(win);
+		app.remove(bal);
+
+		battling = false;
+
+	}
+	public static void removeLose(MainApplication app) {
+		app.remove(labelL);
+		app.remove(lose);
+		app.remove(bal);
+
+		battling = false;
 	}
 
 
