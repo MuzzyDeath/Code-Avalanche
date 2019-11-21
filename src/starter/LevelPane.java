@@ -37,21 +37,24 @@ public class LevelPane extends GraphicsPane {
 
 	static Enemy opponent;
 
-	private boolean battling;
+	private static boolean battling;
 	private boolean paused;
 	private boolean inventory;
 	private boolean textbox;
 	private boolean levelup;
 
-	protected Player Protagonist;
+	protected static Player Protagonist;
 
 	private Map map1, map2, map3;
-	/*private int current;
-	protected Map[] world = { map1, map2, map3 };*/
+	private int current;
+	protected Map[] world = { map1, map2, map3 };
 
 	private float xWidth, yHeight;
 	private int windowHeight = program.WINDOW_HEIGHT;
 	private int windowWidth = program.WINDOW_WIDTH;
+
+
+	private static GRect win, lose;
 
 	public LevelPane(MainApplication app) {
 		super();
@@ -169,10 +172,10 @@ public class LevelPane extends GraphicsPane {
 		if (key == KeyEvent.VK_E) {
 
 			//opponent = (Enemy) Board.spaceCheck(Protagonist);
-			if(Map.getCurrentMap().isFacingEnemy())
+			if(world[0].getBoard().spaceCheck(Protagonist) != null)
 			{
-				opponent = (Enemy)Map.getCurrentMap().getNearbyCharacter(Protagonist);
-				
+				opponent = (Enemy) world[0].getBoard().spaceCheck(Protagonist);
+
 				battling = true;	
 				//pause.battleScene(program);
 
@@ -187,6 +190,11 @@ public class LevelPane extends GraphicsPane {
 
 
 
+		}
+		
+		if(key == KeyEvent.KEY_PRESSED) {
+			
+			System.out.println("Battle not possible since not nearby the opponent");
 		}
 
 		// Overlay for the Level up Image
@@ -394,14 +402,20 @@ public class LevelPane extends GraphicsPane {
 				Battle.Fight(1, opponent, Protagonist);
 				System.out.print("You chose attack \n");
 
+				battleWin(program);
+
 			}
 
 			else if (key == KeyEvent.VK_2) {
 				Battle.Fight(2, opponent, Protagonist);
 				System.out.print("You chose block \n");
-			} else if (key == KeyEvent.VK_3) {
+				battleWin(program);
+
+			} 
+			else if (key == KeyEvent.VK_3) {
 				Battle.Fight(3, opponent, Protagonist);
 				System.out.print("You chose defend \n");
+				battleWin(program);
 			}
 		}
 
@@ -526,10 +540,10 @@ public class LevelPane extends GraphicsPane {
 	}
 
 	private void generateWorld() {
-		/*world[0] = Map.getMap(Map.LEVEL_BEGINNER);
+		world[0] = Map.getMap(Map.LEVEL_BEGINNER);
 		world[1] = Map.getMap(Map.LEVEL_INTERMEDIATE);
 		world[2] = Map.getMap(Map.LEVEL_ADVANCED);
-		current = 0;*/
+		current = 0;
 		Map m1 = Map.getCurrentMap();
 	}
 
@@ -605,6 +619,35 @@ public class LevelPane extends GraphicsPane {
 		int col = Math.abs(a.getLocation().getCol() - b.getLocation().getCol());
 		int row = Math.abs(a.getLocation().getRow() - b.getLocation().getRow());
 		return col + row;
+	}
+
+	public static void battleWin(MainApplication app) {
+
+
+
+		if(Protagonist.getHealth() > 0 && opponent.getHealth() <= 0) {
+			Overlay.battleOver(app);
+
+			win = new GRect(10, 10, 100, 100);
+			app.add(win);
+			
+			battling = false;
+			
+		}
+
+
+
+	}
+	public static void battleLose(MainApplication app) {
+
+		if(Protagonist.getHealth() <= 0 && opponent.getHealth() > 0) {
+			Overlay.battleOver(app);
+			win = new GRect(10, 10, 100, 100);
+			app.add(win);
+			
+			battling = false;
+			
+		}
 	}
 
 

@@ -72,13 +72,13 @@ public class Map {
 		return board.getExit();
 	}
 
-	/*
-	 * We need to encapsulate baord, we should not give out board.
-	 *  All board methods have to be encoded in Map
+	
+//	 * We need to encapsulate baord, we should not give out board.
+//	 *  All board methods have to be encoded in Map
 	public Board getBoard() {
 		return this.board;
 	}
-	*/
+	
 
 	
 	public void moveCharacter(Character c, Space newSpace) {

@@ -82,6 +82,7 @@ public class Board {
 	}
 
 	public Character spaceCheck(Player p) {
+		
 
 		Character tempUp = board[p.getRow() - 1][p.getCol()];
 		Character tempDown = board[p.getRow() + 1][p.getCol()];
@@ -89,24 +90,24 @@ public class Board {
 		Character tempLeft = board[p.getRow()][p.getCol() - 1];
 
 
-		if(tempUp != null) {
-			System.out.println("Enemy above");
-			return tempUp;
-		}
-		else if(tempDown != null) {
-
-			System.out.println("Enemy below");
-			return tempDown;
-		}
-		else if(tempRight != null) {
+//		if(tempUp != null) {
+//			System.out.println("Enemy above");
+//			return tempUp;
+//		}
+//		else if(tempDown != null) {
+//
+//			System.out.println("Enemy below");
+//			return tempDown;
+//		}
+		if(tempRight != null) {
 
 			System.out.println("Enemy right");
 			return tempRight;
 		}
-		else if(tempLeft != null) {
-			System.out.println("Enemy left");
-			return tempLeft;
-		}
+//		else if(tempLeft != null) {
+//			System.out.println("Enemy left");
+//			return tempLeft;
+//		}
 		else {
 			return null;
 		}
@@ -443,4 +444,64 @@ public class Board {
 
 
 	}
+	
+	
+//public Character spaceCheck(Player p) {
+//		
+////		Character tempUp;
+////		Character tempDown;
+////		Character tempLeft;
+//		Character tempRight;
+//		
+//		
+//		
+//		
+//		
+////		if(p.getRow() - 1 <= 0) {
+////			tempUp = board[p.getRow() - 1][p.getCol()];
+////			if(tempUp.cType == CharacterType.ENEMY) 
+////			return tempUp;
+////			
+////		}
+////		else if(p.getRow() + 1 < getNumRows()) {
+////			tempDown = board[p.getRow() + 1][p.getCol()];
+////			return tempDown;
+////		}
+////		else if(p.getCol() - 1 <= 0) {
+////			tempLeft = board[p.getRow()][p.getCol() - 1];
+////			return tempLeft;
+////		}
+//		if(p.getCol() + 1 < getNumCols()) {
+//			tempRight = board[p.getRow()][p.getCol() + 1];
+//			
+//			if(board[p.getRow()][p.getCol() + 1].cType == CharacterType.ENEMY) {
+//			return tempRight;
+//			}
+//			
+//			return null;
+//
+//		}
+//		
+////		if(tempUp != null) {
+////			System.out.println("Enemy above");
+////			
+////		}
+////		else if(tempDown != null) {
+////
+////			System.out.println("Enemy below");
+////			
+////		}
+////		else if(tempRight != null) {
+////
+////			System.out.println("Enemy right");
+////			
+////		}
+////		else if(tempLeft != null) {
+////			System.out.println("Enemy left");
+////			
+////		}
+//		else {
+//			return null;
+//		}
+//	}
 }

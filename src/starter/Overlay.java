@@ -67,8 +67,8 @@ public class Overlay {
 	private static GImage luBackground;
 	public static GLabel luStrength, luAgility, luDefense, luCharisma, luHealth;
 	public static GButton luStrengthDown, luStrengthUp, luAgilityDown, luAgilityUp, luDefenseDown, luDefenseUp, luCharismaDown, luCharismaUp, luHealthDown, luHealthUp;
-	private static GRect win;
-	private static GRect lose;
+	
+	public static int battle;
 	// End Levelup Stuff
 
 
@@ -207,18 +207,7 @@ public class Overlay {
 		app.remove(cHealth);
 	}
 
-	public static void battleWin(MainApplication app) {
-		
-		battleOver(app);
-		
-		win = new GRect(100, 100, 100, 100);
-		app.add(win);
-		
 
-	}
-	public static void battleLose(MainApplication app) {
-
-	}
 
 
 
