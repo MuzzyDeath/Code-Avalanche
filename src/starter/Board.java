@@ -174,6 +174,15 @@ public class Board {
 		else
 			System.out.println("Location occuppied! Skipping Character Addition!!!!");
 	}
+	
+	public void removeCharacter(Space s) {
+		int row, col;
+		row = s.getRow();
+		col = s.getCol();
+		
+		if (row >= 0 && row < getNumRows() && col >= 0 && col < getNumCols())
+			board[row][col] = null;
+	}
 
 	public boolean canMove(Character c, Space newSpace) {
 		//Java short circuits, so it's okay to have everything here.
