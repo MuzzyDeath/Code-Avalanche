@@ -46,8 +46,8 @@ public class LevelPane extends GraphicsPane {
 	protected Player Protagonist;
 
 	private Map map1, map2, map3;
-	/*private int current;
-	protected Map[] world = { map1, map2, map3 };*/
+	private int current;
+	protected Map[] world = { map1, map2, map3 };
 
 	private float xWidth, yHeight;
 	private int windowHeight = program.WINDOW_HEIGHT;
@@ -58,8 +58,7 @@ public class LevelPane extends GraphicsPane {
 		program = app;
 		background = new GImage(BACKGROUND);
 		ground = new GImage(GROUND);
-
-		//current = 0;
+		current = 0;
 
 		battling = false;
 		paused = false;
@@ -74,7 +73,7 @@ public class LevelPane extends GraphicsPane {
 
 		generateWorld();
 
-		test();
+		//test();
 
 		showContents();
 	}
@@ -409,22 +408,6 @@ public class LevelPane extends GraphicsPane {
 
 	// New Code below this line//
 
-	private boolean exitCheck(Space s) {
-
-		int row, col, eRow, eCol;
-		row = s.getRow();
-		col = s.getCol();
-		eRow = Map.getCurrentMap().getExit().getRow();
-		eCol = Map.getCurrentMap().getExit().getCol();
-
-		if (row == eRow && col == eCol) {
-			System.out.println("Character on exit!");
-			return true;
-		}
-
-		return false;
-	}
-
 	public void characterLocation(Character c) {
 		Space currentLocation = convertXYToSpace(playerSprite.getX() + (xWidth / 2),
 				playerSprite.getY() + (yHeight / 2));
@@ -524,13 +507,28 @@ public class LevelPane extends GraphicsPane {
 		else
 			return false;
 	}
+	
+	private boolean exitCheck(Space s) {
+
+		int row, col, eRow, eCol;
+		row = s.getRow();
+		col = s.getCol();
+		eRow = Map.getCurrentMap().getExit().getRow();
+		eCol = Map.getCurrentMap().getExit().getCol();
+
+		if (row == eRow && col == eCol) {
+			System.out.println("Character on exit!");
+			nextMap(Map.getMap(Map.LEVEL_INTERMEDIATE));
+			return true;
+		}
+
+		return false;
+	}
 
 	private void generateWorld() {
-		/*world[0] = Map.getMap(Map.LEVEL_BEGINNER);
+		world[0] = Map.getMap(Map.LEVEL_BEGINNER);
 		world[1] = Map.getMap(Map.LEVEL_INTERMEDIATE);
 		world[2] = Map.getMap(Map.LEVEL_ADVANCED);
-		current = 0;*/
-		Map m1 = Map.getCurrentMap();
 	}
 
 	private void drawLevel(Map m) {
@@ -543,10 +541,18 @@ public class LevelPane extends GraphicsPane {
 		program.add(ground);
 		ground.sendToBack();
 
-		Map.getCurrentMap().addPlayer(Protagonist);
+		world[current].addPlayer(Protagonist);
 
 		drawPlayer(Protagonist);
 		drawCharacters(m);
+	}
+	
+	private void nextMap(Map m) {
+		program.removeAll();
+		
+		Map.incrementLevel();
+		
+		loadMap(Map.getCurrentMap());
 	}
 
 	public Space convertXYToSpace(double x, double y) {
