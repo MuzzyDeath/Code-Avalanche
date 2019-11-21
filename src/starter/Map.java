@@ -79,7 +79,7 @@ public class Map {
 		return this.board;
 	}
 	*/
-	
+
 	
 	public void moveCharacter(Character c, Space newSpace) {
 		board.moveCharacter(c,  newSpace);
@@ -189,6 +189,15 @@ public class Map {
 
 	}
 	
+	public Enemy getEnemy()
+	{
+		return e;
+	}
+	
+	public Character getNearbyCharacter(Player p)
+	{
+		return board.spaceCheck(p);
+	}
 	/**
 	 * Returns the character at the given space
 	 * 

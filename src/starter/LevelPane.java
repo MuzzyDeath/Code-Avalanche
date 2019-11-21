@@ -168,14 +168,21 @@ public class LevelPane extends GraphicsPane {
 		// Press E to test.
 		if (key == KeyEvent.VK_E) {
 
-			opponent = (Enemy) Board.spaceCheck(Protagonist);
+			//opponent = (Enemy) Board.spaceCheck(Protagonist);
+			if(Map.getCurrentMap().isFacingEnemy())
+			{
+				opponent = (Enemy)Map.getCurrentMap().getNearbyCharacter(Protagonist);
+				
+				battling = true;	
+				//pause.battleScene(program);
 
-			battling = true;	
-			//pause.battleScene(program);
-
-			Overlay.battleScene(program);
-			audio = AudioPlayer.getInstance();
-			audio.playSound(MUSIC_FOLDER, SOUND_FILES[0]);
+				Overlay.battleScene(program);
+				audio = AudioPlayer.getInstance();
+				audio.playSound(MUSIC_FOLDER, SOUND_FILES[0]);
+			}
+			else {
+				System.out.println("Battle not possible since not nearby the opponent");
+			}
 
 
 

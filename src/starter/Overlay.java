@@ -57,7 +57,7 @@ public class Overlay {
 	
 	private static final String STRENGTH_TEXT = "Strength";
 	private static final String AGILITY_TEXT  = "Agility";
-	private static final String DEFENSE_TEXT  = "Defenese";
+	private static final String DEFENSE_TEXT  = "Defense";
 	private static final String CHARISMA_TEXT = "Charisma";
 	private static final String HEALTH_TEXT   = "Health";
 	private static final String PLUS_TEXT     = "[ + ]";
