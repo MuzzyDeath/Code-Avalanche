@@ -45,7 +45,6 @@ public class LevelPane extends GraphicsPane {
 	private boolean paused;
 	private boolean inventory;
 	private boolean textbox;
-	private boolean levelup;
 
 	protected static Player Protagonist;
 
@@ -132,10 +131,9 @@ public class LevelPane extends GraphicsPane {
 				quit.setFillColor(Color.WHITE);
 				System.exit(0);
 			}
-			else if (levelup) {
+			else if (Overlay.isLevelUpActive()) {
 				Overlay.processLevelupEvent(program, e);
 			}
-
 		}
 	}
 
@@ -209,19 +207,20 @@ public class LevelPane extends GraphicsPane {
 
 		// Overlay for the Level up Image
 		// Press l to test.
-
 		if (key == KeyEvent.VK_L) {
-
-			if (!levelup)
+			
+			if (!Overlay.isLevelUpActive())
 			{
-				levelup = true;
 				Overlay.showLevelUp(program);
 			}
+			/*
 			else
 			{
 				levelup = false;
 				Overlay.hideLevelUp(program);
 			}
+			*/
+
 		}
 
 		// Overlay for the Battle Image
