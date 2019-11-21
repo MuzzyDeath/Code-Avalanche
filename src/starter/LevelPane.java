@@ -2,6 +2,7 @@ package starter;
 
 import acm.graphics.*;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
@@ -25,7 +26,7 @@ public class LevelPane extends GraphicsPane {
 
 	private AudioPlayer audio;
 
-	private MainApplication program; // you will use program to get access to
+	private static MainApplication program; // you will use program to get access to
 	// all of the GraphicsProgram calls
 	private GButton play, controls, quit;
 	private GImage ground, background, controlsImage, playerImage, enemyImage;
@@ -49,7 +50,8 @@ public class LevelPane extends GraphicsPane {
 
 	protected static Map[] world = { map1, map2, map3 };
 
-	private float xWidth, yHeight;
+	private static float xWidth;
+	private static float yHeight;
 	private int windowHeight = program.WINDOW_HEIGHT;
 	private int windowWidth = program.WINDOW_WIDTH;
 
@@ -632,15 +634,19 @@ public class LevelPane extends GraphicsPane {
 		if(Protagonist.getHealth() > 0 && opponent.getHealth() <= 0) {
 
 			Protagonist.setBalance(Protagonist.getBalance() + opponent.getBalance());
+			//removes chracter sprite
+			
+			removeCharacter(opponent.getLocation());
 
+			// removes the character from board
 			world[0].getBoard().removeCharacter(opponent.getLocation());
 
 
-
+			// removes battle overlay
 			Overlay.battleOver(app);
 
 			Protagonist.setHealth(50);
-
+			// creates labels and rects
 			win = new GRect(10, 10, 400, 400);
 			win.setColor(Color.gray);
 			win.setFilled(true);
@@ -653,12 +659,12 @@ public class LevelPane extends GraphicsPane {
 			labelW.setFont(new Font("Comic Sans", 1, 40));
 			labelW.setColor(Color.black);
 
-
+			// adds labels and rects
 			app.add(labelW);
 			app.add(win);
 			app.add(bal);
 			labelW.sendToFront();
-
+			//counter for keyboard access
 			winlose = 1;
 
 		}
@@ -669,14 +675,19 @@ public class LevelPane extends GraphicsPane {
 
 			Protagonist.setBalance(Protagonist.getBalance() - opponent.getBalance());
 
+			//removes sprite
+			removeCharacter(opponent.getLocation());
+
+			// removes character on board.
 			world[0].getBoard().removeCharacter(opponent.getLocation());
 
 
-
+			// closes battle overlay
 			Overlay.battleOver(app);
 
 			Protagonist.setHealth(50);
 
+			// all labels and shapes
 			lose = new GRect(10, 10, 400, 400);
 			lose.setColor(Color.gray);
 			lose.setFilled(true);
@@ -689,12 +700,14 @@ public class LevelPane extends GraphicsPane {
 			labelL.setFont(new Font("Comic Sans", 1, 40));
 			labelL.setColor(Color.black);
 
-
+			// add them
 			app.add(labelL);
 			app.add(lose);
 			app.add(bal);
 			labelL.sendToFront();
 
+
+			// counter for keyboard access
 			winlose = 2;
 
 		}
@@ -716,6 +729,20 @@ public class LevelPane extends GraphicsPane {
 
 		battling = false;
 	}
+
+	private static void removeCharacter(Space s) {
+		int x, y;
+		x = (int) ((s.getCol() * xWidth) + (xWidth / 2));
+		y = (int) ((s.getRow() * yHeight) + (yHeight / 2));
+
+		System.out.printf("X pixel: %d\nY pixel: %d\n", x, y);
+
+		GObject image = program.getElementAt(x, y);
+
+		program.remove(image);
+		System.out.println("Should have deleted a character");
+	}
+
 
 
 }
