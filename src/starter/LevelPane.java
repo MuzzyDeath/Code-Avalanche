@@ -15,6 +15,9 @@ import java.awt.Font;
 public class LevelPane extends GraphicsPane {
 	private static final String BACKGROUND = "controlsImage.jpg";
 	private static final String GROUND = "ground.png";
+	private static final String GROUND2 = "ground2.png";
+	private static final String GROUND3 = "ground3.png";
+	private static final String GROUND4 = "ground4.png";
 	private static final String MAGE = "Battle Image(Mage).png";
 	private static final String WARRIOR = "Battle Image(Warrior).png";
 	private static final String ROGUE = "Battle Image(Rogue).png";
@@ -28,7 +31,7 @@ public class LevelPane extends GraphicsPane {
 	private MainApplication program; // you will use program to get access to
 	// all of the GraphicsProgram calls
 	private GButton play, controls, quit;
-	private GImage ground, background, controlsImage, playerImage, enemyImage;
+	private GImage ground, ground2, ground3, ground4, background, controlsImage, playerImage, enemyImage;
 	private GLine line;
 
 	// playerSprite Variables
@@ -45,9 +48,9 @@ public class LevelPane extends GraphicsPane {
 
 	protected static Player Protagonist;
 
-	private static Map map1, map2, map3;
+	private static Map map1, map2, map3, map4;
 
-	protected static Map[] world = { map1, map2, map3 };
+	protected static Map[] world = { map1, map2, map3, map4 };
 
 	private float xWidth, yHeight;
 	private int windowHeight = program.WINDOW_HEIGHT;
@@ -62,7 +65,10 @@ public class LevelPane extends GraphicsPane {
 		program = app;
 		background = new GImage(BACKGROUND);
 		ground = new GImage(GROUND);
-
+		ground2 = new GImage(GROUND2);
+		ground3 = new GImage(GROUND3);
+		ground4 = new GImage(GROUND4);
+		
 		battling = false;
 		paused = false;
 		inventory = false;
@@ -141,7 +147,7 @@ public class LevelPane extends GraphicsPane {
 
 		// Overlay for the Inventory
 		// Press I to test.
-		if (key == KeyEvent.VK_O) {
+		if (key == KeyEvent.VK_I) {
 			if (!inventory) {
 				inventory = true;
 				Overlay.showInventory(program);
@@ -261,7 +267,7 @@ public class LevelPane extends GraphicsPane {
 				if (key == KeyEvent.VK_A) {
 					if (checkBounds(playerSprite) && checkContainment(Protagonist)) {
 						Map.getCurrentMap().moveCharacter(Protagonist, Protagonist.getLocation());
-						playerSprite.move(-10, 0);
+						playerSprite.move(-50, 0);
 
 						if (Protagonist.getCharacterType() == CharacterType.WARRIOR) {
 							playerSprite.setImage("knight/knight_" + moveCount + ".png");
@@ -295,7 +301,7 @@ public class LevelPane extends GraphicsPane {
 				if (key == KeyEvent.VK_D) {
 					if (checkBounds(playerSprite) && checkContainment(Protagonist)) {
 						Map.getCurrentMap().moveCharacter(Protagonist, Protagonist.getLocation());
-						playerSprite.move(10, 0);
+						playerSprite.move(50, 0);
 
 						if (Protagonist.getCharacterType() == CharacterType.WARRIOR) {
 							playerSprite.setImage("knight/knight_" + moveCount + ".png");
@@ -328,7 +334,7 @@ public class LevelPane extends GraphicsPane {
 				if (key == KeyEvent.VK_W) {
 					if (checkBounds(playerSprite) && checkContainment(Protagonist)) {
 						Map.getCurrentMap().moveCharacter(Protagonist, Protagonist.getLocation());
-						playerSprite.move(0, -10);
+						playerSprite.move(0, -50);
 
 						if (Protagonist.getCharacterType() == CharacterType.WARRIOR) {
 							playerSprite.setImage("knight/knight_" + moveCount + ".png");
@@ -361,7 +367,7 @@ public class LevelPane extends GraphicsPane {
 				if (key == KeyEvent.VK_S) {
 					if (checkBounds(playerSprite) && checkContainment(Protagonist)) {
 						Map.getCurrentMap().moveCharacter(Protagonist, Protagonist.getLocation());
-						playerSprite.move(0, 10);
+						playerSprite.move(0, 50);
 
 						if (Protagonist.getCharacterType() == CharacterType.WARRIOR) {
 							playerSprite.setImage("knight/knight_" + moveCount + ".png");
@@ -531,7 +537,6 @@ public class LevelPane extends GraphicsPane {
 			nextMap(Map.getMap(Map.LEVEL_INTERMEDIATE));
 			return true;
 		}
-
 		return false;
 	}
 
@@ -539,6 +544,7 @@ public class LevelPane extends GraphicsPane {
 		world[0] = Map.getMap(Map.LEVEL_BEGINNER);
 		world[1] = Map.getMap(Map.LEVEL_INTERMEDIATE);
 		world[2] = Map.getMap(Map.LEVEL_ADVANCED);
+		world[3] = Map.getMap(Map.LEVEL_FINAL);
 	}
 
 	private void drawLevel(Map m) {
