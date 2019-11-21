@@ -7,14 +7,15 @@ import acm.graphics.GLine;
 
 /**
  * COMP 55: Application Development final Project
- *  @author Nitin Pinnamaneni & Greg Jewell
+ *  @author (Original Writer) Nitin Pinnamaneni
+ *  @author (Overhaul Writer) Greg Jewell
  */
 
 public class Board {
 	private Character[][] board; // 2D array of characters
 	private ArrayList<Character> characters; // holds all the characters on the board
 
-	//private int rows, cols;
+	private int rows, cols;
 	
 	private Space exit;
 
@@ -31,8 +32,8 @@ public class Board {
 
 		System.out.println("Generating board!");
 
-		//rows = r;
-		//cols = c;
+		this.rows = r;
+		this.cols = c;
 
 		// Create a 2D array of characters
 		board = new Character[r][c];
@@ -198,146 +199,6 @@ public class Board {
 		else
 			System.out.println("Can't move!");
 	}
-
-	
-	public Space[] spacesOccupiedOnTrail(Character c, int numSpaces, boolean isHorizontal) {
-
-		// array of spaces that holds what all spaces the character has traveled on to
-		// reach its final position
-		int absNumSpaces = numSpaces;
-		if (numSpaces < 0)
-		{
-			absNumSpaces = -numSpaces;
-		}
-		Space[] spaces = new Space[absNumSpaces];
-
-		if(isHorizontal)
-		{
-			if(numSpaces > 0)
-			{
-				// Iterate thru the numSpaces and add spaces with (cRow, cCol + i)
-				for(int i = 0; i < absNumSpaces; i++)
-				{
-					spaces[i] = new Space(c.getRow(), c.getCol() + i + 1);
-				}
-			}
-			else {
-				// Iterate thru the numSpaces and add spaces with (cRow, cCol - i)
-				for(int i = 0; i < absNumSpaces; i++)
-				{
-					spaces[i] = new Space(c.getRow(), c.getCol() - i - 1);
-				}
-			}
-		}
-		else {
-			if(numSpaces > 0)
-			{
-				// Iterate thru the numSpaces and add spaces with (cRow + i, cCol)
-				for(int i = 0; i < absNumSpaces; i++)
-				{
-					spaces[i] = new Space(c.getRow() + i + 1, c.getCol());
-				}
-			}
-			else {
-				// Iterate thru the numSpaces and add spaces with (cRow - i, cCol)
-				for(int i = 0; i < absNumSpaces; i++)
-				{
-					spaces[i] = new Space(c.getRow() - i - 1, c.getCol());
-				}
-			}
-		}
-
-		return spaces;	
-	}
-
-
-	/**
-	 * checks if the character at the given space can move or not.
-	 * 
-	 * @param character character
-	 * @param nSpaces num of spaces the character needs to move
-	 * @param isHorizontal boolean indicating whether the move is horizontal or not
-	 * 
-	 * @return boolean true if the move can be performed.
-	 */
-	public boolean canMove(Character character, int nSpaces, boolean isHorizontal)
-	{
-		// TODO : Check if the character provided is the same as the same as what we have on board
-		boolean canMove = true;
-		Character toMove = character;
-		if(toMove == null)
-		{
-			canMove = false;
-		}
-		else {
-			// Get the spaces this move will affect
-			Space[] spacesTrailed = spacesOccupiedOnTrail(character, nSpaces, isHorizontal);
-
-			// Check that spaces trailed are within bounds of grid and that there are 
-			// no characters at these spaces
-			for(int i = 0; i < spacesTrailed.length; i++)
-			{
-				// Check for out of bounds
-				if(spacesTrailed[i].getRow() < 0 || spacesTrailed[i].getRow() > (getNumRows() - 1) ||
-					spacesTrailed[i].getCol() < 0 || spacesTrailed[i].getCol() > (getNumCols() - 1))
-				{
-					// space trailed is out of bounds of board, so move can't be performed
-					canMove = false;
-					break;
-				}
-				// Check for other characters
-				if(getCharacter(spacesTrailed[i]) != null) 
-				{
-					// Character is present at space i, so the move can't be performed
-					canMove = false;
-					break;
-				}
-
-			}
-		}
-		return canMove;
-	}
-
-	/**
-	 * moves the  character at the given space .
-	 * 
-	 * @param start location of character
-	 * @param nSpaces num of spaces the character needs to move
-	 * @param isHorizontal boolean indicating whether the move is horizontal or not
-	 * 
-	 * @return boolean true if the move is performed.
-	 */
-	public boolean moveNumSpaces(Character c, int numSpaces, boolean isHorizontal)
-	{
-		boolean retVal = false;
-
-		if(canMove(c, numSpaces, isHorizontal) == true)
-		{
-			Character toMove = getCharacter(new Space(c.getRow(), c.getCol()));
-
-			// Clear the old space
-			// board[start.getRow()][start.getCol()] = null;
-			board[toMove.getLocation().getRow()][toMove.getLocation().getCol()] = null;
-
-			int newRow = toMove.getLocation().getRow(), newCol = toMove.getLocation().getCol();
-
-			if(isHorizontal)
-			{
-				newCol += numSpaces;
-			}
-			else {
-				newRow += numSpaces;
-			}
-			toMove.setLocation(newRow, newCol);
-
-			// Update board with new location of character
-			board[toMove.getLocation().getRow()][toMove.getLocation().getCol()] = toMove;
-
-			retVal = true;
-
-		}
-		return retVal;
-	}
 	
 	//Do not touch this class, I already converted it.
 	public String toString() {
@@ -348,99 +209,35 @@ public class Board {
 		//Test board
 		Board testBoard = new Board(5, 5);
 
-		//		//Add test Character's Below
-		//		Player p = new Player(1, 1, CharacterType.MAGE);
-		//		Enemy e = new Enemy(3, 4);
-		//		
-		//		testBoard.addCharacter(e);
-		//		testBoard.addCharacter(p);
-		//		testBoard.getCharactersOnBoard();
-		//		System.out.println(testBoard);
-		//		
-		//		Space playerSpot = new Space(p.getRow(), p.getCol() + 1);
-		//		Space enemySpot = new Space(e.getRow(), e.getCol() - 1);
-		//		Space offBoard = new Space(e.getRow(), e.getCol() + 1);
-		//		
-		//		//Testing canMove()
-		//		//Passing
-		//		System.out.println(testBoard.canMove(p, playerSpot));
-		//		System.out.println(testBoard.canMove(e, enemySpot));
-		//		
-		//		//Failing
-		//		System.out.println(testBoard.canMove(e, offBoard));
-		//		
-		//		//Testing moveCharacter()
-		//		//Passing
-		//		testBoard.moveCharacter(p, playerSpot);
-		//		testBoard.moveCharacter(e, enemySpot);
-		//		
-		//		//Failing
-		//		testBoard.canMove(e, offBoard);
-		//		
-		//		System.out.println(testBoard);
-
-
-
-		// checks enemy to the right of the player
-		//Player p = new Player(2, 2, CharacterType.WARRIOR);
-		//		Enemy e = new Enemy(2, 3);
-		//		testBoard.addCharacter(p);
-		//		testBoard.addCharacter(e);
-		//
-		//
-		//
-		//		System.out.println(testBoard);
-		//
-		//		Character temp = spaceCheck(p);
-		//
-		//		temp.printCharacter(); 
-
-		//		// checks enemy to the left of the player
-		//
-		//		Enemy e1 = new Enemy(2, 1);
-		//		testBoard.addCharacter(p);
-		//		testBoard.addCharacter(e1);
-		//
-		//
-		//
-		//		System.out.println(testBoard);
-		//
-		//		Character temp1 = spaceCheck(p);
-		//
-		//		temp1.printCharacter(); 
-
-
-		//		//checks above the player
-		//		Enemy e2 = new Enemy(1, 2);
-		//		testBoard.addCharacter(p);
-		//		testBoard.addCharacter(e2);
-		//
-		//
-		//
-		//		System.out.println(testBoard);
-		//
-		//		Character temp2 = spaceCheck(p);
-		//
-		//		temp2.printCharacter(); 
-		//
-		//
-		//
-		//
-		//		//checks below the player
-		//
-		//		Enemy e3 = new Enemy(3, 2);
-		//		testBoard.addCharacter(p);
-		//		testBoard.addCharacter(e3);
-		//
-		//
-		//
-		//		System.out.println(testBoard);
-		//
-		//		Character temp3 = spaceCheck(p);
-		//
-		//		temp3.printCharacter(); 
-
-
-
+				//Add test Character's Below
+				Player p = new Player(1, 1, CharacterType.MAGE);
+				Enemy e = new Enemy(3, 4);
+				
+				testBoard.addCharacter(e);
+				testBoard.addCharacter(p);
+				testBoard.getCharactersOnBoard();
+				System.out.println(testBoard);
+				
+				Space playerSpot = new Space(p.getRow(), p.getCol() + 1);
+				Space enemySpot = new Space(e.getRow(), e.getCol() - 1);
+				Space offBoard = new Space(e.getRow(), e.getCol() + 1);
+				
+				//Testing canMove()
+				//Passing
+				System.out.println(testBoard.canMove(p, playerSpot));
+				System.out.println(testBoard.canMove(e, enemySpot));
+				
+				//Failing
+				System.out.println(testBoard.canMove(e, offBoard));
+				
+				//Testing moveCharacter()
+				//Passing
+				testBoard.moveCharacter(p, playerSpot);
+				testBoard.moveCharacter(e, enemySpot);
+				
+				//Failing
+				testBoard.canMove(e, offBoard);
+				
+				System.out.println(testBoard);
 	}
 }

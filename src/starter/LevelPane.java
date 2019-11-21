@@ -46,7 +46,6 @@ public class LevelPane extends GraphicsPane {
 	protected Player Protagonist;
 
 	private Map map1, map2, map3;
-	private int current;
 	protected Map[] world = { map1, map2, map3 };
 
 	private float xWidth, yHeight;
@@ -58,7 +57,6 @@ public class LevelPane extends GraphicsPane {
 		program = app;
 		background = new GImage(BACKGROUND);
 		ground = new GImage(GROUND);
-		current = 0;
 
 		battling = false;
 		paused = false;
@@ -66,24 +64,11 @@ public class LevelPane extends GraphicsPane {
 
 		MainApplication.user.cName = "Tester";
 		Protagonist = MainApplication.user;
+		
 		Protagonist.printPlayer();
-
-
 		controlsImage = new GImage("controlsImage.jpg");
-
 		generateWorld();
-
-		//test();
-
 		showContents();
-	}
-
-	// For testing, feel free to use it, if other are not! :)
-	private void test() {
-		int row, col;
-		row = Map.getCurrentMap().getExit().getRow();
-		col = Map.getCurrentMap().getExit().getCol();
-		System.out.printf("The exit space is:\nRow: %d\nCol: %d\n", row, col);
 	}
 
 	@Override
@@ -535,13 +520,15 @@ public class LevelPane extends GraphicsPane {
 		drawGridLines(m);
 	}
 
+	//Really only used for initial
+	//generation of first map displayed
 	private void loadMap(Map m) {
 		drawLevel(m);
 
 		program.add(ground);
 		ground.sendToBack();
 
-		world[current].addPlayer(Protagonist);
+		world[0].addPlayer(Protagonist);
 
 		drawPlayer(Protagonist);
 		drawCharacters(m);
