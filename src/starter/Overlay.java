@@ -434,7 +434,7 @@ public class Overlay {
 		app.remove(luStrength);
 		app.remove(luStrengthDown);
 		app.remove(luStrengthUp);
-
+		app.remove(luPlayer);
 		app.remove(luAgility);
 		app.remove(luAgilityDown);
 		app.remove(luAgilityUp);
