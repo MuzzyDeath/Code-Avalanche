@@ -21,9 +21,14 @@ public class Overlay {
 	private static GImage textbox;
 	//pictures
 
-
 	//Inventory Stuff
 	private static GImage inventory;
+
+	private static final String SFONT = "Times New Roman";
+	private static final int S_FONT_SIZE = 30;
+
+	public static GLabel StrengthV, CharismaV, AgilityV, DefenseV, HealthV, GoldV;
+	
 	//pictures
 	private static final String MAGE = "Battle Image(Mage).png";
 	private static final String WARRIOR = "Battle Image(Warrior).png";
@@ -47,13 +52,14 @@ public class Overlay {
 	//End Pause Stuff
 
 	// Levelup Stuff
-	private static final String LU_BACKGROUND_IMAGE = "images/LevelUpPaneImage2.jpg";
+	private static final String LU_BACKGROUND_IMAGE = "images/LevelUpPaneImage.jpg";
 	private static final int LU_BASE_X = 475, LU_BASE_Y = 250, LU_LINE_SPACE=60;
 	private static final int LU_MINUS_OFFSET = 250, LU_PLUS_OFFSET = 200, LU_BUTTON_WIDTH= 25, LU_BUTTON_HEIGHT = 30;
 
-	private static final String LU_FONT = "Comic Sans";
+	private static final String LU_FONT = "Times Roman";
 	private static final int LU_FONT_SIZE = 30;
 
+	private static final String POINTS_TEXT   = "Available Points";
 	private static final String STRENGTH_TEXT = "Strength";
 	private static final String AGILITY_TEXT  = "Agility";
 	private static final String DEFENSE_TEXT  = "Defense";
@@ -61,12 +67,17 @@ public class Overlay {
 	private static final String HEALTH_TEXT   = "Health";
 	private static final String PLUS_TEXT     = "[ + ]";
 	private static final String MINUS_TEXT    = "[ - ]";
+	private static final String DONE_TEXT     = "DONE";
 
 	private static final int MIN_THRESHOLD = 1;
 
 	private static GImage luBackground;
-	public static GLabel luStrength, luAgility, luDefense, luCharisma, luHealth;
-	public static GButton luStrengthDown, luStrengthUp, luAgilityDown, luAgilityUp, luDefenseDown, luDefenseUp, luCharismaDown, luCharismaUp, luHealthDown, luHealthUp;
+	public static GLabel luPoints, luStrength, luAgility, luDefense, luCharisma, luHealth;
+	public static GButton luStrengthDown, luStrengthUp, luAgilityDown, luAgilityUp, luDefenseDown, luDefenseUp, luCharismaDown, luCharismaUp, luHealthDown, luHealthUp, luDone;
+	
+	// State
+	private static boolean isLevelUp = false;
+	private static LevelUp lvlUpObj;
 	
 	public static int battle;
 	// End Levelup Stuff
@@ -122,23 +133,23 @@ public class Overlay {
 		// prints stats of enemy 
 		// needs way to pass enemy stats
 
-		eStrength = new GLabel("Strength: " + LevelPane.opponent.getStrength(), 500, 300);
+		eStrength = new GLabel("Strength " + LevelPane.opponent.getStrength(), 500, 300);
 		eStrength.setFont(new Font("Comic Sans", 1, 15));
 		eStrength.setColor(Color.black);
 		app.add(eStrength);
-
-		eDefense = new GLabel("Defense: " + LevelPane.opponent.getDefense(), 500, 330);
+		
+		eDefense = new GLabel("Defense " + LevelPane.opponent.getDefense(), 500, 330);
 		eDefense.setFont(new Font("Comic Sans", 1, 15));
 		eDefense.setColor(Color.black);
 		app.add(eDefense);
 
-		eCharisma = new GLabel("Charisma: " + LevelPane.opponent.getCharisma(), 500, 360);
+		eCharisma = new GLabel("Charisma " + LevelPane.opponent.getCharisma(), 500, 360);
 		eCharisma.setFont(new Font("Comic Sans", 1, 15));
 		eCharisma.setColor(Color.black);
 		app.add(eCharisma);
 
 		//make so it updates with the enemy health as battle goes on.
-		eHealth = new GLabel("Health: " + LevelPane.opponent.getHealth(), 500, 390);
+		eHealth = new GLabel("Health " + LevelPane.opponent.getHealth(), 500, 390);
 		eHealth.setFont(new Font("Comic Sans", 1, 15));
 		eHealth.setColor(Color.black);
 		app.add(eHealth);
@@ -245,21 +256,62 @@ public class Overlay {
 	}
 
 	public static void showInventory(MainApplication app) {
+		Player player = MainApplication.user; 
 		inventory = new GImage("images/InventoryBackground.png");
 		app.add(inventory);
+		StrengthV = new GLabel("" + player.getStrength(), LU_BASE_X - 175, 204); 
+		app.add(StrengthV);
+		StrengthV.setFont(new Font(LU_FONT, 1, LU_FONT_SIZE));
+		StrengthV.setColor(Color.orange);
+		AgilityV = new GLabel("" + player.getAgility(), LU_BASE_X - 200, 264); 
+		app.add(AgilityV);
+		AgilityV.setFont(new Font(LU_FONT, 1, LU_FONT_SIZE));
+		AgilityV.setColor(Color.orange);
+		DefenseV = new GLabel("" + player.getDefense(), LU_BASE_X - 195, 327); 
+		app.add(DefenseV);
+		DefenseV.setFont(new Font(LU_FONT, 1, LU_FONT_SIZE));
+		DefenseV.setColor(Color.orange);
+		CharismaV = new GLabel("" + player.getCharisma(), LU_BASE_X - 177, 389); 
+		app.add(CharismaV);
+		CharismaV.setFont(new Font(LU_FONT, 1, LU_FONT_SIZE));
+		CharismaV.setColor(Color.orange);
+		GoldV = new GLabel("" + player.getBalance(), LU_BASE_X - 140, 481); 
+		app.add(GoldV);
+		GoldV.setFont(new Font(LU_FONT, 1, LU_FONT_SIZE));
+		GoldV.setColor(Color.orange);
 	}
 
 	public static void hideInventory(MainApplication app) {
 		app.remove(inventory);
+		app.remove(StrengthV);
+		app.remove(AgilityV);
+		app.remove(DefenseV);
+		app.remove(CharismaV);
+	}
+	
+	public static boolean isLevelUpActive()
+	{
+		return isLevelUp;
 	}
 
 	public static void showLevelUp(MainApplication app) {
+		
+		// Set isLevelup flag to true;
+		isLevelUp = true;
 
 		// Get user so that his stats can be shown
 		Player player = MainApplication.user; 
-
+		
+		// Create Levelup object with 3 points 
+		lvlUpObj = new LevelUp(player, LevelUp.POINTS_PER_WIN);
+		
 		luBackground = new GImage(LU_BACKGROUND_IMAGE);
 		app.add(luBackground); 
+		
+		luPoints =  new GLabel(POINTS_TEXT + " : " +  lvlUpObj.getPoints(), 75, LU_BASE_Y + 2 * LU_LINE_SPACE );
+		luPoints.setFont(new Font(LU_FONT, 1, LU_FONT_SIZE));
+		luPoints.setColor(Color.green);
+		app.add(luPoints);
 
 		luStrength = new GLabel(STRENGTH_TEXT + " : " +  player.getStrength(), LU_BASE_X, LU_BASE_Y);
 		luStrength.setFont(new Font(LU_FONT, 1, LU_FONT_SIZE));
@@ -338,10 +390,20 @@ public class Overlay {
 		luHealthUp.setFillColor(Color.LIGHT_GRAY);
 		luHealthUp.setColor(Color.black);
 		app.add(luHealthUp);
+		
+		luDone = new GButton(DONE_TEXT, LU_BASE_X + LU_PLUS_OFFSET, LU_BASE_Y - LU_FONT_SIZE + 5 * LU_LINE_SPACE + 20,  3 * LU_BUTTON_WIDTH,   LU_BUTTON_HEIGHT);
+		luDone.setFillColor(Color.WHITE);
+		luDone.setColor(Color.LIGHT_GRAY);  // Show disabled until points become 0
+		
+		// luDone.setVisible(false);  
+		app.add(luDone);
+
 
 	}
 
 	public static void hideLevelUp(MainApplication app) {
+		app.remove(luPoints);
+		
 		app.remove(luStrength);
 		app.remove(luStrengthDown);
 		app.remove(luStrengthUp);
@@ -363,6 +425,8 @@ public class Overlay {
 		app.remove(luHealthUp);
 
 		app.remove(luBackground);
+		app.remove(luDone);
+		isLevelUp = false;
 	}
 
 	public static void processLevelupEvent(MainApplication app, MouseEvent e) {
@@ -375,8 +439,7 @@ public class Overlay {
 				// Decrement only when value is > min_threshold
 				if (player.getStrength() > MIN_THRESHOLD )
 				{
-					player.setStrength(player.getStrength() -1);
-					luStrength.setLabel(STRENGTH_TEXT + " : " +  player.getStrength());
+					lvlUpObj.strengthDown();
 				}
 				else
 				{
@@ -384,15 +447,13 @@ public class Overlay {
 				}
 			}
 			else if (obj == luStrengthUp) {
-				player.setStrength(player.getStrength() + 1);
-				luStrength.setLabel(STRENGTH_TEXT + " : " +  player.getStrength());
+				lvlUpObj.strengthUp();
 			}
 			else if(obj == luAgilityDown)
 			{
 				if(player.getAgility() > MIN_THRESHOLD)
 				{
-					player.setAgility(player.getAgility() - 1);
-					luAgility.setLabel(AGILITY_TEXT + " : " +  player.getAgility());
+					lvlUpObj.agilityDown();
 				}
 				else {
 					System.out.println("Not supported. Defense cannot be decremented below " + MIN_THRESHOLD);
@@ -400,15 +461,13 @@ public class Overlay {
 			}
 			else if(obj == luAgilityUp)
 			{
-				player.setAgility(player.getAgility() + 1);
-				luAgility.setLabel(AGILITY_TEXT + " : " +  player.getAgility());
+				lvlUpObj.agilityUp();
 			}
 			else if (obj == luDefenseDown) {
 				// Decrement only when value is > min_threshold
 				if (player.getDefense() > MIN_THRESHOLD )
 				{
-					player.setDefense(player.getDefense() - 1);
-					luDefense.setLabel(DEFENSE_TEXT + " : " +  player.getDefense());
+					lvlUpObj.defenseDown();
 				}
 				else
 				{
@@ -416,15 +475,13 @@ public class Overlay {
 				}
 			}
 			else if (obj == luDefenseUp) {
-				player.setDefense(player.getDefense() + 1);
-				luDefense.setLabel(DEFENSE_TEXT + " : " +  player.getDefense());
+				lvlUpObj.defenseUp();
 			}
 			else if (obj == luCharismaDown) {
 				// Decrement only when value is > min_threshold
 				if (player.getCharisma() > MIN_THRESHOLD )
 				{
-					player.setCharisma(player.getCharisma() - 1);
-					luCharisma.setLabel(CHARISMA_TEXT + " : " +  player.getCharisma());
+					lvlUpObj.charismaDown();
 				}
 				else
 				{
@@ -432,15 +489,13 @@ public class Overlay {
 				}
 			}
 			else if (obj == luCharismaUp) {
-				player.setCharisma(player.getCharisma() + 1);
-				luCharisma.setLabel(CHARISMA_TEXT + " : " +  player.getCharisma());
+				lvlUpObj.charismaUp();
 			}
 			else if (obj == luHealthDown) {
 				// Decrement only when value is > min_threshold
 				if (player.getHealth() > MIN_THRESHOLD )
 				{
-					player.setHealth(player.getHealth() - 1);
-					luHealth.setLabel(HEALTH_TEXT + " : " +  player.getHealth());
+					lvlUpObj.healthDown();
 				}
 				else
 				{
@@ -448,9 +503,37 @@ public class Overlay {
 				}
 			}
 			else if (obj == luHealthUp) {
-				player.setHealth(player.getHealth() + 1);
-				luHealth.setLabel(HEALTH_TEXT + " : " +  player.getHealth());
+				lvlUpObj.healthUp();
 			}
+			else if (obj == luDone)
+			{
+				if (lvlUpObj.getPoints() == 0)
+				{
+					hideLevelUp(app);
+				}
+				else
+				{
+					System.out.println("Cannot exit without allocating all the points");
+				}
+			}
+			
+			// Update all labels
+			luPoints.setLabel(POINTS_TEXT + " : " +  lvlUpObj.getPoints());
+			luStrength.setLabel(STRENGTH_TEXT + " : " +  player.getStrength());
+			luAgility.setLabel(AGILITY_TEXT + " : " +  player.getAgility());
+			luDefense.setLabel(DEFENSE_TEXT + " : " +  player.getDefense());
+			luCharisma.setLabel(CHARISMA_TEXT + " : " +  player.getCharisma());
+			luHealth.setLabel(HEALTH_TEXT + " : " +  player.getHealth());
+			// Make the done button visible, only when points are 0
+			if (lvlUpObj.getPoints() == 0) {
+				luDone.setColor(Color.BLACK);
+			}
+			else
+			{
+				luDone.setColor(Color.LIGHT_GRAY);
+			}
+			//luDone.setVisible(lvlUpObj.getPoints() == 0);
+			
 		}
 	}
 
