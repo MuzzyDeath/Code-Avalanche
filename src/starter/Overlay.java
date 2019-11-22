@@ -71,9 +71,10 @@ public class Overlay {
 
 	private static final int MIN_THRESHOLD = 1;
 
-	private static GImage luBackground;
+	private static GImage luBackground, luPlayer;
 	public static GLabel luPoints, luStrength, luAgility, luDefense, luCharisma, luHealth;
 	public static GButton luStrengthDown, luStrengthUp, luAgilityDown, luAgilityUp, luDefenseDown, luDefenseUp, luCharismaDown, luCharismaUp, luHealthDown, luHealthUp, luDone;
+	
 	
 	// State
 	private static boolean isLevelUp = false;
@@ -293,6 +294,24 @@ public class Overlay {
 	{
 		return isLevelUp;
 	}
+	
+	public static String getCharacterImageName(Player p)
+	{
+		String retVal = "";
+		if(p.getCharacterType() == CharacterType.MAGE)
+		{
+			retVal = MAGE;
+		}
+		else if(p.getCharacterType() == CharacterType.ROGUE)
+		{
+			retVal = ROGUE;
+		}
+		else if(p.getCharacterType() == CharacterType.WARRIOR)
+		{
+			retVal = WARRIOR;
+		}
+		return retVal;
+	}
 
 	public static void showLevelUp(MainApplication app) {
 		
@@ -308,7 +327,15 @@ public class Overlay {
 		luBackground = new GImage(LU_BACKGROUND_IMAGE);
 		app.add(luBackground); 
 		
-		luPoints =  new GLabel(POINTS_TEXT + " : " +  lvlUpObj.getPoints(), 75, LU_BASE_Y + 2 * LU_LINE_SPACE );
+		
+		String imageName = getCharacterImageName(player);
+	
+		luPlayer = new GImage(imageName);
+		luPlayer.setLocation(50, 150);
+		luPlayer.setSize(350, 400);
+		app.add(luPlayer);
+		
+		luPoints =  new GLabel(POINTS_TEXT + " : " +  lvlUpObj.getPoints(), LU_BASE_X, LU_BASE_Y - 2 * LU_LINE_SPACE + 10 );
 		luPoints.setFont(new Font(LU_FONT, 1, LU_FONT_SIZE));
 		luPoints.setColor(Color.green);
 		app.add(luPoints);
@@ -407,7 +434,7 @@ public class Overlay {
 		app.remove(luStrength);
 		app.remove(luStrengthDown);
 		app.remove(luStrengthUp);
-
+		app.remove(luPlayer);
 		app.remove(luAgility);
 		app.remove(luAgilityDown);
 		app.remove(luAgilityUp);
