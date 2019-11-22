@@ -76,7 +76,7 @@ public class LevelPane extends GraphicsPane {
 		controlsImage = new GImage("controlsImage.jpg");
 		generateWorld();
 		showContents();
-		
+
 	}
 
 	@Override
@@ -141,7 +141,7 @@ public class LevelPane extends GraphicsPane {
 		int key = e.getKeyCode();
 
 		System.out.println(Map.getCurrentMap());
-		
+
 		//Purely to test that removing
 		//a character sprite works
 		//REMOVE BEFORE FINAL CHECK!
@@ -245,7 +245,7 @@ public class LevelPane extends GraphicsPane {
 
 			}
 		}
-		
+
 		//Purely to test that removing
 		//a character sprite works
 		//REMOVE BEFORE FINAL CHECK!
@@ -411,8 +411,10 @@ public class LevelPane extends GraphicsPane {
 		} else {
 
 			if (key == KeyEvent.VK_1) {
-				Battle.Fight(1, opponent, Protagonist);
-				System.out.print("You chose attack \n");
+
+					Battle.Fight(1, opponent, Protagonist);
+					System.out.print("You chose attack \n");
+				
 
 				battleWin(program);
 
@@ -487,28 +489,28 @@ public class LevelPane extends GraphicsPane {
 		}
 
 	}
-	
-	private void removeCharacter(Space s) {
+
+	private static void removeCharacter(Space s) {
 		int x, y;
 		x = (int) ((s.getCol() * xWidth));
 		y = (int) ((s.getRow() * yHeight));
-		
+
 		System.out.printf("X pixel: %d\nY pixel: %d\n", x, y);
-		
+
 		GObject image = program.getElementAt(x, y);
-		
+
 		if(image != null) {
-		program.remove(image);
-		
-		program.remove(program.getElementAt(x, y));
-		System.out.println("Should have deleted a character");
+			program.remove(image);
+
+			program.remove(program.getElementAt(x, y));
+			System.out.println("Should have deleted a character");
 		}
-		
+
 		else {
 			System.out.println("No character to delete");
 		}
 	}
-	
+
 	private boolean checkContainment(Character c) {
 		int row, col;
 		row = c.getRow();
@@ -671,7 +673,7 @@ public class LevelPane extends GraphicsPane {
 
 			Protagonist.setBalance(Protagonist.getBalance() + opponent.getBalance());
 			//removes chracter sprite
-			
+
 			removeCharacter(opponent.getLocation());
 
 			// removes the character from board
@@ -766,18 +768,7 @@ public class LevelPane extends GraphicsPane {
 		battling = false;
 	}
 
-	private static void removeCharacter(Space s) {
-		int x, y;
-		x = (int) ((s.getCol() * xWidth) + (xWidth / 2));
-		y = (int) ((s.getRow() * yHeight) + (yHeight / 2));
 
-		System.out.printf("X pixel: %d\nY pixel: %d\n", x, y);
-
-		GObject image = program.getElementAt(x, y);
-
-		program.remove(image);
-		System.out.println("Should have deleted a character");
-	}
 
 
 
