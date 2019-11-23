@@ -17,6 +17,10 @@ import acm.graphics.*;
 import java.awt.event.MouseEvent;
 
 public class Overlay {
+	//Prologue Stuff
+	private static GImage prologue;
+	//pictures
+	
 	//Textbox Stuff
 	private static GImage textbox;
 	//pictures
@@ -38,7 +42,7 @@ public class Overlay {
 
 	//Battle Stuff
 	private static GImage background, pPic, ePic;
-	private static GLabel attack, block, screech, cStrenght, cDefense, cCharisma, eStrength, eDefense, eCharisma, cTextBox;
+	private static GLabel attack, block, screech, cStrength, cDefense, cCharisma, eStrength, eDefense, eCharisma, cTextBox;
 	private static Player Protagonist;
 	public static GLabel eHealth, cHealth;
 	//End Battle Stuff
@@ -59,18 +63,17 @@ public class Overlay {
 	private static final String LU_FONT = "Times Roman";
 	private static final int LU_FONT_SIZE = 30;
 
-	private static final String POINTS_TEXT   = "Available Points";
+	private static final String POINTS_TEXT   = "Skill Points";
 	private static final String STRENGTH_TEXT = "Strength";
 	private static final String AGILITY_TEXT  = "Agility";
 	private static final String DEFENSE_TEXT  = "Defense";
 	private static final String CHARISMA_TEXT = "Charisma";
 	private static final String HEALTH_TEXT   = "Health";
-	private static final String PLUS_TEXT     = "[ + ]";
-	private static final String MINUS_TEXT    = "[ - ]";
+	private static final String PLUS_TEXT     = " + ";
+	private static final String MINUS_TEXT    = " - ";
 	private static final String DONE_TEXT     = "DONE";
 
 	private static final int MIN_THRESHOLD = 1;
-
 	private static GImage luBackground, luPlayer;
 	public static GLabel luPoints, luStrength, luAgility, luDefense, luCharisma, luHealth;
 	public static GButton luStrengthDown, luStrengthUp, luAgilityDown, luAgilityUp, luDefenseDown, luDefenseUp, luCharismaDown, luCharismaUp, luHealthDown, luHealthUp, luDone;
@@ -109,10 +112,10 @@ public class Overlay {
 
 		//prints players stats
 
-		cStrenght = new GLabel("Strength: " + Protagonist.getStrength(), 55, 300);
-		cStrenght.setFont(new Font("Comic Sans", 1, 15));
-		cStrenght.setColor(Color.black);
-		app.add(cStrenght);
+		cStrength = new GLabel("Strength: " + Protagonist.getStrength(), 55, 300);
+		cStrength.setFont(new Font("Comic Sans", 1, 15));
+		cStrength.setColor(Color.black);
+		app.add(cStrength);
 
 		cDefense = new GLabel("Defense: " + Protagonist.getDefense(), 55, 330);
 		cDefense.setFont(new Font("Comic Sans", 1, 15));
@@ -207,16 +210,17 @@ public class Overlay {
 		app.remove(attack);
 		app.remove(block);
 		app.remove(screech);
-		app.remove(cStrenght);
+		app.remove(cStrength);
 		app.remove(cDefense);
 		app.remove(cCharisma);
+		app.remove(cHealth);
 		app.remove(eStrength);
 		app.remove(eDefense);
 		app.remove(eCharisma);
+		app.remove(eHealth);
 		app.remove(ePic);
 		app.remove(pPic);
-		app.remove(eHealth);
-		app.remove(cHealth);
+	
 	}
 
 
@@ -311,8 +315,16 @@ public class Overlay {
 			retVal = WARRIOR;
 		}
 		return retVal;
+
 	}
 
+	public static void showPrologue(MainApplication app) {
+		prologue = new GImage("images/Prologue.jpg");
+		app.add(prologue);
+	}
+	public static void hidePrologue(MainApplication app) {
+		app.remove(prologue);
+	}
 	public static void showLevelUp(MainApplication app) {
 		
 		// Set isLevelup flag to true;
@@ -335,9 +347,9 @@ public class Overlay {
 		luPlayer.setSize(350, 400);
 		app.add(luPlayer);
 		
-		luPoints =  new GLabel(POINTS_TEXT + " : " +  lvlUpObj.getPoints(), LU_BASE_X, LU_BASE_Y - 2 * LU_LINE_SPACE + 10 );
+		luPoints =  new GLabel(POINTS_TEXT + " : " +  lvlUpObj.getPoints(), LU_BASE_X, 187);
 		luPoints.setFont(new Font(LU_FONT, 1, LU_FONT_SIZE));
-		luPoints.setColor(Color.green);
+		luPoints.setColor(Color.black);
 		app.add(luPoints);
 
 		luStrength = new GLabel(STRENGTH_TEXT + " : " +  player.getStrength(), LU_BASE_X, LU_BASE_Y);
@@ -349,12 +361,13 @@ public class Overlay {
 		luStrengthUp.setFillColor(Color.LIGHT_GRAY);
 		luStrengthUp.setColor(Color.black);
 		app.add(luStrengthUp);
-
+		luStrengthUp.setVisible(false);
+		
 		luStrengthDown = new GButton(MINUS_TEXT, LU_BASE_X + LU_MINUS_OFFSET, LU_BASE_Y - LU_FONT_SIZE , LU_BUTTON_WIDTH, LU_BUTTON_HEIGHT);
 		luStrengthDown.setFillColor(Color.LIGHT_GRAY);
 		luStrengthDown.setColor(Color.black);
 		app.add(luStrengthDown);
-
+		luStrengthDown.setVisible(false);
 
 		luAgility = new GLabel(AGILITY_TEXT + " : " +  player.getAgility(), LU_BASE_X, LU_BASE_Y + 1 * LU_LINE_SPACE);
 		luAgility.setFont(new Font(LU_FONT, 1, LU_FONT_SIZE));
@@ -365,12 +378,14 @@ public class Overlay {
 		luAgilityDown.setFillColor(Color.LIGHT_GRAY);
 		luAgilityDown.setColor(Color.black);
 		app.add(luAgilityDown);
-
+		luAgilityDown.setVisible(false);
+		
 		luAgilityUp = new GButton(PLUS_TEXT, LU_BASE_X + LU_PLUS_OFFSET, LU_BASE_Y + (1 * LU_LINE_SPACE) - LU_FONT_SIZE , LU_BUTTON_WIDTH, LU_BUTTON_HEIGHT);
 		luAgilityUp.setFillColor(Color.LIGHT_GRAY);
 		luAgilityUp.setColor(Color.black);
 		app.add(luAgilityUp);
-
+		luAgilityUp.setVisible(false);
+		
 		luDefense = new GLabel(DEFENSE_TEXT + " : " + player.getDefense(), LU_BASE_X, LU_BASE_Y + 2 * LU_LINE_SPACE); 
 		luDefense.setFont(new Font(LU_FONT, 1, 30));
 		luDefense.setColor(Color.black);
@@ -380,12 +395,13 @@ public class Overlay {
 		luDefenseDown.setFillColor(Color.LIGHT_GRAY);
 		luDefenseDown.setColor(Color.black);
 		app.add(luDefenseDown);
-
+		luDefenseDown.setVisible(false);
+		
 		luDefenseUp = new GButton(PLUS_TEXT, LU_BASE_X + LU_PLUS_OFFSET, LU_BASE_Y - LU_FONT_SIZE  + (2 * LU_LINE_SPACE), LU_BUTTON_WIDTH, LU_BUTTON_HEIGHT);
 		luDefenseUp.setFillColor(Color.LIGHT_GRAY);
 		luDefenseUp.setColor(Color.black);
 		app.add(luDefenseUp);
-
+		luDefenseUp.setVisible(false);
 
 		luCharisma = new GLabel(CHARISMA_TEXT + " : " + player.getCharisma(), LU_BASE_X, LU_BASE_Y + 3 * LU_LINE_SPACE);
 		luCharisma.setFont(new Font(LU_FONT, 1, 30));
@@ -396,12 +412,12 @@ public class Overlay {
 		luCharismaDown.setFillColor(Color.LIGHT_GRAY);
 		luCharismaDown.setColor(Color.black);
 		app.add(luCharismaDown);
-
+		luCharismaDown.setVisible(false);
 		luCharismaUp = new GButton(PLUS_TEXT, LU_BASE_X + LU_PLUS_OFFSET, LU_BASE_Y - LU_FONT_SIZE + (3 * LU_LINE_SPACE), LU_BUTTON_WIDTH, LU_BUTTON_HEIGHT);
 		luCharismaUp.setFillColor(Color.LIGHT_GRAY);
 		luCharismaUp.setColor(Color.black);
 		app.add(luCharismaUp);
-
+		luCharismaUp.setVisible(false);
 
 		luHealth  = new GLabel(HEALTH_TEXT + " : " + player.getHealth(), LU_BASE_X, LU_BASE_Y + 4 * LU_LINE_SPACE)	;
 		luHealth.setFont(new Font(LU_FONT, 1, 30));
@@ -412,16 +428,16 @@ public class Overlay {
 		luHealthDown.setFillColor(Color.LIGHT_GRAY);
 		luHealthDown.setColor(Color.black);
 		app.add(luHealthDown);
-
+		luHealthDown.setVisible(false);
 		luHealthUp = new GButton(PLUS_TEXT, LU_BASE_X + LU_PLUS_OFFSET, LU_BASE_Y - LU_FONT_SIZE + 4* LU_LINE_SPACE, LU_BUTTON_WIDTH, LU_BUTTON_HEIGHT);
 		luHealthUp.setFillColor(Color.LIGHT_GRAY);
 		luHealthUp.setColor(Color.black);
 		app.add(luHealthUp);
-		
+		luHealthUp.setVisible(false);
 		luDone = new GButton(DONE_TEXT, LU_BASE_X + LU_PLUS_OFFSET, LU_BASE_Y - LU_FONT_SIZE + 5 * LU_LINE_SPACE + 20,  3 * LU_BUTTON_WIDTH,   LU_BUTTON_HEIGHT);
 		luDone.setFillColor(Color.WHITE);
 		luDone.setColor(Color.LIGHT_GRAY);  // Show disabled until points become 0
-		
+		luDone.setVisible(false);
 		// luDone.setVisible(false);  
 		app.add(luDone);
 
