@@ -316,6 +316,7 @@ public class Map {
 		}
 		return retVal;
 	}
+	
 	/**
 	 * Moves the player from his current space the given number of spaces
 	 * @param space the space at which the vehicle is currently at 
