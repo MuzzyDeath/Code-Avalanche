@@ -44,7 +44,6 @@ public class LevelPane extends GraphicsPane {
 	private static boolean battling;
 	private boolean paused;
 	private boolean inventory;
-	private boolean prologue;
 	private boolean textbox;
 
 	protected static Player Protagonist;
@@ -77,7 +76,7 @@ public class LevelPane extends GraphicsPane {
 		battling = false;
 		paused = false;
 		inventory = false;
-		prologue = false;
+		//prologue = false;
 		
 		Protagonist = MainApplication.user;
 
@@ -90,6 +89,9 @@ public class LevelPane extends GraphicsPane {
 	@Override
 	public void showContents() {
 		loadMap(Map.getCurrentMap());
+		
+		// Show prologue image before starting the game.
+		Overlay.showPrologue(program);
 	}
 
 	@Override
@@ -149,16 +151,12 @@ public class LevelPane extends GraphicsPane {
 		System.out.println(Map.getCurrentMap());
 
 		// Overlay for the Prologue right before getting to the grid
-		// Press ENTER to test.
+		// Press ENTER to close .
 		if (key == KeyEvent.VK_ENTER) {
-			if (!prologue) {
-				prologue = true;
-				Overlay.showPrologue(program);
-
-			} else if (prologue) {
-				prologue = false;
+			if (Overlay.isPrologueActive())
+			{
 				Overlay.hidePrologue(program);
-			}
+			}				
 		}
 		// Overlay for the Inventory
 		// Press I to test.
