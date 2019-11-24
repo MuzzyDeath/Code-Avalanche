@@ -85,7 +85,6 @@ public class LevelPane extends GraphicsPane {
 		controlsImage = new GImage("controlsImage.jpg");
 		generateWorld();
 		showContents();
-
 	}
 
 	@Override
@@ -149,12 +148,6 @@ public class LevelPane extends GraphicsPane {
 
 		System.out.println(Map.getCurrentMap());
 
-		//Purely to test that removing
-		//a character sprite works
-		//REMOVE BEFORE FINAL CHECK!
-		if (key == KeyEvent.VK_P) {
-			removeCharacter(new Space(4, 5));
-		}
 		// Overlay for the Prologue right before getting to the grid
 		// Press ENTER to test.
 		if (key == KeyEvent.VK_ENTER) {
@@ -196,13 +189,17 @@ public class LevelPane extends GraphicsPane {
 					Overlay.battleScene(program);
 					audio = AudioPlayer.getInstance();
 					audio.playSound(MUSIC_FOLDER, SOUND_FILES[0]);
-				}
-				else if(Map.getCurrentMap().getBoard().spaceCheck(Protagonist).getCharacterType() == CharacterType.NPC) {
-					
-					dialouge((NPC) Map.getCurrentMap().getBoard().spaceCheck(Protagonist));
-					System.out.println("NPC is talking");
-					
-				}
+				} else
+					try {
+						if(Map.getCurrentMap().getBoard().spaceCheck(Protagonist).getCharacterType() == CharacterType.NPC) {
+							Narrative.print("NPC-1");
+//					dialouge((NPC) Map.getCurrentMap().getBoard().spaceCheck(Protagonist));
+//					System.out.println("NPC is talking");
+						}
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 			}
 			else {
 				System.out.println("Battle not possible since not nearby the opponent");
