@@ -525,6 +525,7 @@ public class LevelPane extends GraphicsPane {
 				sprite = new GImage("kingTemp.png", toAdd.getCol() * xWidth, toAdd.getRow() * yHeight);
 				sprite.setSize(xWidth, yHeight);
 				sprite.sendToFront();
+				program.add(sprite);
 			}
 			// Actually implements the GImage!
 		}
