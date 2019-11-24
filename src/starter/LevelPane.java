@@ -31,7 +31,7 @@ public class LevelPane extends GraphicsPane {
 	private static AudioPlayer audio;
 
 	private static MainApplication program; // you will use program to get access to
-											// all of the GraphicsProgram calls
+	// all of the GraphicsProgram calls
 	private GButton play, controls, quit;
 	private GImage ground, ground2, ground3, ground4, background, controlsImage;
 	private GLine line;
@@ -41,7 +41,7 @@ public class LevelPane extends GraphicsPane {
 	private int lMove, rMove;
 
 	static Enemy opponent;
-	
+
 	public static ArrayList<String> speech;
 
 	private static boolean battling;
@@ -63,10 +63,10 @@ public class LevelPane extends GraphicsPane {
 	private static GImage win, lose;
 	private static GLabel labelW, labelL, bal;
 	private static int winlose = 0;
-	
+
 	private static GImage textBox;
 	private static GLabel talk;
-	
+
 	public LevelPane(MainApplication app) {
 		super();
 		program = app;
@@ -80,7 +80,7 @@ public class LevelPane extends GraphicsPane {
 		paused = false;
 		currentStats = false;
 		//prologue = false;
-		
+
 		Protagonist = MainApplication.user;
 
 		Protagonist.printPlayer();
@@ -92,7 +92,7 @@ public class LevelPane extends GraphicsPane {
 	@Override
 	public void showContents() {
 		loadMap(Map.getCurrentMap());
-		
+
 		// Show prologue image before starting the game.
 		audio.stopSound(MUSIC_FOLDER, SOUND_FILES2[0]);
 		Overlay.showPrologue(program);
@@ -187,7 +187,7 @@ public class LevelPane extends GraphicsPane {
 
 			if(Map.getCurrentMap().getBoard().spaceCheck(Protagonist) != null)
 			{
-				
+
 				if(Map.getCurrentMap().getBoard().spaceCheck(Protagonist).getCharacterType() == CharacterType.ENEMY) {
 					opponent = (Enemy) Map.getCurrentMap().getBoard().spaceCheck(Protagonist);
 					battling = true;	
@@ -198,19 +198,34 @@ public class LevelPane extends GraphicsPane {
 					audio.stopSound(MUSIC_FOLDER, SOUND_FILES3[0]);
 					audio = AudioPlayer.getInstance();
 					audio.playSound(MUSIC_FOLDER, SOUND_FILES[0]);
-				} else
+
+				} 
+
+				else if(Map.getCurrentMap().getBoard().spaceCheck(Protagonist).getCharacterType() == CharacterType.KING) {
+					opponent = (Enemy) Map.getCurrentMap().getBoard().spaceCheck(Protagonist);
+					battling = true;	
+
+					Overlay.battleScene(program);
+					audio = AudioPlayer.getInstance();
+					audio.stopSound(MUSIC_FOLDER, SOUND_FILES2[0]);
+					audio.stopSound(MUSIC_FOLDER, SOUND_FILES3[0]);
+					audio = AudioPlayer.getInstance();
+					audio.playSound(MUSIC_FOLDER, SOUND_FILES[0]);
+				}
+				
+				else
 					try {
 						if(Map.getCurrentMap().getBoard().spaceCheck(Protagonist).getCharacterType() == CharacterType.NPC) {
 							Narrative.print("NPC-1");
-							
+
 							ListIterator<String> iterator = speech.listIterator();
 
 							while (iterator.hasNext()) 
 								System.out.println(iterator.next());
-							
-							
-//					dialouge((NPC) Map.getCurrentMap().getBoard().spaceCheck(Protagonist));
-//					System.out.println("NPC is talking");
+
+
+							//					dialouge((NPC) Map.getCurrentMap().getBoard().spaceCheck(Protagonist));
+							//					System.out.println("NPC is talking");
 						}
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
@@ -232,7 +247,7 @@ public class LevelPane extends GraphicsPane {
 				removeLose(program);
 			}
 			else if (winlose == 3){
-				
+
 				removeDialouge(program);
 				System.out.println("Battle not possible since not nearby the opponent");
 			}
@@ -562,12 +577,12 @@ public class LevelPane extends GraphicsPane {
 			System.out.println("Character on exit!");
 
 			nextMap(Map.getMap(Map.LEVEL_INTERMEDIATE));
-	
+
 			Overlay.showLevelUp(program);
 
 			return true;
 		}
-		
+
 		return false;
 	}
 
@@ -579,7 +594,7 @@ public class LevelPane extends GraphicsPane {
 		world[1] = Map.getMap(Map.LEVEL_INTERMEDIATE);
 		world[2] = Map.getMap(Map.LEVEL_ADVANCED);
 		world[3] = Map.getMap(Map.LEVEL_FINAL);
-		*/
+		 */
 	}
 
 	private void drawLevel(Map m) {
@@ -592,39 +607,39 @@ public class LevelPane extends GraphicsPane {
 		drawLevel(m);
 		drawPlayer(Protagonist);
 		drawCharacters(m);
-		
-	//world[0].addPlayer (Protagonist);
-	if (Map.getCurrentLevel() == Map.LEVEL_BEGINNER) {
-		program.add(ground);                     //first if statement
-		ground.sendToBack(); 
-		audio = AudioPlayer.getInstance();
-		audio.playSound(MUSIC_FOLDER, SOUND_FILES2[0]);
-		
+
+		//world[0].addPlayer (Protagonist);
+		if (Map.getCurrentLevel() == Map.LEVEL_BEGINNER) {
+			program.add(ground);                     //first if statement
+			ground.sendToBack(); 
+			audio = AudioPlayer.getInstance();
+			audio.playSound(MUSIC_FOLDER, SOUND_FILES2[0]);
+
+		}
+		else if (Map.getCurrentLevel() == Map.LEVEL_INTERMEDIATE) {
+			program.add(ground2);                    //second if statement
+			ground2.sendToBack();
+			audio = AudioPlayer.getInstance();
+			audio.playSound(MUSIC_FOLDER, SOUND_FILES2[0]);
+
+		}
+		else if(Map.getCurrentLevel() == Map.LEVEL_ADVANCED) {
+			program.add(ground3);                    //third if statement 
+			ground3.sendToBack();
+			audio = AudioPlayer.getInstance();
+			audio.playSound(MUSIC_FOLDER, SOUND_FILES2[0]);
+		}
+		else if (Map.getCurrentLevel() == Map.LEVEL_FINAL){
+			program.add(ground4);                    //fourth if statement 
+			ground4.sendToBack();
+			audio.stopSound(MUSIC_FOLDER, SOUND_FILES2[0]);
+			audio = AudioPlayer.getInstance();
+			audio.playSound(MUSIC_FOLDER, SOUND_FILES3[0]);
+
+		}
+
 	}
-	else if (Map.getCurrentLevel() == Map.LEVEL_INTERMEDIATE) {
-		program.add(ground2);                    //second if statement
-		ground2.sendToBack();
-		audio = AudioPlayer.getInstance();
-		audio.playSound(MUSIC_FOLDER, SOUND_FILES2[0]);
-		
-	}
-	else if(Map.getCurrentLevel() == Map.LEVEL_ADVANCED) {
-		program.add(ground3);                    //third if statement 
-		ground3.sendToBack();
-		audio = AudioPlayer.getInstance();
-		audio.playSound(MUSIC_FOLDER, SOUND_FILES2[0]);
-	}
-	else if (Map.getCurrentLevel() == Map.LEVEL_FINAL){
-		program.add(ground4);                    //fourth if statement 
-		ground4.sendToBack();
-		audio.stopSound(MUSIC_FOLDER, SOUND_FILES2[0]);
-		audio = AudioPlayer.getInstance();
-		audio.playSound(MUSIC_FOLDER, SOUND_FILES3[0]);
-		
-	}
-	
-	}
-	
+
 
 	private void nextMap(Map m) {
 		program.removeAll();
@@ -734,7 +749,7 @@ public class LevelPane extends GraphicsPane {
 			bal.sendToFront();
 			//counter for keyboard access
 			winlose = 1;
-			
+
 		}
 	}
 	public static void battleLose(MainApplication app) {
@@ -808,27 +823,27 @@ public class LevelPane extends GraphicsPane {
 		battling = false;
 	}
 	public static void dialouge(NPC npc) {
-		
-		
+
+
 		winlose = 3;
-		
+
 		textBox = new GImage("TextBox.png");
 		program.add(textBox);
-		
+
 		talk = new GLabel("Hello I am a NPC", 50, 500);
 		talk.setFont(new Font("Comic Sans", 1, 60));
 		talk.setColor(Color.black);
-		
+
 		program.add(talk);
 	}
 
 
 	public static void removeDialouge(MainApplication program2) {
-		
+
 		program.remove(textBox);
 		program.remove(talk);
-		
-		
+
+
 	}
 
 
