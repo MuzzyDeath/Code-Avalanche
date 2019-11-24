@@ -13,9 +13,9 @@ import acm.graphics.GLine;
 
 public class Board {
 	private Character[][] board; // 2D array of characters
-	private ArrayList<Character> characters; // holds all the characters on the board
+	// private ArrayList<Character> characters; // holds all the characters on the board
 
-	private int rows, cols;
+	// private int rows, cols;
 	
 	private Space exit;
 
@@ -32,12 +32,12 @@ public class Board {
 
 		System.out.println("Generating board!");
 
-		this.rows = r;
-		this.cols = c;
+		//this.rows = r;
+		//this.cols = c;
 
 		// Create a 2D array of characters
 		board = new Character[r][c];
-		characters = new ArrayList<Character>();
+		// characters = new ArrayList<Character>();
 
 	}
 
@@ -58,10 +58,18 @@ public class Board {
 		return board.length;
 	}
 	
+	/**
+	 * @param s Space that identifies the exit
+	 * 
+	 */
 	public void setExit(Space s) {
 		exit = s;
 	}
 	
+	/**
+	 * return Space that identifies the exit
+	 * 
+	 */	
 	public Space getExit() {
 		return this.exit;
 	}
@@ -123,7 +131,6 @@ public class Board {
 	 * @param s the desired space where you want to look to see if a character is there
 	 * @return true if Character object present on that space, if no Character is present, false is returned
 	 */
-
 	public boolean isCharacterOnSpace(Space s) {
 		if(board[s.getRow()][s.getCol()] != null)
 		{
@@ -133,9 +140,13 @@ public class Board {
 			return false;
 	}
 
-	//Iterates through board, and adds Characters to ArrayList
-	//ArrayList is returnable
+	/**
+	 * Returns the list of characters on the board
+	 * 
+	 * @return arraylist of characters on the board.
+	 */
 	public ArrayList<Character> getCharactersOnBoard() {
+		ArrayList<Character> characters = new ArrayList<Character>(); 
 		for(int i = 0; i < getNumRows(); i++)
 			for(int j = 0; j < getNumCols(); j++) {
 				if(board[i][j] != null)
@@ -151,12 +162,9 @@ public class Board {
 	}
 
 	/**
-	 * adds a character to the board. It would be good to do some checks for a legal placement here.
+	 * adds a character to the board. It checks for a legal placement here.
 	 * 
-	 * @param type type of the character
-	 * @param startRow row for location of character's top
-	 * @param startCol column for for location of character
-
+	 * @param character Character that needs to be added to the board
 	 */
 	public void addCharacter(Character character) {
 		System.out.println("Checking if Character can be added!");
@@ -178,6 +186,11 @@ public class Board {
 			System.out.println("Location occuppied! Skipping Character Addition!!!!");
 	}
 	
+	/**
+	 * remove character at the given space,
+	 * 
+	 * @param s Space wher the character needs to be removed.
+	 */
 	public void removeCharacter(Space s) {
 		int row, col;
 		row = s.getRow();
@@ -186,7 +199,15 @@ public class Board {
 		if (row >= 0 && row < getNumRows() && col >= 0 && col < getNumCols())
 			board[row][col] = null;
 	}
-
+	
+	/**
+	 * Checks whether the character can move to the specified location
+	 * 
+	 * @param c Character that needs to be moved.
+	 * @param newSpace the space where the character needs to move to
+	 * 
+	 * @return true if the character can be moved
+	 */
 	public boolean canMove(Character c, Space newSpace) {
 		//Java short circuits, so it's okay to have everything here.
 		if(newSpace.getRow() < getNumRows() && newSpace.getCol() < getNumCols())
@@ -196,7 +217,14 @@ public class Board {
 
 		return false;
 	}
-
+	
+	/**
+	 * Moves the given character to the specified location, only if the move can be performed
+	 * 
+	 * @param c Character that needs to be moved.
+	 * @param newSpace the space where the character needs to move to
+	 * 
+	 */
 	public void moveCharacter(Character c, Space newSpace) {
 		if(canMove(c, newSpace)) {
 			board[c.getRow()][c.getCol()] = null;

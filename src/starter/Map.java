@@ -22,7 +22,7 @@ public class Map {
 
 	private static Map[] levels;
 	public static int currentLevel = LEVEL_BEGINNER;
-	private Map map;
+	// private Map map;
 
 	//private Space startSpace; // Player starts the level at this space
 	//private Space exitSpace;  // Player needs to reach this space to win.
@@ -72,6 +72,9 @@ public class Map {
 	}
 	 */
 
+	/**
+	 * @return Space that represents exit
+	 */
 	public Space getExit() {
 		return board.getExit();
 	}
@@ -83,13 +86,23 @@ public class Map {
 		return this.board;
 	}
 
-
+	/**
+	 * Moves the given character to the specified location, only if the move can be performed
+	 * 
+	 * @param c Character that needs to be moved.
+	 * @param newSpace the space where the character needs to move to
+	 * 
+	 */
 	public void moveCharacter(Character c, Space newSpace) {
 		board.moveCharacter(c,  newSpace);
 	}
 
 
-
+	/**
+	 * adds player to the board. It checks for a legal placement here.
+	 * 
+	 * @param player Player that needs to play the game
+	 */
 	public void addPlayer(Player player) {
 		p = player;
 		board.addCharacter(player);
@@ -104,10 +117,10 @@ public class Map {
 	//	}
 
 	/**
-	 * add characters for the beginner map
-	 * initialize the board, exit position, and number of moves
+	 * Sets up the beginner board
+	 * initialize the board, NPCs, enemies, exit position
 	 */
-	public void setupBeginnerMap() {
+	private void setupBeginnerMap() {
 		// Add characters and set up exit space.
 		// Initialize board with the maxRows and maxCols
 		board = new Board(6, 6);
@@ -132,11 +145,10 @@ public class Map {
 	}
 
 	/**
-	 * add characters for the intermediate map
-	 * initialize the board, exit position, and number of moves
+	 * Sets up the intermediate board
+	 * initialize the board, NPCs, enemies, exit position
 	 */
-
-	public void setupIntermediateMap()
+	private void setupIntermediateMap()
 	{
 		// Add characters and set up exit space.
 		// Initialize board with the maxRows and maxCols
@@ -156,13 +168,12 @@ public class Map {
 		//e = new Enemy(4, 5);
 		//board.addCharacter(e);
 	}
-	//
-	//	/**
-	//	 * add characters for the intermediate map
-	//	 * initialize the board, exit position, and number of moves
-	//	 */
-	//	
-	public void setupAdvancedMap()
+
+	/**
+	 * Sets up the advanced board
+	 * initialize the board, NPCs, enemies, exit position
+	 */
+	private void setupAdvancedMap()
 	{
 		// Add characters and set up exit space.
 		// Initialize board with the maxRows and maxCols
@@ -188,6 +199,10 @@ public class Map {
 
 	}
 	
+	/**
+	 * Sets up the final board
+	 * initialize the board, NPCs, enemies, exit position
+	 */
 	public void setupFinalMap()
 	{
 		// Add characters
@@ -208,10 +223,18 @@ public class Map {
 		return e;
 	}
 
+	/**
+	 * Gets the nearby character
+	 * 
+	 * @param p Player whose proximity is being checked.
+	 * 
+	 * @return character that is close to the given player
+	 */
 	public Character getNearbyCharacter(Player p)
 	{
 		return board.spaceCheck(p);
 	}
+	
 	/**
 	 * Returns the character at the given space
 	 * 
@@ -222,10 +245,18 @@ public class Map {
 	{
 		return board.getCharacter(space);
 	}
+	
+	
+	/**
+	 * Returns the list of characters on the board
+	 * 
+	 * @return arraylist of characters on the board.
+	 */
 	public ArrayList<Character> getCharactersOnMap()
 	{
 		return board.getCharactersOnBoard();
 	}
+	
 	/**
 	 * Returns map for the given level
 	 * 
@@ -246,6 +277,12 @@ public class Map {
 		return retMap;
 	}
 
+	/**
+	 * Returns map for the 'current' active level
+	 * Initializes the map if requred.
+	 * 
+	 * @return Map for the given level
+	 */
 	public static Map getCurrentMap()
 	{
 		if(levels == null)
@@ -259,11 +296,22 @@ public class Map {
 		}
 		return levels[getCurrentLevel() - 1];
 	}
+	
+	
+	/**
+	 * Returns teh current active level
+	 * 
+	 * @return current level
+	 */
 	public static int getCurrentLevel()
 	{
 		return currentLevel;
 	}
-
+	
+	/**
+	 * Increments the given active level
+	 * 
+	 */
 	public static void incrementLevel()
 	{
 		if(getCurrentLevel() < MAX_LEVELS)
@@ -272,6 +320,12 @@ public class Map {
 		}
 	}
 
+	/**
+	 * Checks if the player is facing enemy
+	 * 
+	 * @return true if enemy is near the player.
+	 * 
+	 */
 	public boolean isFacingEnemy()
 	{
 		boolean retVal = false;
@@ -301,13 +355,26 @@ public class Map {
 
 		return retVal;
 	}
-
+	
+	
+	/**
+	 * Stores whether the enemy is defeated or not
+	 * 
+	 * @param status whether the enemy is defeated or not
+	 * 
+	 */
 	public void setEnemyDefeated(boolean isDefeated)
 	{
 		isEnemyDefeated = isDefeated;
 	}
 
-
+	/**
+	 * Checks whether the given level is complete or not.
+	 * Level is complete if the enemy is defeated and the player reached the exit level.
+	 * 
+	 * @return true if the level is complete
+	 * 
+	 */
 	public boolean isLevelComplete()
 	{
 		boolean retVal = false;
@@ -319,15 +386,7 @@ public class Map {
 		return retVal;
 	}
 	
-	/**
-	 * Moves the player from his current space the given number of spaces
-	 * @param space the space at which the vehicle is currently at 
-	 * @param numSpaces the number of spaces to move the player
-	 * @param isHorizontal if the move has to be horizontal or vertical
-	 * @return true if the character  can be moved
-	 */
-
-	//Methods already defined for you
+	
 	/**
 	 * generates the string representation of the level, including the row and column headers to make it look like
 	 * a table

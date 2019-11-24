@@ -185,7 +185,7 @@ public class LevelPane extends GraphicsPane {
 		// Press E to test.
 		if (key == KeyEvent.VK_E) {
 
-			if(world[Map.getCurrentLevel()].getBoard().spaceCheck(Protagonist) != null)
+			if(Map.getCurrentMap().getBoard().spaceCheck(Protagonist) != null)
 			{
 				
 				if(Map.getCurrentMap().getBoard().spaceCheck(Protagonist).getCharacterType() == CharacterType.ENEMY) {
@@ -701,7 +701,7 @@ public class LevelPane extends GraphicsPane {
 			//removeCharacter(opponent.getLocation());
 
 			// removes the character from board
-			world[Map.getCurrentLevel()].getBoard().removeCharacter(opponent.getLocation());
+			Map.getCurrentMap().getBoard().removeCharacter(opponent.getLocation());
 
 
 			// removes battle overlay
