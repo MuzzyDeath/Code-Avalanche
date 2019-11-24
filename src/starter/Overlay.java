@@ -24,8 +24,8 @@ public class Overlay {
 	private static GImage textbox;
 	// pictures
 
-	// Inventory Stuff
-	private static GImage inventory;
+	// currentStats Stuff
+	private static GImage currentStats;
 
 	private static final String SFONT = "Times New Roman";
 	private static final int S_FONT_SIZE = 30;
@@ -254,10 +254,10 @@ public class Overlay {
 		app.remove(cTextBox);
 	}
 
-	public static void showInventory(MainApplication app) {
+	public static void showcurrentStats(MainApplication app) {
 		Player player = MainApplication.user;
-		inventory = new GImage("images/InventoryBackground.png");
-		app.add(inventory);
+		currentStats = new GImage("images/InventoryBackground.png");
+		app.add(currentStats);
 		StrengthV = new GLabel("" + player.getStrength(), LU_BASE_X - 175, 204);
 		app.add(StrengthV);
 		StrengthV.setFont(new Font(LU_FONT, 1, LU_FONT_SIZE));
@@ -280,12 +280,13 @@ public class Overlay {
 		GoldV.setColor(Color.orange);
 	}
 
-	public static void hideInventory(MainApplication app) {
-		app.remove(inventory);
+	public static void hidecurrentStats(MainApplication app) {
+		app.remove(currentStats);
 		app.remove(StrengthV);
 		app.remove(AgilityV);
 		app.remove(DefenseV);
 		app.remove(CharismaV);
+		app.remove(GoldV);
 	}
 	
 	
