@@ -61,6 +61,10 @@ public class LevelPane extends GraphicsPane {
 	private static GRect win, lose;
 	private static GLabel labelW, labelL, bal;
 	private static int winlose = 0;
+	
+	private static GImage textBox;
+	private static GLabel talk;
+	
 	public LevelPane(MainApplication app) {
 		super();
 		program = app;
@@ -69,7 +73,7 @@ public class LevelPane extends GraphicsPane {
 		ground2 = new GImage(GROUND2);
 		ground3 = new GImage(GROUND3);
 		ground4 = new GImage(GROUND4);
-		
+
 		battling = false;
 		paused = false;
 		inventory = false;
@@ -172,16 +176,26 @@ public class LevelPane extends GraphicsPane {
 		if (key == KeyEvent.VK_E) {
 
 			//opponent = (Enemy) Board.spaceCheck(Protagonist);
-			if(world[0].getBoard().spaceCheck(Protagonist) != null)
+			if(world[Map.getCurrentLevel()].getBoard().spaceCheck(Protagonist) != null)
 			{
-				opponent = (Enemy) world[0].getBoard().spaceCheck(Protagonist);
+				// Character temp = Map.getCurrentMap().getBoard().spaceCheck(Protagonist);
+				
+				if(Map.getCurrentMap().getBoard().spaceCheck(Protagonist).getCharacterType() == CharacterType.ENEMY) {
+					opponent = (Enemy) Map.getCurrentMap().getBoard().spaceCheck(Protagonist);
 
-				battling = true;	
-				//pause.battleScene(program);
+					battling = true;	
+					//pause.battleScene(program);
 
-				Overlay.battleScene(program);
-				audio = AudioPlayer.getInstance();
-				audio.playSound(MUSIC_FOLDER, SOUND_FILES[0]);
+					Overlay.battleScene(program);
+					audio = AudioPlayer.getInstance();
+					audio.playSound(MUSIC_FOLDER, SOUND_FILES[0]);
+				}
+				else if(Map.getCurrentMap().getBoard().spaceCheck(Protagonist).getCharacterType() == CharacterType.NPC) {
+					
+					dialouge((NPC) Map.getCurrentMap().getBoard().spaceCheck(Protagonist));
+					System.out.println("NPC is talking");
+					
+				}
 			}
 			else {
 				System.out.println("Battle not possible since not nearby the opponent");
@@ -192,7 +206,7 @@ public class LevelPane extends GraphicsPane {
 
 		}
 
-		if(key == KeyEvent.VK_SPACE) {
+		if(key == KeyEvent.VK_A || key == KeyEvent.VK_W || key == KeyEvent.VK_S || key == KeyEvent.VK_D) {
 
 
 			if(winlose == 1){
@@ -201,7 +215,9 @@ public class LevelPane extends GraphicsPane {
 			else if(winlose == 2) {
 				removeLose(program);
 			}
-			else {
+			else if (winlose == 3){
+				
+				removeDialouge(program);
 				System.out.println("Battle not possible since not nearby the opponent");
 			}
 		}
@@ -209,7 +225,7 @@ public class LevelPane extends GraphicsPane {
 		// Overlay for the Level up Image
 		// Press l to test.
 		if (key == KeyEvent.VK_L) {
-			
+
 			if (!Overlay.isLevelUpActive())
 			{
 				Overlay.showLevelUp(program);
@@ -220,36 +236,36 @@ public class LevelPane extends GraphicsPane {
 				levelup = false;
 				Overlay.hideLevelUp(program);
 			}
-			*/
+			 */
 
 		}
 
 		// Overlay for the Battle Image
 		// Press 0 to test.
-		if (key == KeyEvent.VK_0) {
-			// change 0 key to E key later after the implementation is done with the text for
-			// enemy battle
-			// if it is an enemy, then text file for ENEMY should appear on top of text box
-			// image and
-			// then they press E again and it sets battle to true
-
-			if (battling == false) {
-
-				battling = true;	
-				//pause.battleScene(program);
-
-				Overlay.battleScene(program);
-				audio = AudioPlayer.getInstance();
-				audio.playSound(MUSIC_FOLDER, SOUND_FILES[0]);
-
-			} 
-			else {
-				battling = false;
-				Overlay.battleOver(program);
-				audio.stopSound(MUSIC_FOLDER, SOUND_FILES[0]);
-
-			}
-		}
+		//		if (key == KeyEvent.VK_0) {
+		//			// change 0 key to E key later after the implementation is done with the text for
+		//			// enemy battle
+		//			// if it is an enemy, then text file for ENEMY should appear on top of text box
+		//			// image and
+		//			// then they press E again and it sets battle to true
+		//
+		//			if (battling == false) {
+		//
+		//				battling = true;	
+		//				//pause.battleScene(program);
+		//
+		//				Overlay.battleScene(program);
+		//				audio = AudioPlayer.getInstance();
+		//				audio.playSound(MUSIC_FOLDER, SOUND_FILES[0]);
+		//
+		//			} 
+		//			else {
+		//				battling = false;
+		//				Overlay.battleOver(program);
+		//				audio.stopSound(MUSIC_FOLDER, SOUND_FILES[0]);
+		//
+		//			}
+		//		}
 
 		//Purely to test that removing
 		//a character sprite works
@@ -413,32 +429,32 @@ public class LevelPane extends GraphicsPane {
 			characterLocation(Protagonist);
 			exitCheck(Protagonist.getLocation()); //Checks if Character is on exit space
 
-		} else {
+		} else if(battling){
 
 			if (key == KeyEvent.VK_1) {
 
-					Battle.Fight(1, opponent, Protagonist);
-					System.out.print("You chose attack \n");
-				
+				Battle.Fight(1, opponent, Protagonist);
+				System.out.print("You chose attack \n");
 
-				battleWin(program);
+				winCheck();
 
 			}
 
 			else if (key == KeyEvent.VK_2) {
 				Battle.Fight(2, opponent, Protagonist);
 				System.out.print("You chose block \n");
-				battleWin(program);
+				winCheck();
 
 			} 
 			else if (key == KeyEvent.VK_3) {
 				Battle.Fight(3, opponent, Protagonist);
-				System.out.print("You chose defend \n");
-				battleWin(program);
+				System.out.print("You chose screech \n");
+				winCheck();
 			}
 		}
 
 	}
+
 
 	// New Code below this line//
 
@@ -483,14 +499,17 @@ public class LevelPane extends GraphicsPane {
 				sprite = new GImage("npcTemp.png", toAdd.getCol() * xWidth, toAdd.getRow() * yHeight);
 				sprite.setSize(xWidth, yHeight);
 				sprite.sendToFront();
+				program.add(sprite);
+
 			}
 			else if (toAdd.cType == CharacterType.ENEMY) {
 				sprite = new GImage("enemyTemp.png", toAdd.getCol() * xWidth, toAdd.getRow() * yHeight);
 				sprite.setSize(xWidth, yHeight);
 				sprite.sendToFront();
+				program.add(sprite);
+
 			}
 			// Actually implements the GImage!
-			program.add(sprite);
 		}
 
 	}
@@ -573,7 +592,11 @@ public class LevelPane extends GraphicsPane {
 
 		if (row == eRow && col == eCol) {
 			System.out.println("Character on exit!");
+
 			nextMap(Map.getMap(Map.LEVEL_INTERMEDIATE));
+
+			Overlay.showLevelUp(program);
+
 			return true;
 		}
 		return false;
@@ -645,7 +668,7 @@ public class LevelPane extends GraphicsPane {
 
 			line = new GLine(w, 0, w, windowHeight - 2);
 			program.add(line);
-			line.setVisible(false);
+			line.setVisible(true);
 			j++;
 		}
 
@@ -659,7 +682,7 @@ public class LevelPane extends GraphicsPane {
 
 			line = new GLine(0, h, windowWidth - 2, h);
 			program.add(line);
-			line.setVisible(false);
+			line.setVisible(true);
 			j++;
 		}
 	}
@@ -680,13 +703,16 @@ public class LevelPane extends GraphicsPane {
 			//removes chracter sprite
 
 			removeCharacter(opponent.getLocation());
+			//removeCharacter(opponent.getLocation());
 
 			// removes the character from board
-			world[0].getBoard().removeCharacter(opponent.getLocation());
+			world[Map.getCurrentLevel()].getBoard().removeCharacter(opponent.getLocation());
 
 
 			// removes battle overlay
 			Overlay.battleOver(app);
+
+			battling = false;
 
 			Protagonist.setHealth(50);
 			// creates labels and rects
@@ -720,13 +746,16 @@ public class LevelPane extends GraphicsPane {
 
 			//removes sprite
 			removeCharacter(opponent.getLocation());
+			//removeCharacter(opponent.getLocation());
 
 			// removes character on board.
-			world[0].getBoard().removeCharacter(opponent.getLocation());
+			world[Map.getCurrentLevel()].getBoard().removeCharacter(opponent.getLocation());
 
 
 			// closes battle overlay
 			Overlay.battleOver(app);
+
+			battling = false;
 
 			Protagonist.setHealth(50);
 
@@ -756,6 +785,14 @@ public class LevelPane extends GraphicsPane {
 		}
 	}
 
+	public static void winCheck() {
+		if(Protagonist.getHealth() > 0 && opponent.getHealth() <= 0) {
+			battleWin(program);
+		}
+		else if(Protagonist.getHealth() <= 0 && opponent.getHealth() > 0) {
+			battleLose(program);
+		}
+	}
 	public static void removeWin(MainApplication app) {
 
 		app.remove(labelW);
@@ -772,9 +809,29 @@ public class LevelPane extends GraphicsPane {
 
 		battling = false;
 	}
+	public static void dialouge(NPC npc) {
+		
+		
+		winlose = 3;
+		
+		textBox = new GImage("TextBox.png");
+		program.add(textBox);
+		
+		talk = new GLabel("Hello I am a NPC", 50, 500);
+		talk.setFont(new Font("Comic Sans", 1, 60));
+		talk.setColor(Color.black);
+		
+		program.add(talk);
+	}
 
 
-
+	public static void removeDialouge(MainApplication program2) {
+		
+		program.remove(textBox);
+		program.remove(talk);
+		
+		
+	}
 
 
 }
