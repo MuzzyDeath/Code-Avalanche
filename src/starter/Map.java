@@ -21,7 +21,7 @@ public class Map {
 	private Player p;
 
 	private static Map[] levels;
-	private static int currentLevel = LEVEL_BEGINNER;
+	public static int currentLevel = LEVEL_BEGINNER;
 	private Map map;
 
 	//private Space startSpace; // Player starts the level at this space
@@ -255,9 +255,8 @@ public class Map {
 			levels[2] = getMap(LEVEL_ADVANCED);
 			levels[3] = getMap(LEVEL_FINAL);
 		}
-		return levels[currentLevel - 1];
+		return levels[getCurrentLevel() - 1];
 	}
-
 	public static int getCurrentLevel()
 	{
 		return currentLevel;
@@ -265,9 +264,9 @@ public class Map {
 
 	public static void incrementLevel()
 	{
-		if(currentLevel < MAX_LEVELS)
+		if(getCurrentLevel() < MAX_LEVELS)
 		{
-			currentLevel++;
+			setCurrentLevel(getCurrentLevel() + 1);
 		}
 	}
 
@@ -317,6 +316,7 @@ public class Map {
 		}
 		return retVal;
 	}
+	
 	/**
 	 * Moves the player from his current space the given number of spaces
 	 * @param space the space at which the vehicle is currently at 
@@ -372,5 +372,10 @@ public class Map {
 		}
 		result+="\n";
 		return result;
+	}
+
+	public static int setCurrentLevel(int currentLevel) {
+		Map.currentLevel = currentLevel;
+		return currentLevel;
 	}
 }

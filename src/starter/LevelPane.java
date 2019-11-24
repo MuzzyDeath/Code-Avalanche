@@ -44,12 +44,12 @@ public class LevelPane extends GraphicsPane {
 	private static boolean battling;
 	private boolean paused;
 	private boolean inventory;
+	private boolean prologue;
 	private boolean textbox;
 
 	protected static Player Protagonist;
 
 	private static Map map1, map2, map3, map4;
-
 	protected static Map[] world = { map1, map2, map3, map4 };
 
 	private static float xWidth;
@@ -77,7 +77,8 @@ public class LevelPane extends GraphicsPane {
 		battling = false;
 		paused = false;
 		inventory = false;
-
+		prologue = false;
+		
 		MainApplication.user.cName = "Tester";
 		Protagonist = MainApplication.user;
 
@@ -156,7 +157,18 @@ public class LevelPane extends GraphicsPane {
 		if (key == KeyEvent.VK_P) {
 			removeCharacter(new Space(4, 5));
 		}
+		// Overlay for the Prologue right before getting to the grid
+		// Press ENTER to test.
+		if (key == KeyEvent.VK_ENTER) {
+			if (!prologue) {
+				prologue = true;
+				Overlay.showPrologue(program);
 
+			} else if (prologue) {
+				prologue = false;
+				Overlay.hidePrologue(program);
+			}
+		}
 		// Overlay for the Inventory
 		// Press I to test.
 		if (key == KeyEvent.VK_I) {
@@ -617,15 +629,31 @@ public class LevelPane extends GraphicsPane {
 	//generation of first map displayed
 	private void loadMap(Map m) {
 		drawLevel(m);
-
-		program.add(ground);
-		ground.sendToBack();
-
-		world[0].addPlayer(Protagonist);
-
 		drawPlayer(Protagonist);
 		drawCharacters(m);
+	//world[0].addPlayer (Protagonist);
+	if (Map.currentLevel == Map.LEVEL_BEGINNER) {
+		program.add(ground);                     //first if statement
+		ground.sendToBack();          
+		
 	}
+	else if (Map.currentLevel == Map.LEVEL_INTERMEDIATE) {
+		program.add(ground2);                    //second if statement
+		ground2.sendToBack();
+		
+	}
+	else if(Map.currentLevel == Map.LEVEL_ADVANCED) {
+		program.add(ground3);                    //third if statement 
+		ground3.sendToBack();
+	
+	}
+	else if (Map.currentLevel == Map.LEVEL_FINAL){
+		program.add(ground4);                    //fourth if statement 
+		ground4.sendToBack();
+
+	}
+	}
+	
 
 	private void nextMap(Map m) {
 		program.removeAll();

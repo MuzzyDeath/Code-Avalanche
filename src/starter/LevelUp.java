@@ -4,15 +4,23 @@ import java.util.Scanner;
 
 public class LevelUp {
 	
-	private  int points;
+	private int points;
 	private Player player;
+	private int beginStrength, beginAgility, beginDefense, beginCharisma, beginHealth;
 	
 	public static final int POINTS_PER_WIN = 3;
+	private static final int MIN_THRESHOLD = 1;
 	
 	public LevelUp(Player p, int pts)
 	{
 		player = p;
 		points = pts;
+		// Store the initial stats so that we dont allow allocations to go below these stats.
+		beginStrength = p.getStrength();
+		beginAgility = p.getAgility();
+		beginDefense = p.getDefense();
+		beginCharisma = p.getCharisma();
+		beginHealth = p.getHealth();
 	}
 
 	public int getPoints() {
@@ -32,57 +40,66 @@ public class LevelUp {
 	
 	public boolean strengthUp()
 	{
-		boolean retVal = true;
+		boolean retVal = false;
 		// Increment player strength and decrement overall points
 		if (points > 0)
 		{
 			player.setStrength(player.getStrength() + 1);
 			points--;
+			retVal = true;
 		}
 		return retVal;
 	}
 	
 	public boolean strengthDown()
 	{
-		boolean retVal = true;
-		// Decrement player strength and increment overall points
-		player.setStrength(player.getStrength() - 1);
-		points++;
-
+		boolean retVal = false;
+		// Decrement player strength and increment overall points (only if strength is  beginStrength)
+		if (player.getStrength() > beginStrength)
+		{
+			player.setStrength(player.getStrength() - 1);
+			points++;
+			retVal = true;
+		}
 		return retVal;
 	}
 	
 
 	public boolean agilityUp()
 	{
-		boolean retVal = true;
+		boolean retVal = false;
 		// Increment player agility and decrement overall points
 		if (points > 0)
 		{
 			player.setAgility(player.getAgility() + 1);
 			points--;
+			retVal = true;
 		}
 		return retVal;
 	}
 	
 	public boolean agilityDown()
 	{
-		boolean retVal = true;
-		// Decrement player strength and increment overall points
-		player.setAgility(player.getAgility() - 1);
-		points++;
-
+		boolean retVal = false;
+		// Decrement player agility and increment overall points
+		if (player.getAgility() > beginAgility)
+		{
+			player.setAgility(player.getAgility() - 1);
+			points++;
+			retVal = true;
+		}
 		return retVal;
 	}
 	
 	public boolean defenseUp()
 	{
-		boolean retVal = true;
-		// Increment player agility and decrement overall points
+		boolean retVal = false;
+		// Increment player defense and decrement overall points
 		if (points > 0)
 		{
 			player.setDefense(player.getDefense() + 1);
 			points--;
+			retVal = true;
 		}
 		return retVal;
 	}
@@ -90,53 +107,65 @@ public class LevelUp {
 	public boolean defenseDown()
 	{
 		boolean retVal = true;
-		// Decrement player strength and increment overall points
-		player.setDefense(player.getDefense() - 1);
-		points++;
+		// Decrement player defense and increment overall points
+		if (player.getDefense() > beginDefense)
+		{
+			player.setDefense(player.getDefense() - 1);
+			points++;
+			retVal = true;
+		}
 		return retVal;
 	}
 
 	public boolean charismaUp()
 	{
-		boolean retVal = true;
-		// Increment player agility and decrement overall points
+		boolean retVal = false;
+		// Increment player charisma and decrement overall points
 		if (points > 0)
 		{
 			player.setCharisma(player.getCharisma() + 1);
 			points--;
+			retVal = true;
 		}
 		return retVal;
 	}
 	
 	public boolean charismaDown()
 	{
-		boolean retVal = true;
-		// Decrement player strength and increment overall points
-		player.setCharisma(player.getCharisma() - 1);
-		points++;
-
+		boolean retVal = false;
+		// Decrement player charisma and increment overall points
+		if (player.getCharisma() > beginCharisma)
+		{
+			player.setCharisma(player.getCharisma() - 1);
+			points++;
+			retVal = true;
+		}
 		return retVal;
 	}
 
 	public boolean healthUp()
 	{
-		boolean retVal = true;
-		// Increment player agility and decrement overall points
+		boolean retVal = false;
+		// Increment player health and decrement overall points
 		if (points > 0)
 		{
 			player.setHealth(player.getHealth() + 1);
 			points--;
+			retVal = true;
 		}
 		return retVal;
 	}
 	
 	public boolean healthDown()
 	{
-		boolean retVal = true;
-		// Decrement player strength and increment overall points
-		player.setHealth(player.getHealth() - 1);
-		points++;
-
+		boolean retVal = false;
+		// Decrement player health and increment overall points
+		if (player.getHealth() > beginHealth)
+		{
+			player.setHealth(player.getHealth() - 1);
+			points++;
+			retVal = true;
+		}
 		return retVal;
 	}
 
