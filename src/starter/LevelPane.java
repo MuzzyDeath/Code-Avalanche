@@ -198,6 +198,7 @@ public class LevelPane extends GraphicsPane {
 							while (iterator.hasNext()) 
 								System.out.println(iterator.next());
 							
+							
 //					dialouge((NPC) Map.getCurrentMap().getBoard().spaceCheck(Protagonist));
 //					System.out.println("NPC is talking");
 						}
