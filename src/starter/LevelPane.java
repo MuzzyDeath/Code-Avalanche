@@ -30,9 +30,9 @@ public class LevelPane extends GraphicsPane {
 	private AudioPlayer audio;
 
 	private static MainApplication program; // you will use program to get access to
-	// all of the GraphicsProgram calls
+											// all of the GraphicsProgram calls
 	private GButton play, controls, quit;
-	private GImage ground, ground2, ground3, ground4, background, controlsImage, playerImage, enemyImage;
+	private GImage ground, ground2, ground3, ground4, background, controlsImage;
 	private GLine line;
 
 	// playerSprite Variables
@@ -79,7 +79,6 @@ public class LevelPane extends GraphicsPane {
 		inventory = false;
 		prologue = false;
 		
-		MainApplication.user.cName = "Tester";
 		Protagonist = MainApplication.user;
 
 		Protagonist.printPlayer();
@@ -122,7 +121,6 @@ public class LevelPane extends GraphicsPane {
 	public void mouseReleased(MouseEvent e) {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
 		if (obj != null) {
-			// System.out.println(" Obj selected  = " + obj);
 			if (obj == play) {
 				play.setFillColor(Color.WHITE);
 				paused = false;
@@ -242,48 +240,6 @@ public class LevelPane extends GraphicsPane {
 			{
 				Overlay.showLevelUp(program);
 			}
-			/*
-			else
-			{
-				levelup = false;
-				Overlay.hideLevelUp(program);
-			}
-			 */
-
-		}
-
-		// Overlay for the Battle Image
-		// Press 0 to test.
-		//		if (key == KeyEvent.VK_0) {
-		//			// change 0 key to E key later after the implementation is done with the text for
-		//			// enemy battle
-		//			// if it is an enemy, then text file for ENEMY should appear on top of text box
-		//			// image and
-		//			// then they press E again and it sets battle to true
-		//
-		//			if (battling == false) {
-		//
-		//				battling = true;	
-		//				//pause.battleScene(program);
-		//
-		//				Overlay.battleScene(program);
-		//				audio = AudioPlayer.getInstance();
-		//				audio.playSound(MUSIC_FOLDER, SOUND_FILES[0]);
-		//
-		//			} 
-		//			else {
-		//				battling = false;
-		//				Overlay.battleOver(program);
-		//				audio.stopSound(MUSIC_FOLDER, SOUND_FILES[0]);
-		//
-		//			}
-		//		}
-
-		//Purely to test that removing
-		//a character sprite works
-		//REMOVE BEFORE FINAL CHECK!
-		if (key == KeyEvent.VK_P) {
-			removeCharacter(new Space(4, 5));
 		}
 
 		if (key == KeyEvent.VK_ESCAPE) {
@@ -311,7 +267,7 @@ public class LevelPane extends GraphicsPane {
 				if (key == KeyEvent.VK_A) {
 					if (checkBounds(playerSprite) && checkContainment(Protagonist)) {
 						Map.getCurrentMap().moveCharacter(Protagonist, Protagonist.getLocation());
-						playerSprite.move(-50, 0);
+						playerSprite.move(-15, 0);
 
 						if (Protagonist.getCharacterType() == CharacterType.WARRIOR) {
 							playerSprite.setImage("knight/knight_" + moveCount + ".png");
@@ -345,7 +301,7 @@ public class LevelPane extends GraphicsPane {
 				if (key == KeyEvent.VK_D) {
 					if (checkBounds(playerSprite) && checkContainment(Protagonist)) {
 						Map.getCurrentMap().moveCharacter(Protagonist, Protagonist.getLocation());
-						playerSprite.move(50, 0);
+						playerSprite.move(15, 0);
 
 						if (Protagonist.getCharacterType() == CharacterType.WARRIOR) {
 							playerSprite.setImage("knight/knight_" + moveCount + ".png");
@@ -378,7 +334,7 @@ public class LevelPane extends GraphicsPane {
 				if (key == KeyEvent.VK_W) {
 					if (checkBounds(playerSprite) && checkContainment(Protagonist)) {
 						Map.getCurrentMap().moveCharacter(Protagonist, Protagonist.getLocation());
-						playerSprite.move(0, -50);
+						playerSprite.move(0, -15);
 
 						if (Protagonist.getCharacterType() == CharacterType.WARRIOR) {
 							playerSprite.setImage("knight/knight_" + moveCount + ".png");
@@ -411,7 +367,7 @@ public class LevelPane extends GraphicsPane {
 				if (key == KeyEvent.VK_S) {
 					if (checkBounds(playerSprite) && checkContainment(Protagonist)) {
 						Map.getCurrentMap().moveCharacter(Protagonist, Protagonist.getLocation());
-						playerSprite.move(0, 50);
+						playerSprite.move(0, 15);
 
 						if (Protagonist.getCharacterType() == CharacterType.WARRIOR) {
 							playerSprite.setImage("knight/knight_" + moveCount + ".png");
@@ -502,7 +458,7 @@ public class LevelPane extends GraphicsPane {
 	}
 
 	private void drawCharacters(Map m) {
-		//m.getBoard();
+		GImage sprite = null;
 		ListIterator<Character> iterator = Map.getCurrentMap().getCharactersOnMap().listIterator();
 
 		while (iterator.hasNext()) {
@@ -511,17 +467,14 @@ public class LevelPane extends GraphicsPane {
 				sprite = new GImage("npcTemp.png", toAdd.getCol() * xWidth, toAdd.getRow() * yHeight);
 				sprite.setSize(xWidth, yHeight);
 				sprite.sendToFront();
-				program.add(sprite);
-
 			}
 			else if (toAdd.cType == CharacterType.ENEMY) {
 				sprite = new GImage("enemyTemp.png", toAdd.getCol() * xWidth, toAdd.getRow() * yHeight);
 				sprite.setSize(xWidth, yHeight);
 				sprite.sendToFront();
-				program.add(sprite);
-
 			}
 			// Actually implements the GImage!
+			program.add(sprite);
 		}
 
 	}
@@ -696,7 +649,7 @@ public class LevelPane extends GraphicsPane {
 
 			line = new GLine(w, 0, w, windowHeight - 2);
 			program.add(line);
-			line.setVisible(true);
+			line.setVisible(false);
 			j++;
 		}
 
@@ -710,7 +663,7 @@ public class LevelPane extends GraphicsPane {
 
 			line = new GLine(0, h, windowWidth - 2, h);
 			program.add(line);
-			line.setVisible(true);
+			line.setVisible(false);
 			j++;
 		}
 	}

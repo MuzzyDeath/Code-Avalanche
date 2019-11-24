@@ -35,15 +35,6 @@ public class NPC extends Character {
 			this.isHostile = false;
 			this.isKing = false;
 			this.balance = 0;
-			
-			//Get Player Name & Make NPC Names
-			this.cName = setName();
 		}
 	}
-	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
-
 }

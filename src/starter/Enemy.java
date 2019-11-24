@@ -4,7 +4,6 @@ public class Enemy extends Character {
 
 	public Enemy(int row, int col) {
 		super(row, col);
-		// TODO Auto-generated constructor stub
 		makeEnemy(row, col, 3, 3, 3, 3, 50);
 	}
 	
@@ -21,8 +20,6 @@ public class Enemy extends Character {
 		this.setHealth(h);
 		
 		this.setBalance(this.randBalance());
-		
-		this.setName();
 	}
 
 //Set what the king's stats should be here!
@@ -44,10 +41,4 @@ public class Enemy extends Character {
 		System.out.println("Gold Balance: " + this.getBalance() + "\n");
 		return "---------------------------------------------";
 	}
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
-
 }

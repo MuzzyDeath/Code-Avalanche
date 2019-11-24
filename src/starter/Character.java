@@ -14,13 +14,11 @@ public class Character{
 	//Instance Variables
 	//Private Usable only in this class
 	private int cRow, cCol, cHealth;
-	//private Space location;
 
 	//Protected usable in this class and child class(es)
 	protected int strength, charisma, agility, defense, balance, experience;
 	protected boolean isPlayer, isHostile, isKing;
 	protected CharacterType cType;
-	protected String cName;
 
 	//Public frowned upon, please do NOT implement any :)
 
@@ -82,23 +80,6 @@ public class Character{
 		this.cCol = c;
 	}
 
-	//Set User name
-	public String setName() {
-		String name = null;
-
-		if(this.isPlayer) {
-			System.out.println("Please enter the name of your character: \n");
-			name = new Scanner(System.in).next();
-			this.cName = name;
-		}
-		else {
-			this.cName = npcNames();
-			name = this.cName;
-		}
-
-		return name;
-	}
-
 	//Set User class
 	public void setCharacterType() {
 		int choice = 0;
@@ -144,10 +125,6 @@ public class Character{
 	public int getHealth() {
 		return this.cHealth;
 	}
-	public String getName() {
-		return this.cName;
-	}
-
 	public Space getLocation()
 	{
 		return new Space(cRow, cCol);
@@ -196,15 +173,6 @@ public class Character{
 		System.out.println("Current location is Row: " + space.getRow() + " Colomn: " + space.getCol() + "\n");
 	}
 
-	public String npcNames() {
-		String name;
-		String[] names = {"Pranav", "Nitin", "Greg", "Cooper", "Samantha", "Cherlynn", "Tiffany", "Amber"};
-		int index = (int)(Math.random() * names.length);
-		name = names[index];
-
-		return name;
-	}
-
 	public static void printWarrior() {
 		System.out.println("(1) Warrior:\nStrength: 4\nCharisma: 1\nAgility: 3\nDefense: 2\n");
 	}
@@ -216,7 +184,6 @@ public class Character{
 	}
 
 	public void printCharacter() {
-		System.out.println("\nInformation for : " + this.getName() + "\n");
 		System.out.println("Strength: " + this.getStrength() + "\n");
 		System.out.println("Charisma: " + this.getCharisma() + "\n");
 		System.out.println("Agility: " + this.getAgility() + "\n");
@@ -236,25 +203,11 @@ public class Character{
 		return this.isPlayer;
 	}
 	
-	@Override
-	public String toString() {
-		return "Character [cRow=" + cRow + ", cCol=" + cCol + ", cHealth=" + cHealth + ", strength=" + strength
-				+ ", charisma=" + charisma + ", agility=" + agility + ", defense=" + defense + ", balance=" + balance
-				+ ", experience=" + experience + ", isPlayer=" + isPlayer + ", isHostile=" + isHostile + ", isKing="
-				+ isKing + ", cType=" + cType + ", cName=" + cName + "]";
-	}
-
 	public static void main(String[] args) throws FileNotFoundException {
 		Space startSpace = new Space(1,1);
 		Player Muzzy = new Player(startSpace.getRow(), startSpace.getCol(), CharacterType.WARRIOR);
 		Muzzy.isHostile = false;
 		printSpaces(Muzzy.getLocation());
 		Muzzy.printPlayer();
-		//		LevelUp level = new LevelUp();
-		//		level.setNewStats(Muzzy, 3);
-		//Narrative nar = new Narrative(Muzzy, 1, 2);
-		//nar.read(Muzzy, 1, 2);
-
-
 	}
 }
