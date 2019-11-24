@@ -6,7 +6,7 @@ package starter;
  *
  */
 public enum CharacterType {
-	WARRIOR, MAGE, ROGUE, NPC, ENEMY;
+	WARRIOR, MAGE, ROGUE, NPC, ENEMY, KING;
 	
 	public String toString() {
 		switch(this) {
@@ -15,6 +15,7 @@ public enum CharacterType {
 			case ROGUE: return "Rogue";
 			case NPC: return "NPC";
 			case ENEMY: return "Enemy";
+			case KING: return "King";
 		}
 		return "n/a";
 	}
