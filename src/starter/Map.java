@@ -21,12 +21,7 @@ public class Map {
 	private Player p;
 
 	private static Map[] levels;
-	public static int currentLevel = LEVEL_BEGINNER;
-	// private Map map;
-
-	//private Space startSpace; // Player starts the level at this space
-	//private Space exitSpace;  // Player needs to reach this space to win.
-	//private int numMoves;
+	private static int currentLevel = LEVEL_BEGINNER;
 
 
 	// Constructor that takes in a level and initializes the map for that level
@@ -82,9 +77,11 @@ public class Map {
 	
 //	 * We need to encapsulate baord, we should not give out board.
 //	 *  All board methods have to be encoded in Map
+	
 	public Board getBoard() {
 		return this.board;
 	}
+	
 
 	/**
 	 * Moves the given character to the specified location, only if the move can be performed

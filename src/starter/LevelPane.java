@@ -51,8 +51,8 @@ public class LevelPane extends GraphicsPane {
 
 	protected static Player Protagonist;
 
-	private static Map map1, map2, map3, map4;
-	protected static Map[] world = { map1, map2, map3, map4 };
+	//private static Map map1, map2, map3, map4;
+	//protected static Map[] world = { map1, map2, map3, map4 };
 
 	private static float xWidth;
 	private static float yHeight;
@@ -572,10 +572,14 @@ public class LevelPane extends GraphicsPane {
 	}
 
 	private void generateWorld() {
+		// Initialize maps
+		Map m1 = Map.getCurrentMap();
+		/*
 		world[0] = Map.getMap(Map.LEVEL_BEGINNER);
 		world[1] = Map.getMap(Map.LEVEL_INTERMEDIATE);
 		world[2] = Map.getMap(Map.LEVEL_ADVANCED);
 		world[3] = Map.getMap(Map.LEVEL_FINAL);
+		*/
 	}
 
 	private void drawLevel(Map m) {
@@ -590,27 +594,27 @@ public class LevelPane extends GraphicsPane {
 		drawCharacters(m);
 		
 	//world[0].addPlayer (Protagonist);
-	if (Map.currentLevel == Map.LEVEL_BEGINNER) {
+	if (Map.getCurrentLevel() == Map.LEVEL_BEGINNER) {
 		program.add(ground);                     //first if statement
 		ground.sendToBack(); 
 		audio = AudioPlayer.getInstance();
 		audio.playSound(MUSIC_FOLDER, SOUND_FILES2[0]);
 		
 	}
-	else if (Map.currentLevel == Map.LEVEL_INTERMEDIATE) {
+	else if (Map.getCurrentLevel() == Map.LEVEL_INTERMEDIATE) {
 		program.add(ground2);                    //second if statement
 		ground2.sendToBack();
 		audio = AudioPlayer.getInstance();
 		audio.playSound(MUSIC_FOLDER, SOUND_FILES2[0]);
 		
 	}
-	else if(Map.currentLevel == Map.LEVEL_ADVANCED) {
+	else if(Map.getCurrentLevel() == Map.LEVEL_ADVANCED) {
 		program.add(ground3);                    //third if statement 
 		ground3.sendToBack();
 		audio = AudioPlayer.getInstance();
 		audio.playSound(MUSIC_FOLDER, SOUND_FILES2[0]);
 	}
-	else if (Map.currentLevel == Map.LEVEL_FINAL){
+	else if (Map.getCurrentLevel() == Map.LEVEL_FINAL){
 		program.add(ground4);                    //fourth if statement 
 		ground4.sendToBack();
 		audio.stopSound(MUSIC_FOLDER, SOUND_FILES2[0]);
@@ -744,7 +748,7 @@ public class LevelPane extends GraphicsPane {
 			//removeCharacter(opponent.getLocation());
 
 			// removes character on board.
-			world[Map.getCurrentLevel()].getBoard().removeCharacter(opponent.getLocation());
+			Map.getCurrentMap().getBoard().removeCharacter(opponent.getLocation());
 
 
 			// closes battle overlay

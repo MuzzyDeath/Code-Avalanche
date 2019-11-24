@@ -13,9 +13,6 @@ import acm.graphics.GLine;
 
 public class Board {
 	private Character[][] board; // 2D array of characters
-	// private ArrayList<Character> characters; // holds all the characters on the board
-
-	// private int rows, cols;
 	
 	private Space exit;
 
@@ -32,12 +29,8 @@ public class Board {
 
 		System.out.println("Generating board!");
 
-		//this.rows = r;
-		//this.cols = c;
-
 		// Create a 2D array of characters
 		board = new Character[r][c];
-		// characters = new ArrayList<Character>();
 
 	}
 
