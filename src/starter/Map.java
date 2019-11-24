@@ -151,10 +151,10 @@ public class Map {
 		board.addCharacter(new NPC(1, 3)); 
 		board.addCharacter(new NPC(4, 2)); 
 
-		e = new Enemy(5, 4);
+		e = new Enemy(3, 3);
 		board.addCharacter(e);
-		e = new Enemy(4, 5);
-		board.addCharacter(e);
+		//e = new Enemy(4, 5);
+		//board.addCharacter(e);
 	}
 	//
 	//	/**
