@@ -29,7 +29,7 @@ public class Enemy extends Character {
 	public void makeKing() {
 		this.isKing();
 		this.setHostile();
-		this.cType = CharacterType.ENEMY;
+		this.cType = CharacterType.KING;
 		this.setStrength(10);
 		this.setCharisma(10);
 		this.setAgility(10);
