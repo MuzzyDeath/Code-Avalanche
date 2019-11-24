@@ -75,15 +75,23 @@
 package starter;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 
 public class Narrative {
+	
+	private static ArrayList<String> lines;
+	private static String line;
 
 	public static void print(String arg) throws IOException {
 		if (arg == "NPC-1")
 			NPC();
+	}
+	
+	public static ArrayList<String> sendString() {
+		return lines;
 	}
 
 	private static void NPC() throws IOException {
@@ -91,11 +99,12 @@ public class Narrative {
 		InputStream stream = Narrative.class.getResourceAsStream("/text/NPC");
 		if (stream == null) JOptionPane.showMessageDialog(null, "Resource not located.");
 		Scanner input = null;
+		lines = new ArrayList<String>();
 		try {
 			input = new Scanner (stream);
 			boolean tokenFound = false;
 			while (input.hasNextLine()) {
-				String line = input.nextLine().trim();
+				line = input.nextLine().trim();
 
 				if (line.equals("NPC-1-START")) {
 					tokenFound = true;
@@ -106,7 +115,9 @@ public class Narrative {
 
 				//Prints female-male section
 				if ((tokenFound) && (!line.equals("NPC-1-START"))) {
-					JOptionPane.showMessageDialog(null, line);
+					//JOptionPane.showMessageDialog(null, line);
+					lines.add(line);
+					LevelPane.speech = sendString();
 				}
 			}
 		} 
@@ -116,6 +127,7 @@ public class Narrative {
 			JOptionPane.showMessageDialog(null, "Scanner error");
 		}
 
-		while (input.hasNextLine()) JOptionPane.showMessageDialog(null, input.nextLine());
+		while (input.hasNextLine()) 
+			JOptionPane.showMessageDialog(null, input.nextLine());
 	}
 }

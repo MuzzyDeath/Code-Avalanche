@@ -40,6 +40,8 @@ public class LevelPane extends GraphicsPane {
 	private int lMove, rMove;
 
 	static Enemy opponent;
+	
+	public static ArrayList<String> speech;
 
 	private static boolean battling;
 	private boolean paused;
@@ -181,7 +183,6 @@ public class LevelPane extends GraphicsPane {
 				
 				if(Map.getCurrentMap().getBoard().spaceCheck(Protagonist).getCharacterType() == CharacterType.ENEMY) {
 					opponent = (Enemy) Map.getCurrentMap().getBoard().spaceCheck(Protagonist);
-
 					battling = true;	
 
 					Overlay.battleScene(program);
@@ -191,6 +192,12 @@ public class LevelPane extends GraphicsPane {
 					try {
 						if(Map.getCurrentMap().getBoard().spaceCheck(Protagonist).getCharacterType() == CharacterType.NPC) {
 							Narrative.print("NPC-1");
+							
+							ListIterator<String> iterator = speech.listIterator();
+
+							while (iterator.hasNext()) 
+								System.out.println(iterator.next());
+							
 //					dialouge((NPC) Map.getCurrentMap().getBoard().spaceCheck(Protagonist));
 //					System.out.println("NPC is talking");
 						}
@@ -202,10 +209,6 @@ public class LevelPane extends GraphicsPane {
 			else {
 				System.out.println("Battle not possible since not nearby the opponent");
 			}
-
-
-
-
 		}
 
 		if(key == KeyEvent.VK_A || key == KeyEvent.VK_W || key == KeyEvent.VK_S || key == KeyEvent.VK_D) {
