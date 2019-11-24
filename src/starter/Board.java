@@ -85,10 +85,10 @@ public class Board {
 	public Character spaceCheck(Player p) {
 		
 
-		Character tempUp = board[p.getRow() - 1][p.getCol()];
-		Character tempDown = board[p.getRow() + 1][p.getCol()];
+		//Character tempUp = board[p.getRow() - 1][p.getCol()];
+		//Character tempDown = board[p.getRow() + 1][p.getCol()];
 		Character tempRight = board[p.getRow()][p.getCol() + 1];
-		Character tempLeft = board[p.getRow()][p.getCol() - 1];
+		//Character tempLeft = board[p.getRow()][p.getCol() - 1];
 
 
 //		if(tempUp != null) {
@@ -102,7 +102,7 @@ public class Board {
 //		}
 		if(tempRight != null) {
 
-			System.out.println("Enemy right");
+			
 			return tempRight;
 		}
 //		else if(tempLeft != null) {
@@ -110,7 +110,10 @@ public class Board {
 //			return tempLeft;
 //		}
 		else {
-			return null;
+			Enemy temp = new Enemy(1, 1);
+			temp.setStrength(6);
+			
+			return temp;
 		}
 	}
 

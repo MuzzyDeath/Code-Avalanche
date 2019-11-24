@@ -31,24 +31,24 @@ public class Battle extends GraphicsProgram {
 
 		// make new GLAbel with temps
 		
-		if(c.getHealth() > 0 && e.getHealth() > 0) {
+		if(LevelPane.Protagonist.getHealth() > 0 && LevelPane.opponent.getHealth() > 0) {
 			if(userMove == 1) {
-				attack(c, e, enemyMove());
+				attack(LevelPane.Protagonist, LevelPane.opponent, enemyMove());
 			}
 			else if(userMove == 2) {
-				block(c, e, enemyMove());
+				block(LevelPane.Protagonist, LevelPane.opponent, enemyMove());
 			}
 			else {
-				screech(c, e, enemyMove());
+				screech(LevelPane.Protagonist, LevelPane.opponent, enemyMove());
 			}
 			
-			MainApplication.user.setHealth(c.getHealth());
+			MainApplication.user.setHealth(LevelPane.Protagonist.getHealth());
 			
 			Overlay.cHealth.setLabel("Health: " + MainApplication.user.getHealth());
-			Overlay.eHealth.setLabel("Health: " + e.getHealth());
+			Overlay.eHealth.setLabel("Health: " + LevelPane.opponent.getHealth());
 			
 			
-			System.out.println("Your Health: " + c.getHealth() + " \nEnemy Health: " + e.getHealth() + "\n");
+			System.out.println("Your Health: " + LevelPane.Protagonist.getHealth() + " \nEnemy Health: " + LevelPane.opponent.getHealth() + "\n");
 
 		}
 		else {
@@ -74,9 +74,9 @@ public class Battle extends GraphicsProgram {
 
 		if(enemyMove == 0) { // enemy attack
 
-			if(c.getStrength() > e.getStrength()) { // if player is > enemy
+			if(LevelPane.Protagonist.getStrength() > LevelPane.opponent.getStrength()) { // if player is > enemy
 
-				e.setHealth(e.getHealth() - 2);
+				LevelPane.opponent.setHealth(LevelPane.opponent.getHealth() - 2);
 				// .set("");
 
 				System.out.println("Your attack was higher so you hurt him");
@@ -85,14 +85,14 @@ public class Battle extends GraphicsProgram {
 			}
 			else { //if enemy > player
 
-				c.setHealth(c.getHealth() - 2);
+				LevelPane.Protagonist.setHealth(LevelPane.Protagonist.getHealth() - 2);
 				System.out.println("Your attack was lower so he hurt you");
 
 			}
 		}
 		else if(enemyMove == 1) { // enemy screech
 
-			e.setHealth(e.getHealth() -2);
+			LevelPane.opponent.setHealth(LevelPane.opponent.getHealth() -2);
 			System.out.println("He Screeched so your attack hit him!");
 
 		}
@@ -100,22 +100,22 @@ public class Battle extends GraphicsProgram {
 			System.out.println("He blocked your attack");
 		}
 
-		if(c.getHealth() < 0 && e.getHealth() > 0) {
+		if(LevelPane.Protagonist.getHealth() < 0 && LevelPane.opponent.getHealth() > 0) {
 
 			System.out.println("You lose!");
 
-			c.setBalance(c.getBalance() - 100);
+			LevelPane.Protagonist.setBalance(LevelPane.Protagonist.getBalance() - 100);
 
-			c.setHealth(0);
+			LevelPane.Protagonist.setHealth(0);
 
 		}
-		else if(c.getHealth() > 0 && e.getHealth() < 0) {
+		else if(LevelPane.Protagonist.getHealth() > 0 && LevelPane.opponent.getHealth() < 0) {
 
 			System.out.println("You win!");
 
-			c.setBalance(c.getBalance() + e.getBalance());
+			LevelPane.Protagonist.setBalance(LevelPane.Protagonist.getBalance() + LevelPane.opponent.getBalance());
 
-			e.setHealth(0);
+			LevelPane.opponent.setHealth(0);
 		}
 
 
@@ -130,7 +130,7 @@ public class Battle extends GraphicsProgram {
 		}
 		else if(enemyMove == 1) { // enemy screech
 
-			c.setHealth(c.getHealth() - 1);
+			LevelPane.Protagonist.setHealth(LevelPane.Protagonist.getHealth() - 1);
 
 			System.out.println("He Screeched so you took damage");
 
@@ -140,22 +140,22 @@ public class Battle extends GraphicsProgram {
 			System.out.println("You both defended, nothing happened");
 		}
 
-		if(c.getHealth() < 0 && e.getHealth() > 0) {
+		if(LevelPane.Protagonist.getHealth() < 0 && LevelPane.opponent.getHealth() > 0) {
 
 			System.out.println("You lose!");
 
-			c.setBalance(c.getBalance() - 100);
+			LevelPane.Protagonist.setBalance(LevelPane.Protagonist.getBalance() - 100);
 
-			c.setHealth(0);
+			LevelPane.Protagonist.setHealth(0);
 
 		}
-		else if(c.getHealth() > 0 && e.getHealth() < 0) {
+		else if(LevelPane.Protagonist.getHealth() > 0 && LevelPane.opponent.getHealth() < 0) {
 
 			System.out.println("You win!");
 
-			c.setBalance(c.getBalance() + e.getBalance());
+			LevelPane.Protagonist.setBalance(LevelPane.Protagonist.getBalance() + LevelPane.opponent.getBalance());
 
-			e.setHealth(0);
+			LevelPane.opponent.setHealth(0);
 		}
 
 
@@ -165,7 +165,7 @@ public class Battle extends GraphicsProgram {
 
 		if(enemyMove == 0) { // enemy attack
 
-			c.setHealth(c.getHealth() - 2);
+			LevelPane.Protagonist.setHealth(LevelPane.Protagonist.getHealth() - 2);
 			System.out.println("He attacked so you took damage");
 
 		}
@@ -176,27 +176,27 @@ public class Battle extends GraphicsProgram {
 		}
 		else if(enemyMove == 2){ // enemy block
 
-			e.setHealth(e.getHealth() - 1);
+			LevelPane.opponent.setHealth(LevelPane.opponent.getHealth() - 1);
 			System.out.println("He defended and your screech got in his head.");
 		}
 
 
-		if(c.getHealth() < 0 && e.getHealth() > 0) {
+		if(LevelPane.Protagonist.getHealth() < 0 && LevelPane.opponent.getHealth() > 0) {
 
 			System.out.println("You lose!");
 
-			c.setBalance(c.getBalance() - 100);
+			LevelPane.Protagonist.setBalance(LevelPane.Protagonist.getBalance() - 100);
 
-			c.setHealth(0);
+			LevelPane.Protagonist.setHealth(0);
 
 		}
-		else if(c.getHealth() > 0 && e.getHealth() < 0) {
+		else if(LevelPane.Protagonist.getHealth() > 0 && LevelPane.opponent.getHealth() < 0) {
 
 			System.out.println("You win!");
 
-			c.setBalance(c.getBalance() + e.getBalance());
+			LevelPane.Protagonist.setBalance(LevelPane.Protagonist.getBalance() + LevelPane.opponent.getBalance());
 
-			e.setHealth(0);
+			LevelPane.opponent.setHealth(0);
 		}
 
 

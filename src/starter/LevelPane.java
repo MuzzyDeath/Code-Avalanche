@@ -29,7 +29,7 @@ public class LevelPane extends GraphicsPane {
 
 	private AudioPlayer audio;
 
-	private MainApplication program; // you will use program to get access to
+	private static MainApplication program; // you will use program to get access to
 	// all of the GraphicsProgram calls
 	private GButton play, controls, quit;
 	private GImage ground, ground2, ground3, ground4, background, controlsImage, playerImage, enemyImage;
@@ -52,7 +52,8 @@ public class LevelPane extends GraphicsPane {
 	private static Map map1, map2, map3, map4;
 	protected static Map[] world = { map1, map2, map3, map4 };
 
-	private float xWidth, yHeight;
+	private static float xWidth;
+	private static float yHeight;
 	private int windowHeight = program.WINDOW_HEIGHT;
 	private int windowWidth = program.WINDOW_WIDTH;
 
@@ -60,6 +61,10 @@ public class LevelPane extends GraphicsPane {
 	private static GRect win, lose;
 	private static GLabel labelW, labelL, bal;
 	private static int winlose = 0;
+	
+	private static GImage textBox;
+	private static GLabel talk;
+	
 	public LevelPane(MainApplication app) {
 		super();
 		program = app;
@@ -68,7 +73,7 @@ public class LevelPane extends GraphicsPane {
 		ground2 = new GImage(GROUND2);
 		ground3 = new GImage(GROUND3);
 		ground4 = new GImage(GROUND4);
-		
+
 		battling = false;
 		paused = false;
 		inventory = false;
@@ -81,7 +86,7 @@ public class LevelPane extends GraphicsPane {
 		controlsImage = new GImage("controlsImage.jpg");
 		generateWorld();
 		showContents();
-		
+
 	}
 
 	@Override
@@ -145,7 +150,7 @@ public class LevelPane extends GraphicsPane {
 		int key = e.getKeyCode();
 
 		System.out.println(Map.getCurrentMap());
-		
+
 		//Purely to test that removing
 		//a character sprite works
 		//REMOVE BEFORE FINAL CHECK!
@@ -183,16 +188,26 @@ public class LevelPane extends GraphicsPane {
 		if (key == KeyEvent.VK_E) {
 
 			//opponent = (Enemy) Board.spaceCheck(Protagonist);
-			if(world[0].getBoard().spaceCheck(Protagonist) != null)
+			if(world[Map.getCurrentLevel()].getBoard().spaceCheck(Protagonist) != null)
 			{
-				opponent = (Enemy) world[0].getBoard().spaceCheck(Protagonist);
+				// Character temp = Map.getCurrentMap().getBoard().spaceCheck(Protagonist);
+				
+				if(Map.getCurrentMap().getBoard().spaceCheck(Protagonist).getCharacterType() == CharacterType.ENEMY) {
+					opponent = (Enemy) Map.getCurrentMap().getBoard().spaceCheck(Protagonist);
 
-				battling = true;	
-				//pause.battleScene(program);
+					battling = true;	
+					//pause.battleScene(program);
 
-				Overlay.battleScene(program);
-				audio = AudioPlayer.getInstance();
-				audio.playSound(MUSIC_FOLDER, SOUND_FILES[0]);
+					Overlay.battleScene(program);
+					audio = AudioPlayer.getInstance();
+					audio.playSound(MUSIC_FOLDER, SOUND_FILES[0]);
+				}
+				else if(Map.getCurrentMap().getBoard().spaceCheck(Protagonist).getCharacterType() == CharacterType.NPC) {
+					
+					dialouge((NPC) Map.getCurrentMap().getBoard().spaceCheck(Protagonist));
+					System.out.println("NPC is talking");
+					
+				}
 			}
 			else {
 				System.out.println("Battle not possible since not nearby the opponent");
@@ -203,7 +218,7 @@ public class LevelPane extends GraphicsPane {
 
 		}
 
-		if(key == KeyEvent.VK_SPACE) {
+		if(key == KeyEvent.VK_A || key == KeyEvent.VK_W || key == KeyEvent.VK_S || key == KeyEvent.VK_D) {
 
 
 			if(winlose == 1){
@@ -212,7 +227,9 @@ public class LevelPane extends GraphicsPane {
 			else if(winlose == 2) {
 				removeLose(program);
 			}
-			else {
+			else if (winlose == 3){
+				
+				removeDialouge(program);
 				System.out.println("Battle not possible since not nearby the opponent");
 			}
 		}
@@ -220,7 +237,7 @@ public class LevelPane extends GraphicsPane {
 		// Overlay for the Level up Image
 		// Press l to test.
 		if (key == KeyEvent.VK_L) {
-			
+
 			if (!Overlay.isLevelUpActive())
 			{
 				Overlay.showLevelUp(program);
@@ -231,37 +248,37 @@ public class LevelPane extends GraphicsPane {
 				levelup = false;
 				Overlay.hideLevelUp(program);
 			}
-			*/
+			 */
 
 		}
 
 		// Overlay for the Battle Image
 		// Press 0 to test.
-		if (key == KeyEvent.VK_0) {
-			// change 0 key to E key later after the implementation is done with the text for
-			// enemy battle
-			// if it is an enemy, then text file for ENEMY should appear on top of text box
-			// image and
-			// then they press E again and it sets battle to true
+		//		if (key == KeyEvent.VK_0) {
+		//			// change 0 key to E key later after the implementation is done with the text for
+		//			// enemy battle
+		//			// if it is an enemy, then text file for ENEMY should appear on top of text box
+		//			// image and
+		//			// then they press E again and it sets battle to true
+		//
+		//			if (battling == false) {
+		//
+		//				battling = true;	
+		//				//pause.battleScene(program);
+		//
+		//				Overlay.battleScene(program);
+		//				audio = AudioPlayer.getInstance();
+		//				audio.playSound(MUSIC_FOLDER, SOUND_FILES[0]);
+		//
+		//			} 
+		//			else {
+		//				battling = false;
+		//				Overlay.battleOver(program);
+		//				audio.stopSound(MUSIC_FOLDER, SOUND_FILES[0]);
+		//
+		//			}
+		//		}
 
-			if (battling == false) {
-
-				battling = true;	
-				//pause.battleScene(program);
-
-				Overlay.battleScene(program);
-				audio = AudioPlayer.getInstance();
-				audio.playSound(MUSIC_FOLDER, SOUND_FILES[0]);
-
-			} 
-			else {
-				battling = false;
-				Overlay.battleOver(program);
-				audio.stopSound(MUSIC_FOLDER, SOUND_FILES[0]);
-
-			}
-		}
-		
 		//Purely to test that removing
 		//a character sprite works
 		//REMOVE BEFORE FINAL CHECK!
@@ -424,30 +441,32 @@ public class LevelPane extends GraphicsPane {
 			characterLocation(Protagonist);
 			exitCheck(Protagonist.getLocation()); //Checks if Character is on exit space
 
-		} else {
+		} else if(battling){
 
 			if (key == KeyEvent.VK_1) {
+
 				Battle.Fight(1, opponent, Protagonist);
 				System.out.print("You chose attack \n");
 
-				battleWin(program);
+				winCheck();
 
 			}
 
 			else if (key == KeyEvent.VK_2) {
 				Battle.Fight(2, opponent, Protagonist);
 				System.out.print("You chose block \n");
-				battleWin(program);
+				winCheck();
 
 			} 
 			else if (key == KeyEvent.VK_3) {
 				Battle.Fight(3, opponent, Protagonist);
-				System.out.print("You chose defend \n");
-				battleWin(program);
+				System.out.print("You chose screech \n");
+				winCheck();
 			}
 		}
 
 	}
+
 
 	// New Code below this line//
 
@@ -492,11 +511,15 @@ public class LevelPane extends GraphicsPane {
 				sprite = new GImage("npcTemp.png", toAdd.getCol() * xWidth, toAdd.getRow() * yHeight);
 				sprite.setSize(xWidth, yHeight);
 				sprite.sendToFront();
+				program.add(sprite);
+
 			}
 			else if (toAdd.cType == CharacterType.ENEMY) {
 				sprite = new GImage("enemyTemp.png", toAdd.getCol() * xWidth, toAdd.getRow() * yHeight);
 				sprite.setSize(xWidth, yHeight);
 				sprite.sendToFront();
+				program.add(sprite);
+
 			}
 			else if (toAdd.cType == CharacterType.KING) {
 				sprite = new GImage("kingTemp.png", toAdd.getCol() * xWidth, toAdd.getRow() * yHeight);
@@ -504,32 +527,31 @@ public class LevelPane extends GraphicsPane {
 				sprite.sendToFront();
 			}
 			// Actually implements the GImage!
-			program.add(sprite);
 		}
 
 	}
-	
-	private void removeCharacter(Space s) {
+
+	private static void removeCharacter(Space s) {
 		int x, y;
 		x = (int) ((s.getCol() * xWidth));
 		y = (int) ((s.getRow() * yHeight));
-		
+
 		System.out.printf("X pixel: %d\nY pixel: %d\n", x, y);
-		
+
 		GObject image = program.getElementAt(x, y);
-		
+
 		if(image != null) {
-		program.remove(image);
-		
-		program.remove(program.getElementAt(x, y));
-		System.out.println("Should have deleted a character");
+			program.remove(image);
+
+			program.remove(program.getElementAt(x, y));
+			System.out.println("Should have deleted a character");
 		}
-		
+
 		else {
 			System.out.println("No character to delete");
 		}
 	}
-	
+
 	private boolean checkContainment(Character c) {
 		int row, col;
 		row = c.getRow();
@@ -587,7 +609,11 @@ public class LevelPane extends GraphicsPane {
 
 		if (row == eRow && col == eCol) {
 			System.out.println("Character on exit!");
+
 			nextMap(Map.getMap(Map.LEVEL_INTERMEDIATE));
+
+			Overlay.showLevelUp(program);
+
 			return true;
 		}
 		return false;
@@ -675,7 +701,7 @@ public class LevelPane extends GraphicsPane {
 
 			line = new GLine(w, 0, w, windowHeight - 2);
 			program.add(line);
-			line.setVisible(false);
+			line.setVisible(true);
 			j++;
 		}
 
@@ -689,7 +715,7 @@ public class LevelPane extends GraphicsPane {
 
 			line = new GLine(0, h, windowWidth - 2, h);
 			program.add(line);
-			line.setVisible(false);
+			line.setVisible(true);
 			j++;
 		}
 	}
@@ -707,15 +733,22 @@ public class LevelPane extends GraphicsPane {
 		if(Protagonist.getHealth() > 0 && opponent.getHealth() <= 0) {
 
 			Protagonist.setBalance(Protagonist.getBalance() + opponent.getBalance());
+			//removes chracter sprite
 
-			world[0].getBoard().removeCharacter(opponent.getLocation());
+			removeCharacter(opponent.getLocation());
+			//removeCharacter(opponent.getLocation());
+
+			// removes the character from board
+			world[Map.getCurrentLevel()].getBoard().removeCharacter(opponent.getLocation());
 
 
-
+			// removes battle overlay
 			Overlay.battleOver(app);
 
-			Protagonist.setHealth(50);
+			battling = false;
 
+			Protagonist.setHealth(50);
+			// creates labels and rects
 			win = new GRect(10, 10, 400, 400);
 			win.setColor(Color.gray);
 			win.setFilled(true);
@@ -728,12 +761,12 @@ public class LevelPane extends GraphicsPane {
 			labelW.setFont(new Font("Comic Sans", 1, 40));
 			labelW.setColor(Color.black);
 
-
+			// adds labels and rects
 			app.add(labelW);
 			app.add(win);
 			app.add(bal);
 			labelW.sendToFront();
-
+			//counter for keyboard access
 			winlose = 1;
 
 		}
@@ -744,14 +777,22 @@ public class LevelPane extends GraphicsPane {
 
 			Protagonist.setBalance(Protagonist.getBalance() - opponent.getBalance());
 
-			world[0].getBoard().removeCharacter(opponent.getLocation());
+			//removes sprite
+			removeCharacter(opponent.getLocation());
+			//removeCharacter(opponent.getLocation());
+
+			// removes character on board.
+			world[Map.getCurrentLevel()].getBoard().removeCharacter(opponent.getLocation());
 
 
-
+			// closes battle overlay
 			Overlay.battleOver(app);
+
+			battling = false;
 
 			Protagonist.setHealth(50);
 
+			// all labels and shapes
 			lose = new GRect(10, 10, 400, 400);
 			lose.setColor(Color.gray);
 			lose.setFilled(true);
@@ -764,17 +805,27 @@ public class LevelPane extends GraphicsPane {
 			labelL.setFont(new Font("Comic Sans", 1, 40));
 			labelL.setColor(Color.black);
 
-
+			// add them
 			app.add(labelL);
 			app.add(lose);
 			app.add(bal);
 			labelL.sendToFront();
 
+
+			// counter for keyboard access
 			winlose = 2;
 
 		}
 	}
 
+	public static void winCheck() {
+		if(Protagonist.getHealth() > 0 && opponent.getHealth() <= 0) {
+			battleWin(program);
+		}
+		else if(Protagonist.getHealth() <= 0 && opponent.getHealth() > 0) {
+			battleLose(program);
+		}
+	}
 	public static void removeWin(MainApplication app) {
 
 		app.remove(labelW);
@@ -790,6 +841,29 @@ public class LevelPane extends GraphicsPane {
 		app.remove(bal);
 
 		battling = false;
+	}
+	public static void dialouge(NPC npc) {
+		
+		
+		winlose = 3;
+		
+		textBox = new GImage("TextBox.png");
+		program.add(textBox);
+		
+		talk = new GLabel("Hello I am a NPC", 50, 500);
+		talk.setFont(new Font("Comic Sans", 1, 60));
+		talk.setColor(Color.black);
+		
+		program.add(talk);
+	}
+
+
+	public static void removeDialouge(MainApplication program2) {
+		
+		program.remove(textBox);
+		program.remove(talk);
+		
+		
 	}
 
 
