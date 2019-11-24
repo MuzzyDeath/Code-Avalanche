@@ -42,6 +42,7 @@ public class LevelPane extends GraphicsPane {
 	static Enemy opponent;
 	
 	public static ArrayList<String> speech;
+	private GLabel text;
 
 	private static boolean battling;
 	private boolean paused;
@@ -195,8 +196,13 @@ public class LevelPane extends GraphicsPane {
 							
 							ListIterator<String> iterator = speech.listIterator();
 
-							while (iterator.hasNext()) 
-								System.out.println(iterator.next());
+							while (iterator.hasNext()) {
+								String t = iterator.next();
+								System.out.println(t);
+								text = new GLabel(t, 30, 30);
+								program.add(text);
+								text.setLabel(t);
+							}
 							
 							
 //					dialouge((NPC) Map.getCurrentMap().getBoard().spaceCheck(Protagonist));
