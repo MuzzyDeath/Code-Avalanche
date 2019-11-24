@@ -171,11 +171,13 @@ public class LevelPane extends GraphicsPane {
 		// Press I to test.
 		if (key == KeyEvent.VK_C) {
 			if (!currentStats) {
+				paused = true;
 				currentStats = true;
 				Overlay.showcurrentStats(program);
 				play = Overlay.play;
 				controls = Overlay.controls;
 			} else if (currentStats) {
+				paused = false;
 				currentStats = false;
 				Overlay.hidecurrentStats(program);
 			}
