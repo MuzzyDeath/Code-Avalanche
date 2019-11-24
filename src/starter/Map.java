@@ -193,9 +193,11 @@ public class Map {
 		// Add characters
 		// Initialize board with the maxRows and maxCols
 		board = new Board(6, 6);
-	
-		//e = new Enemy(5, 2);
-		//board.addCharacter(e);
+
+		e = new Enemy(2, 2);
+		e.makeKing();
+		board.addCharacter(e);
+		
 
 		board.setExit(new Space(5,5));
 
