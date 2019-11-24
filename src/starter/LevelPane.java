@@ -26,8 +26,9 @@ public class LevelPane extends GraphicsPane {
 	private static final String KING = "Battle Image(Boss).png";
 	public static final String MUSIC_FOLDER = "music";
 	private static final String[] SOUND_FILES = { "BattleMusic.mp3" };
-
-	private AudioPlayer audio;
+	private static final String[] SOUND_FILES2 = { "backgroundMusic.mp3" };
+	private static final String[] SOUND_FILES3 = { "kingTheme.mp3" };
+	private static AudioPlayer audio;
 
 	private static MainApplication program; // you will use program to get access to
 											// all of the GraphicsProgram calls
@@ -42,11 +43,10 @@ public class LevelPane extends GraphicsPane {
 	static Enemy opponent;
 	
 	public static ArrayList<String> speech;
-	private GLabel text;
 
 	private static boolean battling;
 	private boolean paused;
-	private boolean inventory;
+	private boolean currentStats;
 	private boolean textbox;
 
 	protected static Player Protagonist;
@@ -60,7 +60,7 @@ public class LevelPane extends GraphicsPane {
 	private int windowWidth = program.WINDOW_WIDTH;
 
 
-	private static GRect win, lose;
+	private static GImage win, lose;
 	private static GLabel labelW, labelL, bal;
 	private static int winlose = 0;
 	
@@ -78,7 +78,7 @@ public class LevelPane extends GraphicsPane {
 
 		battling = false;
 		paused = false;
-		inventory = false;
+		currentStats = false;
 		//prologue = false;
 		
 		Protagonist = MainApplication.user;
@@ -94,6 +94,7 @@ public class LevelPane extends GraphicsPane {
 		loadMap(Map.getCurrentMap());
 		
 		// Show prologue image before starting the game.
+		audio.stopSound(MUSIC_FOLDER, SOUND_FILES2[0]);
 		Overlay.showPrologue(program);
 	}
 
@@ -142,6 +143,9 @@ public class LevelPane extends GraphicsPane {
 			else if (Overlay.isLevelUpActive()) {
 				Overlay.processLevelupEvent(program, e);
 			}
+			else if (!Overlay.isLevelUpActive()) {
+				Overlay.processLevelupEvent(program, e);
+			}
 		}
 	}
 
@@ -159,19 +163,21 @@ public class LevelPane extends GraphicsPane {
 			if (Overlay.isPrologueActive())
 			{
 				Overlay.hidePrologue(program);
+				audio = AudioPlayer.getInstance();
+				audio.playSound(MUSIC_FOLDER, SOUND_FILES2[0]);
 			}				
 		}
-		// Overlay for the Inventory
+		// Overlay for the currentStats
 		// Press I to test.
-		if (key == KeyEvent.VK_I) {
-			if (!inventory) {
-				inventory = true;
-				Overlay.showInventory(program);
+		if (key == KeyEvent.VK_C) {
+			if (!currentStats) {
+				currentStats = true;
+				Overlay.showcurrentStats(program);
 				play = Overlay.play;
 				controls = Overlay.controls;
-			} else if (inventory) {
-				inventory = false;
-				Overlay.hideInventory(program);
+			} else if (currentStats) {
+				currentStats = false;
+				Overlay.hidecurrentStats(program);
 			}
 		}
 		//Textbox of the closest npc or character appears
@@ -188,6 +194,9 @@ public class LevelPane extends GraphicsPane {
 
 					Overlay.battleScene(program);
 					audio = AudioPlayer.getInstance();
+					audio.stopSound(MUSIC_FOLDER, SOUND_FILES2[0]);
+					audio.stopSound(MUSIC_FOLDER, SOUND_FILES3[0]);
+					audio = AudioPlayer.getInstance();
 					audio.playSound(MUSIC_FOLDER, SOUND_FILES[0]);
 				} else
 					try {
@@ -196,13 +205,8 @@ public class LevelPane extends GraphicsPane {
 							
 							ListIterator<String> iterator = speech.listIterator();
 
-							while (iterator.hasNext()) {
-								String t = iterator.next();
-								System.out.println(t);
-								text = new GLabel(t, 30, 30);
-								program.add(text);
-								text.setLabel(t);
-							}
+							while (iterator.hasNext()) 
+								System.out.println(iterator.next());
 							
 							
 //					dialouge((NPC) Map.getCurrentMap().getBoard().spaceCheck(Protagonist));
@@ -234,16 +238,6 @@ public class LevelPane extends GraphicsPane {
 			}
 		}
 
-		// Overlay for the Level up Image
-		// Press l to test.
-		if (key == KeyEvent.VK_L) {
-
-			if (!Overlay.isLevelUpActive())
-			{
-				Overlay.showLevelUp(program);
-			}
-		}
-
 		if (key == KeyEvent.VK_ESCAPE) {
 			if (!paused) {
 				paused = true;
@@ -271,7 +265,7 @@ public class LevelPane extends GraphicsPane {
 				if (key == KeyEvent.VK_A) {
 					if (checkBounds(playerSprite) && checkContainment(Protagonist)) {
 						Map.getCurrentMap().moveCharacter(Protagonist, Protagonist.getLocation());
-						playerSprite.move(-15, 0);
+						playerSprite.move(-20, 0);
 
 						if (Protagonist.getCharacterType() == CharacterType.WARRIOR) {
 							playerSprite.setImage("knight/lknight_" + lMove + ".png");
@@ -304,7 +298,7 @@ public class LevelPane extends GraphicsPane {
 				if (key == KeyEvent.VK_D) {
 					if (checkBounds(playerSprite) && checkContainment(Protagonist)) {
 						Map.getCurrentMap().moveCharacter(Protagonist, Protagonist.getLocation());
-						playerSprite.move(15, 0);
+						playerSprite.move(20, 0);
 
 						if (Protagonist.getCharacterType() == CharacterType.WARRIOR) {
 							playerSprite.setImage("knight/rknight_" + rMove + ".png");
@@ -337,7 +331,7 @@ public class LevelPane extends GraphicsPane {
 				if (key == KeyEvent.VK_W) {
 					if (checkBounds(playerSprite) && checkContainment(Protagonist)) {
 						Map.getCurrentMap().moveCharacter(Protagonist, Protagonist.getLocation());
-						playerSprite.move(0, -15);
+						playerSprite.move(0, -20);
 
 						if (Protagonist.getCharacterType() == CharacterType.WARRIOR) {
 							playerSprite.setImage("knight/rknight_" + rMove + ".png");
@@ -370,7 +364,7 @@ public class LevelPane extends GraphicsPane {
 				if (key == KeyEvent.VK_S) {
 					if (checkBounds(playerSprite) && checkContainment(Protagonist)) {
 						Map.getCurrentMap().moveCharacter(Protagonist, Protagonist.getLocation());
-						playerSprite.move(0, 15);
+						playerSprite.move(0, 20);
 
 						if (Protagonist.getCharacterType() == CharacterType.WARRIOR) {
 							playerSprite.setImage("knight/lknight_" + lMove + ".png");
@@ -568,11 +562,12 @@ public class LevelPane extends GraphicsPane {
 			System.out.println("Character on exit!");
 
 			nextMap(Map.getMap(Map.LEVEL_INTERMEDIATE));
-
+	
 			Overlay.showLevelUp(program);
 
 			return true;
 		}
+		
 		return false;
 	}
 
@@ -593,27 +588,37 @@ public class LevelPane extends GraphicsPane {
 		drawLevel(m);
 		drawPlayer(Protagonist);
 		drawCharacters(m);
+		
 	//world[0].addPlayer (Protagonist);
 	if (Map.currentLevel == Map.LEVEL_BEGINNER) {
 		program.add(ground);                     //first if statement
-		ground.sendToBack();          
+		ground.sendToBack(); 
+		audio = AudioPlayer.getInstance();
+		audio.playSound(MUSIC_FOLDER, SOUND_FILES2[0]);
 		
 	}
 	else if (Map.currentLevel == Map.LEVEL_INTERMEDIATE) {
 		program.add(ground2);                    //second if statement
 		ground2.sendToBack();
+		audio = AudioPlayer.getInstance();
+		audio.playSound(MUSIC_FOLDER, SOUND_FILES2[0]);
 		
 	}
 	else if(Map.currentLevel == Map.LEVEL_ADVANCED) {
 		program.add(ground3);                    //third if statement 
 		ground3.sendToBack();
-	
+		audio = AudioPlayer.getInstance();
+		audio.playSound(MUSIC_FOLDER, SOUND_FILES2[0]);
 	}
 	else if (Map.currentLevel == Map.LEVEL_FINAL){
 		program.add(ground4);                    //fourth if statement 
 		ground4.sendToBack();
-
+		audio.stopSound(MUSIC_FOLDER, SOUND_FILES2[0]);
+		audio = AudioPlayer.getInstance();
+		audio.playSound(MUSIC_FOLDER, SOUND_FILES3[0]);
+		
 	}
+	
 	}
 	
 
@@ -701,31 +706,31 @@ public class LevelPane extends GraphicsPane {
 
 			// removes battle overlay
 			Overlay.battleOver(app);
-
+			audio.stopSound(MUSIC_FOLDER, SOUND_FILES[0]);
 			battling = false;
 
 			Protagonist.setHealth(50);
 			// creates labels and rects
-			win = new GRect(10, 10, 400, 400);
-			win.setColor(Color.gray);
-			win.setFilled(true);
+			win = new GImage("images/winScreen.jpg");
 
-			bal = new GLabel("Balance: " + Protagonist.getBalance(), 100, 200);
+
+			bal = new GLabel("Balance: " + Protagonist.getBalance(), 130, 200);
 			bal.setFont(new Font("Comic Sans", 1, 20));
-			bal.setColor(Color.black);
+			bal.setColor(Color.white);
 
-			labelW = new GLabel("You win!" , 50, 50);
-			labelW.setFont(new Font("Comic Sans", 1, 40));
-			labelW.setColor(Color.black);
+			labelW = new GLabel("YOU WIN!" , 80, 120);
+			labelW.setFont(new Font("Comic Sans", 1, 50));
+			labelW.setColor(Color.white);
 
 			// adds labels and rects
 			app.add(labelW);
 			app.add(win);
 			app.add(bal);
 			labelW.sendToFront();
+			bal.sendToFront();
 			//counter for keyboard access
 			winlose = 1;
-
+			
 		}
 	}
 	public static void battleLose(MainApplication app) {
@@ -744,29 +749,28 @@ public class LevelPane extends GraphicsPane {
 
 			// closes battle overlay
 			Overlay.battleOver(app);
-
+			audio.stopSound(MUSIC_FOLDER, SOUND_FILES[0]);
 			battling = false;
 
 			Protagonist.setHealth(50);
 
 			// all labels and shapes
-			lose = new GRect(10, 10, 400, 400);
-			lose.setColor(Color.gray);
-			lose.setFilled(true);
+			lose = new GImage("images/loseScreen.jpg");
 
-			bal = new GLabel("Balance: " + Protagonist.getBalance(), 100, 200);
+			bal = new GLabel("Balance: " + Protagonist.getBalance(), 130, 200);
 			bal.setFont(new Font("Comic Sans", 1, 20));
-			bal.setColor(Color.black);
+			bal.setColor(Color.white);
 
-			labelL = new GLabel("You lose!" , 50, 50);
-			labelL.setFont(new Font("Comic Sans", 1, 40));
-			labelL.setColor(Color.black);
+			labelL = new GLabel("YOU LOSE!" , 80, 120);
+			labelL.setFont(new Font("Comic Sans", 1, 50));
+			labelL.setColor(Color.white);
 
 			// add them
 			app.add(labelL);
 			app.add(lose);
 			app.add(bal);
 			labelL.sendToFront();
+			bal.sendToFront();
 
 
 			// counter for keyboard access
