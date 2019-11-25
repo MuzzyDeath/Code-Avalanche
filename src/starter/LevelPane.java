@@ -14,6 +14,8 @@ import java.util.ListIterator;
 import java.awt.Font;
 
 public class LevelPane extends GraphicsPane {
+	
+	// Images
 	private static final String BACKGROUND = "controlsImage.jpg";
 	private static final String GROUND = "ground.png";
 	private static final String GROUND2 = "ground2.png";
@@ -24,11 +26,21 @@ public class LevelPane extends GraphicsPane {
 	private static final String ROGUE = "Battle Image(Rogue).png";
 	private static final String ENEMY = "Battle Image(Enemy).png";
 	private static final String KING = "Battle Image(Boss).png";
+	
+	// Music 
 	public static final String MUSIC_FOLDER = "music";
+	/*
 	private static final String[] SOUND_FILES = { "BattleMusic.mp3" };
 	private static final String[] SOUND_FILES2 = { "backgroundMusic.mp3" };
 	private static final String[] SOUND_FILES3 = { "kingTheme.mp3" };
-	private static AudioPlayer audio;
+	*/
+	private static final String SOUND_BACKGROUND       = "backgroundMusic.mp3";
+	private static final String SOUND_BACKGROUND_KING  = "kingTheme.mp3";
+	private static final String SOUND_BATTLE           = "BattleMusic.mp3";
+
+		
+	// private static AudioPlayer audio;
+	private static String currentPlayingAudio;
 
 	private static MainApplication program; // you will use program to get access to
 	// all of the GraphicsProgram calls
@@ -94,8 +106,8 @@ public class LevelPane extends GraphicsPane {
 		loadMap(Map.getCurrentMap());
 
 		// Show prologue image before starting the game.
-		audio.stopSound(MUSIC_FOLDER, SOUND_FILES2[0]);
 		Overlay.showPrologue(program);
+		stopAllBackgroundMusic();
 	}
 
 	@Override
@@ -163,8 +175,7 @@ public class LevelPane extends GraphicsPane {
 			if (Overlay.isPrologueActive())
 			{
 				Overlay.hidePrologue(program);
-				audio = AudioPlayer.getInstance();
-				audio.playSound(MUSIC_FOLDER, SOUND_FILES2[0]);
+				startBackgroundMusic(SOUND_BACKGROUND);
 			}				
 		}
 		// Overlay for the currentStats
@@ -195,12 +206,7 @@ public class LevelPane extends GraphicsPane {
 					battling = true;	
 
 					Overlay.battleScene(program);
-					audio = AudioPlayer.getInstance();
-					audio.stopSound(MUSIC_FOLDER, SOUND_FILES2[0]);
-					audio.stopSound(MUSIC_FOLDER, SOUND_FILES3[0]);
-					audio = AudioPlayer.getInstance();
-					audio.playSound(MUSIC_FOLDER, SOUND_FILES[0]);
-
+					startBackgroundMusic(SOUND_BATTLE); // Start battle music
 				} 
 
 				else if(Map.getCurrentMap().getBoard().spaceCheck(Protagonist).getCharacterType() == CharacterType.KING) {
@@ -208,11 +214,7 @@ public class LevelPane extends GraphicsPane {
 					battling = true;	
 
 					Overlay.battleScene(program);
-					audio = AudioPlayer.getInstance();
-					audio.stopSound(MUSIC_FOLDER, SOUND_FILES2[0]);
-					audio.stopSound(MUSIC_FOLDER, SOUND_FILES3[0]);
-					audio = AudioPlayer.getInstance();
-					audio.playSound(MUSIC_FOLDER, SOUND_FILES[0]);
+					startBackgroundMusic(SOUND_BATTLE); // Start battle music
 				}
 				
 				else
@@ -439,6 +441,38 @@ public class LevelPane extends GraphicsPane {
 
 
 	// New Code below this line//
+	
+	/*
+	 * Stops all background music if any
+	 * Sets the current playing audio to null
+	 */
+	private static void stopAllBackgroundMusic()
+	{
+		AudioPlayer ap = AudioPlayer.getInstance();
+		// Stop All background music
+		ap.stopSound(MUSIC_FOLDER, SOUND_BACKGROUND);
+		ap.stopSound(MUSIC_FOLDER, SOUND_BACKGROUND_KING);
+		ap.stopSound(MUSIC_FOLDER, SOUND_BATTLE);
+		currentPlayingAudio = null;
+	}
+	
+	/*
+	 * Starts the given background music in a loop
+	 * Stops the existing backgound music if any
+	 */
+	private static void startBackgroundMusic(String audioFile)
+	{
+		AudioPlayer ap = AudioPlayer.getInstance();
+		// Stop current audio and start new audio
+		if (currentPlayingAudio != null)
+		{
+			ap.stopSound(MUSIC_FOLDER, currentPlayingAudio);
+		}
+		// As this is background music, playForever in a loop
+		ap.playSound(MUSIC_FOLDER, audioFile, true);
+		// Save the audio file as the latest music file.
+		currentPlayingAudio = audioFile;
+	}
 
 	public void characterLocation(Character c) {
 		Space currentLocation = convertXYToSpace(playerSprite.getX() + (xWidth / 2),
@@ -613,31 +647,26 @@ public class LevelPane extends GraphicsPane {
 		//world[0].addPlayer (Protagonist);
 		if (Map.getCurrentLevel() == Map.LEVEL_BEGINNER) {
 			program.add(ground);                     //first if statement
-			ground.sendToBack(); 
-			audio = AudioPlayer.getInstance();
-			audio.playSound(MUSIC_FOLDER, SOUND_FILES2[0]);
+			ground.sendToBack();
+			startBackgroundMusic(SOUND_BACKGROUND);
 
 		}
 		else if (Map.getCurrentLevel() == Map.LEVEL_INTERMEDIATE) {
 			program.add(ground2);                    //second if statement
 			ground2.sendToBack();
-			audio = AudioPlayer.getInstance();
-			audio.playSound(MUSIC_FOLDER, SOUND_FILES2[0]);
+			startBackgroundMusic(SOUND_BACKGROUND);	
 
 		}
 		else if(Map.getCurrentLevel() == Map.LEVEL_ADVANCED) {
 			program.add(ground3);                    //third if statement 
 			ground3.sendToBack();
-			audio = AudioPlayer.getInstance();
-			audio.playSound(MUSIC_FOLDER, SOUND_FILES2[0]);
+			startBackgroundMusic(SOUND_BACKGROUND);
+			
 		}
 		else if (Map.getCurrentLevel() == Map.LEVEL_FINAL){
 			program.add(ground4);                    //fourth if statement 
 			ground4.sendToBack();
-			audio.stopSound(MUSIC_FOLDER, SOUND_FILES2[0]);
-			audio = AudioPlayer.getInstance();
-			audio.playSound(MUSIC_FOLDER, SOUND_FILES3[0]);
-
+			startBackgroundMusic(SOUND_BACKGROUND_KING);	
 		}
 
 	}
@@ -727,7 +756,9 @@ public class LevelPane extends GraphicsPane {
 
 			// removes battle overlay
 			Overlay.battleOver(app);
-			audio.stopSound(MUSIC_FOLDER, SOUND_FILES[0]);
+			// stopAllBackgroundMusic();
+			startBackgroundMusic(SOUND_BACKGROUND);
+			//audio.stopSound(MUSIC_FOLDER, SOUND_BATTLE);
 			battling = false;
 
 			Protagonist.setHealth(50);
@@ -770,7 +801,9 @@ public class LevelPane extends GraphicsPane {
 
 			// closes battle overlay
 			Overlay.battleOver(app);
-			audio.stopSound(MUSIC_FOLDER, SOUND_FILES[0]);
+			// stopAllBackgroundMusic();
+			startBackgroundMusic(SOUND_BACKGROUND);
+			//audio.stopSound(MUSIC_FOLDER, SOUND_BATTLE);
 			battling = false;
 
 			Protagonist.setHealth(50);
