@@ -648,24 +648,25 @@ public class LevelPane extends GraphicsPane {
 		if (Map.getCurrentLevel() == Map.LEVEL_BEGINNER) {
 			program.add(ground);                     //first if statement
 			ground.sendToBack();
-			startBackgroundMusic(SOUND_BACKGROUND);
+			
 
 		}
 		else if (Map.getCurrentLevel() == Map.LEVEL_INTERMEDIATE) {
 			program.add(ground2);                    //second if statement
 			ground2.sendToBack();
-			startBackgroundMusic(SOUND_BACKGROUND);	
 
+			
 		}
 		else if(Map.getCurrentLevel() == Map.LEVEL_ADVANCED) {
 			program.add(ground3);                    //third if statement 
 			ground3.sendToBack();
-			startBackgroundMusic(SOUND_BACKGROUND);
+			
 			
 		}
 		else if (Map.getCurrentLevel() == Map.LEVEL_FINAL){
 			program.add(ground4);                    //fourth if statement 
 			ground4.sendToBack();
+			stopAllBackgroundMusic();
 			startBackgroundMusic(SOUND_BACKGROUND_KING);	
 		}
 
