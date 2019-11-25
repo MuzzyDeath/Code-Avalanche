@@ -14,7 +14,7 @@ import java.util.ListIterator;
 import java.awt.Font;
 
 public class LevelPane extends GraphicsPane {
-	
+
 	// Images
 	private static final String BACKGROUND = "controlsImage.jpg";
 	private static final String GROUND = "ground.png";
@@ -26,19 +26,19 @@ public class LevelPane extends GraphicsPane {
 	private static final String ROGUE = "Battle Image(Rogue).png";
 	private static final String ENEMY = "Battle Image(Enemy).png";
 	private static final String KING = "Battle Image(Boss).png";
-	
+
 	// Music 
 	public static final String MUSIC_FOLDER = "music";
 	/*
 	private static final String[] SOUND_FILES = { "BattleMusic.mp3" };
 	private static final String[] SOUND_FILES2 = { "backgroundMusic.mp3" };
 	private static final String[] SOUND_FILES3 = { "kingTheme.mp3" };
-	*/
+	 */
 	private static final String SOUND_BACKGROUND       = "backgroundMusic.mp3";
 	private static final String SOUND_BACKGROUND_KING  = "kingTheme.mp3";
 	private static final String SOUND_BATTLE           = "BattleMusic.mp3";
 
-		
+
 	// private static AudioPlayer audio;
 	private static String currentPlayingAudio;
 
@@ -78,7 +78,8 @@ public class LevelPane extends GraphicsPane {
 
 	private static GImage textBox;
 	private static GLabel talk;
-
+	private static GLabel removeText;
+	
 	public LevelPane(MainApplication app) {
 		super();
 		program = app;
@@ -216,31 +217,35 @@ public class LevelPane extends GraphicsPane {
 					Overlay.battleScene(program);
 					startBackgroundMusic(SOUND_BATTLE); // Start battle music
 				}
-				
+
 				else {
-					
-					dialouge((NPC) Map.getCurrentMap().getBoard().spaceCheck(Protagonist));
+
+					if(winlose != 3) {
+						dialouge((NPC) Map.getCurrentMap().getBoard().spaceCheck(Protagonist));
+					}
+
+
 				}
-//					try {
-//						if(Map.getCurrentMap().getBoard().spaceCheck(Protagonist).getCharacterType() == CharacterType.NPC) {
-//							Narrative.print("NPC-1");
-//
-//							ListIterator<String> iterator = speech.listIterator();
-//
-//							while (iterator.hasNext()) 
-//								System.out.println(iterator.next());
-//							
-//							
-//							dialouge((NPC) Map.getCurrentMap().getBoard().spaceCheck(Protagonist));
-//
-//
-//							//					dialouge((NPC) Map.getCurrentMap().getBoard().spaceCheck(Protagonist));
-//							//					System.out.println("NPC is talking");
-//						}
-//					} catch (Exception e1) {
-//						// TODO Auto-generated catch block
-//						e1.printStackTrace();
-//					}
+				//					try {
+				//						if(Map.getCurrentMap().getBoard().spaceCheck(Protagonist).getCharacterType() == CharacterType.NPC) {
+				//							Narrative.print("NPC-1");
+				//
+				//							ListIterator<String> iterator = speech.listIterator();
+				//
+				//							while (iterator.hasNext()) 
+				//								System.out.println(iterator.next());
+				//							
+				//							
+				//							dialouge((NPC) Map.getCurrentMap().getBoard().spaceCheck(Protagonist));
+				//
+				//
+				//							//					dialouge((NPC) Map.getCurrentMap().getBoard().spaceCheck(Protagonist));
+				//							//					System.out.println("NPC is talking");
+				//						}
+				//					} catch (Exception e1) {
+				//						// TODO Auto-generated catch block
+				//						e1.printStackTrace();
+				//					}
 			}
 			else {
 				System.out.println("Battle not possible since not nearby the opponent");
@@ -447,7 +452,7 @@ public class LevelPane extends GraphicsPane {
 
 
 	// New Code below this line//
-	
+
 	/*
 	 * Stops all background music if any
 	 * Sets the current playing audio to null
@@ -461,7 +466,7 @@ public class LevelPane extends GraphicsPane {
 		ap.stopSound(MUSIC_FOLDER, SOUND_BATTLE);
 		currentPlayingAudio = null;
 	}
-	
+
 	/*
 	 * Starts the given background music in a loop
 	 * Stops the existing backgound music if any
@@ -654,20 +659,20 @@ public class LevelPane extends GraphicsPane {
 		if (Map.getCurrentLevel() == Map.LEVEL_BEGINNER) {
 			program.add(ground);                     //first if statement
 			ground.sendToBack();
-			
+
 
 		}
 		else if (Map.getCurrentLevel() == Map.LEVEL_INTERMEDIATE) {
 			program.add(ground2);                    //second if statement
 			ground2.sendToBack();
 
-			
+
 		}
 		else if(Map.getCurrentLevel() == Map.LEVEL_ADVANCED) {
 			program.add(ground3);                    //third if statement 
 			ground3.sendToBack();
-			
-			
+
+
 		}
 		else if (Map.getCurrentLevel() == Map.LEVEL_FINAL){
 			program.add(ground4);                    //fourth if statement 
@@ -787,6 +792,14 @@ public class LevelPane extends GraphicsPane {
 			app.add(bal);
 			labelW.sendToFront();
 			bal.sendToFront();
+			
+			
+			removeText = new GLabel("WASD to remove", 50 , 350);
+			removeText.setFont(new Font("Comic Sans", 1, 20));
+			removeText.setColor(Color.white);
+			program.add(removeText);
+			
+			removeText.sendToFront();
 			//counter for keyboard access
 			winlose = 1;
 
@@ -832,6 +845,14 @@ public class LevelPane extends GraphicsPane {
 			app.add(bal);
 			labelL.sendToFront();
 			bal.sendToFront();
+			
+			
+			removeText = new GLabel("WASD to remove", 50 , 350);
+			removeText.setFont(new Font("Comic Sans", 1, 20));
+			removeText.setColor(Color.white);
+			removeText.sendToFront();
+			
+			program.add(removeText);
 
 
 			// counter for keyboard access
@@ -849,6 +870,8 @@ public class LevelPane extends GraphicsPane {
 		}
 	}
 	public static void removeWin(MainApplication app) {
+		
+		app.remove(removeText);
 
 		app.remove(labelW);
 		app.remove(win);
@@ -858,6 +881,7 @@ public class LevelPane extends GraphicsPane {
 
 	}
 	public static void removeLose(MainApplication app) {
+		app.remove(removeText);
 		app.remove(labelL);
 		app.remove(lose);
 		app.remove(bal);
@@ -865,30 +889,41 @@ public class LevelPane extends GraphicsPane {
 		battling = false;
 	}
 	public static void dialouge(NPC npc) {
-		
+
 
 		winlose = 3;
 
 		textBox = new GImage("TextBox.png");
 		program.add(textBox);
-		
+
 		// add function to NPC to hardcode what they are going to say.
 		String dialouge = npc.getDialouge();
-		
-	
+
+
 
 		talk = new GLabel(dialouge, 50, 500);
 		talk.setFont(new Font("Comic Sans", 1, 20));
 		talk.setColor(Color.black);
 
+		
+		
+		removeText = new GLabel("WASD to remove", 50 , 550);
+		removeText.setFont(new Font("Comic Sans", 1, 20));
+		
+		
+		program.add(removeText);
 		program.add(talk);
+		removeText.sendToFront();
 	}
 
 
 	public static void removeDialouge(MainApplication program2) {
 
+		winlose = 0;
+
 		program.remove(textBox);
 		program.remove(talk);
+		program.remove(removeText);
 
 
 	}

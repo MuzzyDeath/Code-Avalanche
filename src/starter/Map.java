@@ -23,6 +23,7 @@ public class Map {
 	private static Map[] levels;
 	private static int currentLevel = LEVEL_BEGINNER;
 	
+	private static ArrayList<String> temp = MainApplication.speech;
 
 
 	// Constructor that takes in a level and initializes the map for that level
@@ -121,7 +122,6 @@ public class Map {
 	private void setupBeginnerMap() {
 		
 		
-		ArrayList<String> temp;
 		
 		// Add characters and set up exit space.
 		// Initialize board with the maxRows and maxCols
@@ -136,32 +136,13 @@ public class Map {
 		//board.addCharacter(new NPC(4, 2));
 		
 		NPC npc = new NPC(4, 2);
-		
-		npc.setDialouge("Cooper is fired");
-		
 		board.addCharacter(npc);
-		
-		
-		
-		//board.addCharacter(new NPC(1, 3));
-		
 		NPC npc2 = new NPC(1, 3);
-		
 		board.addCharacter(npc2);
 		
-		e = new Enemy(4, 5);
-		board.addCharacter(e);
-		e = new Enemy(2, 5);
-		board.addCharacter(e);
-		e = new Enemy(3, 4);
-		board.addCharacter(e);
 		
-		
-		temp = MainApplication.speech;
-		
-		String temp2 = temp.get(1);
-		
-		npc2.setDialouge(temp.get(2));
+		npc.setDialouge(temp.get(0));
+		npc2.setDialouge(temp.get(1));
 		board.setExit(new Space(3,5));
 	}
 
@@ -171,6 +152,8 @@ public class Map {
 	 */
 	private void setupIntermediateMap()
 	{
+		
+		
 		// Add characters and set up exit space.
 		// Initialize board with the maxRows and maxCols
 		board = new Board(6, 6);
@@ -180,9 +163,15 @@ public class Map {
 		// Winning space for this level is for Player  to reach r7c7
 		board.setExit(new Space(5, 5));
 
-		board.addCharacter(new NPC(0, 4)); 
-		board.addCharacter(new NPC(1, 3)); 
-		board.addCharacter(new NPC(4, 2)); 
+		
+		NPC npc = new NPC(1, 4);
+		npc.setDialouge(temp.get(2));
+		board.addCharacter(npc);
+		
+		NPC npc1 = new NPC(2, 3);
+		npc1.setDialouge(temp.get(3));
+		board.addCharacter(npc1);
+	
 
 		e = new Enemy(3, 3);
 		board.addCharacter(e);
@@ -196,6 +185,9 @@ public class Map {
 	 */
 	private void setupAdvancedMap()
 	{
+		
+		
+		
 		// Add characters and set up exit space.
 		// Initialize board with the maxRows and maxCols
 		board = new Board(6, 6);
@@ -206,9 +198,9 @@ public class Map {
 		// Winning space for this level is for Player  to reach r7c7
 		board.setExit(new Space(5, 2));
 
-		board.addCharacter(new NPC(4, 0)); 
-		board.addCharacter(new NPC(3, 1)); 
-		board.addCharacter(new NPC(1, 4)); 
+		NPC npc = new NPC(1, 4);
+		npc.setDialouge(temp.get(4));
+		board.addCharacter(npc);
 		
 
 		e = new Enemy(4, 2);
