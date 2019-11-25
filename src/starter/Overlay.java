@@ -81,8 +81,8 @@ public class Overlay {
 
 	private static final int MIN_THRESHOLD = 1;
 	private static GImage luBackground, luPlayer;
-	public static GLabel luPoints, luStrength, luAgility, luDefense, luCharisma, luHealth;
-	public static GButton luStrengthDown, luStrengthUp, luAgilityDown, luAgilityUp, luDefenseDown, luDefenseUp,
+	private static GLabel luPoints, luStrength, luAgility, luDefense, luCharisma, luHealth;
+	private static GButton luStrengthDown, luStrengthUp, luAgilityDown, luAgilityUp, luDefenseDown, luDefenseUp,
 			luCharismaDown, luCharismaUp, luHealthDown, luHealthUp, luDone;
 
 	// State
