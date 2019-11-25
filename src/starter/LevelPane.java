@@ -217,24 +217,30 @@ public class LevelPane extends GraphicsPane {
 					startBackgroundMusic(SOUND_BATTLE); // Start battle music
 				}
 				
-				else
-					try {
-						if(Map.getCurrentMap().getBoard().spaceCheck(Protagonist).getCharacterType() == CharacterType.NPC) {
-							Narrative.print("NPC-1");
-
-							ListIterator<String> iterator = speech.listIterator();
-
-							while (iterator.hasNext()) 
-								System.out.println(iterator.next());
-
-
-							//					dialouge((NPC) Map.getCurrentMap().getBoard().spaceCheck(Protagonist));
-							//					System.out.println("NPC is talking");
-						}
-					} catch (Exception e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+				else {
+					
+					dialouge((NPC) Map.getCurrentMap().getBoard().spaceCheck(Protagonist));
+				}
+//					try {
+//						if(Map.getCurrentMap().getBoard().spaceCheck(Protagonist).getCharacterType() == CharacterType.NPC) {
+//							Narrative.print("NPC-1");
+//
+//							ListIterator<String> iterator = speech.listIterator();
+//
+//							while (iterator.hasNext()) 
+//								System.out.println(iterator.next());
+//							
+//							
+//							dialouge((NPC) Map.getCurrentMap().getBoard().spaceCheck(Protagonist));
+//
+//
+//							//					dialouge((NPC) Map.getCurrentMap().getBoard().spaceCheck(Protagonist));
+//							//					System.out.println("NPC is talking");
+//						}
+//					} catch (Exception e1) {
+//						// TODO Auto-generated catch block
+//						e1.printStackTrace();
+//					}
 			}
 			else {
 				System.out.println("Battle not possible since not nearby the opponent");
@@ -859,15 +865,20 @@ public class LevelPane extends GraphicsPane {
 		battling = false;
 	}
 	public static void dialouge(NPC npc) {
-
+		
 
 		winlose = 3;
 
 		textBox = new GImage("TextBox.png");
 		program.add(textBox);
+		
+		// add function to NPC to hardcode what they are going to say.
+		String dialouge = npc.getDialouge();
+		
+	
 
-		talk = new GLabel("Hello I am a NPC", 50, 500);
-		talk.setFont(new Font("Comic Sans", 1, 60));
+		talk = new GLabel(dialouge, 50, 500);
+		talk.setFont(new Font("Comic Sans", 1, 20));
 		talk.setColor(Color.black);
 
 		program.add(talk);

@@ -117,7 +117,7 @@ public class Narrative {
 				if ((tokenFound) && (!line.equals("NPC-1-START"))) {
 					//JOptionPane.showMessageDialog(null, line);
 					lines.add(line);
-					LevelPane.speech = sendString();
+					MainApplication.speech = sendString();
 				}
 			}
 		} 

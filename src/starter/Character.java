@@ -19,6 +19,7 @@ public class Character{
 	protected int strength, charisma, agility, defense, balance, experience;
 	protected boolean isPlayer, isHostile, isKing;
 	protected CharacterType cType;
+	protected String dialouge;
 
 	//Public frowned upon, please do NOT implement any :)
 
@@ -78,6 +79,10 @@ public class Character{
 	public void setLocation(int r, int c) {
 		this.cRow = r;
 		this.cCol = c;
+	}
+	public void setDialouge(String s) {
+
+		this.dialouge = s;
 	}
 
 	//Set User class
@@ -158,6 +163,10 @@ public class Character{
 		return cType;
 	}
 
+	public String getDialouge() {
+
+		return this.dialouge;
+	}
 	//Gives enemies a small balance of gold for the player to steal!
 	public int randBalance() {
 		// create instance of Random class 
@@ -202,7 +211,7 @@ public class Character{
 	public boolean isPlayer() {
 		return this.isPlayer;
 	}
-	
+
 	public static void main(String[] args) throws FileNotFoundException {
 		Space startSpace = new Space(1,1);
 		Player Muzzy = new Player(startSpace.getRow(), startSpace.getCol(), CharacterType.WARRIOR);

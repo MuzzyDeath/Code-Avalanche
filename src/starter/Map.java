@@ -22,6 +22,7 @@ public class Map {
 
 	private static Map[] levels;
 	private static int currentLevel = LEVEL_BEGINNER;
+	
 
 
 	// Constructor that takes in a level and initializes the map for that level
@@ -118,6 +119,10 @@ public class Map {
 	 * initialize the board, NPCs, enemies, exit position
 	 */
 	private void setupBeginnerMap() {
+		
+		
+		ArrayList<String> temp;
+		
 		// Add characters and set up exit space.
 		// Initialize board with the maxRows and maxCols
 		board = new Board(6, 6);
@@ -128,9 +133,22 @@ public class Map {
 		//exitSpace = new Space(4, 4);
 
 		// Add NPCs to the board
-		board.addCharacter(new NPC(4, 2));
-		board.addCharacter(new NPC(1, 3));
-
+		//board.addCharacter(new NPC(4, 2));
+		
+		NPC npc = new NPC(4, 2);
+		
+		npc.setDialouge("Cooper is fired");
+		
+		board.addCharacter(npc);
+		
+		
+		
+		//board.addCharacter(new NPC(1, 3));
+		
+		NPC npc2 = new NPC(1, 3);
+		
+		board.addCharacter(npc2);
+		
 		e = new Enemy(4, 5);
 		board.addCharacter(e);
 		e = new Enemy(2, 5);
@@ -138,6 +156,12 @@ public class Map {
 		e = new Enemy(3, 4);
 		board.addCharacter(e);
 		
+		
+		temp = MainApplication.speech;
+		
+		String temp2 = temp.get(1);
+		
+		npc2.setDialouge(temp.get(2));
 		board.setExit(new Space(3,5));
 	}
 

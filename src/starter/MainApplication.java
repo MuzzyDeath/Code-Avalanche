@@ -1,5 +1,7 @@
 package starter;
 
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class MainApplication extends GraphicsApplication {
 	public static final int WINDOW_WIDTH = 800;
@@ -8,6 +10,8 @@ public class MainApplication extends GraphicsApplication {
 	private static final String[] SOUND_FILES = { "Skyrim.mp3" };
 	public static final String TEXT_FILES_FOLDER = "Text Files";
 	private static final String[] TEXT_FILES_FILES = { "NPC" };
+	
+	public static ArrayList<String> speech;
 
 	private AudioPlayer audio;
 
@@ -32,6 +36,12 @@ public class MainApplication extends GraphicsApplication {
 		menuPane = new MenuPane(this);
 		
 		generateItems();
+		try {
+			generateNarrative();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		switchToMenu();
 		
 	}
@@ -40,6 +50,10 @@ public class MainApplication extends GraphicsApplication {
 		itemList = new Item[50];
 		Item.generateItemList(itemList);
 		Item.printItemList();
+	}
+	
+	private void generateNarrative() throws IOException {
+		Narrative.print("NPC-1");
 	}
 	
 	public void switchToMenu() {
