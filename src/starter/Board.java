@@ -111,10 +111,8 @@ public class Board {
 //			return tempLeft;
 //		}
 		else {
-			Enemy temp = new Enemy(1, 1);
-			temp.setStrength(6);
 			
-			return temp;
+			return null;
 		}
 	}
 
