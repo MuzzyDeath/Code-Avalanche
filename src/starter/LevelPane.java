@@ -758,7 +758,7 @@ public class LevelPane extends GraphicsPane {
 
 		if(Protagonist.getHealth() > 0 && opponent.getHealth() <= 0) {
 
-			if(kingBattle == false) {
+			if(kingBattle == false) { // fighting regular enemies and winning
 				Protagonist.setBalance(Protagonist.getBalance() + opponent.getBalance());
 				//removes chracter sprite
 
@@ -807,7 +807,7 @@ public class LevelPane extends GraphicsPane {
 				winlose = 1;
 
 			}
-			else if(kingBattle == true) {
+			else if(kingBattle == true) { // fighting king and winning
 				
 				Protagonist.setBalance(Protagonist.getBalance() + opponent.getBalance());
 				//removes chracter sprite
@@ -863,7 +863,7 @@ public class LevelPane extends GraphicsPane {
 
 		if(Protagonist.getHealth() <= 0 && opponent.getHealth() > 0) {
 			
-			if(kingBattle == false) {
+			if(kingBattle == false) { // fighting regular enemies and losing
 				Protagonist.setBalance(Protagonist.getBalance() - opponent.getBalance());
 
 				//removes sprite
@@ -914,7 +914,7 @@ public class LevelPane extends GraphicsPane {
 				winlose = 2;
 
 			}
-			else if(kingBattle == true) {
+			else if(kingBattle == true) { // fighting the king and losing
 				
 				Protagonist.setBalance(Protagonist.getBalance() - opponent.getBalance());
 
@@ -971,6 +971,7 @@ public class LevelPane extends GraphicsPane {
 		}
 	}
 
+	// checks health of players to determine winner
 	public static void winCheck() {
 		if(Protagonist.getHealth() > 0 && opponent.getHealth() <= 0) {
 			battleWin(program);
@@ -981,6 +982,7 @@ public class LevelPane extends GraphicsPane {
 	}
 	public static void removeWin(MainApplication app) {
 
+		// removes win screen graphics
 		app.remove(removeText);
 
 		app.remove(labelW);
@@ -991,6 +993,7 @@ public class LevelPane extends GraphicsPane {
 
 	}
 	public static void removeLose(MainApplication app) {
+		// removes lose screen graphics
 		app.remove(removeText);
 		app.remove(labelL);
 		app.remove(lose);
@@ -999,7 +1002,7 @@ public class LevelPane extends GraphicsPane {
 		battling = false;
 	}
 	public static void dialouge(NPC npc) {
-
+// textbox dialouge pops up
 
 		winlose = 3;
 
@@ -1028,6 +1031,8 @@ public class LevelPane extends GraphicsPane {
 
 
 	public static void removeDialouge(MainApplication program2) {
+		
+		// removes dialouge
 
 		winlose = 0;
 
