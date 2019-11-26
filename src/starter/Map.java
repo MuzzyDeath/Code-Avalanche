@@ -63,12 +63,6 @@ public class Map {
 		return board.getNumRows();
 	}
 
-	/*
-	public void setExit(Space s) {
-		board.setExit(s);
-	}
-	 */
-
 	/**
 	 * @return Space that represents exit
 	 */
@@ -79,11 +73,15 @@ public class Map {
 	
 //	 * We need to encapsulate baord, we should not give out board.
 //	 *  All board methods have to be encoded in Map
-	
+	/*
 	public Board getBoard() {
 		return this.board;
 	}
+	*/
 	
+	public Character spaceCheck(Player p) {
+		return board.spaceCheck(p);
+	}
 
 	/**
 	 * Moves the given character to the specified location, only if the move can be performed
@@ -107,22 +105,19 @@ public class Map {
 		board.addCharacter(player);
 	}
 
-
-	//	/**
-	//	 * @return the winning space
-	//	 */
-	//	public Space getGoalSpace() {
-	//		return exitSpace;
-	//	}
+	/**
+	 * removes the character at the given location
+	 * 
+	 */
+	public void removeCharacter(Space s) {
+		board.removeCharacter(s);
+	}
 
 	/**
 	 * Sets up the beginner board
 	 * initialize the board, NPCs, enemies, exit position
 	 */
 	private void setupBeginnerMap() {
-		
-		
-		
 		// Add characters and set up exit space.
 		// Initialize board with the maxRows and maxCols
 		board = new Board(6, 6);
@@ -152,8 +147,6 @@ public class Map {
 	 */
 	private void setupIntermediateMap()
 	{
-		
-		
 		// Add characters and set up exit space.
 		// Initialize board with the maxRows and maxCols
 		board = new Board(6, 6);
@@ -185,24 +178,18 @@ public class Map {
 	 */
 	private void setupAdvancedMap()
 	{
-		
-		
-		
 		// Add characters and set up exit space.
 		// Initialize board with the maxRows and maxCols
-		board = new Board(6, 6);
-		//		
-		//		// Winning space for this level is for  Player  to reach r4c4
+		board = new Board(6, 6);	
 
-
-		// Winning space for this level is for Player  to reach r7c7
+		// Winning space for this level is for Player  to reach r5c2
 		board.setExit(new Space(5, 2));
 
 		NPC npc = new NPC(1, 4);
 		npc.setDialouge(temp.get(4));
 		board.addCharacter(npc);
 		
-
+		// Add enemies
 		e = new Enemy(4, 2);
 		board.addCharacter(e);
 		e = new Enemy(4, 3);
@@ -222,13 +209,13 @@ public class Map {
 		// Initialize board with the maxRows and maxCols
 		board = new Board(6, 6);
 
+		// Add the final enemy -King
 		e = new Enemy(2, 2);
 		e.makeKing();
 		board.addCharacter(e);
 		
-
+		// Winning space for this level is for Player  to reach r5c5
 		board.setExit(new Space(5,5));
-
 	}
 
 	public Enemy getEnemy()
@@ -329,7 +316,7 @@ public class Map {
 	{
 		if(getCurrentLevel() < MAX_LEVELS)
 		{
-			setCurrentLevel(getCurrentLevel() + 1);
+			currentLevel++;
 		}
 	}
 
@@ -342,10 +329,6 @@ public class Map {
 	public boolean isFacingEnemy()
 	{
 		boolean retVal = false;
-		// TO DO: If player is nearby enemy, return true.
-		// Check if enemy is left of the player
-		/*System.out.println("Player = " + p);
-		System.out.println("Enemy = " + e);*/
 		if(e.getRow() == p.getRow() - 1 && p.getCol() == e.getCol())
 		{
 			retVal = true;
@@ -448,8 +431,4 @@ public class Map {
 		return result;
 	}
 
-	public static int setCurrentLevel(int currentLevel) {
-		Map.currentLevel = currentLevel;
-		return currentLevel;
-	}
 }

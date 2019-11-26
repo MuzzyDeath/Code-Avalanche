@@ -29,11 +29,6 @@ public class LevelPane extends GraphicsPane {
 
 	// Music 
 	public static final String MUSIC_FOLDER = "music";
-	/*
-	private static final String[] SOUND_FILES = { "BattleMusic.mp3" };
-	private static final String[] SOUND_FILES2 = { "backgroundMusic.mp3" };
-	private static final String[] SOUND_FILES3 = { "kingTheme.mp3" };
-	 */
 	private static final String SOUND_BACKGROUND       = "backgroundMusic.mp3";
 	private static final String SOUND_BACKGROUND_KING  = "kingTheme.mp3";
 	private static final String SOUND_BATTLE           = "BattleMusic.mp3";
@@ -201,23 +196,23 @@ public class LevelPane extends GraphicsPane {
 		// Press E to test.
 		if (key == KeyEvent.VK_E) {
 
-			if(Map.getCurrentMap().getBoard().spaceCheck(Protagonist) != null)
+			if(Map.getCurrentMap().spaceCheck(Protagonist) != null)
 			{
 
-				if(Map.getCurrentMap().getBoard().spaceCheck(Protagonist).getCharacterType() == CharacterType.ENEMY) {
+				if(Map.getCurrentMap().spaceCheck(Protagonist).getCharacterType() == CharacterType.ENEMY) {
 
 					kingBattle = false;
-					opponent = (Enemy) Map.getCurrentMap().getBoard().spaceCheck(Protagonist);
+					opponent = (Enemy) Map.getCurrentMap().spaceCheck(Protagonist);
 					battling = true;	
 
 					Overlay.battleScene(program);
 					startBackgroundMusic(SOUND_BATTLE); // Start battle music
 				} 
 
-				else if(Map.getCurrentMap().getBoard().spaceCheck(Protagonist).getCharacterType() == CharacterType.KING) {
+				else if(Map.getCurrentMap().spaceCheck(Protagonist).getCharacterType() == CharacterType.KING) {
 
 					kingBattle = true;
-					opponent = (Enemy) Map.getCurrentMap().getBoard().spaceCheck(Protagonist);
+					opponent = (Enemy) Map.getCurrentMap().spaceCheck(Protagonist);
 					battling = true;	
 
 					Overlay.battleScene(program);
@@ -227,7 +222,7 @@ public class LevelPane extends GraphicsPane {
 				else {
 
 					if(winlose != 3) {
-						dialouge((NPC) Map.getCurrentMap().getBoard().spaceCheck(Protagonist));
+						dialouge((NPC) Map.getCurrentMap().spaceCheck(Protagonist));
 					}
 
 
@@ -768,7 +763,7 @@ public class LevelPane extends GraphicsPane {
 				//removeCharacter(opponent.getLocation());
 
 				// removes the character from board
-				Map.getCurrentMap().getBoard().removeCharacter(opponent.getLocation());
+				Map.getCurrentMap().removeCharacter(opponent.getLocation());
 
 
 				// removes battle overlay
@@ -818,7 +813,7 @@ public class LevelPane extends GraphicsPane {
 				//removeCharacter(opponent.getLocation());
 
 				// removes the character from board
-				Map.getCurrentMap().getBoard().removeCharacter(opponent.getLocation());
+				Map.getCurrentMap().removeCharacter(opponent.getLocation());
 
 
 				// removes battle overlay
@@ -874,7 +869,7 @@ public class LevelPane extends GraphicsPane {
 				//removeCharacter(opponent.getLocation());
 
 				// removes character on board.
-				Map.getCurrentMap().getBoard().removeCharacter(opponent.getLocation());
+				Map.getCurrentMap().removeCharacter(opponent.getLocation());
 
 
 				// closes battle overlay
@@ -926,7 +921,7 @@ public class LevelPane extends GraphicsPane {
 				//removeCharacter(opponent.getLocation());
 
 				// removes character on board.
-				Map.getCurrentMap().getBoard().removeCharacter(opponent.getLocation());
+				Map.getCurrentMap().removeCharacter(opponent.getLocation());
 
 
 				// closes battle overlay
