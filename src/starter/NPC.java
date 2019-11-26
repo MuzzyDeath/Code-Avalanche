@@ -20,10 +20,8 @@ public class NPC extends Character {
 	 * selected via a click or keyboard selection from the user!
 	 */
 	
-// TODO: Literally all of it xD
 	public NPC(int row, int col) {
 		super(row, col);
-		// TODO Auto-generated constructor stub
 		this.cType = CharacterType.NPC;
 		
 		if(cType == CharacterType.NPC) {

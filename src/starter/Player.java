@@ -20,11 +20,8 @@ public class Player extends Character {
 	 * selected via a click or keyboard selection from the user!
 	 */
 	
-// TODO: Literally all of it xD
 	public Player(int row, int col, CharacterType type) {
 		super(row, col);
-		// TODO Auto-generated constructor stub
-		//this.setCharacterType();
 		this.cType = type;
 		
 		if(cType == CharacterType.WARRIOR) {
@@ -59,8 +56,6 @@ public class Player extends Character {
 		}
 		System.out.println("I am in the player constructor" + this.isPlayer);
 		System.out.println(this);
-		//Get Player Name & Make NPC Names
-		//this.cName = setName();
 	}
 
 //Player Setters(Mutators)
@@ -89,15 +84,6 @@ public class Player extends Character {
 //Player Printout
 	public String printPlayer() {
 		this.printCharacter();
-//		System.out.println("Current Health: " + this.getHealth() + "\n");
-//		System.out.println("Gold Balance: " + this.getBalance() + "\n");
-//		System.out.println("Current Experience: " + this.getExperience() + "\n");
 		return "---------------------------------------------";
 	}
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
-
 }

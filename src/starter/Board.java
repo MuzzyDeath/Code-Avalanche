@@ -1,9 +1,5 @@
 package starter;
-import java.awt.Color;
-import java.util.*;
 import java.util.ArrayList;
-
-import acm.graphics.GLine;
 
 /**
  * COMP 55: Application Development final Project
@@ -86,31 +82,12 @@ public class Board {
 
 	public Character spaceCheck(Player p) {
 		
-
-		//Character tempUp = board[p.getRow() - 1][p.getCol()];
-		//Character tempDown = board[p.getRow() + 1][p.getCol()];
 		Character tempRight = board[p.getRow()][p.getCol() + 1];
-		//Character tempLeft = board[p.getRow()][p.getCol() - 1];
-
-
-//		if(tempUp != null) {
-//			System.out.println("Enemy above");
-//			return tempUp;
-//		}
-//		else if(tempDown != null) {
-//
-//			System.out.println("Enemy below");
-//			return tempDown;
-//		}
 		if(tempRight != null) {
 
 			
 			return tempRight;
 		}
-//		else if(tempLeft != null) {
-//			System.out.println("Enemy left");
-//			return tempLeft;
-//		}
 		else {
 			
 			return null;
@@ -145,11 +122,6 @@ public class Board {
 					characters.add(board[i][j]);
 			}
 
-		//		ListIterator<Character> iterator = characters.listIterator();
-		//		while(iterator.hasNext()) {
-		//			iterator.next().printCharacter();
-		//		}
-
 		return characters;
 	}
 
@@ -181,7 +153,7 @@ public class Board {
 	/**
 	 * remove character at the given space,
 	 * 
-	 * @param s Space wher the character needs to be removed.
+	 * @param s Space where the character needs to be removed.
 	 */
 	public void removeCharacter(Space s) {
 		int row, col;

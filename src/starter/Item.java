@@ -1,5 +1,10 @@
 package starter;
 
+/**
+ *   !!!DEPRECATED!!!
+ */
+
+
 public class Item {
 	private ItemType iType;
 	private String itemName;
@@ -8,7 +13,6 @@ public class Item {
 	private static Item[] Items;
 	
 	public Item(ItemType i, String name, int m) {
-		// TODO Auto-generated constructor stub
 		this.setiType(i);
 		this.itemName = name;
 		this.setMutator(m);

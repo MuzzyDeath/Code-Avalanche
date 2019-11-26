@@ -1,5 +1,4 @@
 /**
- * This class is for generally testing in the pause functionality, please do not touch it!
  * @author GregV
  */
 package starter;
@@ -7,11 +6,6 @@ package starter;
 import java.awt.Color;
 
 import java.awt.Font;
-import java.awt.FontFormatException;
-import java.awt.GraphicsEnvironment;
-import java.io.File;
-import java.io.IOException;
-
 import acm.graphics.*;
 import java.awt.event.MouseEvent;
 
@@ -26,9 +20,6 @@ public class Overlay {
 
 	// currentStats Stuff
 	private static GImage currentStats;
-
-	private static final String SFONT = "Times New Roman";
-	private static final int S_FONT_SIZE = 30;
 
 	public static GLabel StrengthV, CharismaV, AgilityV, DefenseV, HealthV, GoldV;
 
@@ -95,8 +86,6 @@ public class Overlay {
 	public static void battleScene(MainApplication app) {
 
 		Protagonist = MainApplication.user;
-
-		// opponent = Board.CharacterAtSpace(Protagonist);
 
 		background = new GImage("images/BattleStyle.png");
 		app.add(background);
@@ -489,7 +478,6 @@ public class Overlay {
 		if (obj != null) {
 			Player player = MainApplication.user;
 
-			// System.out.println(" Obj selected = " + obj);
 			if (obj == luStrengthDown) {
 				// Decrement only when value is > min_threshold
 				if (player.getStrength() > MIN_THRESHOLD) {

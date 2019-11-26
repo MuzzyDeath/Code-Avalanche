@@ -1,16 +1,5 @@
 package starter;
-import java.util.Scanner;
-import java.util.Random;
-import java.util.Arrays;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Iterator;
-import java.util.Set;
-
-import acm.graphics.GLabel;
-
-import java.util.List;
 
 /**
  *  @author Pranav Jammalamadaka & Greg Jewell
@@ -20,6 +9,8 @@ import java.util.List;
 *then equip that item in that category. 
 *
 *if there is another item equipped in that equip category, then swap. 
+*
+*  !!!DEPRECATED CLASS!!!
 *
 */
 

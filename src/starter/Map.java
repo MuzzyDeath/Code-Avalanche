@@ -375,7 +375,6 @@ public class Map {
 		boolean retVal = false;
 		if(isEnemyDefeated && p.getRow() == getExit().getRow() && p.getCol() == getExit().getCol())
 		{
-			// TO DO: Check if the player's current space is the exit space
 			retVal = true;
 		}
 		return retVal;
@@ -405,7 +404,6 @@ public class Map {
 		String result = "";
 		String[] elems = origBoard.split("\n");
 		for(int i = 0; i < elems.length; i++) {
-			// result += (char)('A' + i) + "|" + elems[i] + "\n"; 
 			result += String.format("%2d", (i)) + "|" + elems[i] + "\n"; 
 		}
 		return result;

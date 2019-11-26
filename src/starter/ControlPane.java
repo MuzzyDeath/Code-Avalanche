@@ -16,9 +16,6 @@ public class ControlPane extends GraphicsPane {
 	private GImage background;
 	private GImage backbutton;
 	
-	private int windowHeight = program.WINDOW_HEIGHT;
-	private int windowWidth = program.WINDOW_WIDTH;
-
 	public ControlPane(MainApplication app) {
 		super();
 		program = app;

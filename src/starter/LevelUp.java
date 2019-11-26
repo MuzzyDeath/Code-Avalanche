@@ -1,7 +1,5 @@
 package starter;
 
-import java.util.Scanner;
-
 public class LevelUp {
 	
 	private int points;
@@ -9,8 +7,6 @@ public class LevelUp {
 	private int beginStrength, beginAgility, beginDefense, beginCharisma, beginHealth;
 	
 	public static final int POINTS_PER_WIN = 3;
-	private static final int MIN_THRESHOLD = 1;
-	
 	public LevelUp(Player p, int pts)
 	{
 		player = p;
@@ -30,13 +26,6 @@ public class LevelUp {
 	public Player getPlayer() {
 		return player;
 	}
-
-	/*
-	public void setPoints(int pts) {
-		points = pts;
-	}
-	*/
-	
 	
 	public boolean strengthUp()
 	{

@@ -40,7 +40,6 @@ public class Character{
 	 */
 
 	// Character Constructor
-	// TODO: Finish adding the variables and functions associated with the Character Class
 	public Character(int row, int col) {
 		this.cRow = row;
 		this.cCol = col;
@@ -86,6 +85,7 @@ public class Character{
 	}
 
 	//Set User class
+	@SuppressWarnings("resource")
 	public void setCharacterType() {
 		int choice = 0;
 

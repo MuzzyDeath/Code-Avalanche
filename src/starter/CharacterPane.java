@@ -14,8 +14,8 @@ public class CharacterPane extends GraphicsPane {
 	
 	protected Player selectedCharacter;
 	
-	private int windowHeight = program.WINDOW_HEIGHT;
-	private int windowWidth = program.WINDOW_WIDTH;
+	private int windowHeight = MainApplication.WINDOW_HEIGHT;
+	private int windowWidth = MainApplication.WINDOW_WIDTH;
 
 	public CharacterPane(MainApplication app) {
 		super();

@@ -4,13 +4,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainApplication extends GraphicsApplication {
-	public static final int WINDOW_WIDTH = 800;
-	public static final int WINDOW_HEIGHT = 600;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	public final static int WINDOW_WIDTH = 800;
+	public final static int WINDOW_HEIGHT = 600;
 	public static final String MUSIC_FOLDER = "music";
 	private static final String[] SOUND_FILES = { "Skyrim.mp3" };
 	public static final String TEXT_FILES_FOLDER = "Text Files";
-	private static final String[] TEXT_FILES_FILES = { "NPC" };
-	
 	public static ArrayList<String> speech;
 
 	private AudioPlayer audio;
@@ -21,7 +23,6 @@ public class MainApplication extends GraphicsApplication {
 	private LevelPane levelPane;
 	
 	private Item[] itemList;
-	//private Map[] mapList;
 	
 	protected static Player user;
 
@@ -39,7 +40,6 @@ public class MainApplication extends GraphicsApplication {
 		try {
 			generateNarrative();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		switchToMenu();
@@ -71,7 +71,6 @@ public class MainApplication extends GraphicsApplication {
 	public void switchToLevelPane() {
 		audio.stopSound(MUSIC_FOLDER, SOUND_FILES[0]);
 		levelPane = new LevelPane(this);
-		//mapList = levelPane.world;
 		user = characterPane.sendPlayer();
 		switchToScreen(levelPane);
 	}
@@ -80,20 +79,4 @@ public class MainApplication extends GraphicsApplication {
 		audio = AudioPlayer.getInstance();
 		audio.playSound(MUSIC_FOLDER, SOUND_FILES[0]);
 	}
-	
-	//Below are examples of how to call GUI panes.
-	
-	/*
-	public void switchToSomePane() {
-		playRandomSound();
-		switchToScreen(somePane);
-	}
-	 */
-	
-	/*
-	private void playRandomSound() {
-		AudioPlayer audio = AudioPlayer.getInstance();
-		audio.playSound(MUSIC_FOLDER, SOUND_FILES[0]);
-	}
-	*/
 }

@@ -2,13 +2,8 @@ package starter;
 
 import acm.graphics.*;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.ListIterator;
 import java.awt.Font;
@@ -21,12 +16,6 @@ public class LevelPane extends GraphicsPane {
 	private static final String GROUND2 = "ground2.png";
 	private static final String GROUND3 = "ground3.png";
 	private static final String GROUND4 = "ground4.png";
-	private static final String MAGE = "Battle Image(Mage).png";
-	private static final String WARRIOR = "Battle Image(Warrior).png";
-	private static final String ROGUE = "Battle Image(Rogue).png";
-	private static final String ENEMY = "Battle Image(Enemy).png";
-	private static final String KING = "Battle Image(Boss).png";
-
 	// Music 
 	public static final String MUSIC_FOLDER = "music";
 	private static final String SOUND_BACKGROUND       = "backgroundMusic.mp3";
@@ -41,12 +30,11 @@ public class LevelPane extends GraphicsPane {
 	// all of the GraphicsProgram calls
 	private GButton play, controls;
 	private static GButton quit;
-	private GButton menu;
-	private GImage ground, ground2, ground3, ground4, background, controlsImage;
+	private GImage ground, ground2, ground3, ground4, controlsImage;
 	private GLine line;
 
 	// playerSprite Variables
-	private GImage playerSprite, sprite;
+	private GImage playerSprite;
 	private int lMove, rMove;
 
 	static Enemy opponent;
@@ -56,17 +44,12 @@ public class LevelPane extends GraphicsPane {
 	private static boolean battling, kingBattle;
 	private boolean paused;
 	private boolean currentStats;
-	private boolean textbox;
-
 	protected static Player Protagonist;
-
-	//private static Map map1, map2, map3, map4;
-	//protected static Map[] world = { map1, map2, map3, map4 };
 
 	private static float xWidth;
 	private static float yHeight;
-	private int windowHeight = program.WINDOW_HEIGHT;
-	private int windowWidth = program.WINDOW_WIDTH;
+	private int windowHeight = MainApplication.WINDOW_HEIGHT;
+	private int windowWidth = MainApplication.WINDOW_WIDTH;
 
 
 	private static GImage win, lose;
@@ -80,7 +63,7 @@ public class LevelPane extends GraphicsPane {
 	public LevelPane(MainApplication app) {
 		super();
 		program = app;
-		background = new GImage(BACKGROUND);
+		new GImage(BACKGROUND);
 		ground = new GImage(GROUND);
 		ground2 = new GImage(GROUND2);
 		ground3 = new GImage(GROUND3);
@@ -89,7 +72,6 @@ public class LevelPane extends GraphicsPane {
 		battling = false;
 		paused = false;
 		currentStats = false;
-		//prologue = false;
 
 		Protagonist = MainApplication.user;
 
@@ -227,26 +209,6 @@ public class LevelPane extends GraphicsPane {
 
 
 				}
-				//					try {
-				//						if(Map.getCurrentMap().getBoard().spaceCheck(Protagonist).getCharacterType() == CharacterType.NPC) {
-				//							Narrative.print("NPC-1");
-				//
-				//							ListIterator<String> iterator = speech.listIterator();
-				//
-				//							while (iterator.hasNext()) 
-				//								System.out.println(iterator.next());
-				//							
-				//							
-				//							dialouge((NPC) Map.getCurrentMap().getBoard().spaceCheck(Protagonist));
-				//
-				//
-				//							//					dialouge((NPC) Map.getCurrentMap().getBoard().spaceCheck(Protagonist));
-				//							//					System.out.println("NPC is talking");
-				//						}
-				//					} catch (Exception e1) {
-				//						// TODO Auto-generated catch block
-				//						e1.printStackTrace();
-				//					}
 			}
 			else {
 				System.out.println("Battle not possible since not nearby the opponent");
@@ -497,7 +459,6 @@ public class LevelPane extends GraphicsPane {
 	}
 
 	private void drawPlayer(Player p) {
-		// TODO implement drawPlayer
 		if (p.getCharacterType() == CharacterType.WARRIOR) {
 			playerSprite = new GImage("knight/rknight_0.png", Character.startSpace.getRow() * xWidth,
 					Character.startSpace.getCol() * yHeight);
@@ -633,29 +594,21 @@ public class LevelPane extends GraphicsPane {
 
 		return false;
 	}
-	
+
 	private boolean clear(Map m) {
 		ArrayList<Character> characters = Map.getCurrentMap().getCharactersOnMap();
-		
+
 		ListIterator<Character> list = characters.listIterator();
-		
+
 		while(list.hasNext()) 
 			if(list.next().cType == CharacterType.ENEMY) {
 				return false;
 			}
-		
+
 		return true;
 	}
 
 	private void generateWorld() {
-		// Initialize maps
-		Map m1 = Map.getCurrentMap();
-		/*
-		world[0] = Map.getMap(Map.LEVEL_BEGINNER);
-		world[1] = Map.getMap(Map.LEVEL_INTERMEDIATE);
-		world[2] = Map.getMap(Map.LEVEL_ADVANCED);
-		world[3] = Map.getMap(Map.LEVEL_FINAL);
-		 */
 	}
 
 	private void drawLevel(Map m) {
@@ -669,7 +622,6 @@ public class LevelPane extends GraphicsPane {
 		drawPlayer(Protagonist);
 		drawCharacters(m);
 
-		//world[0].addPlayer (Protagonist);
 		if (Map.getCurrentLevel() == Map.LEVEL_BEGINNER) {
 			program.add(ground);                     //first if statement
 			ground.sendToBack();
@@ -717,13 +669,11 @@ public class LevelPane extends GraphicsPane {
 	}
 
 	private float spaceWidth(Map m) {
-		//m.getBoard();
 		xWidth = (windowWidth) / Map.getCurrentMap().getNumRows();
 		return xWidth;
 	}
 
 	private float spaceHeight(Map m) {
-		//m.getBoard();
 		yHeight = (windowHeight) / Map.getCurrentMap().getNumCols();
 		return yHeight;
 	}
@@ -768,12 +718,11 @@ public class LevelPane extends GraphicsPane {
 
 		if(Protagonist.getHealth() > 0 && opponent.getHealth() <= 0) {
 
-			if(kingBattle == false) { // fighting regular enemies and winning
+			if(!kingBattle) { // fighting regular enemies and winning
 				Protagonist.setBalance(Protagonist.getBalance() + opponent.getBalance());
-				//removes chracter sprite
+				//removes character sprite
 
 				removeCharacter(opponent.getLocation());
-				//removeCharacter(opponent.getLocation());
 
 				// removes the character from board
 				Map.getCurrentMap().removeCharacter(opponent.getLocation());
@@ -781,9 +730,7 @@ public class LevelPane extends GraphicsPane {
 
 				// removes battle overlay
 				Overlay.battleOver(app);
-				// stopAllBackgroundMusic();
 				startBackgroundMusic(SOUND_BACKGROUND);
-				//audio.stopSound(MUSIC_FOLDER, SOUND_BATTLE);
 				battling = false;
 
 				Protagonist.setHealth(50);
@@ -817,13 +764,12 @@ public class LevelPane extends GraphicsPane {
 				winlose = 1;
 
 			}
-			else if(kingBattle == true) { // fighting king and winning
-				
+			else if(kingBattle) { // fighting king and winning
+
 				Protagonist.setBalance(Protagonist.getBalance() + opponent.getBalance());
 				//removes chracter sprite
 
 				removeCharacter(opponent.getLocation());
-				//removeCharacter(opponent.getLocation());
 
 				// removes the character from board
 				Map.getCurrentMap().removeCharacter(opponent.getLocation());
@@ -831,9 +777,7 @@ public class LevelPane extends GraphicsPane {
 
 				// removes battle overlay
 				Overlay.battleOver(app);
-				// stopAllBackgroundMusic();
 				startBackgroundMusic(SOUND_BACKGROUND);
-				//audio.stopSound(MUSIC_FOLDER, SOUND_BATTLE);
 				battling = false;
 
 				Protagonist.setHealth(50);
@@ -844,27 +788,9 @@ public class LevelPane extends GraphicsPane {
 				bal = new GLabel("Balance: " + Protagonist.getBalance(), 50, 100);
 				bal.setFont(new Font("Comic Sans", 1, 20));
 				bal.setColor(Color.white);
-
-				/* No need to add this label
-				labelW = new GLabel("YOU WIN THE GAME!" , 80, 120);
-				labelW.setFont(new Font("Comic Sans", 1, 50));
-				labelW.setColor(Color.white);
-
-				// adds labels and rects
-				app.add(labelW);
-				*/
 				
 				app.add(win);
-				app.add(bal);
 
-				/* No need to add remove Text
-				removeText = new GLabel("WASD to remove", 50 , 350);
-				removeText.setFont(new Font("Comic Sans", 1, 20));
-				removeText.setColor(Color.white);
-				app.add(removeText);
-				*/
-
-				
 				Overlay.finalPause(program);
 				quit = Overlay.quit;
 				quit.setLocation(quit.getX(), quit.getY() + 20);
@@ -877,13 +803,12 @@ public class LevelPane extends GraphicsPane {
 	public static void battleLose(MainApplication app) {
 
 		if(Protagonist.getHealth() <= 0 && opponent.getHealth() > 0) {
-			
-			if(kingBattle == false) { // fighting regular enemies and losing
+
+			if(!kingBattle) { // fighting regular enemies and losing
 				Protagonist.setBalance(Protagonist.getBalance() - opponent.getBalance());
 
 				//removes sprite
 				removeCharacter(opponent.getLocation());
-				//removeCharacter(opponent.getLocation());
 
 				// removes character on board.
 				Map.getCurrentMap().removeCharacter(opponent.getLocation());
@@ -891,9 +816,7 @@ public class LevelPane extends GraphicsPane {
 
 				// closes battle overlay
 				Overlay.battleOver(app);
-				// stopAllBackgroundMusic();
 				startBackgroundMusic(SOUND_BACKGROUND);
-				//audio.stopSound(MUSIC_FOLDER, SOUND_BATTLE);
 				battling = false;
 
 				Protagonist.setHealth(50);
@@ -930,13 +853,12 @@ public class LevelPane extends GraphicsPane {
 				winlose = 2;
 
 			}
-			else if(kingBattle == true) { // fighting the king and losing
-				
+			else if(kingBattle) { // fighting the king and losing
+
 				Protagonist.setBalance(Protagonist.getBalance() - opponent.getBalance());
 
 				//removes sprite
 				removeCharacter(opponent.getLocation());
-				//removeCharacter(opponent.getLocation());
 
 				// removes character on board.
 				Map.getCurrentMap().removeCharacter(opponent.getLocation());
@@ -944,9 +866,7 @@ public class LevelPane extends GraphicsPane {
 
 				// closes battle overlay
 				Overlay.battleOver(app);
-				// stopAllBackgroundMusic();
 				startBackgroundMusic(SOUND_BACKGROUND);
-				//audio.stopSound(MUSIC_FOLDER, SOUND_BATTLE);
 				battling = false;
 
 				Protagonist.setHealth(50);
@@ -957,41 +877,20 @@ public class LevelPane extends GraphicsPane {
 				bal = new GLabel("Balance: " + Protagonist.getBalance(), 50, 100);
 				bal.setFont(new Font("Comic Sans", 1, 20));
 				bal.setColor(Color.white);
-
-				/* No need to print this label as the message has that
-				labelL = new GLabel("YOU LOSE THE GAME!" , 80, 120);
-				labelL.setFont(new Font("Comic Sans", 1, 50));
-				labelL.setColor(Color.white);
-
-				// add them
-				app.add(labelL);
-				*/
 				
 				app.add(lose);
-				app.add(bal);
 
-				/* No need for this label on the final screen
-				removeText = new GLabel("WASD to remove", 50 , 350);
-				removeText.setFont(new Font("Comic Sans", 1, 20));
-				removeText.setColor(Color.white);
-				*/
-				
-				
-
-				
-				
-				
-				
 				Overlay.finalPause(program);
 				quit = Overlay.quit;
 				quit.setLocation(quit.getX(), quit.getY() + 20);
-			
+				quit.sendToFront();
+
 				// counter for keyboard access
 				winlose = 2;
 
 			}
 
-			
+
 		}
 	}
 
@@ -1018,15 +917,17 @@ public class LevelPane extends GraphicsPane {
 	}
 	public static void removeLose(MainApplication app) {
 		// removes lose screen graphics
-		app.remove(removeText);
-		app.remove(labelL);
-		app.remove(lose);
-		app.remove(bal);
+		if(kingBattle && winlose == 2) {
+			app.remove(removeText);
+			app.remove(labelL);
+			app.remove(lose);
+			app.remove(bal);
+		}
 
 		battling = false;
 	}
 	public static void dialouge(NPC npc) {
-// textbox dialouge pops up
+		// textbox dialouge pops up
 
 		winlose = 3;
 
@@ -1055,7 +956,7 @@ public class LevelPane extends GraphicsPane {
 
 
 	public static void removeDialouge(MainApplication program2) {
-		
+
 		// removes dialouge
 
 		winlose = 0;
@@ -1063,9 +964,5 @@ public class LevelPane extends GraphicsPane {
 		program.remove(textBox);
 		program.remove(talk);
 		program.remove(removeText);
-
-
 	}
-
-
 }

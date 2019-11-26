@@ -1,29 +1,15 @@
 package starter;
 import java.util.Random;
 
-import java.util.Scanner;
-
 import acm.graphics.*;
 import acm.program.GraphicsProgram;
-
-import java.awt.Image;
 
 
 public class Battle extends GraphicsProgram {
 
-	// instance variables for health and at end of battle set protag and opponents health to it, then reprint glabel
-	private Player c;
-	private Enemy e;
-
 	public static GLabel eHealth, cHealth;
 	// higher defense and screech doesn't affect
 	// if strength 
-
-	public Battle() {
-
-		// default constructor
-	}
-
 
 	public static void Fight(int userMove, Enemy e, Player c) {
 
@@ -77,7 +63,6 @@ public class Battle extends GraphicsProgram {
 			if(LevelPane.Protagonist.getStrength() > LevelPane.opponent.getStrength()) { // if player is > enemy
 
 				LevelPane.opponent.setHealth(LevelPane.opponent.getHealth() - 2);
-				// .set("");
 
 				System.out.println("Your attack was higher so you hurt him");
 
@@ -205,25 +190,4 @@ public class Battle extends GraphicsProgram {
 	public boolean checkSkill(Player c, Enemy e) {
 		return true;
 	}
-
-	public void BattleScreen() {
-
-	}	
-
-
-	//	public static void main(String[] args) {
-	//
-	//		Player c = new Player(0, 1);
-	//		c.cType = CharacterType.MAGE;
-	//		Enemy e = new Enemy(1,2);
-	//		e.setHealth(10);
-	//		c.setHealth(10);
-	//		
-	//	
-	//		Battle b = new Battle();
-	//		b.Fight(1, e, c);
-	//
-	//	}
-
-
 }

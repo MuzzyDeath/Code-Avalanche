@@ -15,8 +15,7 @@ public class MenuPane extends GraphicsPane {
 	private GButton newGame, controls, quit;
 	private GImage background;
 
-	private int windowHeight = program.WINDOW_HEIGHT;
-	private int windowWidth = program.WINDOW_WIDTH;
+	private int windowWidth = MainApplication.WINDOW_WIDTH;
 	public static final String MUSIC_FOLDER = "sounds";
 	private static final String[] SOUND_FILES = { "Swords.mp3" };
 

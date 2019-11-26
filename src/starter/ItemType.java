@@ -3,6 +3,8 @@ package starter;
  * Borrowed from O. Jimenez's TrafficJam VehicleType Enumerator
  * 
  * @author CodeAvalanche
+ * 
+ *   !!!DEPRECATED!!!
  *
  */
 public enum ItemType {
