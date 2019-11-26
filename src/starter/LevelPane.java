@@ -845,8 +845,6 @@ public class LevelPane extends GraphicsPane {
 				app.add(labelW);
 				app.add(win);
 				app.add(bal);
-				labelW.sendToFront();
-				bal.sendToFront();
 
 
 				removeText = new GLabel("WASD to remove", 50 , 350);
@@ -854,9 +852,7 @@ public class LevelPane extends GraphicsPane {
 				removeText.setColor(Color.white);
 				program.add(removeText);
 
-				removeText.sendToFront();
 				
-				program.remove(removeText);
 				Overlay.finalPause(program);
 				quit = Overlay.quit;
 				quit.setLocation(quit.getX(), quit.getY() + 20);
@@ -957,23 +953,22 @@ public class LevelPane extends GraphicsPane {
 				app.add(labelL);
 				app.add(lose);
 				app.add(bal);
-				labelL.sendToFront();
-				bal.sendToFront();
 
 
 				removeText = new GLabel("WASD to remove", 50 , 350);
 				removeText.setFont(new Font("Comic Sans", 1, 20));
 				removeText.setColor(Color.white);
-				removeText.sendToFront();
 				
 				
 
-				program.add(removeText);
 				
 				
 				
-
-
+				
+				Overlay.finalPause(program);
+				quit = Overlay.quit;
+				quit.setLocation(quit.getX(), quit.getY() + 20);
+			
 				// counter for keyboard access
 				winlose = 2;
 
