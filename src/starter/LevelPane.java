@@ -635,7 +635,7 @@ public class LevelPane extends GraphicsPane {
 	}
 	
 	private boolean clear(Map m) {
-		ArrayList<Character> characters = m.getBoard().getCharactersOnBoard();
+		ArrayList<Character> characters = Map.getCurrentMap().getCharactersOnMap();
 		
 		ListIterator<Character> list = characters.listIterator();
 		
