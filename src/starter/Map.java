@@ -32,7 +32,7 @@ public class Map {
 	// Stores the current level being played.
 	private static int currentLevel = LEVEL_BEGINNER;
 	
-	private static ArrayList<String> temp = MainApplication.speech;
+	//private static ArrayList<String> temp = MainApplication.speech;
 
 
 	// Private Constructor that takes in a level and initializes the map for that level
@@ -131,8 +131,8 @@ public class Map {
 		board.addCharacter(npc2);
 		
 		
-		npc.setDialouge(temp.get(0));
-		npc2.setDialouge(temp.get(1));
+		npc.setDialouge(MainApplication.speech.get(0));
+		npc2.setDialouge(MainApplication.speech.get(1));
 		
 		// No enemies in this level
 		
@@ -155,11 +155,11 @@ public class Map {
 
 		// Add NPCs
 		NPC npc = new NPC(1, 4);
-		npc.setDialouge(temp.get(2));
+		npc.setDialouge(MainApplication.speech.get(2));
 		board.addCharacter(npc);
 		
 		NPC npc1 = new NPC(2, 3);
-		npc1.setDialouge(temp.get(3));
+		npc1.setDialouge(MainApplication.speech.get(3));
 		board.addCharacter(npc1);
 	
 		// Add enemies
@@ -182,7 +182,7 @@ public class Map {
 
 		// Add NPCs
 		NPC npc = new NPC(1, 4);
-		npc.setDialouge(temp.get(4));
+		npc.setDialouge(MainApplication.speech.get(4));
 		board.addCharacter(npc);
 		
 		// Add enemies

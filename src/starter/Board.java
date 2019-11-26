@@ -12,10 +12,11 @@ import acm.graphics.GLine;
  */
 
 public class Board {
+	// A 2-D array of characters representing the board
+	// Character reference is stored where a character is expected to be present.
+	private Character[][] board; 
 	
-	private Character[][] board; // 2D array of characters
-	
-	// Store sht exit location for the board.
+	// Stores the exit location for the board.
 	private Space exit;
 
 
