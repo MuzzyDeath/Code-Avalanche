@@ -56,7 +56,7 @@ public class LevelPane extends GraphicsPane {
 
 	public static ArrayList<String> speech;
 
-	private static boolean battling;
+	private static boolean battling, kingBattle;
 	private boolean paused;
 	private boolean currentStats;
 	private boolean textbox;
@@ -79,7 +79,7 @@ public class LevelPane extends GraphicsPane {
 	private static GImage textBox;
 	private static GLabel talk;
 	private static GLabel removeText;
-	
+
 	public LevelPane(MainApplication app) {
 		super();
 		program = app;
@@ -203,6 +203,8 @@ public class LevelPane extends GraphicsPane {
 			{
 
 				if(Map.getCurrentMap().getBoard().spaceCheck(Protagonist).getCharacterType() == CharacterType.ENEMY) {
+
+					kingBattle = false;
 					opponent = (Enemy) Map.getCurrentMap().getBoard().spaceCheck(Protagonist);
 					battling = true;	
 
@@ -211,6 +213,8 @@ public class LevelPane extends GraphicsPane {
 				} 
 
 				else if(Map.getCurrentMap().getBoard().spaceCheck(Protagonist).getCharacterType() == CharacterType.KING) {
+
+					kingBattle = true;
 					opponent = (Enemy) Map.getCurrentMap().getBoard().spaceCheck(Protagonist);
 					battling = true;	
 
@@ -752,112 +756,218 @@ public class LevelPane extends GraphicsPane {
 
 	public static void battleWin(MainApplication app) {
 
-
-
 		if(Protagonist.getHealth() > 0 && opponent.getHealth() <= 0) {
 
-			Protagonist.setBalance(Protagonist.getBalance() + opponent.getBalance());
-			//removes chracter sprite
+			if(kingBattle == false) {
+				Protagonist.setBalance(Protagonist.getBalance() + opponent.getBalance());
+				//removes chracter sprite
 
-			removeCharacter(opponent.getLocation());
-			//removeCharacter(opponent.getLocation());
+				removeCharacter(opponent.getLocation());
+				//removeCharacter(opponent.getLocation());
 
-			// removes the character from board
-			Map.getCurrentMap().getBoard().removeCharacter(opponent.getLocation());
-
-
-			// removes battle overlay
-			Overlay.battleOver(app);
-			// stopAllBackgroundMusic();
-			startBackgroundMusic(SOUND_BACKGROUND);
-			//audio.stopSound(MUSIC_FOLDER, SOUND_BATTLE);
-			battling = false;
-
-			Protagonist.setHealth(50);
-			// creates labels and rects
-			win = new GImage("images/winScreen.jpg");
+				// removes the character from board
+				Map.getCurrentMap().getBoard().removeCharacter(opponent.getLocation());
 
 
-			bal = new GLabel("Balance: " + Protagonist.getBalance(), 130, 200);
-			bal.setFont(new Font("Comic Sans", 1, 20));
-			bal.setColor(Color.white);
+				// removes battle overlay
+				Overlay.battleOver(app);
+				// stopAllBackgroundMusic();
+				startBackgroundMusic(SOUND_BACKGROUND);
+				//audio.stopSound(MUSIC_FOLDER, SOUND_BATTLE);
+				battling = false;
 
-			labelW = new GLabel("YOU WIN!" , 80, 120);
-			labelW.setFont(new Font("Comic Sans", 1, 50));
-			labelW.setColor(Color.white);
+				Protagonist.setHealth(50);
+				// creates labels and rects
+				win = new GImage("images/winScreen.jpg");
 
-			// adds labels and rects
-			app.add(labelW);
-			app.add(win);
-			app.add(bal);
-			labelW.sendToFront();
-			bal.sendToFront();
-			
-			
-			removeText = new GLabel("WASD to remove", 50 , 350);
-			removeText.setFont(new Font("Comic Sans", 1, 20));
-			removeText.setColor(Color.white);
-			program.add(removeText);
-			
-			removeText.sendToFront();
-			//counter for keyboard access
-			winlose = 1;
 
+				bal = new GLabel("Balance: " + Protagonist.getBalance(), 130, 200);
+				bal.setFont(new Font("Comic Sans", 1, 20));
+				bal.setColor(Color.white);
+
+				labelW = new GLabel("YOU WIN!" , 80, 120);
+				labelW.setFont(new Font("Comic Sans", 1, 50));
+				labelW.setColor(Color.white);
+
+				// adds labels and rects
+				app.add(labelW);
+				app.add(win);
+				app.add(bal);
+				labelW.sendToFront();
+				bal.sendToFront();
+
+
+				removeText = new GLabel("WASD to remove", 50 , 350);
+				removeText.setFont(new Font("Comic Sans", 1, 20));
+				removeText.setColor(Color.white);
+				program.add(removeText);
+
+				removeText.sendToFront();
+				//counter for keyboard access
+				winlose = 1;
+
+			}
+			else if(kingBattle == true) {
+				
+				Protagonist.setBalance(Protagonist.getBalance() + opponent.getBalance());
+				//removes chracter sprite
+
+				removeCharacter(opponent.getLocation());
+				//removeCharacter(opponent.getLocation());
+
+				// removes the character from board
+				Map.getCurrentMap().getBoard().removeCharacter(opponent.getLocation());
+
+
+				// removes battle overlay
+				Overlay.battleOver(app);
+				// stopAllBackgroundMusic();
+				startBackgroundMusic(SOUND_BACKGROUND);
+				//audio.stopSound(MUSIC_FOLDER, SOUND_BATTLE);
+				battling = false;
+
+				Protagonist.setHealth(50);
+				// creates labels and rects
+				win = new GImage("images/winScreen.jpg");
+
+
+				bal = new GLabel("Balance: " + Protagonist.getBalance(), 130, 200);
+				bal.setFont(new Font("Comic Sans", 1, 20));
+				bal.setColor(Color.white);
+
+				labelW = new GLabel("YOU WIN THE GAME!" , 80, 120);
+				labelW.setFont(new Font("Comic Sans", 1, 50));
+				labelW.setColor(Color.white);
+
+				// adds labels and rects
+				app.add(labelW);
+				app.add(win);
+				app.add(bal);
+				labelW.sendToFront();
+				bal.sendToFront();
+
+
+				removeText = new GLabel("WASD to remove", 50 , 350);
+				removeText.setFont(new Font("Comic Sans", 1, 20));
+				removeText.setColor(Color.white);
+				program.add(removeText);
+
+				removeText.sendToFront();
+				//counter for keyboard access
+				winlose = 1;
+
+			}
 		}
 	}
 	public static void battleLose(MainApplication app) {
 
 		if(Protagonist.getHealth() <= 0 && opponent.getHealth() > 0) {
-
-			Protagonist.setBalance(Protagonist.getBalance() - opponent.getBalance());
-
-			//removes sprite
-			removeCharacter(opponent.getLocation());
-			//removeCharacter(opponent.getLocation());
-
-			// removes character on board.
-			Map.getCurrentMap().getBoard().removeCharacter(opponent.getLocation());
-
-
-			// closes battle overlay
-			Overlay.battleOver(app);
-			// stopAllBackgroundMusic();
-			startBackgroundMusic(SOUND_BACKGROUND);
-			//audio.stopSound(MUSIC_FOLDER, SOUND_BATTLE);
-			battling = false;
-
-			Protagonist.setHealth(50);
-
-			// all labels and shapes
-			lose = new GImage("images/loseScreen.jpg");
-
-			bal = new GLabel("Balance: " + Protagonist.getBalance(), 130, 200);
-			bal.setFont(new Font("Comic Sans", 1, 20));
-			bal.setColor(Color.white);
-
-			labelL = new GLabel("YOU LOSE!" , 80, 120);
-			labelL.setFont(new Font("Comic Sans", 1, 50));
-			labelL.setColor(Color.white);
-
-			// add them
-			app.add(labelL);
-			app.add(lose);
-			app.add(bal);
-			labelL.sendToFront();
-			bal.sendToFront();
 			
+			if(kingBattle == false) {
+				Protagonist.setBalance(Protagonist.getBalance() - opponent.getBalance());
+
+				//removes sprite
+				removeCharacter(opponent.getLocation());
+				//removeCharacter(opponent.getLocation());
+
+				// removes character on board.
+				Map.getCurrentMap().getBoard().removeCharacter(opponent.getLocation());
+
+
+				// closes battle overlay
+				Overlay.battleOver(app);
+				// stopAllBackgroundMusic();
+				startBackgroundMusic(SOUND_BACKGROUND);
+				//audio.stopSound(MUSIC_FOLDER, SOUND_BATTLE);
+				battling = false;
+
+				Protagonist.setHealth(50);
+
+				// all labels and shapes
+				lose = new GImage("images/loseScreen.jpg");
+
+				bal = new GLabel("Balance: " + Protagonist.getBalance(), 130, 200);
+				bal.setFont(new Font("Comic Sans", 1, 20));
+				bal.setColor(Color.white);
+
+				labelL = new GLabel("YOU LOSE!" , 80, 120);
+				labelL.setFont(new Font("Comic Sans", 1, 50));
+				labelL.setColor(Color.white);
+
+				// add them
+				app.add(labelL);
+				app.add(lose);
+				app.add(bal);
+				labelL.sendToFront();
+				bal.sendToFront();
+
+
+				removeText = new GLabel("WASD to remove", 50 , 350);
+				removeText.setFont(new Font("Comic Sans", 1, 20));
+				removeText.setColor(Color.white);
+				removeText.sendToFront();
+
+				program.add(removeText);
+
+
+				// counter for keyboard access
+				winlose = 2;
+
+			}
+			else if(kingBattle == true) {
+				
+				Protagonist.setBalance(Protagonist.getBalance() - opponent.getBalance());
+
+				//removes sprite
+				removeCharacter(opponent.getLocation());
+				//removeCharacter(opponent.getLocation());
+
+				// removes character on board.
+				Map.getCurrentMap().getBoard().removeCharacter(opponent.getLocation());
+
+
+				// closes battle overlay
+				Overlay.battleOver(app);
+				// stopAllBackgroundMusic();
+				startBackgroundMusic(SOUND_BACKGROUND);
+				//audio.stopSound(MUSIC_FOLDER, SOUND_BATTLE);
+				battling = false;
+
+				Protagonist.setHealth(50);
+
+				// all labels and shapes
+				lose = new GImage("images/loseScreen.jpg");
+
+				bal = new GLabel("Balance: " + Protagonist.getBalance(), 130, 200);
+				bal.setFont(new Font("Comic Sans", 1, 20));
+				bal.setColor(Color.white);
+
+				labelL = new GLabel("YOU LOSE THE GAME!" , 80, 120);
+				labelL.setFont(new Font("Comic Sans", 1, 50));
+				labelL.setColor(Color.white);
+
+				// add them
+				app.add(labelL);
+				app.add(lose);
+				app.add(bal);
+				labelL.sendToFront();
+				bal.sendToFront();
+
+
+				removeText = new GLabel("WASD to remove", 50 , 350);
+				removeText.setFont(new Font("Comic Sans", 1, 20));
+				removeText.setColor(Color.white);
+				removeText.sendToFront();
+
+				program.add(removeText);
+
+
+				// counter for keyboard access
+				winlose = 2;
+
+			}
+
 			
-			removeText = new GLabel("WASD to remove", 50 , 350);
-			removeText.setFont(new Font("Comic Sans", 1, 20));
-			removeText.setColor(Color.white);
-			removeText.sendToFront();
-			
-			program.add(removeText);
-
-
-			// counter for keyboard access
-			winlose = 2;
-
 		}
 	}
 
@@ -870,7 +980,7 @@ public class LevelPane extends GraphicsPane {
 		}
 	}
 	public static void removeWin(MainApplication app) {
-		
+
 		app.remove(removeText);
 
 		app.remove(labelW);
@@ -905,12 +1015,12 @@ public class LevelPane extends GraphicsPane {
 		talk.setFont(new Font("Comic Sans", 1, 20));
 		talk.setColor(Color.black);
 
-		
-		
+
+
 		removeText = new GLabel("WASD to remove", 50 , 550);
 		removeText.setFont(new Font("Comic Sans", 1, 20));
-		
-		
+
+
 		program.add(removeText);
 		program.add(talk);
 		removeText.sendToFront();
