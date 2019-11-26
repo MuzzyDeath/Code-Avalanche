@@ -626,7 +626,7 @@ public class LevelPane extends GraphicsPane {
 		eRow = Map.getCurrentMap().getExit().getRow();
 		eCol = Map.getCurrentMap().getExit().getCol();
 
-		if (row == eRow && col == eCol) {
+		if (clear(Map.getCurrentMap()) && row == eRow && col == eCol) {
 			System.out.println("Character on exit!");
 
 			nextMap(Map.getMap(Map.LEVEL_INTERMEDIATE));
@@ -637,6 +637,19 @@ public class LevelPane extends GraphicsPane {
 		}
 
 		return false;
+	}
+	
+	private boolean clear(Map m) {
+		ArrayList<Character> characters = m.getBoard().getCharactersOnBoard();
+		
+		ListIterator<Character> list = characters.listIterator();
+		
+		while(list.hasNext()) 
+			if(list.next().cType == CharacterType.ENEMY) {
+				return false;
+			}
+		
+		return true;
 	}
 
 	private void generateWorld() {
