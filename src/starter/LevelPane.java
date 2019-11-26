@@ -44,7 +44,7 @@ public class LevelPane extends GraphicsPane {
 
 	private static MainApplication program; // you will use program to get access to
 	// all of the GraphicsProgram calls
-	private GButton play, controls, quit;
+	private GButton play, controls, quit, menu;
 	private GImage ground, ground2, ground3, ground4, background, controlsImage;
 	private GLine line;
 
@@ -828,7 +828,7 @@ public class LevelPane extends GraphicsPane {
 
 				Protagonist.setHealth(50);
 				// creates labels and rects
-				win = new GImage("images/winScreen.jpg");
+				win = new GImage("images/winAgainstKing.jpg");
 
 
 				bal = new GLabel("Balance: " + Protagonist.getBalance(), 130, 200);
@@ -936,7 +936,7 @@ public class LevelPane extends GraphicsPane {
 				Protagonist.setHealth(50);
 
 				// all labels and shapes
-				lose = new GImage("images/loseScreen.jpg");
+				lose = new GImage("images/loseAgainstKing.jpg");
 
 				bal = new GLabel("Balance: " + Protagonist.getBalance(), 130, 200);
 				bal.setFont(new Font("Comic Sans", 1, 20));
@@ -958,8 +958,13 @@ public class LevelPane extends GraphicsPane {
 				removeText.setFont(new Font("Comic Sans", 1, 20));
 				removeText.setColor(Color.white);
 				removeText.sendToFront();
+				
+				
 
 				program.add(removeText);
+				
+				
+				
 
 
 				// counter for keyboard access
