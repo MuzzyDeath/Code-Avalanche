@@ -9,24 +9,34 @@ import java.util.*;
 
 public class Map {
 
-	public static final int LEVEL_BEGINNER     = 1;
-	public static final int LEVEL_INTERMEDIATE = 2;
-	public static final int LEVEL_ADVANCED     = 3;
-	public static final int LEVEL_FINAL        = 4;
+	// Levels of the game
+	public static final int LEVEL_BEGINNER     = 1;  // basic level to get a feel of the game
+	public static final int LEVEL_INTERMEDIATE = 2;  // intermediate with simple enemy
+	public static final int LEVEL_ADVANCED     = 3;  // advanced with complex enemies
+	public static final int LEVEL_FINAL        = 4;  // Final level with King as the enemy
 	public static final int MAX_LEVELS         = 4;
 
-	private Board board;
+	// State variables
+	// Reference to the board
+	private Board board;     
+	// Tracks if enemies are defeated
 	private boolean isEnemyDefeated = false;
+	// Tracks the enemy
 	private Enemy e;
+	// Tracks the player
 	private Player p;
 
+	// Static state
+	// Stores all the levels of the game
 	private static Map[] levels;
+	// Stores the current level being played.
 	private static int currentLevel = LEVEL_BEGINNER;
 	
 	private static ArrayList<String> temp = MainApplication.speech;
 
 
-	// Constructor that takes in a level and initializes the map for that level
+	// Private Constructor that takes in a level and initializes the map for that level
+	// By making the constructor private we make sure that only the maps that are setup here are provided.
 	private Map(int level) {
 		switch(level) {
 		case LEVEL_BEGINNER:
@@ -71,14 +81,6 @@ public class Map {
 	}
 
 	
-//	 * We need to encapsulate baord, we should not give out board.
-//	 *  All board methods have to be encoded in Map
-	/*
-	public Board getBoard() {
-		return this.board;
-	}
-	*/
-	
 	public Character spaceCheck(Player p) {
 		return board.spaceCheck(p);
 	}
@@ -121,15 +123,8 @@ public class Map {
 		// Add characters and set up exit space.
 		// Initialize board with the maxRows and maxCols
 		board = new Board(6, 6);
-
-		//startSpace = new Space(1, 1);
-
-		// Winning space for this level is for Player  to reach r4c4
-		//exitSpace = new Space(4, 4);
-
-		// Add NPCs to the board
-		//board.addCharacter(new NPC(4, 2));
 		
+		// Add NPCs
 		NPC npc = new NPC(4, 2);
 		board.addCharacter(npc);
 		NPC npc2 = new NPC(1, 3);
@@ -138,6 +133,10 @@ public class Map {
 		
 		npc.setDialouge(temp.get(0));
 		npc2.setDialouge(temp.get(1));
+		
+		// No enemies in this level
+		
+		// Exit space for this level is for Player  to reach r3c54
 		board.setExit(new Space(3,5));
 	}
 
@@ -151,12 +150,10 @@ public class Map {
 		// Initialize board with the maxRows and maxCols
 		board = new Board(6, 6);
 
-		//startSpace = new Space(0, 3);
-
-		// Winning space for this level is for Player  to reach r7c7
+		// Winning space for this level is for Player  to reach r5c5
 		board.setExit(new Space(5, 5));
 
-		
+		// Add NPCs
 		NPC npc = new NPC(1, 4);
 		npc.setDialouge(temp.get(2));
 		board.addCharacter(npc);
@@ -165,11 +162,9 @@ public class Map {
 		npc1.setDialouge(temp.get(3));
 		board.addCharacter(npc1);
 	
-
+		// Add enemies
 		e = new Enemy(3, 3);
 		board.addCharacter(e);
-		//e = new Enemy(4, 5);
-		//board.addCharacter(e);
 	}
 
 	/**
@@ -185,6 +180,7 @@ public class Map {
 		// Winning space for this level is for Player  to reach r5c2
 		board.setExit(new Space(5, 2));
 
+		// Add NPCs
 		NPC npc = new NPC(1, 4);
 		npc.setDialouge(temp.get(4));
 		board.addCharacter(npc);
@@ -329,24 +325,27 @@ public class Map {
 	public boolean isFacingEnemy()
 	{
 		boolean retVal = false;
-		if(e.getRow() == p.getRow() - 1 && p.getCol() == e.getCol())
-		{
-			retVal = true;
-		}
-		// Right
-		else if(e.getRow() == p.getRow() + 1 && e.getCol() == p.getCol())
-		{
-			retVal = true;
-		}
-		// Enemy above of player
-		else if(e.getRow() == p.getRow() && e.getCol() == p.getCol() - 1)
-		{
-			retVal = true;
-		}
-		// Below
-		else if(p.getRow() == e.getRow()  && e.getCol() == p.getCol() + 1)
-		{
-			retVal = true;
+		
+		if (p != null & e != null) {
+			if(e.getRow() == p.getRow() - 1 && p.getCol() == e.getCol())
+			{
+				retVal = true;
+			}
+			// Right
+			else if(e.getRow() == p.getRow() + 1 && e.getCol() == p.getCol())
+			{
+				retVal = true;
+			}
+			// Enemy above of player
+			else if(e.getRow() == p.getRow() && e.getCol() == p.getCol() - 1)
+			{
+				retVal = true;
+			}
+			// Below
+			else if(p.getRow() == e.getRow()  && e.getCol() == p.getCol() + 1)
+			{
+				retVal = true;
+			}
 		}
 
 		return retVal;

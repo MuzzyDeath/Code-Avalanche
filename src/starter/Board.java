@@ -12,11 +12,12 @@ import acm.graphics.GLine;
  */
 
 public class Board {
+	
 	private Character[][] board; // 2D array of characters
 	
+	// Store sht exit location for the board.
 	private Space exit;
 
-	public static Enemy temp;
 
 	/**
 	 * Constructor for the board which sets up an empty grid of size rows by columns
@@ -33,7 +34,6 @@ public class Board {
 		board = new Character[r][c];
 
 	}
-
 
 	/**
 	 * @return number of columns the board has
