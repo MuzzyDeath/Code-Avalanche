@@ -44,7 +44,9 @@ public class LevelPane extends GraphicsPane {
 
 	private static MainApplication program; // you will use program to get access to
 	// all of the GraphicsProgram calls
-	private GButton play, controls, quit, menu;
+	private GButton play, controls;
+	private static GButton quit;
+	private GButton menu;
 	private GImage ground, ground2, ground3, ground4, background, controlsImage;
 	private GLine line;
 
@@ -853,6 +855,11 @@ public class LevelPane extends GraphicsPane {
 				program.add(removeText);
 
 				removeText.sendToFront();
+				
+				program.remove(removeText);
+				Overlay.finalPause(program);
+				quit = Overlay.quit;
+				quit.setLocation(quit.getX(), quit.getY() + 20);
 				//counter for keyboard access
 				winlose = 1;
 

@@ -239,6 +239,10 @@ public class Overlay {
 		app.remove(quit);
 		app.remove(controlsImage);
 	}
+	
+	public static void finalPause(MainApplication app) {
+		app.add(quit);
+	}
 
 	public static void showTextbox(MainApplication app, String text) {
 		textbox = new GImage("images/TextBox.png");
