@@ -841,24 +841,28 @@ public class LevelPane extends GraphicsPane {
 				win = new GImage("images/winAgainstKing.jpg");
 
 
-				bal = new GLabel("Balance: " + Protagonist.getBalance(), 130, 200);
+				bal = new GLabel("Balance: " + Protagonist.getBalance(), 50, 100);
 				bal.setFont(new Font("Comic Sans", 1, 20));
 				bal.setColor(Color.white);
 
+				/* No need to add this label
 				labelW = new GLabel("YOU WIN THE GAME!" , 80, 120);
 				labelW.setFont(new Font("Comic Sans", 1, 50));
 				labelW.setColor(Color.white);
 
 				// adds labels and rects
 				app.add(labelW);
+				*/
+				
 				app.add(win);
 				app.add(bal);
 
-
+				/* No need to add remove Text
 				removeText = new GLabel("WASD to remove", 50 , 350);
 				removeText.setFont(new Font("Comic Sans", 1, 20));
 				removeText.setColor(Color.white);
-				program.add(removeText);
+				app.add(removeText);
+				*/
 
 				
 				Overlay.finalPause(program);
@@ -897,10 +901,11 @@ public class LevelPane extends GraphicsPane {
 				// all labels and shapes
 				lose = new GImage("images/loseScreen.jpg");
 
-				bal = new GLabel("Balance: " + Protagonist.getBalance(), 130, 200);
+				bal = new GLabel("Balance: " + Protagonist.getBalance(), 50, 100);
 				bal.setFont(new Font("Comic Sans", 1, 20));
 				bal.setColor(Color.white);
 
+				
 				labelL = new GLabel("YOU LOSE!" , 80, 120);
 				labelL.setFont(new Font("Comic Sans", 1, 50));
 				labelL.setColor(Color.white);
@@ -949,23 +954,27 @@ public class LevelPane extends GraphicsPane {
 				// all labels and shapes
 				lose = new GImage("images/loseAgainstKing.jpg");
 
-				bal = new GLabel("Balance: " + Protagonist.getBalance(), 130, 200);
+				bal = new GLabel("Balance: " + Protagonist.getBalance(), 50, 100);
 				bal.setFont(new Font("Comic Sans", 1, 20));
 				bal.setColor(Color.white);
 
+				/* No need to print this label as the message has that
 				labelL = new GLabel("YOU LOSE THE GAME!" , 80, 120);
 				labelL.setFont(new Font("Comic Sans", 1, 50));
 				labelL.setColor(Color.white);
 
 				// add them
 				app.add(labelL);
+				*/
+				
 				app.add(lose);
 				app.add(bal);
 
-
+				/* No need for this label on the final screen
 				removeText = new GLabel("WASD to remove", 50 , 350);
 				removeText.setFont(new Font("Comic Sans", 1, 20));
 				removeText.setColor(Color.white);
+				*/
 				
 				
 
